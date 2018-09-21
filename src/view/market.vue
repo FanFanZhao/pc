@@ -141,14 +141,14 @@
 .m_search img{width: 16px;height: 15px;position: absolute;right: 5px;top: 7px;z-index: 123;}
 .m_filter{padding: 0 30px;}
 .tabtitle span:not(:last-child) {margin-right: 40px;}
-.coin-title div{width: 33.3%;height: 36px;line-height: 36px;background-color: #1a2330;text-align: center;float: left;color: #637085;font-size:12px;}
+.coin-title div{width: 33.3%;height: 36px;line-height: 36px;background-color: #181b2a;text-align: center;float: left;color: #637085;font-size:12px;}
 .coin-title img{vertical-align: middle;margin-top: -3px;}
 .line{width: 90%;margin: 0px auto;border-bottom: 1px solid rgb(48, 59, 75);}
-.coin-wrap{height: 395px;overflow: auto;background-color: #1a2330;}
+.coin-wrap{height: 395px;overflow: auto;background-color: #181b2a;}
 .coin-wrap li{height: 30px;line-height: 30px;cursor: pointer;font-size: 12px;color: #cdd6e4;}
 .coin-wrap li span{display: inline-block;width: 33%;float: left;text-align: center;}
 .coin-wrap li span:last-child{color: #cc4951;}
-.coin-wrap li:nth-child(odd){background-color: #1f2938;}
+.coin-wrap li:nth-child(odd){background-color: #181b2a;}
 .coin-wrap li span.green{color: #55a067;}
 .coin-wrap li:hover{background-color: #2b3648}
 </style>

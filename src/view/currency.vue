@@ -16,8 +16,8 @@ export default {
 }
 </script>
 <style scoped>
-.currency{background-color: #1a2330;}
-.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;background-color: #1f2938;}
+.currency{background-color: #181b2a;}
+.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;background-color: #181b2a;}
 .content{padding: 15px 30px 60px;}
 .ft24{font-size: 24px}
 .abstract{padding:15px 0;border-bottom: 1px solid rgb(48, 59, 75);}

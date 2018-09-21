@@ -99,7 +99,7 @@ export default {
             .account-content {
                 width: 100%;
                 min-height: 750px;
-                background-color: #1a2330;
+                background-color: #181b2a;
             ul{
                 padding: 0 20px;
                 font-size: 14px;

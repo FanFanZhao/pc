@@ -137,7 +137,7 @@
 		width: 100%;
 		min-width: 1200px;
 		padding: 0 30px;
-		background: #1a2330;
+		background: #181b2a;
 		.content{
 			width: 1200px;
 			margin: 0 auto;
@@ -178,7 +178,7 @@
 			}
 			p:hover{
 				color: #5697f4;
-				background-color: #1a2330;
+				background-color: #181b2a;
 			}
 			p:hover img:nth-child(2){
 				display:inline-block;

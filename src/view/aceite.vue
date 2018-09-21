@@ -97,7 +97,7 @@ export default {
         height: 48px;
         line-height: 48px;
         // padding: 0 30px;
-        background-color: #1f2938;
+        background-color: #181b2a;
         color: #cdd6e4;
         span:not(:first-child) {margin-left: 40px;}
     }
@@ -136,7 +136,7 @@ export default {
     }
 }
 .account-top{
-    background-color: #1a2330;
+    background-color: #181b2a;
     height: 120px;
     padding: 26px 30px;
 }

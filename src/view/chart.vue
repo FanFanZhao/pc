@@ -237,7 +237,7 @@
     .line_title{
         width: 100%;
         line-height: 30px;
-        background: #1a2330;
+        background: #181b2a;
         // padding-left: 30px;
         span{
             display: inline-block;

@@ -98,7 +98,7 @@
 					width: 23%;
 					height: 100%;
 					float: left;
-					background-color: #1f2938;
+					background-color: #181b2a;
 				}
 				.chart_wrap{
 					height: 100%;
@@ -115,7 +115,7 @@
 				}
 				.panel_left{
 					width: 48%;
-					background-color: #1a2330;
+					background-color: #181b2a;
 				}
 				.panel_center{
 					width: 27%;
@@ -123,12 +123,12 @@
 					.panel_center_content{
 						width: 100%;
 						height: 100%;
-						background-color: #1a2330;
+						background-color: #181b2a;
 					}
 				}
 				.panel_right{
 					width:25%;
-					background-color: #1a2330;
+					background-color: #181b2a;
 				}
 			}
 			.trade_entrust{
@@ -137,7 +137,7 @@
 				.entrust_box{
 					width: 100%;
 					height: 100%;
-					background-color: #1a2330;
+					background-color: #181b2a;
 				}
 			}
 			.trade_detail{
@@ -146,7 +146,7 @@
 				.deatil_box{
 					width: 100%;
 					height: 100%;
-					background-color: #1a2330;
+					background-color: #181b2a;
 				}
 			}
 			.currency_box{

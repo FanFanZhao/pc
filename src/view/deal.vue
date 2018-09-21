@@ -66,7 +66,7 @@
 </script>
 
 <style scoped>
-.title{height: 48px;line-height: 48px;padding: 0 10px 0 30px;background-color: #1f2938;}
+.title{height: 48px;line-height: 48px;padding: 0 10px 0 30px;background-color: #181b2a;}
 .container{padding: 10px 25px 10px 20px;height: 580px;overflow: auto;}
 .deal-title{color: #637085;margin-bottom: 5px;}
 .list-item li{line-height: 20px;}

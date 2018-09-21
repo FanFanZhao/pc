@@ -110,7 +110,7 @@ export default {
             .account-content {
                 width: 100%;
                 min-height: 750px;
-                background-color: #1a2330;
+                background-color: #181b2a;
                 .detailBig{
                     padding: 48px 46px 20px;
                     .mb30{
@@ -120,7 +120,7 @@ export default {
                         line-height: 26px;
                         p{
                           &>*{
-                            background-color: #1a2330!important;
+                            background-color: #181b2a!important;
                            }  
                         }
                        

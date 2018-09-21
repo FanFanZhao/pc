@@ -230,7 +230,7 @@
 </script>
 
 <style scoped>
-.title_box{height: 48px;padding: 0 30px;background-color: #1f2938;}
+.title_box{height: 48px;padding: 0 30px;background-color: #181b2a;}
 .tabtitle span{cursor: pointer;}
 .tabtitle span:not(:last-child) {margin-right: 40px;}
 .content .first{padding: 0 15px 0 25px;}

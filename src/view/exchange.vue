@@ -96,7 +96,7 @@
 </script>
 
 <style scoped>
-.title{height: 48px;line-height: 48px;padding: 0 10px 0 30px;background-color: #1f2938;}
+.title{height: 48px;line-height: 48px;padding: 0 10px 0 30px;background-color: #181b2a;}
 .content{padding: 0 10px;}
 .new_price{height: 40px;line-height: 40px;border-bottom: 1px solid #303b4b;padding: 0 0 0 20px;}
 .exchange_title{line-height: 25px;position: relative;color: #637085;}

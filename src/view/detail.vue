@@ -97,7 +97,7 @@ export default {
 }
 </script>
 <style scoped>
-.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;background-color: #1f2938;}
+.title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;background-color: #181b2a;}
 .tab_title{display: inline-block;line-height: 46px;height: 46px;}
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
