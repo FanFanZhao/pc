@@ -1,0 +1,249 @@
+<template>
+    <div class="trade">
+        <div class="title_box">
+            <div class="tabtitle fColor1 ft16curPer">
+                <span :class="{active:show == true}">限价交易</span>
+                <!-- <span :class="{active:show == false}" @click="changeType">市价交易</span> -->
+            </div>
+        </div>
+        <!-- 限价交易 -->
+        <div class="content clear" v-if="show">
+            <div class="w50 fl first">
+               
+                <div class="ft14">
+                    <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                    开始交易
+                    </div>
+                    <div class="clear available" v-else>
+                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>买入价</label>
+                        <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent >
+                        <span>CNY</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>买入量</label>
+                        <input type="number" v-model="buyInfo.buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
+                        <span>JNB</span>
+                    </div>
+                    <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
+                    <div class="mt50 fColor1 ft16">交易额 {{buyTotal}} CNY</div>
+                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16" @click="buyCoin">买JNB</div>
+                </div>
+            </div>
+            <div class="w50 fl second">
+                <div class="ft14">
+                    <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                    开始交易
+                    </div>
+                    <div class="clear available" v-else>
+                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>卖出价</label>
+                        <input type="number" @keydown.69.prevent v-model="sellInfo.sellPrice">
+                        <span>CNY</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>卖出量</label>
+                        <input type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellInfo.sellNum">
+                        <span>JNB</span>
+                    </div>
+                    <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
+                    <div class="mt50 fColor1 ft16">交易额 {{sellTotal}} CNY</div>
+                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16" @click="sellCoin">卖JNB</div>
+                </div>
+            </div>
+        </div>
+        <!-- 市价交易 -->
+        <div class="content clear" v-if="showNone" >
+            <div class="w50 fl first">
+                <div class="ft14">
+                   <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                    开始交易
+                    </div>
+                    <div class="clear available" v-else>
+                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>买入价</label>
+                        <input type="number" value="以市场最低价买入" @keydown.69.prevent  disabled>
+                        <span>CNY</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>买入量</label>
+                        <input type="number"  @keydown.69.prevent  @keyup="numFilter($event)">
+                        <span>CNY</span>
+                    </div>
+                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16">买JNB</div>
+                </div>
+            </div>
+            <div class="w50 fl second">
+                <div class="ft14">
+                   <div class="available clear fColor1" v-if="address.length<=0"><span class="baseColor curPer" @click="goNext('login')">登录</span>
+                    或 <span class="baseColor curPer" @click="goNext('register')">注册</span>
+                    开始交易
+                    </div>
+                    <div class="clear available" v-else>
+                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>卖出价</label>
+                        <input type="number" value="以市场最优价格卖出" @keydown.69.prevent disabled>
+                        <span>CNY</span>
+                    </div>
+                    <div class="mt40 input-item clear">
+                        <label>卖出量</label>
+                        <input type="number" @keydown.69.prevent  @keyup="numFilter($event)">
+                        <span>JNB</span>
+                    </div>
+                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16">卖JNB</div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "trade",
+         data (){
+            return {
+              show:true,
+              showNone:false,
+              allBalance:0,
+              buyInfo:{buyPrice:0,buyNum:0,url:'transaction/in'},
+              sellInfo:{sellPrice:0,sellNum:0,url:'transaction/out'}
+            }
+        },
+        created(){
+            this.address = localStorage.getItem('address') || '';
+            this.init();
+        },
+        methods:{
+           
+            numFilter(ev){
+                //48-57 96-105 108
+                // console.log(ev.keyCode)
+            },
+            changeType(){
+               this.show = !this.show;
+            },
+            goNext(url){
+                this.$router.push({name: url});
+            },
+            init(){
+                this.$http({
+                    url:this.$utils.laravel_api+'transaction/deal',
+                    method:'post',
+                    data:{
+                        address:this.address,
+                    }
+                }).then(res=>{
+                    // console.log(res)
+                    this.allBalance=res.data.message.user_cny;
+                    // console.log(this.allBalance)
+                })
+            },
+            buyCoin(){
+                if(!this.buyInfo.buyPrice || this.buyInfo.buyPrice<=0){
+                   layer.msg('请输入买入价');
+                    return;
+                }
+                if(!this.buyInfo.buyNum || this.buyInfo.buyNum <=0){
+                    layer.msg('请输入买入量');
+                    return;
+                }
+                var i=layer.load();
+                this.$http({
+                    url: this.$utils.laravel_api+this.buyInfo.url,
+                    method:'post',
+                    data:{
+                        user_id:this.address,
+                        price:this.buyInfo.buyPrice,
+                        num:this.buyInfo.buyNum,
+                    }
+                }).then(res=>{
+                    // console.log(res ,222)
+                    layer.close(i);
+                    
+                    if(res.data.type=="ok"){
+                        this.buyInfo.buyPrice=0;
+                        this.buyInfo.buyNum=0;
+                    }else{
+                        layer.msg(res.data.message)
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }, 
+            sellCoin(){
+                if(!this.sellInfo.sellPrice || this.sellInfo.sellPrice<=0){
+                   layer.msg('请输入卖出价');
+                    return;
+                }
+                if(!this.sellInfo.sellNum || this.sellInfo.sellNum <=0){
+                    layer.msg('请输入卖出量');
+                    return;
+                }
+                var i=layer.load();
+                this.$http({
+                    url: this.$utils.laravel_api+this.sellInfo.url,
+                    method:'post',
+                    data:{
+                        user_id:this.address,
+                        price:this.sellInfo.sellPrice,
+                        num:this.sellInfo.sellNum,
+                    }
+                }).then(res=>{
+                    // console.log(res)
+                    layer.close(i);
+                    layer.msg(res.data.message)
+                    if(res.data.type=="ok"){
+                        this.sellInfo.sellPrice=0;
+                        this.sellInfo.sellNum=0;
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }
+        },
+        computed:{
+            buyTotal(){
+               return (this.buyInfo.buyPrice * this.buyInfo.buyNum) || 0;
+            },
+            sellTotal(){
+                return this.sellInfo.sellPirce * this.sellInfo.sellNum || 0;
+            }
+        }
+    
+        
+    }
+</script>
+
+<style scoped>
+.title_box{height: 48px;padding: 0 30px;background-color: #1f2938;}
+.tabtitle span{cursor: pointer;}
+.tabtitle span:not(:last-child) {margin-right: 40px;}
+.content .first{padding: 0 15px 0 25px;}
+.content .second{padding: 0 25px 0 15px;}
+.available{height: 48px;border-bottom: 1px solid #303b4b;line-height: 48px;}
+.input-item{position: relative;line-height: 40px;}
+.input-item label{width: 20%;float: left;font-size: 14px;color: #637085;}
+.input-item input{width: 80%;float: left;border: 1px solid #52688c;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;color: #cdd6e4;background-color: #273142;line-height: 38px;}
+.input-item span{position: absolute;right: 15px;color: #637085;font-size: 16px}
+.attion{height: 20px;line-height: 30px;font-size: 12px;}
+.sell_btn{width: 100%;height: 40px;border-radius: 3px;color: #cdd6e4;line-height: 40px;}
+.greenBack {background-color: #55a067;}
+.redBack {background-color: #cc4951;}
+input:disabled {color: #627085;cursor: not-allowed;}
+</style>
+
