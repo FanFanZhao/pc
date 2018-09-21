@@ -92,7 +92,7 @@
 			}
 			.trade_top{
 				height: 540px;
-				background-color: #273142;
+				background-color: #262a42;
 				padding: 0 10px;
 				.sidebar{
 					width: 23%;
@@ -108,7 +108,7 @@
 			}
 			.trade_panel{
 				height: 660px;
-				background-color: #273142;
+				background-color: #262a42;
 				padding: 10px;
 				&>*{
 					height: 100%;
@@ -133,7 +133,7 @@
 			}
 			.trade_entrust{
 				padding: 0 10px;
-				background-color: #273142;
+				background-color: #262a42;
 				.entrust_box{
 					width: 100%;
 					height: 100%;
@@ -142,7 +142,7 @@
 			}
 			.trade_detail{
 				padding:10px;
-				background-color: #273142;
+				background-color: #262a42;
 				.deatil_box{
 					width: 100%;
 					height: 100%;
@@ -151,7 +151,7 @@
 			}
 			.currency_box{
 				padding: 0 10px;
-				background-color: #273142;
+				background-color: #262a42;
 			}
 		}
 	}

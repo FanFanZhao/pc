@@ -159,7 +159,7 @@
 	.active{color: #5697f4;border-bottom: 2px solid #5697f4;}
 	.register-item{display: inline-block;width: 80px;text-align: right;color: #637085;}
 	.register-input{position: relative;margin-top: 40px;}
-	.input-main{width: 420px;height: 48px;border: 1px solid #52688c;padding: 0 20px;color: #cdd6e4;font-size: 16px;border-radius: 3px;background-color: #273142;padding-left: 68px; }
+	.input-main{width: 420px;height: 48px;border: 1px solid #52688c;padding: 0 20px;color: #cdd6e4;font-size: 16px;border-radius: 3px;background-color: #262a42;padding-left: 68px; }
 	.input-content{margin-left: 20px;width: 428px;padding-left:20px;}
 	.pic-code{position: absolute;left: 430px;top: 0;width: 100px;height: 48px;display: inline-block;}
 	.phoneleft{position: absolute;width: 100px;height: 48px;text-align: center;left: 100px;font-size: 16px;color: #cdd6e4;border-right: 1px solid #52688c;}

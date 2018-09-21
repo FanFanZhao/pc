@@ -107,7 +107,7 @@ $fColor2:#637085;
     color: #cdd6e4;
     font-size: 16px;
     border-radius: 3px;
-    background-color: #273142;
+    background-color: #262a42;
 }
 </style>
 

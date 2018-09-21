@@ -93,7 +93,7 @@ import indexHeader from '@/view/indexHeader'
 	.main{width: 420px;margin: 0 auto;padding-top: 110px;}
 	.main_title{font-size: 36px;color: #cdd6e4;}
 	.input-box{position: relative;margin-top: 40px;}
-	.input-main{width: 420px;height: 48px;border: 1px solid #52688c;padding: 0 20px;color: #cdd6e4;font-size: 16px;border-radius: 3px;background-color: #273142;padding-left: 68px; }
+	.input-main{width: 420px;height: 48px;border: 1px solid #52688c;padding: 0 20px;color: #cdd6e4;font-size: 16px;border-radius: 3px;background-color: #262a42;padding-left: 68px; }
 	.icon{width: 48px;height: 48px;line-height: 48px;border-right: 1px solid #52688c;position: absolute;top: 0;}
 	.login-btn{width: 420px;margin-top: 40px;background: #5697f4;font-size: 16px;border-radius: 4px;color: #fff;line-height: 48px;cursor: pointer;}
 	.noaccount{color: #fff;}

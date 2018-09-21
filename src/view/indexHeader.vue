@@ -160,7 +160,7 @@
 			right: 0;
 			width: 188px;
 			line-height: 40px;
-			background-color: #273142;
+			background-color: #262a42;
 			z-index: 5000;
 			border-radius: 3px;
 			box-shadow: 0 0 2px 4px rgba(0,0,0,.2);

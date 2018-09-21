@@ -1,5 +1,5 @@
 @import "mixin";
-html{width: 100%;color:#000;background-color: #273142;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:PingFangSC-Regular,'微软雅黑',sans-serif;}
+html{width: 100%;color:#000;background-color: #262a42;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:PingFangSC-Regular,'微软雅黑',sans-serif;}
 html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0);box-sizing:border-box}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}
 input,select,textarea{font-size:100%}
@@ -21,7 +21,8 @@ a{
 }
 input{
 	border:0;
-	outline:0;
+    outline:0;
+    // #181b2a
 }
 .clear:after{
 	content: '';
@@ -160,7 +161,7 @@ input{
 .nav-after{
     display: block;
     height: 10px;
-    background-color: #273142;
+    background-color: #262a42;
 }
 .account-content {
     width: 100%;
@@ -171,5 +172,5 @@ input{
     position: relative;
 }
 .pageBack {
-    background-color: #273142;
+    background-color: #262a42;
 }

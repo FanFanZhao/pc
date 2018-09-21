@@ -238,7 +238,7 @@
 .available{height: 48px;border-bottom: 1px solid #303b4b;line-height: 48px;}
 .input-item{position: relative;line-height: 40px;}
 .input-item label{width: 20%;float: left;font-size: 14px;color: #637085;}
-.input-item input{width: 80%;float: left;border: 1px solid #52688c;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;color: #cdd6e4;background-color: #273142;line-height: 38px;}
+.input-item input{width: 80%;float: left;border: 1px solid #52688c;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;color: #cdd6e4;background-color: #262a42;line-height: 38px;}
 .input-item span{position: absolute;right: 15px;color: #637085;font-size: 16px}
 .attion{height: 20px;line-height: 30px;font-size: 12px;}
 .sell_btn{width: 100%;height: 40px;border-radius: 3px;color: #cdd6e4;line-height: 40px;}
