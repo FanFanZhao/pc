@@ -1,5 +1,5 @@
 <template>
-    <div class="indexBlackes" style="background: rgb(1, 7, 20);">
+    <div class="indexBlackes">
         <indexHeader></indexHeader>
         <router-view></router-view>      
     </div>  

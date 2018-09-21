@@ -85,7 +85,7 @@
 	.home{
 
 		.main{
-			margin-top:5px;
+			margin-top:10px;
 			.notice_box{
 				height:40px;
 				padding: 0 10px;

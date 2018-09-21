@@ -11,7 +11,7 @@
     zoom:1; /* for ie6 & ie7 */
 }
 .indexBlackes{
-  background: #010714;
+  /* background: #010714; */
   height: auto;
   overflow: hidden;
 }
