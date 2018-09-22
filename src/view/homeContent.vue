@@ -101,7 +101,10 @@
                         <li>{{coin.total_supply}}</li>
                         </div>
                         <li class="last fr">
-                            <button>去交易</button>
+                            <a class="baseColor">充币</a>
+                            <a class="baseColor withdraw">提币</a>
+                            <a class="baseColor">兑换</a>
+                            <!-- <button>交易</button> -->
                         </li>
                     </ul>
                     
@@ -331,6 +334,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+.withdraw{
+    margin: 0 4px;
+}
+.last a:hover{
+    cursor: pointer;
 }
 </style>
 
