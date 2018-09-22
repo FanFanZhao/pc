@@ -69,15 +69,18 @@
                 </div>
                 <div class="tabtable">
                     <ul class="table-nav">
+                        <div class="nav_left">
                         <li>交易市场</li>
                         <li>最新成交价</li>
                         <li>涨跌</li>
                         <!-- <li>最高价 ( 24h )</li>
                         <li>最低价 ( 24h )</li> -->
                         <li>成交量</li>
-                        <li class="last tc">操作</li>
+                        </div>
+                        <li class="last tc fr">操作</li>
                     </ul>
                     <ul class="content" v-for="(coin,index) in coinList">
+                        <div class="con_left">
                         <li class="hovertd">
                             <i class="iconfont icon-BTCUSDT-copy"></i>
                             <span class="hover">{{coin.symbol}}</span><br>
@@ -96,7 +99,8 @@
                         <!-- <li>{{coin.highest}}</li>
                         <li>{{coin.lowest}}</li> -->
                         <li>{{coin.total_supply}}</li>
-                        <li class="last">
+                        </div>
+                        <li class="last fr">
                             <button>去交易</button>
                         </li>
                     </ul>
@@ -322,6 +326,11 @@ export default {
 <style>
 .swiper-slide:hover{
     background-color: #327ADD;
+}
+.nav_left,.con_left{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 </style>
 
