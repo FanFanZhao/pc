@@ -53,7 +53,7 @@
             </div>
             <div class="time">24H</div>
         </div>
-        <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 95%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
+        <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
             <!-- <div style="position: relative; overflow: hidden; width: 1200px; height: 320px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
                 <canvas width="1200" height="320" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 1200px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
             </div>
