@@ -95,36 +95,40 @@
                 <div class="tabtable">
                     <ul class="table-nav">
                         <div class="nav_left">
-                        <li>交易市场</li>
+                        <li style="width:220px;text-align:left;">交易市场</li>
                         <!-- <li>最新成交价</li>
                         <li>涨跌</li> -->
-                        <li>最高价 ( 24h )</li>
-                        <li>最低价 ( 24h )</li>
-                        <li>最新价</li>
+                        <li style="width:220px;text-align:center;">最高价 ( 24h )</li>
+                        <li style="width:220px;text-align:center;">最低价 ( 24h )</li>
+                        <li style="width:220px;text-align:center;">最新价</li>
                         <!-- <li>成交量</li> -->
                         </div>
                         <li class="last tc fr">操作</li>
                     </ul>
-                    <ul class="content" v-for="(coin,index) in coinList">
+                    <ul class="content" v-for="(coin,index) in coin_list">
                         <div class="con_left">
-                        <li class="hovertd">
-                            <i class="iconfont icon-BTCUSDT-copy"></i>
-                            <span class="hover">{{coin.symbol}}</span><br>
+                        <li class="hovertd" style="width:220px;text-align:left;">
+                            <i class="iconfont icon-BTCUSDT-copy" style="float:initial;"></i>
+                            <!-- <span class="hover">{{coin.symbol}}</span><br> -->
                             <span>{{coin.name}}</span>
                         </li>
-                        <li>
-                            <span >¥ {{coin.quotes.USD.price}}</span>
+                        <!-- <li> -->
+                            <!-- <span >¥ {{coin.quotes.USD.price}}</span> -->
+                            <!-- <span>{{coin.name}}</span> -->
                             <!-- / ¥ {{coin.quotes.USD.price}} -->
                             <!-- <i class="iconfont icon-arrow-down"></i> -->
-                        </li>
-                        <li class="red" :class="{green:coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'}">
+                        <!-- </li> -->
+                        <li style="width:220px;text-align:center;">{{coin.min_price}}</li>
+                        <li style="width:220px;text-align:center;">{{coin.max_price}}</li>
+                        <li style="width:220px;text-align:center;">{{coin.new_price}}≈0.00CNY</li>
+                        <!-- <li class="red" :class="{green:coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'}">
                             <i v-if="coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'" class="iconfont icon-arrow-down"></i>
                             <i v-else class="iconfont icon-arrow-up"></i>
                             {{coin.quotes.USD.percent_change_24h}}%
-                            </li>
+                            </li> -->
                         <!-- <li>{{coin.highest}}</li>
                         <li>{{coin.lowest}}</li> -->
-                        <li>{{coin.total_supply}}</li>
+                        <!-- <li>{{coin.total_supply}}</li> -->
                         </div>
                         <li class="last fr">
                             <a class="baseColor">充币</a>
@@ -192,6 +196,18 @@ export default {
             //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
             //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
             //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+          ],
+          coin_list:[
+                {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                 {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                  {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                   {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                    {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                     {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                      {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                       {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                        {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                         {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
           ],
           noticeList:[
               {text:'DQ交易所测试上线。。。',url:''},
