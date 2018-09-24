@@ -41,6 +41,28 @@ input{
 .fr{
 	float:right;
 }
+.flex{
+    display: flex;
+    -webkit-display:flex;
+    -moz-display:flex;
+    -ms-display:flex;
+    -o-display:flex;
+}
+.flex1{
+    flex: 1;
+}
+.alcenter{
+    align-items: center;
+}
+.between{
+    justify-content: space-between;
+}
+.around{
+    justify-content: space-around;
+}
+.center{
+    justify-content: center;
+}
 .tc{
 	text-align: center;
 }

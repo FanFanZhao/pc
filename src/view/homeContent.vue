@@ -1,15 +1,35 @@
 <template>
     <div class="indexBlackes">
-        <div class="banneres">
+        <!-- <div class="banneres">
             <div class="content ">
                 <h1>区块链数字资产交易平台</h1>
                 <p class="introduce">安全&nbsp;&nbsp;&nbsp;公正&nbsp;&nbsp;&nbsp;高效&nbsp;&nbsp;&nbsp;不可篡改</p>
                 <div class="QRCode"><img src="@/assets/images/code.png"></div>
                 <p class="kefu">手机下载二维码</p>
             </div>
+        </div> -->
+        <div class="swiper-container banner_wrap swiper-container-horizontal">
+            <div class="swiper-wrapper">
+               <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../assets/images/bg2.png" />
+                   </a>
+               </div>
+                <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../assets/images/bg2.png" />
+                   </a>
+               </div>
+               <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../assets/images/bg2.png" />
+                   </a>
+               </div>
+            </div>
+             <div class="swiper-pagination swiper-pagination02"></div>
         </div>
-        <div class="carousel">
-            <div class="swiper-container swiper-container-horizontal">
+        <!-- <div class="carousel">
+            <div class="swiper-container swiper-container01 swiper-container-horizontal">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" :class="{active:index==curSwiper}" v-for="(item ,index) in swiperList" style="width: 232px; margin-right: 10px;" @mouseover="mouseEnter(index)">
                         <p class="name">{{item.symbol}}</p>
@@ -21,10 +41,15 @@
                         </p>
                     </div>
                 </div>   
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination01"></div>
             </div>
             <div slot="button-prev" class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"></div>
             <div slot="button-next" class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"></div>
+        </div> -->
+        <div class="notice">
+           <ul class="flex alcenter around notice_ul">
+               <li v-for="item in noticeList" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" v-bind:href="item.url">{{item.text}}</a></li>
+           </ul>
         </div>
         <div class="active-data clearfix">
             <div class="data high">
@@ -71,11 +96,12 @@
                     <ul class="table-nav">
                         <div class="nav_left">
                         <li>交易市场</li>
-                        <li>最新成交价</li>
-                        <li>涨跌</li>
-                        <!-- <li>最高价 ( 24h )</li>
-                        <li>最低价 ( 24h )</li> -->
-                        <li>成交量</li>
+                        <!-- <li>最新成交价</li>
+                        <li>涨跌</li> -->
+                        <li>最高价 ( 24h )</li>
+                        <li>最低价 ( 24h )</li>
+                        <li>最新价</li>
+                        <!-- <li>成交量</li> -->
                         </div>
                         <li class="last tc fr">操作</li>
                     </ul>
@@ -133,6 +159,11 @@ export default {
   components: { indexHeader },
   data(){
       return {
+        //   banner_imgs:[
+        //       {href:'',img:'../assets/images/bg2.png'},
+        //       {href:'',img:'../assets/images/bg2.png'},
+        //       {href:'',img:'../assets/images/bg2.png'}
+        //   ],
           curSwiper:0,
           curCoinTab:0,
           coinTabList:[{title:'USDT行情'},{title:'BTC行情'}],
@@ -161,6 +192,12 @@ export default {
             //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
             //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
             //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+          ],
+          noticeList:[
+              {text:'DQ交易所测试上线。。。',url:''},
+              {text:'DQ交易所测试上线。。。',url:''},
+              {text:'DQ交易所测试上线。。。',url:''},
+              {text:'DQ交易所测试上线。。。',url:''},
           ]
       }
   },
@@ -168,17 +205,32 @@ export default {
      this.init(this.initKline); 
   },
   mounted(){
-       var mySwiper = new Swiper ('.swiper-container', {
+       var mySwiper = new Swiper ('.swiper-container01', {
             // direction: 'vertical',
             // loop: true,
             
             // 如果需要分页器
-            pagination: '.swiper-pagination',
+            pagination: '.swiper-pagination01',
             paginationClickable: true,
             // 如果需要前进后退按钮
             slidesPerView:5,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
+            observer:true, //修改swiper自己或子元素时，自动初始化swiper
+            observeParents:true,//修改swiper的父元素时，自动初始化swiper
+        })   
+        var mySwiper02 = new Swiper ('.banner_wrap', {
+            // direction: 'vertical',
+            loop: true,
+            autoplay : 2000,
+            
+            // 如果需要分页器
+            pagination: '.swiper-pagination02',
+            paginationClickable: true,
+            // 如果需要前进后退按钮
+            // slidesPerView:5,
+            // nextButton: '.swiper-button-next',
+            // prevButton: '.swiper-button-prev',
             observer:true, //修改swiper自己或子元素时，自动初始化swiper
             observeParents:true,//修改swiper的父元素时，自动初始化swiper
         })   
@@ -327,7 +379,7 @@ export default {
 };
 </script>
 <style>
-.swiper-slide:hover{
+.carousel .swiper-slide:hover{
     background-color: #327ADD;
 }
 .nav_left,.con_left{
@@ -338,8 +390,35 @@ export default {
 .withdraw{
     margin: 0 4px;
 }
-.last a:hover{
+.carousel .last a:hover{
     cursor: pointer;
+}
+.sliders{
+    width: 100%;
+}
+.sliders img{
+    width: 100%;
+    height: 500px;
+}
+.notice_ul{
+    padding: 25px 0;
+    background: #161923;
+    margin-bottom: 5px;
+}
+.notice_li{
+    flex: 1;
+    text-align: center;
+}
+.notice_li::after{
+    content: '/';
+    float:right;
+}
+.notice_li:last-child:after{
+    content: '';
+    color: #6b80ae;
+}
+.notice_a:hover{
+    color: #6b80ae;
 }
 </style>
 

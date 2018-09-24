@@ -56,49 +56,49 @@
   position: relative;
   /*overflow-x: auto;*/
 }
-.indexBlackes .swiper-container{
+.carousel .swiper-container{
   width: 100%;
   height: 115px;
   margin: 0 auto;
   overflow:hidden;
 }
-.indexBlackes .swiper-slide{
+.carousel .swiper-slide{
   height: 105px;
   background: #161923;
   text-align: center;
 }
-.indexBlackes .swiper-slide p.name{
+.carousel .swiper-slide p.name{
   color: #6B80AE;
   font-size: 14px;
   margin-top: 18px;
 }
-.indexBlackes .swiper-slide p.last{
+.carousel .swiper-slide p.last{
   color: #B9B9B9;
   font-size: 20px;
   margin: 5px;
   /* margin-top: -3px; */
 }
-.indexBlackes .swiper-slide p.range{
+.carousel .swiper-slide p.range{
   margin-top: -3px;
   font-size: 14px;
   color: #65CCA2;
 }
-.indexBlackes .swiper-slide p.range.red{
+.carousel .swiper-slide p.range.red{
   color: #C2235F;
 }
-.indexBlackes .swiper-slide p.range.red i{
+.carousel .swiper-slide p.range.red i{
   color: #C2235F;
 }
-.indexBlackes .swiper-slide.active{
+.carousel .swiper-slide.active{
   background: #327ADD;
 }
-.indexBlackes .swiper-slide.active p.name{
+.carousel .swiper-slide.active p.name{
   color: #B9B9B9;
 }
-.indexBlackes .swiper-slide.active p.last{
+.carousel .swiper-slide.active p.last{
   color: #fff;
 }
-.indexBlackes .swiper-slide.active:after{
+.carousel .swiper-slide.active:after{
   display: block;
   content: '';
   width: 0;
@@ -110,15 +110,15 @@
   /*border-bottom: 10px solid #4ed621;*/
   box-sizing: border-box;
 }
-.indexBlackes .swiper-pagination{
+.carousel .swiper-pagination{
   display: none;
 }
-.indexBlackes .swiper-button-prev{
+.carousel .swiper-button-prev{
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%232B3144'%2F%3E%3C%2Fsvg%3E");
   transform: translateY(-5px);
   left: -35px;
 }
-.indexBlackes .swiper-button-next{
+.carousel .swiper-button-next{
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%232B3144'%2F%3E%3C%2Fsvg%3E");
   right: -35px;
   transform: translateY(-5px);

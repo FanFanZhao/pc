@@ -220,7 +220,7 @@ export default {
   padding: 0 30px;
   background: #181b2a;
   .content {
-    width: 1200px;
+    // width: 1200px;
     margin: 0 auto;
   }
   .msg_wrap {
