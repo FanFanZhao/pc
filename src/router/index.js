@@ -21,6 +21,8 @@ import chargeRecord from '@/view/chargeRecord'
 import new_account from '@/components/new_account'
 import finance from '@/view/accounts/finance'
 import lever from '@/view/accounts/lever'
+import finanrec from '@/view/accounts/finanrec'
+import withdraw_address from '@/view/accounts/withdraw_address'
 Vue.use(Router)
 export default new Router({
 	routes: [
@@ -142,11 +144,26 @@ export default new Router({
 			]
 
 		},
+		// 财务记录
+		{
+			
+			path:'/finanrec',
+			name:'finanrec',
+			component:finanrec,
+		},
+		// 地址管理
+		{
+			
+			path:'/withdraw_address',
+			name:'withdraw_address',
+			component:withdraw_address,
+		},
 		{
 			path:'/setCash',
 			name: 'setCash',
 			component: setCash
 		},
+		
 
 
 	]
