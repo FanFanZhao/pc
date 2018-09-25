@@ -29,11 +29,8 @@
     }
 </script>
 <style scoped >
-    .box{
-        background-color: #273041;
-    }
     .box .account{
-        width: 1500px;
+        width: 1200px;
         padding-top: 30px;
         min-height: 880px;
         margin: 0px auto;
