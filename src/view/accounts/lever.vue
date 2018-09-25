@@ -1,6 +1,6 @@
 <template>
-    <div class="account-main">
-        <div class="account-title">
+    <div class="">
+        <div class="">
             杠杆账户
            
         </div>

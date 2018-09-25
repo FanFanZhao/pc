@@ -13,13 +13,16 @@
 				<div class="chart_wrap">
           <chart></chart>
         </div>
-				<div class="parts clear">
+				<div class="parts clear" >
 					<div class="trade-wrap fl" style="width:66%">
 						<trade></trade>
 					</div>
 					<div class="deadl-wrap fl" style="width:33%">
-						<deal></deal>
+						<exchange></exchange>
 					</div>
+				</div>
+				<div class="depth-map flex btween" >
+					<deal></deal>
 				</div>
 			</div>
 		</div>
@@ -92,6 +95,11 @@
 			.parts{
 				margin-top: 10px;
 				background: #181b2a;
+				max-height: 500px;
+			}
+			.depth-map{
+				max-height: 500px;
+				margin-top: 10px;
 			}
 		}
 	}

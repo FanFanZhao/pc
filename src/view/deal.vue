@@ -1,5 +1,5 @@
 <template>
-    <div class="deal">
+    <div class="deal" style="min-width:600px;background:#181b2a">
 		<div class="title fColor1">实时成交</div>
         <div class="container fColor1 ft12 scroll">
             <div class="deal-title clear tc">
