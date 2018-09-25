@@ -25,7 +25,7 @@
 					</div>
 					</div>
 					<div class="asset-choose ft14 fColor1" v-if="show1" @mouseover="assets_over" @mouseout="assets_out">
-						<p class="curPer" v-for="(item,index) in assetstList" @click="goto(null,item.page)">
+						<p class="curPer" v-for="(item,index) in assetstList" @click="gotoAccount(index,item.page)">
 							<img :src="item.src1" alt="">
 							<img :src="item.src2" alt="">
 							<span>{{item.title}}</span>
@@ -184,8 +184,14 @@ export default {
     goto(index, name) {
       this.current = index;
       console.log(index, name);
-      // this.bus.$emit('nav_name',name);
-      this.$router.push({ name: name});
+      this.bus.$emit('nav_name',name);
+      this.$router.push({ name: name });
+    },
+    gotoAccount(index,name){
+      // this.current = index;
+      // console.log(index, name);
+      this.bus.$emit('nav_name',name);
+      this.$router.push({ name: name });
     },
     loginOut() {
       console.log("out");
