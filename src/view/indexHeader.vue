@@ -184,7 +184,7 @@ export default {
     goto(index, name) {
       this.current = index;
       console.log(index, name);
-      // this.bus.$emit('nav_name',name);
+      this.bus.$emit('nav_name',name);
       this.$router.push({ name: name });
     },
     gotoAccount(index,name){
