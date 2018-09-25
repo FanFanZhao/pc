@@ -5,8 +5,8 @@
             <label class="min_lab"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
             </p>
             <p class="fr right_text">
-                <span class="record">财务记录</span>
-                <span class="address">提币地址管理</span>
+                <span class="record" @click="record">财务记录</span>
+                <span class="address" @click="withdraw">提币地址管理</span>
             </p>
         </div>
         <div class="content fColor1 ft12">
@@ -165,6 +165,9 @@ export default {
                     clipboard.on("error", function (e) {
                         alert('请重新复制')
                     });
+        },
+        record(){
+            
         }
     },
     created(){
