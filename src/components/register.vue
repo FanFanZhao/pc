@@ -6,9 +6,8 @@
 				<div class="account">
 					<div class="main-register">
 						<p class="main_title">欢迎注册</p>
-						<div class="choose-register mt20 fColor1 ">
-							<span class="active">手机注册</span>
-							<span >邮箱注册</span>
+						<div class="choose-register mt20 fColor1">
+							<span v-for="(item,index) in remethod" :class="{active:index==current}" @click="changeWay(index)">{{item.title}}</span>
 						</div>
 						<div class="register-input">
 							<span class="register-item">国籍</span>
@@ -18,22 +17,31 @@
 							<div class="selectitem  scroll" v-show="iSnation">
 								<p class="titles">常用</p>
 								<ul class="nationul">
-									<li v-for="(item,index) in nationList">
+									<li v-for="(item,index) in nationList" @click="chooseNation">
 										<span class="fl">{{item.ename}}</span>
 										<span class="fr">{{item.cname}}</span>
 									</li>
 								</ul>
 							</div>
 						</div>
-						<div class="register-input">
+						<div class="register-input" v-show="isPhones">
 							<span class="register-item">手机号码</span>
 							<div class="select-box positionR">
-								<span class="phoneleft arrow">+86</span>
-                               <input type="text" class="input-main input-content"  maxlength="11" v-model="phone" style="padding-left: 122px;">
+								<span class="phoneleft arrow" @click="select2">{{area}}</span>
+                               <input type="text" class="input-main input-content" v-model="phone"  maxlength="11" style="padding-left: 122px;">
+							</div>
+							<div class="selectitem  scroll" v-show="iSphone">
+								<p class="titles">常用</p>
+								<ul class="nationul">
+									<li v-for="(item,index) in phoneList" @click="choosePhone">
+										<span class="fl">{{item.name}}</span>
+										<span class="fr">{{item.num}}</span>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="register-input hide" >
-							<span class="register-item">邮箱地址</span>
+						<div class="register-input" v-show="isEmail">
+							<span class="register-item">邮箱</span>
 							<input type="text" class="input-main input-content">
 						</div>
 						<div class="register-input hide">
@@ -83,9 +91,11 @@
 								</router-link>
 							</div>
 						</div>
-						<div class="right-tip ">
-							<p>海外用户建议使用邮箱注册，避免接收不到短信验证码的情况</p>
-							<p style="margin-top: 20px;">验证邮件可能被误判为垃圾邮件，请注意查收</p>
+						<div class="right-tip">
+							<p>国籍信息注册后不可修改，请务必如实选择。</p>
+							<p class="mt20">验证邮件可能会被误判为垃圾邮件，请注意查收。</p>
+							<p class="mt20">请妥善保存您的Huobi账号及登录密码。</p>
+							<p class="mt20">请勿和其他网站使用相同的登录密码。</p>
 						</div>
 					</div>
 				</div>
@@ -107,14 +117,39 @@
 				pwd: '',
 				re_pwd: '',
 				parent: '',
+				phone:'',
+				current:0,
+				area:'0086',
 				agree_protocol: true,
 				iSnation:false,
-				nationList:[{ename:"China",cname:"中国"},{ename:"Japan",cname:"日本"},{ename:"Korea",cname:"韩国"},]
+				iSphone:false,
+				isEmail:false,
+				isPhones:true,
+			    remethod:[{title:"手机注册"},{title:"邮箱注册"}],
+				nationList:[{ename:"China",cname:"中国"},{ename:"Japan",cname:"日本"},{ename:"Korea",cname:"韩国"},],
+				phoneList:[{name:"China",num:"0086"},{name:"Japan",num:"0081"},{name:"Korea",num:"0082"},]
 			}
 		},
 		methods:{
 			select(){
                 this.iSnation=!this.iSnation
+			},
+			select2(){
+                this.iSphone=!this.iSphone
+			},
+			chooseNation(e){
+				this.nation=e.currentTarget.firstElementChild.innerHTML;
+				this.iSnation=false
+				
+			},
+			choosePhone(e){
+				this.area=e.currentTarget.lastElementChild.innerHTML;
+				this.iSphone=false
+			},
+			changeWay(index){
+				this.current=index;
+				this.isEmail=!this.isEmail,
+				this.isPhones=!this.isPhones
 			},
 			register() {
 				let that = this;
@@ -132,10 +167,6 @@
 					layer.alert('密码最少为6位');
 					return;
 				}
-				// if(parent === ""){
-				// 	layer.alert('请输入邀请码');
-				// 	return;
-				// }
 				if(!this.agree_protocol){
 					layer.alert('您还未同意注册协议');
 					return;
@@ -197,5 +228,5 @@
 	.agree{position: relative;top: 2px;}
 	.register-button{margin-left: 20px;width:200px;display: inline-block;line-height: 46px;background-color: #7a98f7;border-radius: 4px;color: #fff;border: none}
 	.have-account{font-size: 14px;display:inline-block;width: 240px;text-align: right;color: #fff;}
-	.right-tip{position: absolute;left: 620px;top: 140px;line-height: 24px;padding-right: 50px;margin-top: 10px;font-size: 14px;color: #61688a;}
+	.right-tip{position: absolute;left: 620px;top: 140px;line-height: 24px;padding-right: 50px;margin-top: 13px;font-size: 14px;color: #61688a;}
 </style>

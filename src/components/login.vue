@@ -5,30 +5,31 @@
         <div class="content-wrap">
             <div class="account">
                 <div class="main">
-                    <p class="main_title tc">账户登录</p>
-                    <div class="input-box">
-                        <input type="text" placeholder="已绑定手机/邮箱" maxlength="20" class="input-main" v-model="account_number" id="account">
-                        <div class="icon tc">
-                            <img src="../assets/images/user.png" alt="">
+                    <p class="main_title">欢迎登录</p>
+                    <div class="register-input">
+                        <span class="register-item">账号</span>
+                        <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account">
+                    </div>
+                     <div class="register-input">
+                        <span class="register-item">密码</span>
+                        <input type="text" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="register-item"></span>
+                        <button class="register-button curPer" @click="login">登录</button>
+                        <div class="have-account">
+                            <span class="baseColor">忘记密码?</span>
                         </div>
                     </div>
-                    <div class="input-box">
-                        <input type="password" placeholder="密码" maxlength="16" class="input-main" v-model="password" id="pwd">
-                        <div class="icon tc">
-                            <img src="../assets/images/lock.png" alt="">
-                        </div>
-                    </div>
-                    <p class="forgot curPer tr mt10">
+                    <div class="right-tip ">
+                        <p>还不是Huobi的用户？</p>
+                        <p>立即注册，在全球领先的数字资产交易平台开始交易。</p>
                         <router-link :to="{ name: 'register'}">
-                          <span class="baseColor">忘记密码</span>
-                        </router-link>
-                    <div class="login-btn tc" @click="login">登录</div>
-                    <div class="noaccount tc mt20">
-                        <span>暂无账号，</span>
-                        <router-link :to="{ name: 'register'}">
-                          <span class="baseColor">立即注册</span>
+                            <p class="baseColor mt20">免费注册</p>
                         </router-link>
                     </div>
+                    
+
                 </div>
             </div>
         </div>
@@ -88,13 +89,18 @@ import indexHeader from '@/view/indexHeader'
 </script>
 
 <style scoped>
-	.content-wrap {background: url(../assets/images/login_bg.png) no-repeat;background-size: cover;}
-	.account{width: 1500px;margin: 0 auto;padding-top: 30px;overflow: hidden;min-height: 880px;}
-	.main{width: 420px;margin: 0 auto;padding-top: 110px;}
-	.main_title{font-size: 36px;color: #cdd6e4;}
+	.content-wrap{background: url(../assets/images/bg_login.png) center bottom 316px repeat-x,-webkit-linear-gradient(top,#21263f,#262a42);}
+	.account{width: 1200px;margin: 0 auto;padding-top: 93px;overflow: hidden;min-height: 880px;}
+	.main{position: relative;padding: 0 0 60px 30px;}
+	.main_title{font-size: 36px;color: #c7cce6;}
+    .register-item{display: block;height:22px;color: #61688a;font-size: 12px}
+	.register-input{position: relative;margin-top: 20px}
 	.input-box{position: relative;margin-top: 40px;}
-	.input-main{width: 420px;height: 48px;border: 1px solid #52688c;padding: 0 20px;color: #cdd6e4;font-size: 16px;border-radius: 3px;background-color: #262a42;padding-left: 68px; }
+	.input-main{width: 520px;min-height: 46px;border: 1px solid #4e5b85;padding: 0 20px;color: #c7cce6;font-size: 14px;border-radius: 3px;background-color: #1e2235; }
 	.icon{width: 48px;height: 48px;line-height: 48px;border-right: 1px solid #52688c;position: absolute;top: 0;}
 	.login-btn{width: 420px;margin-top: 40px;background: #5697f4;font-size: 16px;border-radius: 4px;color: #fff;line-height: 48px;cursor: pointer;}
 	.noaccount{color: #fff;}
+    .register-button{width:200px;display: inline-block;line-height: 46px;background-color: #7a98f7;border-radius: 4px;color: #fff;border: none}
+    .have-account{font-size: 14px;display:inline-block;margin-left: 30px}
+    .right-tip{position: absolute;left: 620px;top: 70px;line-height: 24px;padding-right: 50px;margin-top: 10px;font-size: 14px;color: #61688a;}
 </style>
