@@ -156,7 +156,6 @@ export default {
             var that=this;
           var clipboard = new Clipboard('.copy',{
                     text:function(){
-                        console.log(that.excharge_address,123)
                         return that.excharge_address
                     }
                 });
