@@ -28,21 +28,21 @@
                             <p class="baseColor mt20">免费注册</p>
                         </router-link>
                     </div>
-                    
-
                 </div>
             </div>
         </div>
     </div>
+    <indexFooter></indexFooter>
 </div>
 
 </template>
 
 <script>
 import indexHeader from '@/view/indexHeader'
+import indexFooter from '@/view/indexFooter'
     export default {
         name: "login",
-        components:{indexHeader},
+        components:{indexHeader,indexFooter},
         data (){
             return{
                 account_number:'',
