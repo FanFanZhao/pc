@@ -19,7 +19,7 @@
 						src1: require("@/assets/images/icon_mine.png"),
 						src2: require("@/assets/images/icon_mine_s.png"),
 						text: '交易账号',
-						// page:'finance',
+						page:'finance',
 						children:['finance']
 					},
 
@@ -27,7 +27,7 @@
 						src1: require("@/assets/images/icon_delegate.png"),
 						src2: require("@/assets/images/icon_delegate_s.png"),
 						text: '杠杆账户',
-						// page:'lever',
+						page:'lever',
 						children:['lever']
 					}
 					
@@ -55,13 +55,7 @@
 </script>
 <style lang="scss" scoped>
 	.leftNav{
-		margin-right:20px;
-		padding:4px;
-		background-color: rgb(26, 35, 48);
-		width:210px;
-		float:left;
-		margin-bottom: -10000px;
-		padding-bottom: 10000px;
+		
 		ul{
 			height:820px;
 			li{
