@@ -7,8 +7,8 @@
                <img src="../assets/images/search.png" alt="">
             </div>
         </div>
-        <div class="m_filter mt20">
-            <div class="tabtitle fColor1 ft14 curPer">
+        <div class="m_filter">
+            <div class="tabtitle fColor1 ft14 curPer flex around">
                 <!-- <span class="active">JNB</span> -->
 
                 <!-- <span class="active">USDT</span>
@@ -139,8 +139,8 @@
 /* .m_search{position: absolute;width: 146px;right: 20px;top: -4px;height: 26px;border-radius: 3px;padding: 4px 8px 4px 0;} */
 /* .m_search input{position: absolute;left: 0;top: 10px;z-index: 2;width: 100%;padding: 5px 40px 5px 8px;height: 26px;border-radius: 3px;background: transparent;border: 1px solid #52688c;} */
 .m_search img{width: 16px;height: 15px;position: absolute;right: 35px;top: 20px;z-index: 123;}
-.m_filter{padding: 0 30px;}
-.tabtitle span:not(:last-child) {margin-right: 40px;}
+.m_filter{padding: 10px 0 15px;}
+.tabtitle span {text-align: center;padding: 0 10px;}
 .coin-title div{width: 33.3%;height: 36px;line-height: 36px;background-color: #181b2a;text-align: center;float: left;color: #637085;font-size:12px;}
 .coin-title img{vertical-align: middle;margin-top: -3px;}
 .line{width: 90%;margin: 0px auto;border-bottom: 1px solid rgb(48, 59, 75);}
