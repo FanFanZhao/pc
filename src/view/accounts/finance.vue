@@ -113,7 +113,7 @@ export default {
             this.$router.push({name:'coinRecord'})
         },
         init(){
-             var clipboard = new Clipboard('#copy')
+             var clipboard = new Clipboard('.copy')
             clipboard.on('success', function (e) {
                 alert('复制成功')
             });
@@ -153,9 +153,10 @@ export default {
         },
         //复制
         copy(){
-          var clipboard = new Clipboard('#copy',{
+            var that=this;
+          var clipboard = new Clipboard('.copy',{
                     text:function(){
-                        return this.excharge_address
+                        return that.excharge_address
                     }
                 });
           clipboard.on("success", function (e) {
