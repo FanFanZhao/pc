@@ -2,7 +2,7 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <left></left>
+            <left v-bind:lang="lang" :current="0"></left>
             <router-view></router-view>
         </div>
     </div>
@@ -14,18 +14,20 @@
         name:'account',
         data(){
             return {
-                lang:''
+                lang:'',
+                currentIndex:0,
             }
         },
         components:{
             indexHeader,
             left,
         },
-        // mounted(){
-        //     this.bus.$on('nav_name',cur=>{
-        //         this.array.findIndex()
-        //     })
-        // }
+        mounted(){
+            // this.bus.$on('nav_name',cur=>{
+            //     console.log(this.array.findIndex())
+            //     this.currentIndex= this.array.findIndex();
+            // })
+        }
     }
 </script>
 <style scoped >

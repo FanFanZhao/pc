@@ -36,12 +36,14 @@
 		},
 		created(){
 			let name = this.$route.name;
-			console.log(name)
 			this.curActive = this.array.findIndex( val => val.page === name || (val.children && val.children.includes(name))) ;
+			console.log(name,this.curActive)
+
 		},
 		mounted(){
 			this.bus.$on("nav_name", name =>{
 				this.curActive = this.array.findIndex( val => val.page === name || (val.children && val.children.includes(name))) ;
+				console.log(this.curActive)
 			})
 		},
 		methods: {
