@@ -1,6 +1,6 @@
 <template>
     <div class="exchange">
-		<div class="title fColor1">交易所</div>
+		<!-- <div class="title fColor1">交易所</div> -->
         <div class="content fColor1">
             <div class="new_price">
                 <span class="ft14">最新价 {{newData}} JNB/CNY</span>

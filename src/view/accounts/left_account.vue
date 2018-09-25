@@ -1,5 +1,5 @@
 <template>
-	<div class="leftNav ft16">
+	<div class="leftNav ft14">
 		<ul class="fColor1">
 			<li v-for="(item,index) in array" :class="index == curActive ? 'active' :''" @click="goto(index,item.page)">
 				<img :src="index == curActive ? item.src2 : item.src1"/>
@@ -57,13 +57,7 @@
 </script>
 <style lang="scss" scoped>
 	.leftNav{
-		margin-right:20px;
-		padding:4px;
-		background-color: rgb(26, 35, 48);
-		width:210px;
-		float:left;
-		margin-bottom: -10000px;
-		padding-bottom: 10000px;
+		
 		ul{
 			height:820px;
 			li{
