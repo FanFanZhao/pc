@@ -21,22 +21,22 @@
 						<exchange></exchange>
 					</div>
 				</div>
-				<div class="depth-map flex btween" >
-					<deal></deal>
-				</div>
-			</div>
-		</div>
-		<div class="home-b">
-			<div class="entrust_box">
+        <div class="entrust_box" style="background: #181b2a;">
           <entrust></entrust>
       </div>
-			<div class="deatil_box" style="margin:40px 0">
+			<div class="deatil_box" style="background: #181b2a;">
           <detail></detail>
         </div>
 				<div class="currency_box">
-        <currency></currency>
-      </div>
+          <currency></currency>
+        </div>
+				<div class="depth-map flex btween" >
+					<deal></deal>
+				</div>
+
+			</div>
 		</div>
+		
 	</div>
 </template>
 
@@ -83,29 +83,33 @@ export default {
       height: 100%;
       > div {
         background: #181b2a;
-        margin: 10px;
+        margin: 0 10px 10px;
       }
     }
     .main-r {
-      padding: 10px 10px 10px 360px;
+      padding: 0 10px 10px 360px;
       .parts {
         margin-top: 10px;
         max-height: 530px;
 
         > .part-l {
-					background: #181b2a;
-					min-width: 67%;
-					padding-bottom: 20px;
+          background: #181b2a;
+          min-width: 67%;
+          padding-bottom: 20px;
         }
         > .part-r {
           width: 33%;
-         >div{
-					  margin-left: 10px;
-					background: #181b2a;
-					height: 100%;
-					padding-bottom: 20px;
-				 }
+          > div {
+            margin-left: 10px;
+            background: #181b2a;
+            height: 100%;
+            padding-bottom: 20px;
+          }
         }
+      }
+      >div{
+        //  background: #181b2a;
+         margin-top: 10px;
       }
       .depth-map {
         max-height: 500px;

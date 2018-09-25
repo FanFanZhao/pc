@@ -4,10 +4,10 @@
         <div class="account-wrap">
             <div class="account" style="width:auto">
                 <div>
-                    <div class="back-nav fColor1 ft20 clear"> 网站公告
-                        <span class="fr fColor2 curPer" @click="goBefore">&lt;&lt;返回</span>
+                    <div class="back-nav fColor1 ft20 clear" style="padding:0 20px"> 公告
+                        
                     </div>
-                    <div class="nav-after"></div>
+                    
                 </div>
                 <div class="account-content">
                     <div class="tc hide" style="padding-top: 150px;">
@@ -18,7 +18,9 @@
                         <ul class="noticeList">
                             <li class="clear curPer" v-for="item in newList">
                                 <div class=""  @click="goDetail(item.id)">
-                                    <p style="height:70px"><span class="fl">{{item.title}}</span><span class="fr ft14">{{item.update_time}}</span></p>
+                                        <div class="">{{item.title}}</div>
+                                        <span class="fr">{{item.update_time}}</span>
+                                    
                                 </div>
                             </li>
                         </ul> 
@@ -36,98 +38,101 @@
     </div>
 </template>
 <script>
-import indexHeader from '@/view/indexHeader'
+import indexHeader from "@/view/indexHeader";
 export default {
-    name:'noticeList',
-    components:{indexHeader},
-    data (){
-        return{
-            more:"点击加载更多...",
-            newList:[]
+  name: "noticeList",
+  components: { indexHeader },
+  data() {
+    return {
+      more: "点击加载更多...",
+      newList: []
+    };
+  },
+  created() {
+    this.$http({
+      url: this.$utils.laravel_api + "news/list",
+      method: "get",
+      data: {}
+    })
+      .then(res => {
+        res = res.data;
+        if (res.type === "ok") {
+          // console.log(res.message.list)
+          this.newList = res.message.list;
+        } else {
+          layer.msg(res.message);
         }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+  methods: {
+    goBefore() {
+      this.$router.back(-1);
     },
-    created(){
-        this.$http({
-            url: this.$utils.laravel_api + 'news/list',
-            method:'get',
-            data:{}
-        }).then(res=>{
-            res = res.data;
-            if(res.type  === 'ok'){
-            // console.log(res.message.list)
-            this.newList=res.message.list;
-            }else{
-                layer.msg(res.message);
-            }
-        }).catch(error=>{
-            console.log(error)
-        })
+    getMore() {
+      console.log(123);
     },
-    methods:{
-        goBefore(){
-            this.$router.back(-1);
-        },
-        getMore(){
-            console.log(123)
-        },
-        goDetail(id){
-            var id= id;
-            this.$router.push({
-                name: 'noticeDetail',
-                query:{id:id}
-            });
-        }
+    goDetail(id) {
+      var id = id;
+      this.$router.push({
+        name: "noticeDetail",
+        query: { id: id }
+      });
     }
-}
+  }
+};
 </script>
 <style lang="scss" scoped>
-.notice{
-    .account-wrap{
-        // background: url(../assets/images/account_center_bg.jpg) no-repeat;
-        // background-size: cover;
-        .account {
-            // width: 1500px;
-            margin: 0 auto;
-            // padding-top: 30px;
-            overflow: hidden;
-            // min-height: 880px;
-            padding-top: 0;
-            .back-nav{
-                height: 40px;
-                font-size: 16px;
-                line-height: 40px;
+.notice {
+  .account-wrap {
+    // background: url(../assets/images/account_center_bg.jpg) no-repeat;
+    // background-size: cover;
+    .account {
+      // width: 1500px;
+      margin: 0 auto;
+      // padding-top: 30px;
+      overflow: hidden;
+      // min-height: 880px;
+      padding-top: 0;
+      .back-nav {
+        height: 40px;
+        font-size: 16px;
+        line-height: 40px;
+      }
+      .nav-after {
+        display: block;
+        height: 10px;
+        background-color: #262a42;
+      }
+      .account-content {
+        width: 100%;
+        min-height: 450px;
+        background-color: #181b2a;
+        ul {
+          padding: 0 20px;
+          font-size: 14px;
+          li {
+            border-bottom: 1px dashed #303b4b;
+            height: 72px;
+            padding: 10px 0 7px;
+            color: #cdd6e4;
+                font-size: 12px;
+            > div {
+              > div {
+                height: 36px;
+                line-height: 18px;
+              }
+              span{
+                  color: #61688a;
+              }
             }
-            .nav-after{
-                display: block;
-                height: 10px;
-                background-color: #262a42;
-            }
-            .account-content {
-                width: 100%;
-                min-height: 450px;
-                background-color: #181b2a;
-            ul{
-                padding: 0 20px;
-                font-size: 14px;
-                li{
-                    border-bottom: 1px dashed #303b4b;
-                    height: 50px;
-                    line-height: 50px;
-                    color: #cdd6e4;
-                    p{
-                        .fl{
-                            max-width: 150px;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
-                        }
-                    }
-                }
-            }
-            }
-
+          }
         }
+      }
     }
+  }
 }
 </style>
 
