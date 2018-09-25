@@ -1,15 +1,35 @@
 <template>
     <div class="indexBlackes">
-        <div class="banneres">
+        <!-- <div class="banneres">
             <div class="content ">
                 <h1>区块链数字资产交易平台</h1>
                 <p class="introduce">安全&nbsp;&nbsp;&nbsp;公正&nbsp;&nbsp;&nbsp;高效&nbsp;&nbsp;&nbsp;不可篡改</p>
                 <div class="QRCode"><img src="@/assets/images/code.png"></div>
                 <p class="kefu">手机下载二维码</p>
             </div>
+        </div> -->
+        <div class="swiper-container banner_wrap swiper-container-horizontal">
+            <div class="swiper-wrapper">
+               <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../assets/images/bg2.png" />
+                   </a>
+               </div>
+                <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../assets/images/bg2.png" />
+                   </a>
+               </div>
+               <div class="swiper-slide sliders">
+                   <a href="">
+                   <img src="../assets/images/bg2.png" />
+                   </a>
+               </div>
+            </div>
+             <div class="swiper-pagination swiper-pagination02"></div>
         </div>
-        <div class="carousel">
-            <div class="swiper-container swiper-container-horizontal">
+        <!-- <div class="carousel">
+            <div class="swiper-container swiper-container01 swiper-container-horizontal">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" :class="{active:index==curSwiper}" v-for="(item ,index) in swiperList" style="width: 232px; margin-right: 10px;" @mouseover="mouseEnter(index)">
                         <p class="name">{{item.symbol}}</p>
@@ -21,10 +41,15 @@
                         </p>
                     </div>
                 </div>   
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination01"></div>
             </div>
             <div slot="button-prev" class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"></div>
             <div slot="button-next" class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"></div>
+        </div> -->
+        <div class="notice">
+           <ul class="flex alcenter around notice_ul">
+               <li v-for="item in noticeList" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" v-bind:href="item.url">{{item.text}}</a></li>
+           </ul>
         </div>
         <div class="active-data clearfix">
             <div class="data high">
@@ -53,7 +78,7 @@
             </div>
             <div class="time">24H</div>
         </div>
-        <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 1200px; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
+        <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
             <!-- <div style="position: relative; overflow: hidden; width: 1200px; height: 320px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
                 <canvas width="1200" height="320" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 1200px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
             </div>
@@ -69,45 +94,57 @@
                 </div>
                 <div class="tabtable">
                     <ul class="table-nav">
-                        <li>交易市场</li>
-                        <li>最新成交价</li>
-                        <li>涨跌</li>
-                        <!-- <li>最高价 ( 24h )</li>
-                        <li>最低价 ( 24h )</li> -->
-                        <li>成交量</li>
-                        <li class="last tc">操作</li>
+                        <div class="nav_left">
+                        <li style="width:220px;text-align:left;">交易市场</li>
+                        <!-- <li>最新成交价</li>
+                        <li>涨跌</li> -->
+                        <li style="width:220px;text-align:center;">最高价 ( 24h )</li>
+                        <li style="width:220px;text-align:center;">最低价 ( 24h )</li>
+                        <li style="width:220px;text-align:center;">最新价</li>
+                        <!-- <li>成交量</li> -->
+                        </div>
+                        <li class="last tc fr">操作</li>
                     </ul>
-                    <ul class="content" v-for="(coin,index) in coinList">
-                        <li class="hovertd">
-                            <i class="iconfont icon-BTCUSDT-copy"></i>
-                            <span class="hover">{{coin.symbol}}</span><br>
+                    <ul class="content" v-for="(coin,index) in coin_list">
+                        <div class="con_left">
+                        <li class="hovertd" style="width:220px;text-align:left;">
+                            <i class="iconfont icon-BTCUSDT-copy" style="float:initial;"></i>
+                            <!-- <span class="hover">{{coin.symbol}}</span><br> -->
                             <span>{{coin.name}}</span>
                         </li>
-                        <li>
-                            <span >¥ {{coin.quotes.USD.price}}</span>
+                        <!-- <li> -->
+                            <!-- <span >¥ {{coin.quotes.USD.price}}</span> -->
+                            <!-- <span>{{coin.name}}</span> -->
                             <!-- / ¥ {{coin.quotes.USD.price}} -->
                             <!-- <i class="iconfont icon-arrow-down"></i> -->
-                        </li>
-                        <li class="red" :class="{green:coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'}">
+                        <!-- </li> -->
+                        <li style="width:220px;text-align:center;">{{coin.min_price}}</li>
+                        <li style="width:220px;text-align:center;">{{coin.max_price}}</li>
+                        <li style="width:220px;text-align:center;">{{coin.new_price}}≈0.00CNY</li>
+                        <!-- <li class="red" :class="{green:coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'}">
                             <i v-if="coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'" class="iconfont icon-arrow-down"></i>
                             <i v-else class="iconfont icon-arrow-up"></i>
                             {{coin.quotes.USD.percent_change_24h}}%
-                            </li>
+                            </li> -->
                         <!-- <li>{{coin.highest}}</li>
                         <li>{{coin.lowest}}</li> -->
-                        <li>{{coin.total_supply}}</li>
-                        <li class="last">
-                            <button>去交易</button>
+                        <!-- <li>{{coin.total_supply}}</li> -->
+                        </div>
+                        <li class="last fr">
+                            <a class="baseColor">充币</a>
+                            <a class="baseColor withdraw">提币</a>
+                            <a class="baseColor">兑换</a>
+                            <!-- <button>交易</button> -->
                         </li>
                     </ul>
                     
                 </div>
             </div>
         </div>
-        <div class="bottom">
+        <!-- <div class="bottom">
             <p>温馨提示</p>
             <p>数字资产是创新的投资产品，价格波动较大，具有较高的投资风险，请您投资前 对数字资产充分认知，理性判断自己的投资能力，审慎做出投资决策。</p>
-        </div>
+        </div> -->
     </div>
     
 </template>
@@ -126,6 +163,11 @@ export default {
   components: { indexHeader },
   data(){
       return {
+        //   banner_imgs:[
+        //       {href:'',img:'../assets/images/bg2.png'},
+        //       {href:'',img:'../assets/images/bg2.png'},
+        //       {href:'',img:'../assets/images/bg2.png'}
+        //   ],
           curSwiper:0,
           curCoinTab:0,
           coinTabList:[{title:'USDT行情'},{title:'BTC行情'}],
@@ -154,6 +196,24 @@ export default {
             //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
             //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
             //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+          ],
+          coin_list:[
+                {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                 {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                  {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                   {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                    {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                     {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                      {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                       {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                        {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+                         {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
+          ],
+          noticeList:[
+              {text:'DQ交易所测试上线。。。',url:''},
+              {text:'DQ交易所测试上线。。。',url:''},
+              {text:'DQ交易所测试上线。。。',url:''},
+              {text:'DQ交易所测试上线。。。',url:''},
           ]
       }
   },
@@ -161,17 +221,32 @@ export default {
      this.init(this.initKline); 
   },
   mounted(){
-       var mySwiper = new Swiper ('.swiper-container', {
+       var mySwiper = new Swiper ('.swiper-container01', {
             // direction: 'vertical',
             // loop: true,
             
             // 如果需要分页器
-            pagination: '.swiper-pagination',
+            pagination: '.swiper-pagination01',
             paginationClickable: true,
             // 如果需要前进后退按钮
             slidesPerView:5,
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
+            observer:true, //修改swiper自己或子元素时，自动初始化swiper
+            observeParents:true,//修改swiper的父元素时，自动初始化swiper
+        })   
+        var mySwiper02 = new Swiper ('.banner_wrap', {
+            // direction: 'vertical',
+            loop: true,
+            autoplay : 2000,
+            
+            // 如果需要分页器
+            pagination: '.swiper-pagination02',
+            paginationClickable: true,
+            // 如果需要前进后退按钮
+            // slidesPerView:5,
+            // nextButton: '.swiper-button-next',
+            // prevButton: '.swiper-button-prev',
             observer:true, //修改swiper自己或子元素时，自动初始化swiper
             observeParents:true,//修改swiper的父元素时，自动初始化swiper
         })   
@@ -320,8 +395,46 @@ export default {
 };
 </script>
 <style>
-.swiper-slide:hover{
+.carousel .swiper-slide:hover{
     background-color: #327ADD;
+}
+.nav_left,.con_left{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.withdraw{
+    margin: 0 4px;
+}
+.carousel .last a:hover{
+    cursor: pointer;
+}
+.sliders{
+    width: 100%;
+}
+.sliders img{
+    width: 100%;
+    height: 500px;
+}
+.notice_ul{
+    padding: 25px 0;
+    background: #161923;
+    margin-bottom: 5px;
+}
+.notice_li{
+    flex: 1;
+    text-align: center;
+}
+.notice_li::after{
+    content: '/';
+    float:right;
+}
+.notice_li:last-child:after{
+    content: '';
+    color: #6b80ae;
+}
+.notice_a:hover{
+    color: #6b80ae;
 }
 </style>
 

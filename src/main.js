@@ -10,6 +10,8 @@ import Qs from 'qs'
 import "@/assets/style/common.scss"
 import VueSocketio from 'vue-socket.io'
 import echarts from 'echarts'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts 
 
 Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
