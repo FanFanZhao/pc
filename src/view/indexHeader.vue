@@ -185,7 +185,7 @@ export default {
       this.current = index;
       console.log(index, name);
       // this.bus.$emit('nav_name',name);
-      this.$router.push({ name: name });
+      this.$router.push({ name: name});
     },
     loginOut() {
       console.log("out");
