@@ -8,17 +8,17 @@
 			<div class="fr">
 				<div class="account-box fl positionR curPer flex">
 					<div class="msg_wrap">
-					<div class="assets_item fColor1 fl" @mouseover="assets_over" @mouseout="assets_out" v-if="address.length<=0">
+					<div class="assets_item fColor1 fl" @mouseover="assets_over" @mouseout="assets_out" v-if="address.length>0">
 						<img class="assets_icon_img" src="@/assets/images/assets.png" alt="">
 						<span class="sp">{{assets}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
-					<div class="order_item fColor1 fl" @mouseover="order_over" @mouseout="order_out" v-if="address.length<=0">
+					<div class="order_item fColor1 fl" @mouseover="order_over" @mouseout="order_out" v-if="address.length>0">
 						<img class="order_icon_img" src="@/assets/images/order.png" alt="">
 						<span class="sp">{{orders}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
-					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length<=0">
+					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
 						<span>{{account_number}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
@@ -53,7 +53,7 @@
 						</p>
 					</div>
 				</div>
-				<div  class="fl login mr50" v-if="address.length>0">
+				<div  class="fl login mr50" v-if="address.length<=0">
 					<router-link :to="{ name: 'login'}">
 						<span>登录</span>
 					</router-link>
@@ -72,7 +72,7 @@ export default {
   name: "indexHeader",
   data() {
     return {
-      address: "hhh",
+      address: "",
       account_number: "120",
       assets: "资产",
       orders: "订单",
