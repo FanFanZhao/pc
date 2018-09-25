@@ -1,5 +1,5 @@
 <template>
-    <div class="market">
+    <div class="market" >
 		<div class="m_title  clear fColor1">
             <span class="fff fl">市场</span>
             <div class="m_search fr">
@@ -134,11 +134,11 @@
 </script>
 
 <style scoped>
-.m_title{position: relative;}
-.m_title span{margin-left: 30px;font-weight: 700;}
-.m_search{position: absolute;width: 146px;right: 20px;top: -4px;height: 26px;border-radius: 3px;padding: 4px 8px 4px 0;}
-.m_search input{position: absolute;left: 0;top: 0;z-index: 2;width: 100%;padding: 5px 40px 5px 8px;height: 26px;border-radius: 3px;background: transparent;border: 1px solid #52688c;}
-.m_search img{width: 16px;height: 15px;position: absolute;right: 5px;top: 7px;z-index: 123;}
+.m_title{height: 55px;padding: 15px 30px;line-height: 25px;position: relative;}
+.m_search input{border-radius: 3px;background: transparent;border: 1px solid #52688c;line-height: 25px;}
+/* .m_search{position: absolute;width: 146px;right: 20px;top: -4px;height: 26px;border-radius: 3px;padding: 4px 8px 4px 0;} */
+/* .m_search input{position: absolute;left: 0;top: 10px;z-index: 2;width: 100%;padding: 5px 40px 5px 8px;height: 26px;border-radius: 3px;background: transparent;border: 1px solid #52688c;} */
+.m_search img{width: 16px;height: 15px;position: absolute;right: 35px;top: 20px;z-index: 123;}
 .m_filter{padding: 0 30px;}
 .tabtitle span:not(:last-child) {margin-right: 40px;}
 .coin-title div{width: 33.3%;height: 36px;line-height: 36px;background-color: #181b2a;text-align: center;float: left;color: #637085;font-size:12px;}
