@@ -1,15 +1,17 @@
 <template>
     <div class="indexBlackes">
         <indexHeader></indexHeader>
-        <router-view></router-view>      
+        <router-view></router-view>
+        <indexFooter></indexFooter>      
     </div>  
 </template>
 <script>
 import indexHeader from '@/view/indexHeader'
 import homeContent from '@/view/homeContent'
+import indexFooter from '@/view/indexFooter'
 export default {
     name:'home',
-    components:{indexHeader,homeContent},
+    components:{indexHeader,homeContent,indexFooter},
     created(){
         console.log('homeContent')
         // this.$router.push({name:'homeContent'})
