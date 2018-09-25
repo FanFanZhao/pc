@@ -48,6 +48,9 @@ input{
     -ms-display:flex;
     -o-display:flex;
 }
+.column{
+    flex-direction: column
+}
 .flex1{
     flex: 1;
 }
@@ -122,9 +125,12 @@ input{
 .w6{width: 6%}
 .w8{width: 8%}
 .w10{width: 10%}
+.w11{width: 11%}
 .w14{width:14%}
 .w15{width: 15%}
+.w16{width: 16%}
 .w20{width: 20%}
+.w25{width: 25%}
 .w30{width: 30%}
 .w12{width: 12%}
 .w18{width: 18%}
@@ -135,6 +141,7 @@ input{
 .fColor2 {color: #637085;}
 .baseColor {color: #7a98f7;}
 .ceilColor{color: #009688;}
+.fColor3{color: #61688a}
 .curPer{cursor: pointer;}
 .contentBK{background-color: #181b2a}
 .ttBk{
