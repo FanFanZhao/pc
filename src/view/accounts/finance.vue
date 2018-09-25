@@ -19,7 +19,7 @@
                <p class="flex1 tc">操作</p>
            </div>
            <ul class="content_ul">
-               <li v-for="item in asset_list">
+               <li v-for="(item,index) in asset_list">
                     <div class="content_li flex alcenter between">
                    <p class="flex1 tc">{{item.name}}</p>
                    <p class="flex1 tc">{{item.available_money}}</p>
@@ -27,19 +27,50 @@
                    <p class="flex1 tc">{{item.valuation}}</p>
                    <p class="flex1 tc">{{item.lock_position}}</p>
                    <p class="flex1 tc operation">
-                       <span>充币</span>
-                       <span>提币</span>
-                       <span>兑换</span>
+                       <span @click="excharge(index)" >充币</span>
+                       <span @click="withdraw(index)">提币</span>
+                       <span @click="exchange">兑换</span>
                    </p>
                    </div>
-                   <div class="hide_div">
+                   <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
-                       <p class="mt50 mb50"><span class="ft18 fColor1">44fdgfkdjghfdnvfjdgrgFDGDgfgfgf</span><span class="copy ft14">复制</span><span class="ewm ft14">二维码</span></p>
+                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm ft14">二维码</span></p>
                        <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
                            <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list">{{item}}</li>
                        </ul>
+                   </div>
+                   <div class="hide_div" v-if="index == active01">
+                       <p class="fColor2 ft12 mb15">提币地址</p>
+                       <input class="address_inp fColor1 mb30" type="text" />
+                       <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">0.0000</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
+                       <label class="num_lab flex between mb30"><input class="fColor1" type="text" /><span>USDT</span></label>
+                       <div class="flex mb50">
+                           <div class="left_inp_wrap flex1">
+                               <p class="fColor2 ft12 mb15">
+                                   <span>手续费</span>
+                                   <span>范围：<span>5.0000000</span>-<span>5.0000000</span></span>
+                               </p>
+                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" /><span>USDT</span></label>
+                           </div>
+                           <div class="right_inp_wrap flex1">
+                               <p class=" mb15">
+                                   <span class="fColor2 ft12">到账数量</span>
+                               </p>
+                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled  type="number" /><span>USDT</span></label>
+                           </div>
+                       </div>
+                       <div class="flex">
+                        <div class="flex2">
+                       <p class="ft12 fColor2 mb15">温馨提示</p>
+                       <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
+                           <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list01">{{item}}</li>
+                       </ul>
+                       </div>
+                       <div class="flex1 tc"><button class="withdraw_btn">提币</button></div>
+                       
+                       </div>
                    </div>
                </li>
            </ul>
@@ -54,14 +85,21 @@ export default {
     name:'finance',
     data(){
         return{
+            flag:false,
+            active:'a',
+            active01:'a',
             addr:'',
             url:'',
+            excharge_address:'44fdgfkdjghfdnvfjdgrgFDGDgfgfgf',
             asset_list:[
                 {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
                 {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
                 {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
             ],
             tip_list:[
+                '请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。','请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。'
+            ],
+            tip_list01:[
                 '请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。','请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。'
             ]
         }
@@ -82,6 +120,50 @@ export default {
             clipboard.on('error', function (e) {
                 alert('复制失败')
             });
+        },
+        //充币
+        excharge(index){
+            console.log(index);
+            if(this.flag){
+                this.flag = false;
+                this.active = 'a';
+                 this.active01 = 'a';
+            }else{
+                this.flag = true;
+                 this.active = index;
+                 this.active01 = 'a';
+            }
+           
+        },
+        //提币
+        withdraw(index){
+            
+             if(this.flag){
+                this.flag = false;
+                this.active = 'a';
+                this.active01 = 'a'
+            }else{
+                this.flag = true;
+                 this.active01 = index;
+                 this.active = 'a';
+            }
+        },
+        exchange(){
+
+        },
+        //复制
+        copy(){
+          var clipboard = new Clipboard('#copy',{
+                    text:function(){
+                        return this.excharge_address
+                    }
+                });
+          clipboard.on("success", function (e) {
+                        alert('复制成功')
+                    });
+                    clipboard.on("error", function (e) {
+                        alert('请重新复制')
+                    });
         }
     },
     created(){
@@ -96,7 +178,7 @@ export default {
                 this.addr=res.data.message.company_eth_address;
                 this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
                 var content = this.addr;
-                var clipboard = new Clipboard('#copy')
+                // var clipboard = new Clipboard('#copy')
             }).catch(error=>{
                 return error
             })
@@ -156,6 +238,12 @@ export default {
     .copy{
         margin: 0 30px;
     }
+    .copy:hover{
+        cursor: pointer;
+    }
+    .ewm:hover{
+        cursor: pointer;
+    }
     .operation span{
         cursor: pointer;
     }
@@ -165,6 +253,56 @@ export default {
     }
     .excharge_record{
         color: #5697f4;
+    }
+    input{
+        background: none;
+        border: none;
+    }
+    .address_inp{
+        width: 100%;
+        border: 1px solid #6b80ae;
+        border-radius: 3px;
+        padding: 15px 15px;
+    }
+    .num_lab{
+        display: flex;
+        width: 100%;
+        border: 1px solid #6b80ae;
+        border-radius: 3px;
+        padding: 15px;
+    }
+    .num_lab input{
+        width: 100%;
+    }
+    .range_lab,.get_lab{
+         border: 1px solid #6b80ae;
+        border-radius: 3px;
+        padding: 15px;
+    }
+    .get_lab{
+        background: #1e2c42;
+    }
+    .right_inp_wrap{
+        margin-left: 20px;
+    }
+    .use_num,.advance{
+        color: #5697f4;
+    }
+    .use_num{
+        margin-right: 5px;
+    }
+    .advance{
+        margin-left: 5px;
+    }
+    .withdraw_btn{
+        background-color: #7a98f7;
+        color: #fff;
+        padding: 15px 70px;
+        border: none;
+        border-radius: 5px;
+    }
+    .withdraw_btn:hover{
+        cursor: pointer;
     }
 </style>
 
