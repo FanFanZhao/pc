@@ -21,18 +21,20 @@
         name:'account',
         data(){
             return {
-                lang:''
+                lang:'',
+                currentIndex:0,
             }
         },
         components:{
             indexHeader,
             left,
         },
-        // mounted(){
-        //     this.bus.$on('nav_name',cur=>{
-        //         this.array.findIndex()
-        //     })
-        // }
+        mounted(){
+            // this.bus.$on('nav_name',cur=>{
+            //     console.log(this.array.findIndex())
+            //     this.currentIndex= this.array.findIndex();
+            // })
+        }
     }
 </script>
 <style scoped >
