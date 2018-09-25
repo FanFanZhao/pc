@@ -39,7 +39,7 @@
 
 <script>
 	import indexHeader from '@/view/indexHeader'
-	import notice from '@/view/notice'
+	import notice from '@/components/noticeLIst'
 	import deal from '@/view/deal'
 	import exchange from '@/view/exchange'
 	import market from '@/view/market'
