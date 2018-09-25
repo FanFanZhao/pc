@@ -5,28 +5,7 @@
             <span class="fr base mouseDefault" @click="goRecord">充币记录</span>
         </div>
         <div class="recharge-wrap ft14 fColor2">
-            <!-- <div class="clear">
-                <div class="left fl tr" style="line-height: 48px;">币种</div>
-                <div class="right fl">
-                    <div class="positionR" style="width: 360px;">
-                        <div class="selected pageBack">USDT</div>
-                        <span style="">
-                            <img src="@/assets/images/register_icon_down.png" >
-                            <img src="@/assets/images/register_icon_up.png" style="display: none;">
-                            </span>
-                        <ul class="pageBack" style="display: none;">
-                            <li >
-                                USDT
-                            </li>
-                            <li >
-                                JNB
-                            </li>
-                            <li >
-                                ETH
-                            </li>
-                        </ul> <input type="hidden" disabled="disabled" value="USDT"></div>
-                </div>
-            </div> -->
+           
             <div class="mt40 clear">
                 <div class="left fl tr">充币地址</div>
                 <div class="right fl">
