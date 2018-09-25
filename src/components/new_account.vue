@@ -30,7 +30,7 @@
 </script>
 <style scoped >
     .box .account{
-        width: 1200px;
+        width: 1500px;
         padding-top: 30px;
         min-height: 880px;
         margin: 0px auto;
