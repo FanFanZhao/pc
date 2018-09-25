@@ -37,9 +37,9 @@
                     <p class="w11 tr l40">无风险</p>
                     <p class="w5 tr l40">---</p>
                     <p class="w25 tr baseColor l40 btn">
-                        <span>转入</span>
-                        <span>转出</span>
-                        <span>杠杆</span>
+                        <span @click="turnin">转入</span>
+                        <span @click="turnout">转出</span>
+                        <span @click="golever">杠杆</span>
                     </p>
                 </li>
                 <li class="clearfix flex">
@@ -59,32 +59,139 @@
                     <p class="w11 tr l40">无风险</p>
                     <p class="w5 tr l40">---</p>
                     <p class="w25 tr baseColor l40 btn">
-                        <span>转入</span>
-                        <span>转出</span>
+                        <span @click="turnin">转入</span>
+                        <span @click="turnout">转出</span>
                         <span>杠杆</span>
                     </p>
                 </li>
             </ul>
         </div>
+        <div class="dialog_wrap" v-show="inDialog">
+            <div class="dialog">
+                <div class="dia-tit clearfix">
+                    <span class="fl fColor1">转入本金</span>
+                    <span class="fr fColor3 close" @click="close">X</span>
+                </div>
+                <div class="dia-content fColor1">
+                    <div class="dia-container">
+                        <div class="flex alcenter frombox">
+                            <span class="fColor3 ft12 tc">从</span>
+                            <p class="ft14 flex1">交易账户</p>
+                        </div>
+                        <div class="frombox flex alcenter w10 tc">
+                            <img src="@/assets/images/trade.png" alt="" class="coinimg">                      
+                        </div>
+                        <div class="flex alcenter frombox">
+                            <span class="fColor3 ft12 tc">到</span>
+                            <p class="ft14 flex1">BTC/USDT杠杆账户</p>
+                        </div>
+                    </div>
+                    <div class="div-input mt20">
+                        <p class="ft12 fColor3">币种</p>
+                        <div class="dia-coin flex tc mt10 ft12 fColor3">
+                            <p v-for="(item,index) in coins" :class="{select:index==current}" @click="chooseCoin(index)">{{item.coin}}<i></i></p>
+                        </div>
+                    </div>
+                    <div class="div-input mt20">
+                        <p class="ft12 fColor3 flex between">
+                            <span>数量</span>
+                            <span>可转 0.00000000 BTC</span>
+                        </p>
+                        <div class="inputboxs flex between alcenter mt10">
+                            <input type="text">
+                            <div class="ft12 fColor3">
+                                <span>BTC</span>
+                                <span>|</span>
+                                <span class="all">全部</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-box flex ft16 tc">
+                        <div>取消</div>
+                        <div class="sure">确定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialog_wrap" v-show="outDialog">
+            <div class="dialog">
+                <div class="dia-tit clearfix">
+                    <span class="fl fColor1">转出本金</span>
+                    <span class="fr fColor3 close" @click="close">X</span>
+                </div>
+                <div class="dia-content fColor1">
+                    <div class="dia-container">
+                        <div class="flex alcenter frombox">
+                            <span class="fColor3 ft12 tc">从</span>
+                            <p class="ft14 flex1">BTC/USDT杠杆账户</p>
+                        </div>
+                        <div class="frombox flex alcenter w10 tc">
+                            <img src="@/assets/images/trade.png" alt="" class="coinimg">                      
+                        </div>
+                        <div class="flex alcenter frombox">
+                            <span class="fColor3 ft12 tc">到</span>
+                            <p class="ft14 flex1">交易账户</p>
+                        </div>
+                    </div>
+                    <div class="div-input mt20">
+                        <p class="ft12 fColor3">币种</p>
+                        <div class="dia-coin flex tc mt10 ft12 fColor3">
+                            <p v-for="(item,index) in coins" :class="{select:index==current}" @click="chooseCoin(index)">{{item.coin}}<i></i></p>
+                        </div>
+                    </div>
+                    <div class="div-input mt20">
+                        <p class="ft12 fColor3 flex between">
+                            <span>数量</span>
+                            <span>可转 0.00000000 BTC</span>
+                        </p>
+                        <div class="inputboxs flex between alcenter mt10">
+                            <input type="text">
+                            <div class="ft12 fColor3">
+                                <span>BTC</span>
+                                <span>|</span>
+                                <span class="all">全部</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-box flex ft16 tc">
+                        <div>取消</div>
+                        <div class="sure">确定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import indexHeader from '@/view/indexHeader'
-import left from '@/view/left'
-import "@/lib/clipboard.min.js"
 export default {
     name:'lever',
     data(){
         return{
-           
+            current:0,
+            inDialog:false,
+            outDialog:false,
+            coins:[{coin:"ETC"},{coin:"USDT"}]
         }
     },
-    components:{
-        indexHeader,
-        left
-    },
+    components:{indexHeader},
     methods:{
-       
+        chooseCoin(index){
+           this.current=index;
+        },
+        turnin(){
+            this.inDialog=true
+        },
+        turnout(){
+            this.outDialog=true
+        },
+        close(){
+            this.inDialog=false
+            this.outDialog=false
+        },
+        golever(){
+            this.$router.push({name:'manger'})
+        }
     },
     created(){
         this.address=localStorage.getItem('address') || '';
@@ -154,11 +261,139 @@ export default {
                 }
                 .btn{
                     span{
-                        margin-left: 20px
+                        margin-left: 20px;
+                        cursor: pointer;
+                    }
+                    span:hover{
+                        color: #61688a
                     }
                 }
             }
         }
+    }
+    .dialog_wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 9;
+        text-align: center;
+        background: rgba(0,0,0,.4);
+        .dialog {
+            margin-top: 220px;
+            display: inline-block;
+            width: 560px;
+            padding-top: 30px;
+            box-sizing: border-box;
+            border-radius: 3px;
+            text-align: left;
+            vertical-align: middle;
+            background-color: #262a42;
+            .dia-tit{
+                padding: 0 40px 30px;
+                font-size: 24px;
+                line-height: 24px;
+                .close{
+                    cursor: pointer;
+                }
+                .close:hover{
+                    color: #fff
+                }
+            }
+            .dia-content{
+                padding: 0 40px;
+                margin-bottom: 20px;
+                .frombox{
+                    height: 48px;
+                    line-height: 48px;
+                    span{width: 10%}
+                    p{
+                        height: 48px;
+                        padding-left: 20px;
+                        line-height: 48px;
+                        border-radius: 3px;
+                        background-color: #202437;
+                    }
+                    .coinimg{
+                        width: 28px;
+                        margin: 0 auto
+                    }
+                }
+                .dia-coin{
+                    background-color: #202437;
+                    p{
+                        width: 50%;
+                        width: 50%;
+                        height: 48px;
+                        line-height: 48px;
+                        cursor: pointer;
+                        position: relative;
+                        i{
+                            display: none;
+                            position: absolute;
+                            bottom: 4px;
+                            right: 4px;
+                            width: 0;
+                            height: 0;
+                            border: 6px solid transparent;
+                            border-right: 6px solid #fff;
+                            border-bottom: 6px solid #fff;
+                        }
+                    }
+                    .select{
+                        color: #fff;
+                        background-color: #7a98f7;
+                        i{
+                            display: block
+                        }
+                    }
+                    p:first-child{
+                        border-radius: 3px 0 0 3px;
+                    }
+                    p:last-child{
+                        border-radius: 0 0px 3px 0;
+                    }
+                } 
+                .inputboxs{
+                    width: 100%;
+                    border-radius: 3px;
+                    background-color: #1e2235;
+                    border: 1px solid #4e5b85;
+                    padding: 0 20px;
+                    input{
+                        background: transparent;
+                        height: 46px;
+                        color: #fff
+
+                    }
+                    span{
+                        margin-left: 15px
+                    }
+                    .all{
+                        color: #ff7519;
+                        cursor: pointer;
+                    }
+                }
+                .btn-box{
+                    margin: 50px 0;
+                    div{
+                        width: 50%;
+                        height: 48px;
+                        line-height: 48px;
+                        margin: 0 10px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                    }
+                    .sure{
+                        color: #fff;
+                        background: #7a98f7;
+                    }
+                }
+                
+            }
+        }
+            
     }
 }
 </style>

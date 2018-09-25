@@ -101,8 +101,8 @@ export default {
 .tab_title{display: inline-block;line-height: 46px;height: 46px;}
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
-.content{padding: 0 40px 0 30px;height: 300px;}
-.list-title{line-height: 40px; border-bottom: 1px solid #303b4b;}
+.content{padding: 0 40px 0 30px;height: 330px;}
+.list-title{line-height: 40px; border-bottom: 1px solid #303b4b;height: 40px;}
 .no_data{padding: 50px 0;}
 .container{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}

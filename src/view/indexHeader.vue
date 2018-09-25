@@ -82,7 +82,7 @@ export default {
       current: 0,
       tabList: [
         { title: "首页", page: "homeContent" },
-        { title: "交易", page: "dealCenter" },
+        { title: "杠杆交易", page: "dealCenter" },
         { title: "我的资产", page: "homeContent" },
         { title: "APP下载", page: "homeContent" }
       ],
@@ -387,8 +387,10 @@ export default {
       vertical-align: middle;
       font-size: 14px;
       cursor: pointer;
+      color:#c7cce6;
       &.active {
-        border-bottom: 1px solid #5697f4;
+        color:#7a98f7;
+        border:none;
       }
     }
   }

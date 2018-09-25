@@ -51,9 +51,6 @@
         border-radius: 3px;
         background-color: #181b2a;
     }
-    .topcontent span{
-        
-    }
     .leftcontent{
         width: 220px;
 		margin-right: 20px;
@@ -67,6 +64,7 @@
         margin-left: 240px;
         min-height: 1000px
     }
+    
 </style>
 
 
