@@ -6,7 +6,7 @@
             </p>
             <p class="fr right_text">
                 <span class="record" @click="record">财务记录</span>
-                <span class="address" @click="withdraw">提币地址管理</span>
+                <span class="address" @click="withdraw_address">提币地址管理</span>
             </p>
         </div>
         <div class="content fColor1 ft12">
@@ -34,7 +34,7 @@
                    </div>
                    <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
-                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm ft14">二维码</span></p>
+                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span><span class="ewm ft14">二维码</span><img src="" /></span></p>
                        <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
@@ -166,7 +166,10 @@ export default {
                     });
         },
         record(){
-            
+            this.$router.push({ name: 'finanrec' });
+        },
+        withdraw_address(){
+            this.$router.push({ name: 'withdraw_address' });
         }
     },
     created(){
