@@ -101,15 +101,16 @@
 				</div>
 			</div>
 		</div>
+		<indexFooter></indexFooter>
 	</div>
-
 </template>
 
 <script>
 	import indexHeader from '@/view/indexHeader'
+	import indexFooter from '@/view/indexFooter'
 	export default {
 		name: "register",
-		components:{indexHeader},
+		components:{indexHeader,indexFooter},
 		data (){
 			return{
 				nation:"China",
