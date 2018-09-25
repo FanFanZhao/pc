@@ -122,12 +122,14 @@ export default {
         {
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
-          title: "充币&提币"
+          title: "充币&提币",
+          page:'finance'
 		},
 		{
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
-          title: "杠杆"
+          title: "杠杆",
+           page:'lever'
         }
       ],
       orderList: [
