@@ -55,13 +55,7 @@
 </script>
 <style lang="scss" scoped>
 	.leftNav{
-		margin-right:20px;
-		padding:4px;
-		background-color: rgb(26, 35, 48);
-		width:210px;
-		float:left;
-		margin-bottom: -10000px;
-		padding-bottom: 10000px;
+		
 		ul{
 			height:820px;
 			li{

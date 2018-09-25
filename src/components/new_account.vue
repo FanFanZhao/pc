@@ -2,8 +2,12 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <left></left>
-            <router-view></router-view>
+            <div class="leftcontent">
+               <left></left> 
+            </div>
+            <div class="rightcontent">
+               <router-view></router-view>
+            </div>
         </div>
     </div>
 </template>
@@ -30,13 +34,24 @@
 </script>
 <style scoped >
     .box .account{
-        width: 1500px;
-        padding-top: 30px;
-        min-height: 880px;
-        margin: 0px auto;
-        overflow: hidden;
+        width: 1200px;
+        margin: 0 auto 82px;
     }
-   
+    .leftcontent{
+        width: 220px;
+		margin-right: 20px;
+		height: 350px;
+		border-radius: 3px;
+		padding: 4px;
+        float: left;
+        background-color: #181b2a;
+    }
+    .rightcontent{
+        width: 960px;
+        margin-left: 240px;
+        background-color: #181b2a;
+        min-height: 1000px
+    }
 </style>
 
 
