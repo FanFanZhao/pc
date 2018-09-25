@@ -2,10 +2,6 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-<<<<<<< HEAD
-            <left v-bind:lang="lang" :current="0"></left>
-            <router-view></router-view>
-=======
             <div class="topcontent ft20 fColor1">
                 <span>资产</span>
             </div>
@@ -15,7 +11,6 @@
             <div class="rightcontent contentBK">
                <router-view></router-view>
             </div>
->>>>>>> ba5443128e48b16f7e042354a2663c8f73fe08c9
         </div>
     </div>
 </template>
