@@ -18,6 +18,9 @@ import noticeList from '@/components/noticeList'
 import noticeDetail from '@/components/noticeDetail'
 import aceite from '@/view/aceite'
 import chargeRecord from '@/view/chargeRecord'
+import new_account from '@/components/new_account'
+import finance from '@/view/accounts/finance'
+import lever from '@/view/accounts/lever'
 Vue.use(Router)
 export default new Router({
 	routes: [
@@ -114,6 +117,27 @@ export default new Router({
 					name:'chargeRecord',
 					component:chargeRecord
 				}
+
+			]
+
+		},
+		{
+			path:'/new_account',
+			name:'new_account',
+			component:new_account,
+			children: [
+			
+				{
+					path:'/finance',
+					name:'finance',
+					component:finance
+				},
+				{
+					path:'/lever',
+					name:'lever',
+					component:lever
+				},
+				
 
 			]
 
