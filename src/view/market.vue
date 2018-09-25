@@ -1,6 +1,6 @@
 <template>
     <div class="market">
-		<div class="m_title mt20 clear fColor1">
+		<div class="m_title  clear fColor1">
             <span class="fff fl">市场</span>
             <div class="m_search fr">
                <input type="text" class="fColor1">

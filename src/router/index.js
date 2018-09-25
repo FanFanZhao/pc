@@ -28,7 +28,7 @@ export default new Router({
 			component: home,
 			children:[
 				{
-					path:'/',
+					path:'',
 					name:'homeContent',
 					component:homeContent
 				},

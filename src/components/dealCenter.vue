@@ -1,45 +1,38 @@
 <template>
 	<div class="home">
-		<!-- <indexHeader></indexHeader> -->
-		<!--主题部分-->
 		<div class="main">
-			<div class="notice_box">
-				<notice></notice>
+			<div class="main-l fl" >
+				<div class="sidebar">
+          <market></market>
+        </div>
+				<div class="notice_box" style="margin-top:10px">
+        <notice></notice>
+      </div>
 			</div>
-			<div class="trade_top">
-				<div class="sidebar fl">
-					<market></market>
-				</div>
+			<div class="main-r">
 				<div class="chart_wrap">
-					<chart></chart>
-				</div>
-			</div>
-			<div class="trade_panel">
-				<div class="panel_left fl">
-					<trade></trade>
-				</div>
-				<div class="panel_center fl">
-					<div class="panel_center_content">
-						<exchange></exchange>
+          <chart></chart>
+        </div>
+				<div class="parts clear">
+					<div class="trade-wrap fl" style="width:66%">
+						<trade></trade>
+					</div>
+					<div class="deadl-wrap fl" style="width:33%">
+						<deal></deal>
 					</div>
 				</div>
-				<div class="panel_right fl">
-					<deal></deal>
-				</div>
 			</div>
-			<div class="trade_entrust" v-if="address.length>0">
-				<div class="entrust_box">
-					<entrust></entrust>
-				</div>
-			</div>
-			<div class="trade_detail" v-if="address.length>0">
-				<div class="deatil_box">
-					<detail></detail>
-				</div>
-			</div>
-			<div class="currency_box">
-				<currency></currency>
-			</div>
+		</div>
+		<div class="home-b">
+			<div class="entrust_box">
+          <entrust></entrust>
+      </div>
+			<div class="deatil_box" style="margin:40px 0">
+          <detail></detail>
+        </div>
+				<div class="currency_box">
+        <currency></currency>
+      </div>
 		</div>
 	</div>
 </template>
@@ -82,77 +75,25 @@
 </script>
 
 <style scoped lang="scss">
-	.home{
-
-		.main{
-			margin-top:10px;
-			.notice_box{
-				height:40px;
-				padding: 0 10px;
+.home{
+	.main{
+		
+		.main-l{
+			
+			width: 360px;
+			height: 100%;
+			>div{
+				background: #181b2a;
+				margin: 10px;
 			}
-			.trade_top{
-				height: 540px;
-				background-color: #262a42;
-				padding: 0 10px;
-				.sidebar{
-					width: 23%;
-					height: 100%;
-					float: left;
-					background-color: #181b2a;
-				}
-				.chart_wrap{
-					height: 100%;
-					margin-left: 23%;
-					padding-left: 10px;
-				}
-			}
-			.trade_panel{
-				height: 660px;
-				background-color: #262a42;
-				padding: 10px;
-				&>*{
-					height: 100%;
-				}
-				.panel_left{
-					width: 48%;
-					background-color: #181b2a;
-				}
-				.panel_center{
-					width: 27%;
-					padding: 0 10px;
-					.panel_center_content{
-						width: 100%;
-						height: 100%;
-						background-color: #181b2a;
-					}
-				}
-				.panel_right{
-					width:25%;
-					background-color: #181b2a;
-				}
-			}
-			.trade_entrust{
-				padding: 0 10px;
-				background-color: #262a42;
-				.entrust_box{
-					width: 100%;
-					height: 100%;
-					background-color: #181b2a;
-				}
-			}
-			.trade_detail{
-				padding:10px;
-				background-color: #262a42;
-				.deatil_box{
-					width: 100%;
-					height: 100%;
-					background-color: #181b2a;
-				}
-			}
-			.currency_box{
-				padding: 0 10px;
-				background-color: #262a42;
+		}
+		.main-r{
+			padding: 10px 10px 10px 360px;
+			.parts{
+				margin-top: 10px;
+				background: #181b2a;
 			}
 		}
 	}
+}
 </style>
