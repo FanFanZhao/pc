@@ -1,10 +1,10 @@
 <template>
     <div class="notice">
-        <indexHeader></indexHeader>
+        <!-- <indexHeader></indexHeader> -->
         <div class="account-wrap">
-            <div class="account">
+            <div class="account" style="width:auto">
                 <div>
-                    <div class="back-nav fColor1 ft20"> 网站公告
+                    <div class="back-nav fColor1 ft20 clear"> 网站公告
                         <span class="fr fColor2 curPer" @click="goBefore">&lt;&lt;返回</span>
                     </div>
                     <div class="nav-after"></div>
@@ -17,8 +17,8 @@
                     <div>
                         <ul class="noticeList">
                             <li class="clear curPer" v-for="item in newList">
-                                <div class="ml25"  @click="goDetail(item.id)">
-                                    <p>{{item.title}}<span class="fr ft14">{{item.update_time}}</span></p>
+                                <div class=""  @click="goDetail(item.id)">
+                                    <p style="height:70px"><span class="fl">{{item.title}}</span><span class="fr ft14">{{item.update_time}}</span></p>
                                 </div>
                             </li>
                         </ul> 
@@ -83,14 +83,20 @@ export default {
 <style lang="scss" scoped>
 .notice{
     .account-wrap{
-        background: url(../assets/images/account_center_bg.jpg) no-repeat;
-        background-size: cover;
+        // background: url(../assets/images/account_center_bg.jpg) no-repeat;
+        // background-size: cover;
         .account {
-            width: 1500px;
+            // width: 1500px;
             margin: 0 auto;
-            padding-top: 30px;
+            // padding-top: 30px;
             overflow: hidden;
-            min-height: 880px;
+            // min-height: 880px;
+            padding-top: 0;
+            .back-nav{
+                height: 40px;
+                font-size: 16px;
+                line-height: 40px;
+            }
             .nav-after{
                 display: block;
                 height: 10px;
@@ -98,16 +104,24 @@ export default {
             }
             .account-content {
                 width: 100%;
-                min-height: 750px;
+                min-height: 450px;
                 background-color: #181b2a;
             ul{
                 padding: 0 20px;
                 font-size: 14px;
                 li{
                     border-bottom: 1px dashed #303b4b;
-                    height: 70px;
-                    line-height: 70px;
+                    height: 50px;
+                    line-height: 50px;
                     color: #cdd6e4;
+                    p{
+                        .fl{
+                            max-width: 150px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                        }
+                    }
                 }
             }
             }

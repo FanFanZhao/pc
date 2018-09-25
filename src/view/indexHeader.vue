@@ -1,6 +1,6 @@
 <template>
 	<div class="nav_bar">
-		<div class="content clear">
+		<div class="content clear" style="height:60px">
 			<div class="fl"><img src="@/assets/images/logo.png" class="navbar-logo"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList"  @click="goto(index,tabs.page)">{{tabs.title}}</li>
@@ -228,6 +228,9 @@ export default {
   .msg_wrap {
     display: flex;
     align-items: center;
+    >div{
+      margin: 0 10px;
+    }
   }
   .icon_img {
     width: 15px;
@@ -251,7 +254,7 @@ export default {
   .account_login,
   .assets_item,
   .order_item {
-    width: 100px;
+    // width: 100px;
     font-size: 14px;
   }
   .assets_item,
