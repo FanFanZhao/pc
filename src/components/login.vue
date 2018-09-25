@@ -75,7 +75,7 @@ import indexHeader from '@/view/indexHeader'
 					res = res.data;
 					if(res.type  === 'ok'){
 						localStorage.setItem('address',res.message);
-                        this.$router.push({name: 'home'});
+                        this.$router.push('/');
 					}else{
 						layer.msg(res.message);
 					}
