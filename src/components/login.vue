@@ -50,7 +50,7 @@ import indexHeader from '@/view/indexHeader'
             }
         },
 		created (){
-			this.account_number = this.$route.query.account_number
+			this.account_number = this.$route.query.account_number || ''
 		},
         methods:{
             login(){
