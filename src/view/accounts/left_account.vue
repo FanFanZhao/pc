@@ -1,5 +1,5 @@
 <template>
-	<div class="leftNav ft16">
+	<div class="leftNav ft14">
 		<ul class="fColor1">
 			<li v-for="(item,index) in array" :class="index == curActive ? 'active' :''" @click="goto(index,item.page)">
 				<img :src="index == curActive ? item.src2 : item.src1"/>

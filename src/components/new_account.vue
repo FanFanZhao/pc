@@ -2,10 +2,13 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <div class="leftcontent">
+            <div class="topcontent ft20 fColor1">
+                <span>资产</span>
+            </div>
+            <div class="leftcontent contentBK">
                <left></left> 
             </div>
-            <div class="rightcontent">
+            <div class="rightcontent contentBK">
                <router-view></router-view>
             </div>
         </div>
@@ -37,6 +40,18 @@
         width: 1200px;
         margin: 0 auto 82px;
     }
+    .topcontent{
+        height: 60px;
+        line-height: 60px;
+        padding: 0 30px;
+        margin: 20px 0;
+        font-size: 20px;
+        border-radius: 3px;
+        background-color: #181b2a;
+    }
+    .topcontent span{
+        
+    }
     .leftcontent{
         width: 220px;
 		margin-right: 20px;
@@ -44,12 +59,10 @@
 		border-radius: 3px;
 		padding: 4px;
         float: left;
-        background-color: #181b2a;
     }
     .rightcontent{
         width: 960px;
         margin-left: 240px;
-        background-color: #181b2a;
         min-height: 1000px
     }
 </style>
