@@ -39,7 +39,7 @@
                     <p class="w25 tr baseColor l40 btn">
                         <span @click="turnin">转入</span>
                         <span @click="turnout">转出</span>
-                        <span>杠杆</span>
+                        <span @click="golever">杠杆</span>
                     </p>
                 </li>
                 <li class="clearfix flex">
@@ -188,6 +188,9 @@ export default {
         close(){
             this.inDialog=false
             this.outDialog=false
+        },
+        golever(){
+            this.$router.push({name:'manger'})
         }
     },
     created(){

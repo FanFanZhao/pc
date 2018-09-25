@@ -22,6 +22,7 @@ import new_account from '@/components/new_account'
 import finance from '@/view/accounts/finance'
 import lever from '@/view/accounts/lever'
 import finanrec from '@/view/accounts/finanrec'
+import manger from '@/view/accounts/lever_manger'
 import withdraw_address from '@/view/accounts/withdraw_address'
 Vue.use(Router)
 export default new Router({
@@ -143,6 +144,13 @@ export default new Router({
 
 			]
 
+		},
+	    // 杠杆管理
+		{
+			
+			path:'/lever_manger',
+			name:'manger',
+			component:manger,
 		},
 		// 财务记录
 		{

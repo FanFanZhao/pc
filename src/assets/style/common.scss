@@ -87,7 +87,7 @@ input{
 }
 .scroll::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    background-color: #2b3648;
+    background-color: #222639;
 }
 .white{color: #fff;}
 .w50{width: 50%;}
@@ -129,6 +129,7 @@ input{
 .w14{width:14%}
 .w15{width: 15%}
 .w16{width: 16%}
+.w18{width: 18%}
 .w20{width: 20%}
 .w25{width: 25%}
 .w30{width: 30%}
@@ -137,16 +138,17 @@ input{
 .w90{width: 90%;}
 .w100 {width: 100%;}
 .lodw20{width: 20px;}
+.bold{font-weight: bold}
 .fColor1 {color: #c7cce6;}
 .fColor2 {color: #637085;}
+.fColor3{color: #61688a}
+.fColor4{color: #4e546f}
 .baseColor {color: #7a98f7;}
 .ceilColor{color: #009688;}
-.fColor3{color: #61688a}
 .curPer{cursor: pointer;}
 .contentBK{background-color: #181b2a}
-.ttBk{
-    background-color: #1b1e2e;
-}
+.topshadow{box-shadow: 0 3px 6px rgba(0,0,0,.1);}
+.ttBk{background-color: #1b1e2e;}
 .active{color: #7a98f7;border-bottom: 1px solid #7a98f7;}
 .baseBtn {
     background-color: rgb(86, 151, 244);
