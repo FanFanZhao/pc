@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       address: "",
-      account_number: "120",
+      account_number: "",
       assets: "资产",
       orders: "订单",
       show1: false,
@@ -149,29 +149,30 @@ export default {
 
     
     
-    this.address = localStorage.getItem("address") || "";
-    var address = this.address;
-    if (address != "") {
-      this.$http({
-        url: this.$utils.laravel_api + "user/getuserbyaddress",
-        method: "post",
-        data: {
-          address: address
-        }
-      })
-        .then(res => {
-          res = res.data;
-          if (res.type === "ok") {
-            // console.log(res.message)
-            this.account_number = res.message.account_number;
-          } else {
-            layer.msg(res.message);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+    this.address = localStorage.getItem("token") || "";
+    this.account_number = localStorage.getItem('accountNum') || '';
+    // var address = this.address;
+    // if (address != "") {
+    //   this.$http({
+    //     url: this.$utils.laravel_api + "user/getuserbyaddress",
+    //     method: "post",
+    //     data: {
+    //       address: address
+    //     }
+    //   })
+    //     .then(res => {
+    //       res = res.data;
+    //       if (res.type === "ok") {
+    //         // console.log(res.message)
+    //         this.account_number = res.message.account_number;
+    //       } else {
+    //         layer.msg(res.message);
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // }
 
   },
   mounted() {
