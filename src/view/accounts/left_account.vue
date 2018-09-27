@@ -18,7 +18,7 @@
 					{
 						src1: require("@/assets/images/icon_mine.png"),
 						src2: require("@/assets/images/icon_mine_s.png"),
-						text: '交易账号',
+						text: '交易账户',
 						page:'finance',
 						children:['finance']
 					},

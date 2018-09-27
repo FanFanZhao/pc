@@ -185,8 +185,9 @@ export default {
             }
         },
         getdata(){
-            console.log(this.token)
+
             var that = this;
+            console.log(that.token)
             $.ajax({
                 url: this.$utils.laravel_api + "wallet/list",
                 type: "POST",
@@ -195,7 +196,7 @@ export default {
                 beforeSend: function beforeSend(request) {
                    request.setRequestHeader("Authorization", that.token);
                 },
-                success: function success(data) {
+                success: function (data) {
                 console.log(data)
                 if (data.type == 'ok') {
                    
@@ -208,7 +209,8 @@ export default {
             // this.$http({
             // url: this.$utils.laravel_api + 'wallet/list',
             // method:'post',
-            // data:{}
+            // data:{},
+            // headers: {'Authorization':  that.token},
             // }).then(res=>{
             //     console.log(res)
  
