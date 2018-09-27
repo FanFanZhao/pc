@@ -49,16 +49,16 @@
 							<input type="text" class="input-main input-content" maxlength="6" style="width:316px">
 							<img src="http://116.62.127.60:8110/api/web/registLogin/getImageCode?uuid=6d60-89f6-6da1-e7be-32d0d77b4171&language=zh" alt="" class="pic-code curPer">
 						</div>
-						<div class="register-input hide">
+						<div class="register-input">
 							<span class="register-item">短信验证码</span>
-							<input type="password" class="input-main input-content" maxlength="6">
+							<input type="password" class="input-main input-content" maxlength="6" v-model="mbcode">
 							<div class="msg-code tc baseColor curPer">
 								<span>获取验证码</span>
 							</div>
 						</div>
-						<div class="register-input hide">
+						<div class="register-input " v-if="isPhones">
 							<span class="register-item">邮箱验证码</span>
-							<input type="password" class="input-main input-content" maxlength="6">
+							<input type="password" class="input-main input-content" maxlength="6" v-model="emcode">
 							<div class="msg-code tc baseColor curPer">
 								<span>获取验证码</span>
 							</div>
@@ -117,6 +117,8 @@
 				phone: '',
 				pwd: '',
 				re_pwd: '',
+				mbcode:'',
+				emcode:'',
 				parent: '',
 				phone:'',
 				current:0,
@@ -132,6 +134,9 @@
 			}
 		},
 		methods:{
+			confirmReg(){
+
+			},
 			select(){
                 this.iSnation=!this.iSnation
 			},
@@ -219,7 +224,7 @@
 	.arrow:after{content: "";position: absolute;right: 5px;top: 50%;margin-top: -3px;border-bottom: 0;border-top: 6px solid #ccc;border-right: 6px dashed transparent;border-left: 6px dashed transparent;}
 	.pic-code{position: absolute;left: 430px;top: 0;width: 100px;height: 46px;display: inline-block;}
 	.phoneleft{position: absolute;width: 100px;height: 46px;line-height:46px;left: 0px;padding-left:15px;font-size: 14px;color: #c7cce6;border-right: 2px solid #4e5b85;}
-	.msg-code{position: absolute;left: 422px;top: 1px;width: 110px;height: 46px;font-size: 14px;}
+	.msg-code{position: absolute;left: 422px;top: 22px;width: 110px;height: 46px;font-size: 14px;z-index: 999;}
 	.msg-code span{display: block;border-left: 1px solid #52688c;height: 20px;line-height: 20px;margin-top: 14px;}
 	.selectitem{width: 520px;box-shadow: 0 2px 6px 0 #000;border-color: #4e5b85;background-color: #1e2235;color: #61688a;position: absolute;z-index: 5;left: 0;max-height: 290px;overflow-y: auto;}
 	.titles{height: 32px;line-height: 32px;background-color: #1b1e2e;color: #61688a;padding: 0 20px;cursor: auto;}
