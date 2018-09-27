@@ -150,13 +150,12 @@ export default {
     var address = this.address;
     if (address != "") {
       this.$http({
-        url: this.$utils.laravel_api + "user/getuserbyaddress",
-        method: "post",
-        data: {
-          address: address
-        }
+        url: this.$utils.laravel_api + "user/info",
+        method: "get",
+        data: {}
       })
         .then(res => {
+          console.log(res)
           res = res.data;
           if (res.type === "ok") {
             // console.log(res.message)

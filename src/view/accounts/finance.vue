@@ -34,7 +34,7 @@
                    </div>
                    <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
-                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span><span class="ewm ft14">二维码</span><img src="" /></span></p>
+                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">二维码</span><img class="ewm_img" :class="{'hide':isHide}" src="../../assets/images/ewm.jpg" /></span></p>
                        <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
@@ -87,6 +87,7 @@ export default {
         return{
             flags:false,
             flag:false,
+            isHide:true,
             active:'a',
             active01:'a',
             addr:'',
@@ -175,6 +176,13 @@ export default {
         },
         withdraw_address(){
             this.$router.push({ name: 'withdraw_address' });
+        },
+        show_ewm(){
+            if(this.isHide){
+                this.isHide = false
+            }else{
+                this.isHide = true
+            }
         }
     },
     created(){
@@ -317,6 +325,18 @@ export default {
     }
     .bg{
         background: #2b3c71;
+    }
+    .ewm_wrap{
+        position: relative;
+    }
+    .ewm_img{
+        width: 100px;
+        position: absolute;
+        top: 25px;
+        left: -30px;
+    }
+    .hide{
+        display: none;
     }
 </style>
 
