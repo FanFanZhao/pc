@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       address: "",
-      account_number: "",
+      account_number: "120",
       assets: "资产",
       orders: "订单",
       show1: false,
@@ -147,55 +147,31 @@ export default {
   },
   created() {
 
-    // this.address = localStorage.getItem("address") || "";
-    // var address = this.address;
-    // if (address != "") {
-    //   this.$http({
-    //     url: this.$utils.laravel_api + "user/info",
-    //     method: "get",
-    //     data: {}
-    //   })
-    //     .then(res => {
-    //       console.log(res)
-    //       res = res.data;
-    //       if (res.type === "ok") {
-    //         // console.log(res.message)
-    //         this.account_number = res.message.account_number;
-    //       } else {
-    //         layer.msg(res.message);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    // }
-    // this.address = this.$store.state.accountNum;
-    // this.address = this.$store.state.accountNum;
-    this.account_number = window.localStorage.getItem('accountNum');
-    this.address = this.account_number;
-    // this.address = localStorage.getItem("address") || "";
-    // var address = this.address;
-    // if (address != "") {
-    //   this.$http({
-    //     url: this.$utils.laravel_api + "user/getuserbyaddress",
-    //     method: "post",
-    //     data: {
-    //       address: address
-    //     }
-    //   })
-    //     .then(res => {
-    //       res = res.data;
-    //       if (res.type === "ok") {
-    //         // console.log(res.message)
-    //         this.account_number = res.message.account_number;
-    //       } else {
-    //         layer.msg(res.message);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    // }
+    
+    
+    this.address = localStorage.getItem("address") || "";
+    var address = this.address;
+    if (address != "") {
+      this.$http({
+        url: this.$utils.laravel_api + "user/getuserbyaddress",
+        method: "post",
+        data: {
+          address: address
+        }
+      })
+        .then(res => {
+          res = res.data;
+          if (res.type === "ok") {
+            // console.log(res.message)
+            this.account_number = res.message.account_number;
+          } else {
+            layer.msg(res.message);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
 
   },
   mounted() {
