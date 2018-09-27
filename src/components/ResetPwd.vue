@@ -1,33 +1,26 @@
 <template>
-<div class="login">
+<div class="reset-box">
     <indexHeader></indexHeader>
     <div class="contentBK">
         <div class="content-wrap">
             <div class="account">
                 <div class="main">
-                    <p class="main_title">欢迎登录</p>
+                    <p class="main_title">忘记密码</p>
                     <div class="register-input">
                         <span class="register-item">账号</span>
                         <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account">
                     </div>
                      <div class="register-input">
-                        <span class="register-item">密码</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
+                        <span class="register-item">验证码</span>
+                        <input type="text" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
+                        <button type="button">获取验证码</button>
                     </div>
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
-                        <button class="register-button curPer" @click="login">登录</button>
-                        <div class="have-account">
-                            <router-link tag="span" class="baseColor" to="/resetPwd">忘记密码</router-link>
-                        </div>
+                        <button class="register-button curPer">确认</button>
+                        
                     </div>
-                    <div class="right-tip ">
-                        <p>还不是Huobi的用户？</p>
-                        <p>立即注册，在全球领先的数字资产交易平台开始交易。</p>
-                        <router-link :to="{ name: 'register'}">
-                            <p class="baseColor mt20">免费注册</p>
-                        </router-link>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -41,7 +34,7 @@
 import indexHeader from '@/view/indexHeader'
 import indexFooter from '@/view/indexFooter'
     export default {
-        name: "login",
+        
         components:{indexHeader,indexFooter},
         data (){
             return{
@@ -50,42 +43,10 @@ import indexFooter from '@/view/indexFooter'
             }
         },
 		created (){
-            console.log(this.$utils);
             
-			this.account_number = this.$route.query.account_number || ''
 		},
         methods:{
-            login(){
-                let account_number = this.$utils.trim(this.account_number);
-                let password = this.$utils.trim(this.password);
-                if(this.account_number.length == ''){
-                    layer.tips('请输入账号!', '#account');
-                    return;
-                }
-                if(this.password.length<6){
-                    layer.tips('密码不能小于六位!', '#pwd');
-                    return;
-                }
-                this.$http({
-					url: this.$utils.laravel_api + 'user/login',
-					method:'post',
-					data:{
-						user_string: account_number,
-                        password : password,
-                        type:1
-					}
-				}).then(res=>{
-					res = res.data;
-					if(res.type  === 'ok'){
-						localStorage.setItem('address',res.message);
-                        this.$router.push('/');
-					}else{
-						layer.msg(res.message);
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
-            }
+            
         }
 
     }

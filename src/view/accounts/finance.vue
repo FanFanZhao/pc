@@ -19,7 +19,7 @@
                <p class="flex1 tc">操作</p>
            </div>
            <ul class="content_ul">
-               <li v-for="(item,index) in asset_list">
+               <li v-for="(item,index) in asset_list" :key="index">
                     <div class="content_li flex alcenter between">
                    <p class="flex1 tc">{{item.name}}</p>
                    <p class="flex1 tc">{{item.available_money}}</p>
