@@ -18,7 +18,7 @@
                         <span class="register-item"></span>
                         <button class="register-button curPer" @click="login">登录</button>
                         <div class="have-account">
-                            <router-link tag="span" class="baseColor" to="/resetPwd">忘记密码</router-link>
+                            <router-link tag="span" class="baseColor" to="/forgetPwd" style="cursor:pointer">忘记密码</router-link>
                         </div>
                     </div>
                     <div class="right-tip ">
@@ -75,9 +75,13 @@ import indexFooter from '@/view/indexFooter'
                         type:1
 					}
 				}).then(res=>{
+                    console.log(res);
+                    
 					res = res.data;
 					if(res.type  === 'ok'){
-						localStorage.setItem('address',res.message);
+						localStorage.setItem('token',res.message);
+                        localStorage.setItem('accountNum',account_number);
+                        this.$store.commit('setAccountNum');
                         this.$router.push('/');
 					}else{
 						layer.msg(res.message);

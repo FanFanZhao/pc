@@ -20,7 +20,7 @@
 					</div>
 					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
-						<span>{{account_number}}</span>
+						<span>{{$store.state.accountNum}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
 					</div>
@@ -146,29 +146,30 @@ export default {
     };
   },
   created() {
-    this.address = localStorage.getItem("address") || "";
-    var address = this.address;
-    if (address != "") {
-      this.$http({
-        url: this.$utils.laravel_api + "user/getuserbyaddress",
-        method: "post",
-        data: {
-          address: address
-        }
-      })
-        .then(res => {
-          res = res.data;
-          if (res.type === "ok") {
-            // console.log(res.message)
-            this.account_number = res.message.account_number;
-          } else {
-            layer.msg(res.message);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+    this.address = this.$store.state.accountNum;
+    // this.address = localStorage.getItem("address") || "";
+    // var address = this.address;
+    // if (address != "") {
+    //   this.$http({
+    //     url: this.$utils.laravel_api + "user/getuserbyaddress",
+    //     method: "post",
+    //     data: {
+    //       address: address
+    //     }
+    //   })
+    //     .then(res => {
+    //       res = res.data;
+    //       if (res.type === "ok") {
+    //         // console.log(res.message)
+    //         this.account_number = res.message.account_number;
+    //       } else {
+    //         layer.msg(res.message);
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // }
   },
   mounted() {
     this.bus.$on("nav_name", name => {

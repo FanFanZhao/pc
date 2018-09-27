@@ -5,22 +5,21 @@
         <div class="content-wrap">
             <div class="account">
                 <div class="main">
-                    <p class="main_title">忘记密码</p>
+                    <p class="main_title">重置密码</p>
                     <div class="register-input">
-                        <span class="register-item">账号</span>
-                        <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account">
+                        <span class="register-item">请输入密码</span>
+                        <input type="password" class="input-main input-content" maxlength="20" v-model="pwd" id="pwd">
                     </div>
                      <div class="register-input">
-                        <span class="register-item">验证码</span>
-                        <input type="text" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
-                        <button type="button">获取验证码</button>
+                        <span class="register-item">请再次输入密码</span>
+                        <input type="password" class="input-main input-content" maxlength="16" v-model="repwd" id="repwd">
                     </div>
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
-                        <button class="register-button curPer">确认</button>
+                        <button class="register-button curPer" @click="reset">确认</button>
                         
                     </div>
-                   
+                    
                 </div>
             </div>
         </div>
@@ -34,19 +33,39 @@
 import indexHeader from '@/view/indexHeader'
 import indexFooter from '@/view/indexFooter'
     export default {
-        
+       
         components:{indexHeader,indexFooter},
         data (){
             return{
-                account_number:'',
-                password:'',
+                pwd:'',
+                repwd:'',
+                user_string:''
             }
         },
 		created (){
+            console.log(this.$utils);
             
+			this.account_number = this.$route.params.user_string || ''
 		},
         methods:{
-            
+            reset(){
+                if(this.pwd == ''){
+                    layer_tips('请输入密码')
+                    return;
+                } else if(this.repwd == ''){
+                    layer_tips('请再次输入密码');
+                    return;
+                } else if(this.pwd !== this.repwd){
+                    layer.msg('两次输入的密码不一致');
+                    return;
+                } else {
+                    this.$http({
+                        url:this.$utils.laravel_api + url,
+                        method:'post',
+                        data:{}
+                    })
+                }
+            }
         }
 
     }
