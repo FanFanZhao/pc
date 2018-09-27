@@ -43,7 +43,7 @@ export default {
     };
   },
   created: function() {
-    this.init();
+    // this.init();
      //买入、卖出记录
         that.$http({
                     url: this.$utils.laravel_api+'transaction/deal',
