@@ -48,7 +48,7 @@
         </div> -->
         <div class="notice">
            <ul class="flex alcenter around notice_ul">
-               <li v-for="item in noticeList" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" v-bind:href="item.url">{{item.text}}</a></li>
+               <li v-for="item in noticeList" :key="item.id" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" :data-id='item.id'>{{item.name}}</a></li>
            </ul>
         </div>
         <div class="active-data clearfix">
@@ -299,8 +299,8 @@ export default {
 					data:{}
 				}).then(res=>{
 					console.log(res)
-					if(res.type  === 'ok'){
-						
+					if(res.status  === 200){
+						this.noticeList = res.data.message;
 					}else{
 						layer.msg(res.message);
 					}
@@ -491,6 +491,7 @@ export default {
 }
 .notice_a:hover {
   color: #6b80ae;
+  cursor: pointer;
 }
 </style>
 
