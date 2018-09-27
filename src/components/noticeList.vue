@@ -49,25 +49,35 @@ export default {
     };
   },
   created() {
-    this.$http({
-      url: this.$utils.laravel_api + "news/list",
-      method: "get",
-      data: {}
-    })
-      .then(res => {
-        res = res.data;
-        if (res.type === "ok") {
-          console.log(res.message.list)
-          this.newList = res.message.list;
-        } else {
-          layer.msg(res.message);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.getNotice()
+    // this.$http({
+    //   url: this.$utils.laravel_api + "news/list",
+    //   method: "get",
+    //   data: {}
+    // })
+    //   .then(res => {
+    //     res = res.data;
+    //     if (res.type === "ok") {
+    //       console.log(res.message.list)
+    //       this.newList = res.message.list;
+    //     } else {
+    //       layer.msg(res.message);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   },
   methods: {
+    getNotice(){
+      this.$http({
+        url:this.$utils.laravel_api + 'news/list',
+        method:'post',
+      }).then(res => {
+        console.log(res);
+        
+      })
+    },
     goBefore() {
       this.$router.back(-1);
     },

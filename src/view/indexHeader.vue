@@ -20,7 +20,7 @@
 					</div>
 					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
-						<span>{{$store.state.accountNum}}</span>
+						<span>{{account_number}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
 					</div>
@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       address: "",
-      account_number: "120",
+      account_number: "",
       assets: "资产",
       orders: "订单",
       show1: false,
@@ -146,7 +146,9 @@ export default {
     };
   },
   created() {
-    this.address = this.$store.state.accountNum;
+    // this.address = this.$store.state.accountNum;
+    this.account_number = window.localStorage.getItem('accountNum');
+    this.address = this.account_number;
     // this.address = localStorage.getItem("address") || "";
     // var address = this.address;
     // if (address != "") {
@@ -196,7 +198,8 @@ export default {
     },
     loginOut() {
       console.log("out");
-      localStorage.removeItem("address");
+      localStorage.removeItem("token");
+      localStorage.removeItem("accountNum");
       this.$router.push({ name: "login" });
     },
     assets_over() {
