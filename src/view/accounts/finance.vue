@@ -183,27 +183,63 @@ export default {
             }else{
                 this.isHide = true
             }
+        },
+        getdata(){
+            console.log(this.token)
+            var that = this;
+            $.ajax({
+                url: this.$utils.laravel_api + "wallet/list",
+                type: "POST",
+                dataType: "json",
+                async: true,
+                beforeSend: function beforeSend(request) {
+                   request.setRequestHeader("Authorization", that.token);
+                },
+                success: function success(data) {
+                console.log(data)
+                if (data.type == 'ok') {
+                   
+
+                } else if (data.type == '999') {
+                    
+                }
+                }
+            });
+            // this.$http({
+            // url: this.$utils.laravel_api + 'wallet/list',
+            // method:'post',
+            // data:{}
+            // }).then(res=>{
+            //     console.log(res)
+ 
+            // }).catch(error=>{
+            //     console.log(error)
+            // })
         }
     },
     created(){
-        this.address=localStorage.getItem('address') || '';
-        console.log(this.address)
-        if(this.address){
-            this.$http({
-                url:this.$utils.laravel_api+'money/rechange?user_id='+this.address,
-                type:'GET'
-            }).then(res=>{
-                console.log(res)
-                this.addr=res.data.message.company_eth_address;
-                this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
-                var content = this.addr;
-                // var clipboard = new Clipboard('#copy')
-            }).catch(error=>{
-                return error
-            })
-        }
+        this.token= localStorage.getItem('token') || '';
+        // this.address=localStorage.getItem('address') || '';
+        // console.log(this.address)
+        // if(this.address){
+        //     this.$http({
+        //         url:this.$utils.laravel_api+'money/rechange?user_id='+this.address,
+        //         type:'GET'
+        //     }).then(res=>{
+        //         console.log(res)
+        //         this.addr=res.data.message.company_eth_address;
+        //         this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
+        //         var content = this.addr;
+        //         // var clipboard = new Clipboard('#copy')
+        //     }).catch(error=>{
+        //         return error
+        //     })
+        // }
     },
+
     mounted(){
+        var that = this;
+        that.getdata();
         this.init();
     }
 };

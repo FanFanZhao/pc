@@ -75,14 +75,56 @@
 import indexHeader from '@/view/indexHeader'
 export default {
     name:'finanrec',
+    components:{indexHeader},
     data(){
         return {
             lang:'',
+            token:'',
+            changeList:[]
         }
     },
-    components:{
-        indexHeader,
+    created(){
+        this.token= localStorage.getItem('token') || '';
+    },
+    methods:{
+        getdata(){
+            console.log(123456)
+            var that = this;
+            $.ajax({
+                url: this.$utils.laravel_api + "wallet/list",
+                type: "POST",
+                dataType: "json",
+                async: true,
+                beforeSend: function beforeSend(request) {
+                   request.setRequestHeader("Authorization", that.token);
+                },
+                success: function success(data) {
+                console.log(data)
+                if (data.type == 'ok') {
+                   
+
+                } else if (data.type == '999') {
+                    
+                }
+                }
+            });
+            // this.$http({
+            // url: this.$utils.laravel_api + 'wallet/list',
+            // method:'post',
+            // data:{}
+            // }).then(res=>{
+            //     console.log(res)
+ 
+            // }).catch(error=>{
+            //     console.log(error)
+            // })
+        }
+    },
+    mounted(){
+        var that = this;
+        that.getdata();
     }
+    
 }
 </script>
 
