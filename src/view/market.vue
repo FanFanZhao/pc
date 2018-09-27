@@ -14,7 +14,7 @@
                 <!-- <span class="active">USDT</span>
                 <span>JNB</span>
                 <span>JNB</span> -->
-                <span v-for="(tab,index) in tabList " :class="{'active': index == isShow}" @click="changeType(index)">{{tab}}</span>
+                <span v-for="(tab,index) in tabList " :class="{'active': index == isShow}" @click="changeType(index)">{{tab.name}}</span>
             </div>
         </div>
         <div class="coin-title clear">
@@ -33,13 +33,15 @@
         </div>
         <div class="line"></div>
         <ul class="coin-wrap scroll">
-            <li>
+            <!-- <li>
                 <span v-for="item in newData">{{item}}</span>
-            </li>
-            <li v-for="(market,index) in marketList " v-if="market.type==1">
-                <span>{{market.symbol}}</span>
-                <span>${{market.quotes.USD.price}}</span>
-                <span :class="{'green': market.quotes.USD.percent_change_24h>=0}">{{market.quotes.USD.percent_change_24h}}%</span>
+            </li> -->
+            <li v-for="(market,index) in marketList " :key="index" v-if="isShow == index">
+              <p v-for="itm in market" :key="itm.id">
+                <span>{{itm.name}}</span>
+                <span>${{itm.last_price}}</span>
+                <span :class="{'green':itm.proportion<=0}">{{itm.proportion>=0?'+'+itm.proportion:'-'+itm.proportion}}%</span>
+                </p>
             </li>
             
         </ul>
@@ -52,13 +54,36 @@
         data (){
             return{
                 isShow:0,
-                tabList:["CNY","BTC","ETH"],
+                tabList:[],
                 marketList:[],
                 newData:['JNB', "$0.076128",'-1.11%']
             }
         },
         created:function(){
-            this.init()
+            this.init();
+            //法币列表
+            this.$http({
+					url: this.$utils.laravel_api + 'currency/quotation',
+					method:'get',
+					data:{}
+				}).then(res=>{
+                    console.log(res);
+                    if(res.data.type == 'ok'){
+                      this.tabList = res.data.message;
+                      var msg = res.data.message;
+                      var arr_quota = [];
+                      for(var i=0;i<msg.length;i++){
+                          arr_quota[i] = msg[i].quotation
+                      };
+                      console.log(arr_quota);
+                      this.marketList = arr_quota;
+                      console.log(this.marketList)
+                    }
+					
+				}).catch(error=>{
+					console.log(error)
+                })
+         
         },
         methods:{
             changeType(index){

@@ -167,7 +167,8 @@
                     url: this.$utils.laravel_api+this.buyInfo.url,
                     method:'post',
                     data:{
-                        user_id:this.address,
+                        ulegal_id:'',
+                        currency_id:'',
                         price:this.buyInfo.buyPrice,
                         num:this.buyInfo.buyNum,
                     }
