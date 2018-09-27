@@ -28,7 +28,7 @@
                    <!-- <p class="flex1 tc">{{item.lock_position}}</p> -->
                    <p class="flex1 tc operation">
                        <span @click="excharge(index,item.currency)" >充币</span>
-                       <span @click="withdraw(index)">提币</span>
+                       <span @click="withdraw(index,item.currency)">提币</span>
                        <span @click="exchange">兑换</span>
                    </p>
                    </div>
@@ -48,22 +48,25 @@
                    </div>
                    <div class="hide_div" v-if="index == active01">
                        <p class="fColor2 ft12 mb15">提币地址</p>
-                       <input class="address_inp fColor1 mb30" type="text" />
-                       <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">0.0000</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
-                       <label class="num_lab flex between mb30"><input class="fColor1" type="text" /><span>USDT</span></label>
+                       <input class="address_inp fColor1 mb30" type="text" v-model="address" />
+                       <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">{{balance}}</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
+                       <label class="num_lab flex between mb30">
+                            <input class="fColor1" type="text" :placeholder="min_number" v-model="number" />
+                            <span>USDT</span>
+                        </label>
                        <div class="flex mb50">
                            <div class="left_inp_wrap flex1">
                                <p class="fColor2 ft12 mb15">
                                    <span>手续费</span>
-                                   <span>范围：<span>5.0000000</span>-<span>5.0000000</span></span>
+                                   <span>范围：<span>{{ratenum}}</span></span>
                                </p>
-                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" /><span>USDT</span></label>
+                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" v-model="rate" /><span>USDT</span></label>
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
                                    <span class="fColor2 ft12">到账数量</span>
                                </p>
-                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled  type="number" /><span>USDT</span></label>
+                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>USDT</span></label>
                            </div>
                        </div>
                        <div class="flex">
@@ -73,7 +76,7 @@
                            <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list01">{{item}}</li>
                        </ul>
                        </div>
-                       <div class="flex1 tc"><button class="withdraw_btn">提币</button></div>
+                       <div class="flex1 tc"><button class="withdraw_btn" @click="mention">提币</button></div>
                        
                        </div>
                    </div>
@@ -87,7 +90,6 @@ import indexHeader from '@/view/indexHeader'
 import left from '@/view/left'
 import "@/lib/clipboard.min.js"
 import "@/lib/jquery.qrcode.min.js"
-jquery.qrcode.min
 export default {
     name:'finance',
     data(){
@@ -100,6 +102,14 @@ export default {
             addr:'',
             url:'',
             excharge_address:'44fdgfkdjghfdnvfjdgrgFDGDgfgfgf',
+            address:'',
+            number:'',
+            rate:'',
+            balance:'',
+            ratenum:'',
+            reachnum:'',
+            min_number:'',
+            currency:'',
             asset_list:[
                 {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
                 {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
@@ -133,6 +143,7 @@ export default {
         //充币
         excharge(index,currency){
             console.log(currency);
+            this. currency= currency;
             if(this.flag){
                 this.flag = false;
                 this.active = 'a';
@@ -142,7 +153,7 @@ export default {
                 this.active = index;
                 this.active01 = 'a';
             }
-            sendData(currency)
+            this.sendData(currency)
         },
         sendData(currency){
             var that = this;
@@ -174,7 +185,7 @@ export default {
             })
         },
         //提币
-        withdraw(index){
+        withdraw(index,currency){
             
              if(this.flag){
                 this.flag = false;
@@ -185,6 +196,86 @@ export default {
                  this.active01 = index;
                  this.active = 'a';
             }
+            this.getNum(currency);
+        },
+        getNum(currency){
+            var that = this;
+            $.ajax({
+                type: "POST",
+                url: this.$utils.laravel_api + 'wallet/get_info',
+                data: {
+                    currency:currency
+                },
+                dataType: "json",
+                async: true,
+                beforeSend: function beforeSend(request) {
+                    request.setRequestHeader("Authorization", that.token);
+                },
+                success: function(res){
+                    if (res.type=="ok"){
+                        console.log(res)
+                        that.balance=res.change_balance;
+                        that.min_number='最小提币数量'+res.min_number;
+                        that.ratenum=res.rate+'-'+res.rate;
+                        that.reachnum=0.0000;
+                        that.rate=res.rate;
+                        
+                    }else{
+                        console.log(res.message)
+                    }
+                }
+            })
+        },
+        // 提币按钮
+        mention() {
+            var currency = this. currency;
+            var address = this.address;
+            var number = this.number;
+            var rate = this.rate;
+            if(!address){
+                layer_msg('请输入提币地址');
+                return;
+            } 
+            if(!number){
+                layer_msg('请输入提币数量');
+                return;
+            } 
+            if((number-0)<min_number){
+                console.log(number,min_number)
+                return layer_msg('输入的提币数量小于最小值');
+            }
+            if(rate=='' || rate>=1){
+                layer_msg('请输入0-1之间的提币手续费');
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: this.$utils.laravel_api + 'wallet/out',
+                data: {
+                    currency:currency,
+                    number:number,
+                    rate:rate,
+                    address:address
+                },
+                dataType: "json",
+                async: true,
+                success: function(res){
+                    if (res.type=="ok"){
+                        console.log(res)
+                        layer_msg(res)
+                    }else{
+                        console.log(res)
+                    }
+                }
+            })
+            // initDataToken({url:'wallet/out',type:'post',data:{currency,number,rate,address}},function(res){
+            //     console.log(res)
+            //     layer_msg(res)
+            //     setTimeout(() => {
+            //         location.href='tradeAccount.html?id='+currency+'&type=2'
+            //     }, 1500);
+            // })
+            
         },
         exchange(){
 
@@ -402,11 +493,12 @@ export default {
         position: relative;
     }
     .ewm_img{
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         position: absolute;
         top: 25px;
         left: -30px;
+        border: 10px solid #262a42;
     }
     .hide{
         display: none;
