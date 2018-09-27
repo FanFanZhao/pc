@@ -214,11 +214,13 @@ export default {
                 success: function(res){
                     if (res.type=="ok"){
                         console.log(res)
-                        that.balance=res.change_balance;
-                        that.min_number='最小提币数量'+res.min_number;
-                        that.ratenum=res.rate+'-'+res.rate;
+
+                        that.balance=res.message.change_balance;
+                        that.min_number='最小提币数量'+res.message.min_number;
+                        that.minnumber=res.message.min_number;
+                        that.ratenum=res.message.rate+'-'+res.message.rate;
                         that.reachnum=0.0000;
-                        that.rate=res.rate;
+                        that.rate=res.message.rate;
                         
                     }else{
                         console.log(res.message)
@@ -232,20 +234,21 @@ export default {
             var address = this.address;
             var number = this.number;
             var rate = this.rate;
+            var min_number = this.minnumber;
             if(!address){
-                layer_msg('请输入提币地址');
+                layer.alert('请输入提币地址');
                 return;
             } 
             if(!number){
-                layer_msg('请输入提币数量');
+                layer.alert('请输入提币数量');
                 return;
             } 
             if((number-0)<min_number){
                 console.log(number,min_number)
-                return layer_msg('输入的提币数量小于最小值');
+                return layer.alert('输入的提币数量小于最小值');
             }
             if(rate=='' || rate>=1){
-                layer_msg('请输入0-1之间的提币手续费');
+                layer.alert('请输入0-1之间的提币手续费');
                 return;
             }
             $.ajax({
@@ -262,19 +265,15 @@ export default {
                 success: function(res){
                     if (res.type=="ok"){
                         console.log(res)
-                        layer_msg(res)
+                        layer.alert(res)
+                        setTimeout(() => {
+                          window.location.reload();
+                    }, 1500);
                     }else{
                         console.log(res)
                     }
                 }
             })
-            // initDataToken({url:'wallet/out',type:'post',data:{currency,number,rate,address}},function(res){
-            //     console.log(res)
-            //     layer_msg(res)
-            //     setTimeout(() => {
-            //         location.href='tradeAccount.html?id='+currency+'&type=2'
-            //     }, 1500);
-            // })
             
         },
         exchange(){
