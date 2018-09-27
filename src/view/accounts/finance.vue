@@ -34,7 +34,12 @@
                    </div>
                    <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
-                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">二维码</span><img class="ewm_img" :class="{'hide':isHide}" src="../../assets/images/ewm.jpg" /></span></p>
+                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">二维码</span>
+                         <div class="ewm_img" id="code" :class="{'hide':isHide}">
+                             
+                         </div>
+                         <!-- <img class="ewm_img" :class="{'hide':isHide}" src="../../assets/images/ewm.jpg" /> -->
+                       </span></p>
                        <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
@@ -81,6 +86,8 @@
 import indexHeader from '@/view/indexHeader'
 import left from '@/view/left'
 import "@/lib/clipboard.min.js"
+import "@/lib/jquery.qrcode.min.js"
+jquery.qrcode.min
 export default {
     name:'finance',
     data(){
@@ -135,6 +142,7 @@ export default {
                 this.active = index;
                 this.active01 = 'a';
             }
+            sendData(currency)
         },
         sendData(currency){
             var that = this;
@@ -152,7 +160,13 @@ export default {
                 success: function(res){
                     if (res.type=="ok"){
                         console.log(res)
-                        that.excharge_address=res.message
+                        that.excharge_address=res.message;
+                        // 生成二维码
+                        $('#code').qrcode({
+                            width: 100, //宽度
+                            height:100, //高度
+                            text:res.message
+                        });
                     }else{
                         console.log(res.message)
                     }
@@ -389,6 +403,7 @@ export default {
     }
     .ewm_img{
         width: 100px;
+        height: 100px;
         position: absolute;
         top: 25px;
         left: -30px;
