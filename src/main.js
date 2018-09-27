@@ -11,6 +11,7 @@ import "@/assets/style/common.scss"
 import VueSocketio from 'vue-socket.io'
 import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import store from './store'
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts 
 
@@ -52,6 +53,7 @@ Vue.prototype.bus = bus
 new Vue({
 	el: '#app',
 	router,
+	store,
 	components: { App },
 	template: '<App/>'
 })
