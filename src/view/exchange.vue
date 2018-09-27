@@ -52,6 +52,9 @@ export default {
                         legal_id:this.legal_id,
                         currency_id:this.currency_id
                     },  
+                      beforeSend: function beforeSend(request) {
+				request.setRequestHeader("Authorization", token);
+			},
                 }).then(res=>{
                     console.log(res ,222)
                     layer.close(i);
