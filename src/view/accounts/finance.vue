@@ -2,7 +2,7 @@
     <div class="">
         <div class="header fColor1">
             <p class="fl">总资产折合：<span class="asset_num">0.0000000</span><span class="asset_name"> BTC</span><span class="ft12 baseColor"> ≈ <span>0.00</span>CNY</span>
-            <label class="min_lab"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
+            <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
             </p>
             <p class="fr right_text">
                 <span class="record" @click="record">财务记录</span>
@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="content fColor1 ft12">
-           <div class="content_top flex alcenter">
+           <div class="content_top flex alcenter fColor2">
                <p class="flex1 tc">币种<i></i></p>
                <p class="flex1 tc">可用</p>
                <p class="flex1 tc">冻结</p>
@@ -34,7 +34,7 @@
                    </div>
                    <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
-                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span><span class="ewm ft14">二维码</span><img src="" /></span></p>
+                       <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span><span class="ewm ft14">二维码</span><img src="" /></span></p>
                        <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
@@ -85,6 +85,7 @@ export default {
     name:'finance',
     data(){
         return{
+            flags:false,
             flag:false,
             active:'a',
             active01:'a',
@@ -115,7 +116,7 @@ export default {
         init(){
              var clipboard = new Clipboard('.copy')
             clipboard.on('success', function (e) {
-                alert('复制成功')
+               layer.alert('复制成功')
             });
             clipboard.on('error', function (e) {
                 alert('复制失败')
@@ -160,10 +161,13 @@ export default {
                     }
                 });
           clipboard.on("success", function (e) {
-                        alert('复制成功')
+                        that.flags = true;
+                        layer.msg('复制成功');
+                        
                     });
                     clipboard.on("error", function (e) {
-                        alert('请重新复制')
+                        that.flags = false;
+                         layer.msg('请重新复制')
                     });
         },
         record(){
@@ -310,6 +314,9 @@ export default {
     }
     .withdraw_btn:hover{
         cursor: pointer;
+    }
+    .bg{
+        background: #2b3c71;
     }
 </style>
 

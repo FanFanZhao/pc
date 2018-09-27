@@ -16,7 +16,7 @@
                     </div>
                     <div>
                         <ul class="noticeList">
-                            <li class="clear curPer" v-for="item in newList">
+                            <li class="clear curPer" v-for="item in newList" :key="item.id">
                                 <div class=""  @click="goDetail(item.id)">
                                         <div class="">{{item.title}}</div>
                                         <span class="fr">{{item.update_time}}</span>
@@ -57,7 +57,7 @@ export default {
       .then(res => {
         res = res.data;
         if (res.type === "ok") {
-          // console.log(res.message.list)
+          console.log(res.message.list)
           this.newList = res.message.list;
         } else {
           layer.msg(res.message);
