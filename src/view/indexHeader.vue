@@ -146,8 +146,7 @@ export default {
     };
   },
   created() {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     this.address = localStorage.getItem("address") || "";
     var address = this.address;
     if (address != "") {
@@ -170,13 +169,10 @@ export default {
           console.log(error);
         });
     }
-=======
     this.address = this.$store.state.accountNum;
-=======
     // this.address = this.$store.state.accountNum;
     this.account_number = window.localStorage.getItem('accountNum');
     this.address = this.account_number;
->>>>>>> abb83182075d3b1923c7461f236047997bb8e574
     // this.address = localStorage.getItem("address") || "";
     // var address = this.address;
     // if (address != "") {
@@ -200,7 +196,7 @@ export default {
     //       console.log(error);
     //     });
     // }
->>>>>>> 9841bc925bf708fdbdf023b91562bba3c983ee95
+
   },
   mounted() {
     this.bus.$on("nav_name", name => {
