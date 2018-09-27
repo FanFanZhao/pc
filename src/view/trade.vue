@@ -16,7 +16,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fl fColor1">可用 {{allBalance}} <span>{{legal_name}}</span>/{{currency_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -41,7 +41,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fl fColor1">可用 {{allBalance}} {{legal_name}}/{{currency_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -69,7 +69,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fl fColor1">可用 {{allBalance}} {{legal_name}}/{{currency_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -92,7 +92,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} JNB/CNY</span>
+                        <span class="fl fColor1">可用 {{allBalance}} {{legal_name}}/{{currency_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -117,6 +117,8 @@
         name: "trade",
          data (){
             return {
+                currency_name:'',
+                legal_name:'',
               show:true,
               showNone:false,
               allBalance:0,
@@ -127,6 +129,27 @@
         created(){
             this.address = localStorage.getItem('address') || '';
             this.init();
+       
+        },
+        mounted(){
+            var that = this;
+            eventBus.$on('toTrade', function (data) {
+            console.log(data);
+            that.currency_id = data.currency_id,
+            that.legal_id = data.legal_id;
+            that.currency_name = data.currency_name;
+            that.legal_name = data.leg_name;
+        });
+        eventBus.$on('toTrade0', function (data0) {
+            console.log(data0);
+                that.currency_id = data0.currency_id,
+                that.legal_id = data0.legal_id;
+                that.currency_name = data0.currency_name;
+                that.legal_name = data0.leg_name;
+                console.log(that.currency_name);
+                console.log(that.legal_name)
+            })
+       
         },
         methods:{
            
@@ -154,6 +177,7 @@
                 })
             },
             buyCoin(){
+                
                 if(!this.buyInfo.buyPrice || this.buyInfo.buyPrice<=0){
                    layer.msg('请输入买入价');
                     return;
@@ -167,11 +191,13 @@
                     url: this.$utils.laravel_api+this.buyInfo.url,
                     method:'post',
                     data:{
-                        ulegal_id:'',
-                        currency_id:'',
+                        legal_id:this.legal_id,
+                        currency_id:this.currency_id,
                         price:this.buyInfo.buyPrice,
-                        num:this.buyInfo.buyNum,
-                    }
+                        num:this.buyInfo.buyNum,  
+                    },
+                   
+                    
                 }).then(res=>{
                     // console.log(res ,222)
                     layer.close(i);
@@ -200,9 +226,10 @@
                     url: this.$utils.laravel_api+this.sellInfo.url,
                     method:'post',
                     data:{
-                        user_id:this.address,
-                        price:this.sellInfo.sellPrice,
-                        num:this.sellInfo.sellNum,
+                        legal_id:this.legal_id,
+                        currency_id:this.currency_id,
+                        price:this.sellInfo.buyPrice,
+                        num:this.sellInfo.buyNum
                     }
                 }).then(res=>{
                     // console.log(res)
