@@ -14,22 +14,23 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts 
+window.eventBus = new Vue()
 
 Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
 
 Vue.config.productionTip = false
-// Axios.interceptors.request.use(function (config) {
-// 	if (config.url.indexOf('?') === -1) {
-// 		config.url = config.url + '?_timespan=' + (new Date()).getTime()
-// 	} else {
-// 		config.url = config.url + '&_timespan=' + (new Date()).getTime()
-// 	}
-// 	// 在发送请求之前做些什么
-// 	return config
-// }, function (error) {
-// 	// 对请求错误做些什么
-// 	return Promise.reject(error)
-// })
+Axios.interceptors.request.use(function (config) {
+	if (config.url.indexOf('?') === -1) {
+		config.url = config.url + '?_timespan=' + (new Date()).getTime()
+	} else {
+		config.url = config.url + '&_timespan=' + (new Date()).getTime()
+	}
+	// 在发送请求之前做些什么
+	return config
+}, function (error) {
+	// 对请求错误做些什么
+	return Promise.reject(error)
+})
 //Axios.defaults.baseURL = ''
 // Axios.defaults.headers = { 'Content-Type': 'application/json;charset=UTF-8' }application/x-www-form-urlencoded
 // Axios.defaults.withCredentials = true;

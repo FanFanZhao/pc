@@ -14,7 +14,7 @@
                 <!-- <span class="active">USDT</span>
                 <span>JNB</span>
                 <span>JNB</span> -->
-                <span v-for="(tab,index) in tabList " :class="{'active': index == isShow}" @click="changeType(index)">{{tab}}</span>
+                <span v-for="(tab,index) in tabList " :class="{'active': index == isShow}" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
             </div>
         </div>
         <div class="coin-title clear">
@@ -33,13 +33,15 @@
         </div>
         <div class="line"></div>
         <ul class="coin-wrap scroll">
-            <li>
+            <!-- <li>
                 <span v-for="item in newData">{{item}}</span>
-            </li>
-            <li v-for="(market,index) in marketList " v-if="market.type==1">
-                <span>{{market.symbol}}</span>
-                <span>${{market.quotes.USD.price}}</span>
-                <span :class="{'green': market.quotes.USD.percent_change_24h>=0}">{{market.quotes.USD.percent_change_24h}}%</span>
+            </li> -->
+            <li v-for="(market,index) in marketList " :key="index" v-if="isShow == index">
+              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':isShow==index&&idx==ids}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
+                <span>{{itm.name}}</span>
+                <span>${{itm.last_price}}</span>
+                <span :class="{'green':itm.proportion<=0}">{{itm.proportion>=0?'+'+itm.proportion:'-'+itm.proportion}}%</span>
+                </p>
             </li>
             
         </ul>
@@ -51,18 +53,67 @@
         name: "market",
         data (){
             return{
+                ids:0,
                 isShow:0,
-                tabList:["CNY","BTC","ETH"],
+                tabList:[],
                 marketList:[],
                 newData:['JNB', "$0.076128",'-1.11%']
             }
         },
         created:function(){
-            this.init()
+            this.init();
+            this.methods01();
+            //法币列表
+            this.$http({
+					url: this.$utils.laravel_api + 'currency/quotation',
+					method:'get',
+					data:{}
+				}).then(res=>{
+                    console.log(res);
+                    if(res.data.type == 'ok'){
+                      this.tabList = res.data.message;
+                      var msg = res.data.message;
+                      var arr_quota = [];
+                      for(var i=0;i<msg.length;i++){
+                          arr_quota[i] = msg[i].quotation
+                      };
+                      console.log(arr_quota);
+                      this.marketList = arr_quota;
+                      console.log(this.marketList);
+                      //默认法币id和name
+                      this.currency_name = msg[0].name;
+                       this.currency_id = msg[0].id;
+                        var id = arr_quota[0][0].id;
+                       var legal_name = arr_quota[0][0].name;
+                      console.log(this.currency_name);
+                      console.log(this.currency_id);
+                     var tradeDatas = {
+                        currency_id:this.currency_id,
+                        legal_id:id,
+                        currency_name:this.currency_name,
+                        leg_name:legal_name
+                 }
+                 setTimeout(() => {
+                   eventBus.$emit('toTrade0',tradeDatas);
+                 },1000);
+                  setTimeout(() => {
+                   eventBus.$emit('toExchange0',tradeDatas);
+                 },1000)
+                    }
+					
+				}).catch(error=>{
+					console.log(error)
+                })
+                
         },
         methods:{
-            changeType(index){
+            changeType(index,currency,currency_id){
                this.isShow=index;
+               this.ids = 'a';
+               this.currency_name = currency;
+               this.currency_id = currency_id;
+               console.log(this.currency_name);
+               console.log(this.currency_id)
             },
             getSymbols(callback){
                 if(this.address.length<=0){
@@ -127,6 +178,23 @@
                 })
                 
             },
+            //币种切换
+            quota_shift(idx,id,legal_name){
+               this.ids = idx;
+               console.log(idx,id,legal_name);
+               var tradeDatas = {
+                   currency_id:this.currency_id,
+                   legal_id:id,
+                   currency_name:this.currency_name,
+                   leg_name:legal_name
+               }
+               //向兄弟组件传数据
+               eventBus.$emit('toTrade',tradeDatas);
+               eventBus.$emit('toExchange',tradeDatas)
+            },
+            methods01(){
+                 
+            }
 
         },
         
@@ -150,5 +218,11 @@
 .coin-wrap li span:last-child{color: #cc4951;}
 .coin-wrap li:nth-child(odd){background-color: #181b2a;}
 .coin-wrap li span.green{color: #55a067;}
-.coin-wrap li:hover{background-color: #2b3648}
+.coin-wrap li p{
+    overflow: hidden;
+}
+.active_p{
+    background-color: #2b3648;
+}
+.coin-wrap li p:hover{background-color: #2b3648;}
 </style>
