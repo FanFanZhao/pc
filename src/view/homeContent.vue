@@ -151,290 +151,346 @@
 
 
 <script>
-import '@/assets/style/iconfont2.css';
-import '@/assets/style/iconfont.css';
-import '@/assets/style/index.css';
-import Swiper from 'swiper';
-import 'swiper/dist/css/swiper.min.css'
+import "@/assets/style/iconfont2.css";
+import "@/assets/style/iconfont.css";
+import "@/assets/style/index.css";
+import Swiper from "swiper";
+import "swiper/dist/css/swiper.min.css";
 import indexHeader from "@/view/indexHeader";
-var echarts =require('echarts') ;
+var echarts = require("echarts");
 export default {
   name: "homeContent",
   components: { indexHeader },
-  data(){
-      return {
-        //   banner_imgs:[
-        //       {href:'',img:'../assets/images/bg2.png'},
-        //       {href:'',img:'../assets/images/bg2.png'},
-        //       {href:'',img:'../assets/images/bg2.png'}
-        //   ],
-          curSwiper:0,
-          curCoinTab:0,
-          coinTabList:[{title:'USDT行情'},{title:'BTC行情'}],
-          coinKlineList:[],
-          coinKline:{},
-          swiperList:[
-            //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
-            //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
-            //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
-            //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
-            //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
-            //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
-            //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
-            //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
-            //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
-            //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
-          ],
-          coinList:[
-            //   {ico:'icon-BTYUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-BTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-BCCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-ETHUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-ETCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-ZECUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-LTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-            //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-          ],
-          coin_list:[
-                {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                 {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                  {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                   {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                    {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                     {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                      {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                       {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                        {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-                         {name:'BTC',min_price:'0.0000000',max_price:'0.000000',new_price:'0.000000'},
-          ],
-          noticeList:[
-              {text:'DQ交易所测试上线。。。',url:''},
-              {text:'DQ交易所测试上线。。。',url:''},
-              {text:'DQ交易所测试上线。。。',url:''},
-              {text:'DQ交易所测试上线。。。',url:''},
-          ]
-      }
-  },
-  created(){
-     this.init(this.initKline); 
-  },
-  mounted(){
-       var mySwiper = new Swiper ('.swiper-container01', {
-            // direction: 'vertical',
-            // loop: true,
-            
-            // 如果需要分页器
-            pagination: '.swiper-pagination01',
-            paginationClickable: true,
-            // 如果需要前进后退按钮
-            slidesPerView:5,
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            observer:true, //修改swiper自己或子元素时，自动初始化swiper
-            observeParents:true,//修改swiper的父元素时，自动初始化swiper
-        })   
-        var mySwiper02 = new Swiper ('.banner_wrap', {
-            // direction: 'vertical',
-            loop: true,
-            autoplay : 2000,
-            
-            // 如果需要分页器
-            pagination: '.swiper-pagination02',
-            paginationClickable: true,
-            // 如果需要前进后退按钮
-            // slidesPerView:5,
-            // nextButton: '.swiper-button-next',
-            // prevButton: '.swiper-button-prev',
-            observer:true, //修改swiper自己或子元素时，自动初始化swiper
-            observeParents:true,//修改swiper的父元素时，自动初始化swiper
-        })   
-        this.setChart();  
-  },
-  methods:{
-      getCurrent(index){
-          this.curCoinTab=index;
-      },
-      mouseEnter(index){
-          this.curSwiper=index;
-      },
-      init(callback){
-          this.$http.post(this.$utils.laravel_api+'quotation')
-          .then(res=>{
-              if(res.data.type=='ok'){
-                  this.coinList=res.data.message.coin_list;
-                  this.swiperList=res.data.message.coin_list;
-                  callback&&callback();
-              }else{
-                  layer.msg(res.message)
-              }
-          })
-         
-      },
-      initKline(){
-            this.$http.post(this.$utils.laravel_api+'historical_data')
-            .then(res=>{
-                if(res.data.type=='ok'){
-                    if(res.data.message.day.length>0){
-                        this.coinKline=res.data.message.day[0].data;
-                        this.coinKlineList=res.data.message.day;
-                    }
-                    console.log(res.data.message.day[0].data)
-                    console.log(res.data.message.day)
-                }
-            })
-      },
-      timestampToTime(timestamp) {
-            var date = new Date(timestamp);
-            let Y = date.getFullYear() + '/';
-            let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';
-            let D = date.getDate() + ' ';
-            return Y + M + D;
+  data() {
+    return {
+      //   banner_imgs:[
+      //       {href:'',img:'../assets/images/bg2.png'},
+      //       {href:'',img:'../assets/images/bg2.png'},
+      //       {href:'',img:'../assets/images/bg2.png'}
+      //   ],
+      curSwiper: 0,
+      curCoinTab: 0,
+      coinTabList: [{ title: "USDT行情" }, { title: "BTC行情" }],
+      coinKlineList: [],
+      coinKline: {},
+      swiperList: [
+        //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
+        //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
+        //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
+        //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
+        //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
+        //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
+        //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
+        //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
+        //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
+        //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
+      ],
+      coinList: [
+        //   {ico:'icon-BTYUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-BTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-BCCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-ETHUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-ETCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-ZECUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-LTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+        //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
+      ],
+      coin_list: [
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
         },
-      
-           
-       
-      setChart(){
-            var myChart = echarts.init(document.getElementById('chart'));
-            var that=this;
-            // 指定图表的配置项和数据
-            var base = 2;
-            var date = [];
-            var data = [1,2,4,5,6,7,8];
-            var now = new Date();
-            console.log(that.coinKlineList)
-            for(var i in that.coinKlineList){
-                let temp=that.timestampToTime(that.coinKlineList[i].timestamp);
-                console.log(temp)
-                date.push(temp)
-            }
-            console.log(date)
-            var option = {
-                textStyle:{
-                    color:'#818283'
-                },
-                backgroundColor:'#161923',
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer:{
-                        type:'cross',
-                        label:{
-                            backgroundColor:'#6a7985'
-                        }
-                    }
-                },
-                title: {
-                    left: 'center',
-                    text: '24小时数据图',
-                },
-                grid:{
-                    left:'3%',
-                    right:'3%',
-                    bottom:'5%',
-                    containLabel:true
-                },
-                toolbox: {
-                    feature: {
-                        // dataZoom: {
-                        //     yAxisIndex: 'none'
-                        // },
-                        // restore: {},
-                        saveAsImage: {}
-                    }
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: date,
-                    color:['#ff9232'],
-                    
-                },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        },
+        {
+          name: "BTC",
+          min_price: "0.0000000",
+          max_price: "0.000000",
+          new_price: "0.000000"
+        }
+      ],
+      noticeList: [
+        { text: "DQ交易所测试上线。。。", url: "" },
+        { text: "DQ交易所测试上线。。。", url: "" },
+        { text: "DQ交易所测试上线。。。", url: "" },
+        { text: "DQ交易所测试上线。。。", url: "" }
+      ]
+    };
+  },
+  created() {
+    this.init(this.initKline);
+  },
+  mounted() {
+    var mySwiper = new Swiper(".swiper-container01", {
+      // 如果需要分页器
+      pagination: ".swiper-pagination01",
+      paginationClickable: true,
+      // 如果需要前进后退按钮
+      slidesPerView: 5,
+      nextButton: ".swiper-button-next",
+      prevButton: ".swiper-button-prev",
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true //修改swiper的父元素时，自动初始化swiper
+    });
+    var mySwiper02 = new Swiper(".banner_wrap", {
+      // direction: 'vertical',
+      loop: true,
+      autoplay: 2000,
+      // 如果需要分页器
+      pagination: ".swiper-pagination02",
+      paginationClickable: true,
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true //修改swiper的父元素时，自动初始化swiper
+    });
+    this.setChart();
+    this.$http({
+					url: this.$utils.laravel_api + 'news/help',
+					method:'post',
+					data:{}
+				}).then(res=>{
+					console.log(res)
+					if(res.type  === 'ok'){
+						
+					}else{
+						layer.msg(res.message);
+					}
+				}).catch(error=>{
+					console.log(error)
+				})
+  },
+  methods: {
+    getCurrent(index) {
+      this.curCoinTab = index;
+    },
+    mouseEnter(index) {
+      this.curSwiper = index;
+    },
+    init(callback) {
+      this.$http.post(this.$utils.laravel_api + "quotation").then(res => {
+        if (res.data.type == "ok") {
+          this.coinList = res.data.message.coin_list;
+          this.swiperList = res.data.message.coin_list;
+          callback && callback();
+        } else {
+          layer.msg(res.message);
+        }
+      });
+    },
+    initKline() {
+      this.$http.post(this.$utils.laravel_api + "historical_data").then(res => {
+        if (res.data.type == "ok") {
+          if (res.data.message.day.length > 0) {
+            this.coinKline = res.data.message.day[0].data;
+            this.coinKlineList = res.data.message.day;
+          }
+          console.log(res.data.message.day[0].data);
+          console.log(res.data.message.day);
+        }
+      });
+    },
+    timestampToTime(timestamp) {
+      var date = new Date(timestamp);
+      let Y = date.getFullYear() + "/";
+      let M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "/";
+      let D = date.getDate() + " ";
+      return Y + M + D;
+    },
 
-                yAxis: {
-                    type: 'value',
-                    yaxisLabel:{
-                        backgroundColor:'#fff'
-                    }
-                },
-                series: [
-                    {
-                        name:'当前价格',
-                        type:'line',
-                        smooth:true,
-                        symbol: 'none',
-                        sampling: 'average',
-                        itemStyle: {
-                            normal: {
-                                // 6e446e
-                                color: '#6e446e'
-                            }
-                        },
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#6e446e'
-                                }, {
-                                    offset: 1,
-                                    color: '#1e1e2a'
-                                }])
-                            }
-                        },
-                        
-                        data: data
-                    }
-                ],
-                
-            };
-
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
+    setChart() {
+      var myChart = echarts.init(document.getElementById("chart"));
+      var that = this;
+      // 指定图表的配置项和数据
+      var base = 2;
+      var date = [];
+      var data = [1, 2, 4, 5, 6, 7, 8];
+      var now = new Date();
+      console.log(that.coinKlineList);
+      for (var i in that.coinKlineList) {
+        let temp = that.timestampToTime(that.coinKlineList[i].timestamp);
+        console.log(temp);
+        date.push(temp);
       }
+      console.log(date);
+      var option = {
+        textStyle: {
+          color: "#818283"
+        },
+        backgroundColor: "#161923",
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+            label: {
+              backgroundColor: "#6a7985"
+            }
+          }
+        },
+        title: {
+          left: "center",
+          text: "24小时数据图"
+        },
+        grid: {
+          left: "3%",
+          right: "3%",
+          bottom: "5%",
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            // dataZoom: {
+            //     yAxisIndex: 'none'
+            // },
+            // restore: {},
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: date,
+          color: ["#ff9232"]
+        },
+
+        yAxis: {
+          type: "value",
+          yaxisLabel: {
+            backgroundColor: "#fff"
+          }
+        },
+        series: [
+          {
+            name: "当前价格",
+            type: "line",
+            smooth: true,
+            symbol: "none",
+            sampling: "average",
+            itemStyle: {
+              normal: {
+                // 6e446e
+                color: "#6e446e"
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: "#6e446e"
+                  },
+                  {
+                    offset: 1,
+                    color: "#1e1e2a"
+                  }
+                ])
+              }
+            },
+
+            data: data
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    }
   }
 };
 </script>
 <style>
-.carousel .swiper-slide:hover{
-    background-color: #327ADD;
+.carousel .swiper-slide:hover {
+  background-color: #327add;
 }
-.nav_left,.con_left{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.nav_left,
+.con_left {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
-.withdraw{
-    margin: 0 4px;
+.withdraw {
+  margin: 0 4px;
 }
-.carousel .last a:hover{
-    cursor: pointer;
+.carousel .last a:hover {
+  cursor: pointer;
 }
-.sliders{
-    width: 100%;
+.sliders {
+  width: 100%;
 }
-.sliders img{
-    width: 100%;
-    height: 500px;
+.sliders img {
+  width: 100%;
+  height: 500px;
 }
-.notice_ul{
-    padding: 25px 0;
-    background: #161923;
-    margin-bottom: 5px;
+.notice_ul {
+  padding: 25px 0;
+  background: #161923;
+  margin-bottom: 5px;
 }
-.notice_li{
-    flex: 1;
-    text-align: center;
+.notice_li {
+  flex: 1;
+  text-align: center;
 }
-.notice_li::after{
-    content: '/';
-    float:right;
+.notice_li::after {
+  content: "/";
+  float: right;
 }
-.notice_li:last-child:after{
-    content: '';
-    color: #6b80ae;
+.notice_li:last-child:after {
+  content: "";
+  color: #6b80ae;
 }
-.notice_a:hover{
-    color: #6b80ae;
+.notice_a:hover {
+  color: #6b80ae;
 }
 </style>
 
