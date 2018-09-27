@@ -1,7 +1,7 @@
 <template>
 	<div class="nav_bar">
 		<div class="content clear" style="height:60px">
-			<div class="fl"><img src="@/assets/images/logo.png" class="navbar-logo"></div>
+			<div class="fl"><img src="@/assets/images/logo.png" class="navbar-logo" style="width:100px;"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList"  @click="goto(index,tabs.page)">{{tabs.title}}</li>
 			</ul>
@@ -82,7 +82,7 @@ export default {
       current: 0,
       tabList: [
         { title: "首页", page: "homeContent" },
-        { title: "杠杆交易", page: "dealCenter" },
+        { title: "币币交易", page: "dealCenter" },
         { title: "我的资产", page: "homeContent" },
         { title: "APP下载", page: "homeContent" }
       ],

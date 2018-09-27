@@ -88,36 +88,29 @@ export default {
     },
     methods:{
         getdata(){
-            console.log(123456)
-            var that = this;
             $.ajax({
-                url: this.$utils.laravel_api + "wallet/list",
                 type: "POST",
+                url: this.$utils.laravel_api + 'wallet/out',
+                data: {
+     
+                },
                 dataType: "json",
                 async: true,
                 beforeSend: function beforeSend(request) {
-                   request.setRequestHeader("Authorization", that.token);
+                    request.setRequestHeader("Authorization", that.token);
                 },
-                success: function success(data) {
-                console.log(data)
-                if (data.type == 'ok') {
-                   
-
-                } else if (data.type == '999') {
-                    
+                success: function(res){
+                    console.log(res)
+                    if (res.type=="ok"){
+                        layer.alert(res.message)
+                        setTimeout(() => {
+                          window.location.reload();
+                    }, 1500);
+                    }else{
+                        layer.alert(res.message)
+                    }
                 }
-                }
-            });
-            // this.$http({
-            // url: this.$utils.laravel_api + 'wallet/list',
-            // method:'post',
-            // data:{}
-            // }).then(res=>{
-            //     console.log(res)
- 
-            // }).catch(error=>{
-            //     console.log(error)
-            // })
+            })
         }
     },
     mounted(){

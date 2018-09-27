@@ -186,7 +186,7 @@ export default {
         },
         //提币
         withdraw(index,currency){
-            
+            this.currency=currency;
              if(this.flag){
                 this.flag = false;
                 this.active = 'a';
@@ -214,7 +214,6 @@ export default {
                 success: function(res){
                     if (res.type=="ok"){
                         console.log(res)
-
                         that.balance=res.message.change_balance;
                         that.min_number='最小提币数量'+res.message.min_number;
                         that.minnumber=res.message.min_number;
@@ -230,6 +229,7 @@ export default {
         },
         // 提币按钮
         mention() {
+            var that =this;
             var currency = this. currency;
             var address = this.address;
             var number = this.number;
@@ -247,10 +247,10 @@ export default {
                 console.log(number,min_number)
                 return layer.alert('输入的提币数量小于最小值');
             }
-            if(rate=='' || rate>=1){
-                layer.alert('请输入0-1之间的提币手续费');
-                return;
-            }
+            // if(rate=='' || rate>=1){
+            //     layer.alert('请输入0-1之间的提币手续费');
+            //     return;
+            // }
             $.ajax({
                 type: "POST",
                 url: this.$utils.laravel_api + 'wallet/out',
@@ -262,15 +262,18 @@ export default {
                 },
                 dataType: "json",
                 async: true,
+                beforeSend: function beforeSend(request) {
+                    request.setRequestHeader("Authorization", that.token);
+                },
                 success: function(res){
+                    console.log(res)
                     if (res.type=="ok"){
-                        console.log(res)
-                        layer.alert(res)
+                        layer.alert(res.message)
                         setTimeout(() => {
                           window.location.reload();
                     }, 1500);
                     }else{
-                        console.log(res)
+                        layer.alert(res.message)
                     }
                 }
             })
