@@ -14,20 +14,20 @@
                <p class="flex1 tc">币种<i></i></p>
                <p class="flex1 tc">可用</p>
                <p class="flex1 tc">冻结</p>
-               <p class="flex1 tc">BTC估值<i></i></p>
-               <p class="flex1 tc">锁仓</p>
+               <!-- <p class="flex1 tc">BTC估值<i></i></p> -->
+               <!-- <p class="flex1 tc">锁仓</p> -->
                <p class="flex1 tc">操作</p>
            </div>
            <ul class="content_ul">
                <li v-for="(item,index) in asset_list" :key="index">
                     <div class="content_li flex alcenter between">
-                   <p class="flex1 tc">{{item.name}}</p>
-                   <p class="flex1 tc">{{item.available_money}}</p>
-                   <p class="flex1 tc">{{item.frozen_money}}</p>
-                   <p class="flex1 tc">{{item.valuation}}</p>
-                   <p class="flex1 tc">{{item.lock_position}}</p>
+                   <p class="flex1 tc">{{item.currency_name}}</p>
+                   <p class="flex1 tc">{{item.change_balance}}</p>
+                   <p class="flex1 tc">{{item.lock_change_balance}}</p>
+                   <!-- <p class="flex1 tc">{{item.valuation}}</p> -->
+                   <!-- <p class="flex1 tc">{{item.lock_position}}</p> -->
                    <p class="flex1 tc operation">
-                       <span @click="excharge(index)" >充币</span>
+                       <span @click="excharge(index,item.currency)" >充币</span>
                        <span @click="withdraw(index)">提币</span>
                        <span @click="exchange">兑换</span>
                    </p>
@@ -124,18 +124,40 @@ export default {
             });
         },
         //充币
-        excharge(index){
-            console.log(index);
+        excharge(index,currency){
+            console.log(currency);
             if(this.flag){
                 this.flag = false;
                 this.active = 'a';
-                 this.active01 = 'a';
+                this.active01 = 'a';
             }else{
                 this.flag = true;
-                 this.active = index;
-                 this.active01 = 'a';
+                this.active = index;
+                this.active01 = 'a';
             }
-           
+        },
+        sendData(currency){
+            var that = this;
+            $.ajax({
+                type: "POST",
+                url: this.$utils.laravel_api + 'wallet/get_in_address',
+                data: {
+                    currency:currency
+                },
+                dataType: "json",
+                async: true,
+                beforeSend: function beforeSend(request) {
+                    request.setRequestHeader("Authorization", that.token);
+                },
+                success: function(res){
+                    if (res.type=="ok"){
+                        console.log(res)
+                        that.excharge_address=res.message
+                    }else{
+                        console.log(res.message)
+                    }
+                }
+            })
         },
         //提币
         withdraw(index){
@@ -185,7 +207,6 @@ export default {
             }
         },
         getdata(){
-
             var that = this;
             console.log(that.token)
             $.ajax({
@@ -199,8 +220,7 @@ export default {
                 success: function (data) {
                 console.log(data)
                 if (data.type == 'ok') {
-                   
-
+                    that.asset_list=data.message.change_wallet.balance;
                 } else if (data.type == '999') {
                     
                 }
