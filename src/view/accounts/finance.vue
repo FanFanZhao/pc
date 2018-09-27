@@ -283,7 +283,7 @@ export default {
     }
     .content_top{
         padding: 10px 20px;
-        background: #161617c7;
+        // background: #161617c7;
     }
     .content_li{
         padding: 15px 0;
