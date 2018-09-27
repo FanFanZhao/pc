@@ -49,7 +49,6 @@ export default {
     };
   },
   created() {
-    this.getNotice()
     // this.$http({
     //   url: this.$utils.laravel_api + "news/list",
     //   method: "get",
@@ -75,6 +74,7 @@ export default {
         method:'post',
       }).then(res => {
         console.log(res);
+        this.newList=res.data.message.list
         
       })
     },
@@ -91,7 +91,11 @@ export default {
         query: { id: id }
       });
     }
-  }
+  },
+  mounted(){
+      var that = this;
+      that.getNotice();
+    }
 };
 </script>
 <style lang="scss" scoped>
