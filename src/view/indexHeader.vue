@@ -20,7 +20,7 @@
 					</div>
 					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
-						<span>{{account_number}}</span>
+						<span>{{$store.state.accountNum}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
 					</div>
