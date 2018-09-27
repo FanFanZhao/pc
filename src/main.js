@@ -14,6 +14,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts 
+window.eventBus = new Vue()
 
 Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
 

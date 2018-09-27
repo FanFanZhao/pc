@@ -1,4 +1,7 @@
 let state ={
-    accountNum:''
+    accountNum:'',
+    datas:{
+        
+    }
 }
 export default state
