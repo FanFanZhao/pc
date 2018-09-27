@@ -196,7 +196,9 @@
                         price:this.buyInfo.buyPrice,
                         num:this.buyInfo.buyNum,  
                     },
-                   
+                   beforeSend: function beforeSend(request) {
+				request.setRequestHeader("Authorization", token);
+			},
                     
                 }).then(res=>{
                     // console.log(res ,222)
@@ -230,7 +232,10 @@
                         currency_id:this.currency_id,
                         price:this.sellInfo.buyPrice,
                         num:this.sellInfo.buyNum
-                    }
+                    },
+                    beforeSend: function beforeSend(request) {
+				request.setRequestHeader("Authorization", token);
+			},
                 }).then(res=>{
                     // console.log(res)
                     layer.close(i);

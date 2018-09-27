@@ -55,6 +55,8 @@ export default {
                 }).then(res=>{
                     console.log(res ,222)
                     layer.close(i);
+                    this.inlist = res.message.in;
+                    this.outlist = res.message.out
                     
                     if(res.data.type=="ok"){
                         this.buyInfo.buyPrice=0;
@@ -74,6 +76,15 @@ export default {
       that.legal_id = data0.legal_id;
       that.currency_name = data0.currency_name;
       that.legal_name = data0.leg_name;
+      console.log(that.currency_name);
+      console.log(that.legal_name);
+    });
+    eventBus.$on("toExchange", function(data) {
+      console.log(data);
+      that.currency_id = data.currency_id,
+      that.legal_id = data.legal_id;
+      that.currency_name = data.currency_name;
+      that.legal_name = data.leg_name;
       console.log(that.currency_name);
       console.log(that.legal_name);
     });
