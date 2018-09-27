@@ -147,29 +147,29 @@ export default {
   },
   created() {
 
-    this.address = localStorage.getItem("address") || "";
-    var address = this.address;
-    if (address != "") {
-      this.$http({
-        url: this.$utils.laravel_api + "user/info",
-        method: "get",
-        data: {}
-      })
-        .then(res => {
-          console.log(res)
-          res = res.data;
-          if (res.type === "ok") {
-            // console.log(res.message)
-            this.account_number = res.message.account_number;
-          } else {
-            layer.msg(res.message);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
-    this.address = this.$store.state.accountNum;
+    // this.address = localStorage.getItem("address") || "";
+    // var address = this.address;
+    // if (address != "") {
+    //   this.$http({
+    //     url: this.$utils.laravel_api + "user/info",
+    //     method: "get",
+    //     data: {}
+    //   })
+    //     .then(res => {
+    //       console.log(res)
+    //       res = res.data;
+    //       if (res.type === "ok") {
+    //         // console.log(res.message)
+    //         this.account_number = res.message.account_number;
+    //       } else {
+    //         layer.msg(res.message);
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // }
+    // this.address = this.$store.state.accountNum;
     // this.address = this.$store.state.accountNum;
     this.account_number = window.localStorage.getItem('accountNum');
     this.address = this.account_number;
