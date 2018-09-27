@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       address: "",
-      account_number: "",
+      account_number: "120",
       assets: "资产",
       orders: "订单",
       show1: false,
@@ -146,18 +146,20 @@ export default {
     };
   },
   created() {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+    
+    
     this.address = localStorage.getItem("address") || "";
     var address = this.address;
     if (address != "") {
       this.$http({
-        url: this.$utils.laravel_api + "user/info",
-        method: "get",
-        data: {}
+        url: this.$utils.laravel_api + "user/getuserbyaddress",
+        method: "post",
+        data: {
+          address: address
+        }
       })
         .then(res => {
-          console.log(res)
           res = res.data;
           if (res.type === "ok") {
             // console.log(res.message)
@@ -170,37 +172,7 @@ export default {
           console.log(error);
         });
     }
-=======
-    this.address = this.$store.state.accountNum;
-=======
-    // this.address = this.$store.state.accountNum;
-    this.account_number = window.localStorage.getItem('accountNum');
-    this.address = this.account_number;
->>>>>>> abb83182075d3b1923c7461f236047997bb8e574
-    // this.address = localStorage.getItem("address") || "";
-    // var address = this.address;
-    // if (address != "") {
-    //   this.$http({
-    //     url: this.$utils.laravel_api + "user/getuserbyaddress",
-    //     method: "post",
-    //     data: {
-    //       address: address
-    //     }
-    //   })
-    //     .then(res => {
-    //       res = res.data;
-    //       if (res.type === "ok") {
-    //         // console.log(res.message)
-    //         this.account_number = res.message.account_number;
-    //       } else {
-    //         layer.msg(res.message);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
-    // }
->>>>>>> 9841bc925bf708fdbdf023b91562bba3c983ee95
+
   },
   mounted() {
     this.bus.$on("nav_name", name => {
