@@ -75,14 +75,32 @@
 import indexHeader from '@/view/indexHeader'
 export default {
     name:'finanrec',
+    components:{indexHeader},
     data(){
         return {
             lang:'',
+            changeList:[]
         }
     },
-    components:{
-        indexHeader,
+    methods:{
+        getdata(){
+            this.$http({
+            url: this.$utils.laravel_api + 'wallet/list',
+            method:'post',
+            data:{}
+            }).then(res=>{
+                console.log(res)
+ 
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
+    },
+    mounted(){
+        var that = this;
+        that.getdata();
     }
+    
 }
 </script>
 
