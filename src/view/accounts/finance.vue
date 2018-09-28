@@ -30,8 +30,10 @@
                        <span @click="excharge(index,item.currency)" >充币</span>
                        <span @click="withdraw(index,item.currency)">提币</span>
                        <span @click="exchange">兑换</span>
+                       <span @click="rec(index)">记录</span>
                    </p>
                    </div>
+                   <!--充币区-->
                    <div class="hide_div" v-if="index == active">
                        <p class="fColor2 ft12">充币地址</p>
                        <p class="mt50 mb50"><span class="ft18 fColor1 excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">复制</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">二维码</span>
@@ -46,6 +48,7 @@
                            <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list">{{item}}</li>
                        </ul>
                    </div>
+                   <!--提币区-->
                    <div class="hide_div" v-if="index == active01">
                        <p class="fColor2 ft12 mb15">提币地址</p>
                        <input class="address_inp fColor1 mb30" type="text" v-model="address" />
@@ -80,6 +83,9 @@
                        
                        </div>
                    </div>
+                   <!--记录区-->
+                   <div class="hide_div" v-if="index == active02">
+                   </div>
                </li>
            </ul>
            <!-- <div class="tc ft16 fColor1 mt50" v-show="asset_list.length<=0">暂无数据</div> -->
@@ -100,6 +106,7 @@ export default {
             isHide:true,
             active:'a',
             active01:'a',
+            active02:'a',
             addr:'',
             url:'',
             excharge_address:'',
@@ -146,10 +153,12 @@ export default {
                 this.flag = false;
                 this.active = 'a';
                 this.active01 = 'a';
+                 this.active02 = 'a';
             }else{
                 this.flag = true;
                 this.active = index;
                 this.active01 = 'a';
+                 this.active02 = 'a';
             }
             this.sendData(currency)
         },
@@ -210,35 +219,57 @@ export default {
                 this.flag = false;
                 this.active = 'a';
                 this.active01 = 'a'
+                 this.active02 = 'a';
             }else{
                 this.flag = true;
                  this.active01 = index;
                  this.active = 'a';
+                 this.active02 = 'a';
             }
             this.getNum(currency);
         },
+        //记录
+        rec(index){
+             if(this.flag){
+                this.flag = false;
+                this.active = 'a';
+                this.active01 = 'a'
+                 this.active02 = 'a';
+            }else{
+                this.flag = true;
+                 this.active02 = index;
+                 this.active = 'a';
+                  this.active01 = 'a'
+            }
+        },
         getNum(currency){
             var that = this;
-            this.$http({
-                url: '/api/' + 'wallet/get_info',
-                method:'post',
-                data:{currency:currency},
-                headers: {'Authorization':  that.token},
-                }).then(res=>{
-                    console.log(res)
-                    if (res.data.type=="ok"){
-                        that.coinname=res.data.message.name;
-                        that.balance=res.data.message.change_balance;
-                        that.min_number='最小提币数量'+res.data.message.min_number;
-                        that.minnumber=res.data.message.min_number;
-                        that.ratenum=res.data.message.rate+'-'+res.data.message.rate;
+            $.ajax({
+                type: "POST",
+                url: this.$utils.laravel_api + 'wallet/get_info',
+                data: {
+                    currency:currency
+                },
+                dataType: "json",
+                async: true,
+                beforeSend: function beforeSend(request) {
+                    request.setRequestHeader("Authorization", that.token);
+                },
+                success: function(res){
+                    if (res.type=="ok"){
+                        console.log(res)
+                        that.coinname=res.message.name;
+                        that.balance=res.message.change_balance;
+                        that.min_number='最小提币数量'+res.message.min_number;
+                        that.minnumber=res.message.min_number;
+                        that.ratenum=res.message.rate+'-'+res.message.rate;
                         that.reachnum=0.0000;
-                        that.rate=res.message.data.rate;
+                        that.rate=res.message.rate;
+                        
                     }else{
-                        console.log(res.data.message)
+                        console.log(res.message)
                     }
-                }).catch(error=>{
-                    console.log(error)
+                }
             })
         },
         // 提币按钮
@@ -261,60 +292,36 @@ export default {
                 console.log(number,min_number)
                 return layer.alert('输入的提币数量小于最小值');
             }
-            
             // if(rate=='' || rate>=1){
             //     layer.alert('请输入0-1之间的提币手续费');
             //     return;
             // }
-            this.$http({
-                url: '/api/' + 'wallet/out',
-                method:'post',
-                data:{
+            $.ajax({
+                type: "POST",
+                url: this.$utils.laravel_api + 'wallet/out',
+                data: {
                     currency:currency,
                     number:number,
                     rate:rate,
                     address:address
                 },
-                headers: {'Authorization':  that.token},
-                }).then(res=>{
+                dataType: "json",
+                async: true,
+                beforeSend: function beforeSend(request) {
+                    request.setRequestHeader("Authorization", that.token);
+                },
+                success: function(res){
                     console.log(res)
-                    if (res.data.type=="ok"){
-                        layer.alert(res.data.message)
+                    if (res.type=="ok"){
+                        layer.alert(res.message)
                         setTimeout(() => {
                           window.location.reload();
                     }, 1500);
                     }else{
-                        console.log(res.data.message)
+                        layer.alert(res.message)
                     }
-                }).catch(error=>{
-                    console.log(error)
+                }
             })
-            // $.ajax({
-            //     type: "POST",
-            //     url: this.$utils.laravel_api + 'wallet/out',
-            //     data: {
-            //         currency:currency,
-            //         number:number,
-            //         rate:rate,
-            //         address:address
-            //     },
-            //     dataType: "json",
-            //     async: true,
-            //     beforeSend: function beforeSend(request) {
-            //         request.setRequestHeader("Authorization", that.token);
-            //     },
-            //     success: function(res){
-            //         console.log(res)
-            //         if (res.type=="ok"){
-            //             layer.alert(res.message)
-            //             setTimeout(() => {
-            //               window.location.reload();
-            //         }, 1500);
-            //         }else{
-            //             layer.alert(res.message)
-            //         }
-            //     }
-            // })
             
         },
         exchange(){
