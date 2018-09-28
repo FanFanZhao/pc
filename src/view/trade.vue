@@ -193,7 +193,7 @@
                 }
                 var i=layer.load();
                 this.$http({
-                    url: '/api/api/'+this.buyInfo.url,
+                    url: '/api/'+this.buyInfo.url,
                     method:'post',
                     data:{
                         legal_id:this.legal_id,
@@ -229,7 +229,7 @@
                 }
                 // var i=layer.load();
                 this.$http({
-                    url: '/api/api/'+this.sellInfo.url,
+                    url: '/api/'+this.sellInfo.url,
                     method:'post',
                     data:{
                         legal_id:this.legal_id,
@@ -256,7 +256,7 @@
                 //买入、卖出记录
         buy_sell(legals_id,currencys_id){
             this.$http({
-                        url: '/api/api/'+'transaction/deal',
+                        url: '/api/'+'transaction/deal',
                         method:'post',
                         data:{
                             legal_id:legals_id,
