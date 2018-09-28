@@ -109,7 +109,7 @@ export default {
            this.url=url;
            this.page=1;
            this.more="加载更多"
-           this.getdata();
+        //    this.getdata();
         },
         wayChoose(index,type){
             var that=this;
@@ -117,13 +117,13 @@ export default {
             this.type = type;
             this.more="加载更多";
             this.isChoosed=index;
-            this.getdata();
+            // this.getdata();
         },
         getMore(){
             this.page = ++this.page;
             this.loading=true;
             // console.log(this.page)
-            this.getdata();
+            // this.getdata();
         },
         revoke(id){
             var that=this;
@@ -143,12 +143,12 @@ export default {
                         console.log(res)
                         if(res.type  === 'ok'){
                             layer.msg(res.message)
-                            that.getdata();
+                            // that.getdata();
                         }else{
                             layer.msg(res.message);
                         }
                     }).catch(error=>{
-                        console.log(error)
+                        // console.log(error)
                     })
                 },
             )
@@ -211,7 +211,7 @@ export default {
     },
     mounted(){
         var that = this;
-        that.getdata();
+        // that.getdata();
     }
     
 }
