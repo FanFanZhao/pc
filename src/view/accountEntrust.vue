@@ -6,101 +6,83 @@
         <div class="content">
             <div class="container" v-if="isActive==0">
                 <ul class="list-title fColor2 ft12 clear">
-                    <li class="fl w20">委托时间</li>
-                    <li class="fl w12">委托方式</li>
-                    <!-- <li class="fl w12">方向</li> -->
-                    <li class="fl w12">委托价</li>
-                    <li class="fl w14">委托量</li>
-                    <li class="fl w20">委托总额</li>
+                    <li class="fl w20">时间</li>
+                    <li class="fl w12">币种</li>
+                    <li class="fl w12">数量</li>
+                    <li class="fl w14">价格</li>
+                    <li class="fl w20">账户</li>
                     <li class="fl w8 tr">操作</li>
                 </ul>
                 <ul class="list-item fColor1 ft12">
-                    <li v-for="item in enList" class="clear">
+                    <li v-for="item in outList" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
-                        <span class="fl w12">自助委托</span>
-                        <!-- <span class="fl w12">买入</span> -->
-                        <span class="fl w12">{{item.price}}</span>
-                        <span class="fl w14">{{item.number}}</span>
-                        <span class="fl w20">{{(item.price * item.number) | numFilter}}</span>
-                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id)">撤销</span>
+                        <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
+                        <span class="fl w12">{{item.number}}</span>
+                        <span class="fl w14">{{item.price}}</span>
+                        <span class="fl w20">{{(item.account_number)}}</span>
+                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id,'out')">撤销</span>
                     </li>
                 </ul>
-                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && enList.length>12">{{more}}</div>
+                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && outList.length>5">{{more}}</div>
                 <div class="tc" v-if="loading">
                     <img src="@/assets/images/loading.gif" alt="" class="lodw20">
                     <p class="ft12 baseColor">加载中...</p>
                 </div>
-                <div class="no_data tc" v-if="enList.length<=0">
+                <div class="no_data tc" v-if="outList.length<=0">
                     <img src="../assets/images/nodata.png" alt="">
                     <p class="fColor2 ft18">暂无数据</p>
                 </div>
             </div>
             <div class="container" v-if="isActive==1">
                  <ul class="list-title fColor2 ft12 clear">
-                    <li class="fl w15">委托时间</li>
-                    <li class="fl w10">委托方式</li>
-                    <!-- <li class="fl w10">方向</li> -->
-                    <li class="fl w10">委托价</li>
-                    <li class="fl w10">委托量</li>
-                    <li class="fl w14">委托总额</li>
-                    <li class="fl w12">已成交</li>
-                    <li class="fl w10">交易所</li>
-                    <li class="fl w8 tr">账户</li>
+                    <li class="fl w20">时间</li>
+                    <li class="fl w12">币种</li>
+                    <li class="fl w12">数量</li>
+                    <li class="fl w14">价格</li>
+                    <li class="fl w20">账户</li>
+                    <li class="fl w8 tr">操作</li>
                 </ul>
                 <ul class="list-item fColor1 ft12">
-                    <li v-for="item in hisList" class="clear">
-                        <span class="fl w15">{{item.create_time}}</span>
-                        <span class="fl w10">自助委托</span>
-                        <!-- <span class="fl w10">卖出</span> -->
-                        <span class="fl w10">{{item.price}}</span>
-                        <span class="fl w10">{{item.number}}</span>
-                        <span class="fl w14">{{(item.price * item.number) | numFilter}}</span>
-                        <span class="fl w12">是</span>
-                        <span class="fl w10">imtoken</span>
-                        <span class="fl w8 tr curPer ceilColor">{{item.account_number}}</span>
+                    <li v-for="item in inList" class="clear">
+                        <span class="fl w20">{{item.create_time}}</span>
+                        <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
+                        <span class="fl w12">{{item.number}}</span>
+                        <span class="fl w14">{{item.price}}</span>
+                        <span class="fl w20">{{(item.account_number)}}</span>
+                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id,'in')">撤销</span>
                     </li>
                 </ul>
-                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && enList.length>12">{{more}}</div>
+                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && inList.length>5">{{more}}</div>
                 <div class="tc" v-if="loading">
                     <img src="@/assets/images/loading.gif" alt="" class="lodw20">
                     <p class="ft12 baseColor">加载中...</p>
                 </div>
-                <div class="no_data tc" v-if="hisList.length<=0">
+                <div class="no_data tc" v-if="inList.length<=0">
                     <img src="../assets/images/nodata.png" alt="">
                     <p class="fColor2 ft18">暂无数据</p>
                 </div>
             </div>
             <div class="container" v-if="isActive==2">
                  <ul class="list-title fColor2 ft12 clear">
-                    <li class="fl w14">成交时间</li>
-                    <!-- <li class="fl w8">资产代码</li> -->
-                    <li class="fl w12">委托方式</li>
-                    <!-- <li class="fl w6">方向</li> -->
-                    <li class="fl w12">已成交</li>
-                    <li class="fl w12">成交价</li>
-                    <li class="fl w12">交易所</li>
-                    <!-- <li class="fl w12">委托编号</li> -->
-                    <li class="fl w12">成交数量</li>
-                    <li class="fl w14">成交额</li>
-                    <li class="fl w10 tr">手续费</li>
+                    <li class="fl w20">时间</li>
+                    <li class="fl w12">币种</li>
+                    <li class="fl w12">数量</li>
+                    <li class="fl w14">价格</li>
+                    <!-- <li class="fl w20">账户</li> -->
+                    <li class="fl w8 tr">类型</li>
                 </ul>
                 <ul class="list-item fColor1 ft12">
-                    <li v-for="item in deList" class="clear">
-                        <span class="fl w14">{{item.create_time}}</span>
-                        <!-- <span class="fl w8">12312313</span> -->
-                        <span class="fl w12">自助委托</span>
-                        <!-- <span class="fl w6" :class="{'green': item.methods == '买入'}">买入</span> -->
-                        <span class="fl w12">是</span>
-                        <span class="fl w12">{{item.price}}</span>
-                        <span class="fl w12">imtoken</span>
-                        <!-- <span class="fl w12">20180804</span> -->
+                    <li v-for="item in comList" class="clear">
+                        <span class="fl w20">{{item.time}}</span>
+                        <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
                         <span class="fl w12">{{item.number}}</span>
-                        <span class="fl w14">{{(item.price * item.number) | numFilter}}</span>
-                        <span class="fl w10 tr">0.00</span>
+                        <span class="fl w14">{{item.price}}</span>
+                        <!-- <span class="fl w20">{{(item.account_number)}}</span> -->
+                        <span class="fl w8 tr curPer ceilColor" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
-                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && enList.length>12">{{more}}</div>
-                <div class="no_data tc" v-if="deList.length<=0">
+                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && outList.length>5">{{more}}</div>
+                <div class="no_data tc" v-if="comList.length<=0">
                     <img src="../assets/images/nodata.png" alt="">
                     <p class="fColor2 ft18">暂无数据</p>
                 </div>
@@ -119,18 +101,18 @@ export default {
         return{
         address:'',
         isActive:0,
-        url:"entrust",
+        url:"transaction_out",
         page:1,
         more:'加载更多',
         loading:false,
-        tabTitle:[{title:"当前委托",url:'entrust'},{title:"历史委托",url:"entrustlog"},{title:"委托明细",url:"deal"}],
-        enList:[],
-        hisList:[],
-        deList:[]
+        tabTitle:[{title:"正在卖",url:'transaction_out'},{title:"正在买",url:"transaction_in"},{title:"已完成",url:"transaction_complete"}],
+        outList:[],
+        inList:[],
+        comList:[]
       }
   },
   created(){
-      this.address = localStorage.getItem('address') || '';
+      this.token = localStorage.getItem('token') || '';
   },
   methods:{
       changeEntrust(index,url){
@@ -144,77 +126,80 @@ export default {
         this.loading=true;
         this.getData();
       },
-      revoke(id){
+      revoke(id,type){
+        var that =this;
         var id = id;
-        this.$http({
-            url: this.$utils.laravel_api + 'transaction/revoke',
-            method:'post',
-            data:{
-                address:this.address,
-                type:this.type,
-                id:id
+        layer.open({
+            content: '您确定要撤销吗？'
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+            that.$http({
+                url: '/api/' + 'transaction_del',
+                method:'post',
+                data:{
+                    id:id,
+                    type:type
+                },
+                headers: {'Authorization':  that.token}
+                }).then(res=>{
+                console.log(res)
+                    if(res.data.type  === 'ok'){
+                        layer.msg(res.data.message)
+                        that.getdata();
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                })
             }
-        }).then(res=>{
-            res = res.data;
-            if(res.type  === 'ok'){
-                layer.msg(res.message)
-                this.getdata();
-            }else{
-                layer.msg(res.message);
-            }
-        }).catch(error=>{
-            console.log(error)
-        })
+        });
     },
       getData(){
         var that = this;
         var url = this.url;
         var page = this.page;
+        that.loading = true;
         this.$http({
-            url: this.$utils.laravel_api + 'transaction/' +url,
+            url: '/api/' + url,
             method:'post',
-            data:{
-                address:this.address,
-                type:'in',
-                page:page
-            }
+            data:{page:page},
+            headers: {'Authorization':  that.token}
         }).then(res=>{
-            res = res.data;
-            this.loading=false;
+            console.log(res)
+            that.loading=false;
             console.log(url)
-            if(res.type  === 'ok'){
-                if(url=="entrust"){
-                    console.log(res.message.data)
+            if(res.data.type  === 'ok'){
+                if(url=="transaction_out"){
+                    console.log(res.data.message.list)
                     if(this.page==1){
-                        this.enList=res.message.data;
+                        that.outList=res.data.message.list;
                     }else{
-                        console.log(res.message.data.length)
-                       if(res.message.data.length<=0){
-                            this.more='没有更多数据了...';
+                        console.log(res.data.message.list.length)
+                       if(res.data.message.list.length<=0){
+                            that.more='没有更多数据了...';
                             return;
                         }else{
-                            this.enList=this.enList.concat(res.message.data)
+                            that.outList=that.outList.concat(res.data.message.list)
                         }
                     }
-                    // console.log(this.enList)
-                    this.getOut();
-                    console.log(this.enList)
+                    // console.log(this.outList)
+                    // this.getOut();
+                    // console.log(this.outList)
                 }
-                else if(url=="entrustlog"){
+                else if(url=="transaction_in"){
                     if(this.page==1){
-                        this.hisList=res.message.data.data;
+                        that.inList=res.data.message.list;
                     }else{
-                       if(res.message.data.data.length<=0){
-                            this.more='没有更多数据了...';
+                       if(res.data.message.list.length<=0){
+                            that.more='没有更多数据了...';
                         }else{
-                            this.hisList=this.hisList.concat(res.message.data.data)
+                            that.inList=this.inList.concat(res.data.message.list)
                         }
                     }
-                    console.log(this.hisList)
                 }
                 else{
-                    this.deList=res.message.complete;
-                    console.log(this.deList)
+                    that.comList=res.data.message.list;
                 }
 
             }else{
@@ -238,7 +223,6 @@ export default {
     //   },
       getOut(){
           var page = this.page;
-        //   console.log(page)
           this.$http({
             url: this.$utils.laravel_api + 'transaction/entrust',
             method:'post',
@@ -251,7 +235,7 @@ export default {
             res = res.data;
             console.log(res.message.data)
             if(res.type  === 'ok'){
-                this.enList=this.enList.concat(res.message.data)
+                this.outList=this.outList.concat(res.message.data)
             }else{
                 layer.msg(res.message);
             }
@@ -261,7 +245,7 @@ export default {
       }
   },
   mounted(){
-    //   this.getData();
+      this.getData();
   }
 };
 </script>

@@ -101,7 +101,7 @@ export default {
         {
           src1: require("@/assets/images/e0.png"),
           src2: require("@/assets/images/e1.png"),
-          title: "我的委托",
+          title: "我的交易",
           page: "accountEntrust"
         },
         {
