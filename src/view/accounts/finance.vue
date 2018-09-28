@@ -52,7 +52,7 @@
                        <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">{{balance}}</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
                        <label class="num_lab flex between mb30">
                             <input class="fColor1" type="text" :placeholder="min_number" v-model="number" />
-                            <span>USDT</span>
+                            <span>{{coinname}}</span>
                         </label>
                        <div class="flex mb50">
                            <div class="left_inp_wrap flex1">
@@ -60,13 +60,13 @@
                                    <span>手续费</span>
                                    <span>范围：<span>{{ratenum}}</span></span>
                                </p>
-                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" v-model="rate" /><span>USDT</span></label>
+                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" v-model="rate" /><span>{{coinname}}</span></label>
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
                                    <span class="fColor2 ft12">到账数量</span>
                                </p>
-                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>USDT</span></label>
+                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
                            </div>
                        </div>
                        <div class="flex">
@@ -82,6 +82,7 @@
                    </div>
                </li>
            </ul>
+           <div class="tc ft16 fColor1 mt50" v-show="asset_list.length<=0">暂无数据</div>
         </div>
     </div>
 </template>
@@ -101,20 +102,17 @@ export default {
             active01:'a',
             addr:'',
             url:'',
-            excharge_address:'44fdgfkdjghfdnvfjdgrgFDGDgfgfgf',
+            excharge_address:'',
             address:'',
             number:'',
             rate:'',
+            coinname:'',
             balance:'',
             ratenum:'',
             reachnum:'',
             min_number:'',
             currency:'',
-            asset_list:[
-                {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
-                {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
-                {name:'USDT',available_money:'0.00000000',frozen_money:'0.00000000',valuation:'0.00000000',lock_position:'0.00000000'},
-            ],
+            asset_list:[],
             tip_list:[
                 '请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。','请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。'
             ],
@@ -214,6 +212,7 @@ export default {
                 success: function(res){
                     if (res.type=="ok"){
                         console.log(res)
+                        that.coinname=res.message.name;
                         that.balance=res.message.change_balance;
                         that.min_number='最小提币数量'+res.message.min_number;
                         that.minnumber=res.message.min_number;
