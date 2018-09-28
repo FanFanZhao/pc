@@ -5,7 +5,7 @@
             <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
             </p>
             <p class="fr right_text">
-                <span class="record" @click="record">财务记录</span>
+                <!-- <span class="record" @click="record">财务记录</span> -->
                 <span class="address" @click="withdraw_address">提币地址管理</span>
             </p>
         </div>
@@ -84,7 +84,23 @@
                        </div>
                    </div>
                    <!--记录区-->
-                   <div class="hide_div" v-if="index == active02">
+                   <div class="hide_div rec-box" v-if="index == active02">
+                       <div class="rec-con">
+
+                        <div class="rec-title">
+                            <span>数量</span>
+                            <span>记录</span>
+                            <span>时间</span>
+                        </div>
+                        <ul class="rec-list">
+                            <li v-for="(reItem,reIndex) in recData[index]" :key="reIndex">
+                                <span>{{reItem.value}}</span>
+                                <span>{{reItem.info}}</span>
+                                <span>{{reItem.created_time}}</span>
+                            </li>
+                            
+                        </ul>
+                       </div>
                    </div>
                </li>
            </ul>
@@ -101,6 +117,8 @@ export default {
     name:'finance',
     data(){
         return{
+            recData:[],
+            token:'',
             flags:false,
             flag:false,
             isHide:true,
@@ -229,7 +247,7 @@ export default {
             this.getNum(currency);
         },
         //记录
-        rec(index){
+        rec(index,currency){
              if(this.flag){
                 this.flag = false;
                 this.active = 'a';
@@ -240,6 +258,7 @@ export default {
                  this.active02 = index;
                  this.active = 'a';
                   this.active01 = 'a'
+                
             }
         },
         getNum(currency){
@@ -386,6 +405,19 @@ export default {
             }).then(res=>{
                 console.log(res.data)
                 that.asset_list=res.data.message.change_wallet.balance;
+                this.asset_list.forEach((item,index) => {
+                    this.$http({
+                        url: '/api/wallet/legal_log',
+                        method:'post',
+                        data:{type:'change',currency:item.currency},
+                        headers:{'Authorization':this.token}
+                    }).then( res => {
+                        console.log(res);
+                        if(res.data.type == 'ok'){
+                            this.recData[index] = res.data.message.list;
+                        }
+                    })
+                })
             }).catch(error=>{
                 console.log(error)
             })
@@ -549,6 +581,33 @@ export default {
     }
     .hide{
         display: none;
+    }
+    .rec-box{
+        
+        .rec-con{
+            margin: 10px;
+            padding: 0 20px;
+            background: #262a42;
+                span{
+                    flex:1;text-align: center;
+                    line-height: 3;
+                }
+            .rec-title{
+                display: flex;
+                justify-content: space-between;
+                font-size: 14px;
+                color:#fff;
+                line-height: 1.5;
+            }
+            li{
+                display: flex;
+                
+                justify-content: space-between;
+                font-size: 12px;
+                color: #728daf;
+                border-top: 1px solid #181b2a;
+            }
+        }
     }
 </style>
 
