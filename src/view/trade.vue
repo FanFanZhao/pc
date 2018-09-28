@@ -127,12 +127,13 @@
             }
         },
         created(){
-            this.address = localStorage.getItem('address') || '';
+            this.address = localStorage.getItem('token') || '';
             // this.init();
        
         },
         mounted(){
             var that = this;
+             that.address = localStorage.getItem('token') || '';
             eventBus.$on('toTrade', function (data) {
             console.log(data);
             that.currency_id = data.currency_id,
@@ -188,7 +189,7 @@
                 }
                 var i=layer.load();
                 this.$http({
-                    url: this.$utils.laravel_api+this.buyInfo.url,
+                    url: '/api/api/'+this.buyInfo.url,
                     method:'post',
                     data:{
                         legal_id:this.legal_id,
@@ -196,10 +197,7 @@
                         price:this.buyInfo.buyPrice,
                         num:this.buyInfo.buyNum,  
                     },
-                   beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", localStorage.getItem('token'));
-			},
-                    
+                     headers: {'Authorization':  localStorage.getItem('token')},           
                 }).then(res=>{
                     // console.log(res ,222)
                     layer.close(i);
@@ -207,6 +205,7 @@
                     if(res.data.type=="ok"){
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
+                        layer.msg(res.data.message)
                     }else{
                         layer.msg(res.data.message)
                     }
@@ -224,19 +223,17 @@
                     layer.msg('请输入卖出量');
                     return;
                 }
-                var i=layer.load();
+                // var i=layer.load();
                 this.$http({
-                    url: this.$utils.laravel_api+this.sellInfo.url,
+                    url: '/api/api/'+this.sellInfo.url,
                     method:'post',
                     data:{
                         legal_id:this.legal_id,
                         currency_id:this.currency_id,
-                        price:this.sellInfo.buyPrice,
-                        num:this.sellInfo.buyNum
+                        price:this.sellInfo.sellPrice,
+                        num:this.sellInfo.sellNum
                     },
-                    beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", localStorage.getItem('token'));
-			},
+                    headers: {'Authorization':  localStorage.getItem('token')}, 
                 }).then(res=>{
                     console.log(res)
                     // layer.close(i);
@@ -244,6 +241,9 @@
                     if(res.data.type=="ok"){
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
+                        layer.msg(res.data.message);
+                    }else{
+                        layer.msg(res.data.message);
                     }
                 }).catch(error=>{
                     console.log(error)

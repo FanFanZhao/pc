@@ -268,7 +268,7 @@ export default {
     };
   },
   created() {
-    this.init(this.initKline);
+    // this.init(this.initKline);
   },
   mounted() {
     var mySwiper = new Swiper(".swiper-container01", {
