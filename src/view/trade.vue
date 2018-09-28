@@ -286,7 +286,7 @@
                return (this.buyInfo.buyPrice * this.buyInfo.buyNum) || 0;
             },
             sellTotal(){
-                return this.sellInfo.sellPirce * this.sellInfo.sellNum || 0;
+                return this.sellInfo.sellPrice * this.sellInfo.sellNum || 0;
             }
         }
     
