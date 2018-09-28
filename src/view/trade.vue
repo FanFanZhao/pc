@@ -128,7 +128,7 @@
         },
         created(){
             this.address = localStorage.getItem('address') || '';
-            this.init();
+            // this.init();
        
         },
         mounted(){
@@ -197,7 +197,7 @@
                         num:this.buyInfo.buyNum,  
                     },
                    beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", token);
+				request.setRequestHeader("Authorization", localStorage.getItem('token'));
 			},
                     
                 }).then(res=>{
@@ -215,6 +215,7 @@
                 })
             }, 
             sellCoin(){
+                console.log(localStorage.getItem('token'))
                 if(!this.sellInfo.sellPrice || this.sellInfo.sellPrice<=0){
                    layer.msg('请输入卖出价');
                     return;
@@ -234,12 +235,12 @@
                         num:this.sellInfo.buyNum
                     },
                     beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", token);
+				request.setRequestHeader("Authorization", localStorage.getItem('token'));
 			},
                 }).then(res=>{
-                    // console.log(res)
-                    layer.close(i);
-                    layer.msg(res.data.message)
+                    console.log(res)
+                    // layer.close(i);
+                    // layer.msg(res.data.message)
                     if(res.data.type=="ok"){
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
