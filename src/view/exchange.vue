@@ -68,12 +68,13 @@ export default {
       console.log(that.legal_name);
       that.buy_sell(that.legal_id,that.currency_id)
     });
+    that.userInfo()
   },
   sockets: {
     connect() {
       // console.log('socket',this.address)
-      this.$socket.emit("login", this.address);
-      this.$socket.on("new_msg", msg => {
+      this.$socket.emit("login", localStorage.getItem('user_id'));
+      this.$socket.on("transaction", msg => {
         console.log(msg);
       });
     },
@@ -146,6 +147,22 @@ export default {
                 }).catch(error=>{
                     // console.log(error)
                 })
+    },
+    userInfo(){
+      this.$http({
+                    url: '/api/'+'user/info',
+                    method:'get',
+                    data:{},  
+                      headers: {'Authorization':  localStorage.getItem('token')},    
+                }).then(res=>{
+                    console.log(res);
+                    if(res.data.type == 'ok'){
+                      localStorage.setItem('user_id',res.data.message.id)
+                    }
+                }).catch(error=>{
+                    
+                })
+                  
     }
         
   }

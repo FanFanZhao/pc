@@ -17,7 +17,7 @@
                     </div>
                     <div class="clear available" v-else>
                         <span class="fl fColor1">可用 {{user_currency}} {{currency_name}}</span>
-                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="clear available" v-else>
                         <span class="fl fColor1">可用 {{user_legal}} {{legal_name}}</span>
-                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="clear available" v-else>
                         <span class="fl fColor1">可用 {{user_currency}} {{currency_name}}</span>
-                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="clear available" v-else>
                         <span class="fl fColor1">可用 {{user_legal}} {{legal_name}}</span>
-                        <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
+                        <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
