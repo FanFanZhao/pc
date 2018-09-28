@@ -19,7 +19,7 @@
                     <input type="text" v-model="code" class="code">
                     <button type='button' class="code-btn" @click="sendCode">发送验证码</button>
                 </div>
-                <button class="confirm-btn" @click="checkCode">确认</button>
+                <button class="confirm-btn" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-if="codeTrue">
                 <div class="title">设置密码</div>
@@ -108,13 +108,9 @@ export default {
         time--;
       }, 1000);
         let data = {user_string:this.account};
-        if(isMb){
-            data.mobile_code = ''
-        } else {
-            data.email_code = ''
-        }
+        
       this.$http({
-        url: this.$utils.laravel_api + url,
+        url: '/api/api/' + url,
         method: "post",
         data: data
       }).then(res => {
@@ -133,13 +129,23 @@ export default {
             let data = {};
             let url = 'user/check_email';
             if(this.isMb){
-                data.mobile_code = this.code;
+                data = {"mobile_code":this.code}
                 url = 'user/check_mobile'
             } else {
-                data.email_code = this.code;
+                data = {"email_code":this.code}
             }
+            // $.ajax({
+            //   url: this.$utils.laravel_api + url,
+            //   type:'post',
+            //   data:data,
+            //   dataType:'json',
+            //   success:res => {
+            //     console.log(res);
+                
+            //   }
+            // })
             this.$http({
-                url: this.$utils.laravel_api + url,
+                url: '/api/api/' + url,
                 method:'post',
                 data:data
             }).then(res => {
@@ -147,9 +153,11 @@ export default {
                 console.log(res.data);
                 
                 if(res.data.type == 'ok'){
-                    this.codeTrue = true;
+                    // this.codeTrue = true;
+                    layer.msg('true')
                 } else {
-                    layer.msg(res.data.message)
+                    layer.msg('false')
+                    
                 }
                 
             })

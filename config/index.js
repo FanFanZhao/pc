@@ -11,15 +11,15 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {},
-  //   proxyTable: {
-  //     '/api': {
-  //         target: 'http://ice.adminchao.com/api/',//后端接口地址
-  //         changeOrigin: true,//是否允许跨越
-  //         pathRewrite: {
-  //             '^/api': '/api',//重写,
-  //         }
-  //     }
-  // },
+    proxyTable: {
+      '/api': {
+          target: 'http://ice.adminchao.com',//后端接口地址
+          changeOrigin: true,//是否允许跨越
+          pathRewrite: {
+              '^/api': '/',//重写,
+          }
+      }
+  },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
