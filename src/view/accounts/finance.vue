@@ -219,32 +219,26 @@ export default {
         },
         getNum(currency){
             var that = this;
-            $.ajax({
-                type: "POST",
-                url: this.$utils.laravel_api + 'wallet/get_info',
-                data: {
-                    currency:currency
-                },
-                dataType: "json",
-                async: true,
-                beforeSend: function beforeSend(request) {
-                    request.setRequestHeader("Authorization", that.token);
-                },
-                success: function(res){
-                    if (res.type=="ok"){
-                        console.log(res)
-                        that.coinname=res.message.name;
-                        that.balance=res.message.change_balance;
-                        that.min_number='最小提币数量'+res.message.min_number;
-                        that.minnumber=res.message.min_number;
-                        that.ratenum=res.message.rate+'-'+res.message.rate;
+            this.$http({
+                url: '/api/' + 'wallet/get_info',
+                method:'post',
+                data:{currency:currency},
+                headers: {'Authorization':  that.token},
+                }).then(res=>{
+                    console.log(res)
+                    if (res.data.type=="ok"){
+                        that.coinname=res.data.message.name;
+                        that.balance=res.data.message.change_balance;
+                        that.min_number='最小提币数量'+res.data.message.min_number;
+                        that.minnumber=res.data.message.min_number;
+                        that.ratenum=res.data.message.rate+'-'+res.data.message.rate;
                         that.reachnum=0.0000;
-                        that.rate=res.message.rate;
-                        
+                        that.rate=res.message.data.rate;
                     }else{
-                        console.log(res.message)
+                        console.log(res.data.message)
                     }
-                }
+                }).catch(error=>{
+                    console.log(error)
             })
         },
         // 提币按钮
@@ -267,36 +261,60 @@ export default {
                 console.log(number,min_number)
                 return layer.alert('输入的提币数量小于最小值');
             }
+            
             // if(rate=='' || rate>=1){
             //     layer.alert('请输入0-1之间的提币手续费');
             //     return;
             // }
-            $.ajax({
-                type: "POST",
-                url: this.$utils.laravel_api + 'wallet/out',
-                data: {
+            this.$http({
+                url: '/api/' + 'wallet/out',
+                method:'post',
+                data:{
                     currency:currency,
                     number:number,
                     rate:rate,
                     address:address
                 },
-                dataType: "json",
-                async: true,
-                beforeSend: function beforeSend(request) {
-                    request.setRequestHeader("Authorization", that.token);
-                },
-                success: function(res){
+                headers: {'Authorization':  that.token},
+                }).then(res=>{
                     console.log(res)
-                    if (res.type=="ok"){
-                        layer.alert(res.message)
+                    if (res.data.type=="ok"){
+                        layer.alert(res.data.message)
                         setTimeout(() => {
                           window.location.reload();
                     }, 1500);
                     }else{
-                        layer.alert(res.message)
+                        console.log(res.data.message)
                     }
-                }
+                }).catch(error=>{
+                    console.log(error)
             })
+            // $.ajax({
+            //     type: "POST",
+            //     url: this.$utils.laravel_api + 'wallet/out',
+            //     data: {
+            //         currency:currency,
+            //         number:number,
+            //         rate:rate,
+            //         address:address
+            //     },
+            //     dataType: "json",
+            //     async: true,
+            //     beforeSend: function beforeSend(request) {
+            //         request.setRequestHeader("Authorization", that.token);
+            //     },
+            //     success: function(res){
+            //         console.log(res)
+            //         if (res.type=="ok"){
+            //             layer.alert(res.message)
+            //             setTimeout(() => {
+            //               window.location.reload();
+            //         }, 1500);
+            //         }else{
+            //             layer.alert(res.message)
+            //         }
+            //     }
+            // })
             
         },
         exchange(){
