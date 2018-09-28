@@ -25,6 +25,7 @@
                    
                 </div>
                 <div class="main" v-if="showReset">
+                    <div class="main_title">设置密码</div>
                     <div class="register-input">
                         <span class="register-item">请输入密码</span>
                         <input type="password" class="input-main input-content"  v-model="password" id="pwd">
@@ -52,7 +53,7 @@ export default {
     isMb:true,
       account_number: "",
       phoneCode: "",
-      showReset:true,
+      showReset:false,
       password:'',
       re_password:''
     };
@@ -74,7 +75,7 @@ export default {
                 layer.tips('您输入的手机或邮箱账号不符合规则!', '#account');return;
             }
           this.$http({
-              url: '/api/api/' + url,
+              url: '/api/' + url,
               method:'post',
               data:{
                   user_string:this.account_number,
@@ -124,7 +125,7 @@ export default {
                 
                 layer.tips('请输入账号!', '#account');return;
             } else if(this.phoneCode == ''){
-                console.log('请输入验证码');
+                // console.log('请输入验证码');
                 
                 layer.tips('请输入验证码!', '#pwd');return;
             }
@@ -133,7 +134,7 @@ export default {
                 data.email_code = this.phoneCode;
             }  else if(isMobile){
                 url = 'user/check_mobile';
-                data.phone_code = this.phoneCode;
+                data.mobile_code = this.phoneCode;
             }
                 else  {
                 layer.tips('您输入的邮箱或手机号不符合规则!', '#account');return;
@@ -141,7 +142,7 @@ export default {
             console.log(data);
             
             this.$http({
-                    url:this.$utils.laravel_api + url,
+                    url:'/api/' + url,
                     method:'post',
                     data:data
                 }).then(res => {
