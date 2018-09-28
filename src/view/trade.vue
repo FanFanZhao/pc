@@ -264,7 +264,7 @@
 </script>
 
 <style scoped>
-.title_box{height: 48px;padding: 0 30px;background-color: #181b2a;}
+.title_box{height: 48px;line-height: 48px; padding: 0 30px;background-color: #181b2a;box-shadow: 0 2px 6px rgba(0,0,0,.1);}
 .tabtitle span{cursor: pointer;}
 .tabtitle span:not(:last-child) {margin-right: 40px;}
 .content .first{padding: 0 15px 0 25px;}
