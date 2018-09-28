@@ -82,7 +82,7 @@
                    </div>
                </li>
            </ul>
-           <div class="tc ft16 fColor1 mt50" v-show="asset_list.length<=0">暂无数据</div>
+           <!-- <div class="tc ft16 fColor1 mt50" v-show="asset_list.length<=0">暂无数据</div> -->
         </div>
     </div>
 </template>
@@ -155,31 +155,52 @@ export default {
         },
         sendData(currency){
             var that = this;
-            $.ajax({
-                type: "POST",
-                url: this.$utils.laravel_api + 'wallet/get_in_address',
-                data: {
-                    currency:currency
-                },
-                dataType: "json",
-                async: true,
-                beforeSend: function beforeSend(request) {
-                    request.setRequestHeader("Authorization", that.token);
-                },
-                success: function(res){
-                    if (res.type=="ok"){
-                        console.log(res)
-                        that.excharge_address=res.message;
+            // $.ajax({
+            //     type: "POST",
+            //     url: this.$utils.laravel_api + 'wallet/get_in_address',
+            //     data: {
+            //         currency:currency
+            //     },
+            //     dataType: "json",
+            //     async: true,
+            //     beforeSend: function beforeSend(request) {
+            //         request.setRequestHeader("Authorization", that.token);
+            //     },
+            //     success: function(res){
+            //         if (res.type=="ok"){
+            //             console.log(res)
+            //             that.excharge_address=res.message;
+            //             // 生成二维码
+            //             $('#code').qrcode({
+            //                 width: 100, //宽度
+            //                 height:100, //高度
+            //                 text:res.message
+            //             });
+            //         }else{
+            //             console.log(res.message)
+            //         }
+            //     }
+            // })
+            this.$http({
+                url: '/api/api/' + 'wallet/get_in_address',
+                method:'post',
+                data:{currency:currency},
+                headers: {'Authorization':  that.token},
+                }).then(res=>{
+                    console.log(res)
+                    if (res.data.type=="ok"){
+                        that.excharge_address=res.data.message;
                         // 生成二维码
                         $('#code').qrcode({
                             width: 100, //宽度
                             height:100, //高度
-                            text:res.message
+                            text:res.data.message
                         });
                     }else{
-                        console.log(res.message)
+                        console.log(res.data.message)
                     }
-                }
+                }).catch(error=>{
+                    console.log(error)
             })
         },
         //提币
@@ -338,8 +359,8 @@ export default {
             data:{},
             headers: {'Authorization':  that.token},
             }).then(res=>{
-                console.log(res)
- 
+                console.log(res.data)
+                that.asset_list=res.data.message.change_wallet.balance;
             }).catch(error=>{
                 console.log(error)
             })
