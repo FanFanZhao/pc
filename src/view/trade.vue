@@ -267,11 +267,10 @@
                         console.log(res ,222)
                         // layer.close(i);
                         if(res.data.type == "ok"){
-                            console.log('lllll')
+                        
                         this.user_currency = res.data.message.user_currency;
                         this.user_legal = res.data.message.user_legal;
                         console.log(res.data)
-                        console.log(this.user_currency)
                             this.buyInfo.buyPrice=0;
                             this.buyInfo.buyNum=0;
                         }else{

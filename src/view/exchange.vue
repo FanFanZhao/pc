@@ -66,7 +66,9 @@ export default {
       that.legal_name = data.leg_name;
       console.log(that.currency_name);
       console.log(that.legal_name);
-      that.buy_sell(that.legal_id,that.currency_id)
+      that.buy_sell(that.legal_id,that.currency_id);
+      that.connect();
+      console.log('shift')
     });
     that.userInfo()
   },
@@ -76,23 +78,35 @@ export default {
       this.$socket.emit("login", localStorage.getItem('user_id'));
       this.$socket.on("transaction", msg => {
         console.log(msg);
-      });
-    },
-    new_msg(msg) {
-      // console.log(msg)
-      if (msg.type == "transaction") {
-        console.log(inData);
+        if (msg.type == "transaction") {
+        
         this.newData = msg.content;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if (inData && inData.legth > 0) {
-          // this.inlist = inData;
+        if (inData.length > 0) {
+           this.inlist = inData;
         }
-        if (outData && outData.legth > 0) {
-          this.outlist = outData;
+        if (outData.length > 0) {
+         this.outlist = outData;
         }
       }
-    }
+      });
+    },
+    // new_msg(msg) {
+    //   // console.log(msg)
+    //   if (msg.type == "transaction") {
+    //     console.log(inData);
+    //     this.newData = msg.content;
+    //     var inData = JSON.parse(msg.in);
+    //     var outData = JSON.parse(msg.out);
+    //     if (inData && inData.legth > 0) {
+    //       // this.inlist = inData;
+    //     }
+    //     if (outData && outData.legth > 0) {
+    //       this.outlist = outData;
+    //     }
+    //   }
+    // }
   },
   methods: {
     init() {
@@ -163,7 +177,26 @@ export default {
                     
                 })
                   
-    }
+    },
+    connect() {
+      // console.log('socket',this.address)
+      this.$socket.emit("login", localStorage.getItem('user_id'));
+      this.$socket.on("transaction", msg => {
+        console.log(msg);
+        if (msg.type == "transaction") {
+        
+        this.newData = msg.content;
+        var inData = JSON.parse(msg.in);
+        var outData = JSON.parse(msg.out);
+        if (inData.length > 0) {
+           this.inlist = inData;
+        }
+        if (outData.length > 0) {
+         this.outlist = outData;
+        }
+      }
+      });
+    },
         
   }
 };
