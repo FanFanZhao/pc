@@ -4,8 +4,8 @@
 			<div class="fl"><img src="@/assets/images/logo.png" class="navbar-logo" style="width:100px;"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList"  @click="goto(index,tabs.page)">{{tabs.title}}</li>
-        <li class="base downapp">APP下载
-          <div class="appcode tc">
+        <li class="base downapp" @click="showapp">APP下载
+          <div class="appcode tc" v-show="appshow">
             <span></span>
             <p><img src="@/assets/images/code.jpg" alt=""></p>
           </div>
@@ -77,6 +77,7 @@ export default {
   name: "indexHeader",
   data() {
     return {
+      appshow:false,
       address: "",
       account_number: "",
       assets: "资产",
@@ -190,6 +191,9 @@ export default {
     });
   },
   methods: {
+    showapp(){
+      this.appshow=!this.appshow
+    },
     goto(index, name) {
       this.current = index;
       console.log(index, name);
@@ -418,7 +422,6 @@ export default {
 .downapp{
   position: relative;
   div{
-    display: none;
     position: absolute;
     top: 15px;
     z-index: 10;
@@ -442,7 +445,5 @@ export default {
     
   }
 }
-.downapp:hover div{
-  display: block;
-}
+
 </style>
