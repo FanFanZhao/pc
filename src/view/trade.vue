@@ -16,7 +16,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} <span>{{legal_name}}</span>/{{currency_name}}</span>
+                        <span class="fl fColor1">可用 {{user_currency}} {{currency_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -41,7 +41,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} {{legal_name}}/{{currency_name}}</span>
+                        <span class="fl fColor1">可用 {{user_legal}} {{legal_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -69,7 +69,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} {{legal_name}}/{{currency_name}}</span>
+                        <span class="fl fColor1">可用 {{user_currency}} {{currency_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -92,7 +92,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{allBalance}} {{legal_name}}/{{currency_name}}</span>
+                        <span class="fl fColor1">可用 {{user_legal}} {{legal_name}}</span>
                         <span class="fr baseColor curPer" @click="goNext('account')">充币</span>
                     </div>
                     <div class="mt40 input-item clear">
@@ -119,6 +119,8 @@
             return {
                 currency_name:'',
                 legal_name:'',
+                user_currency:'',
+                user_legal:'',
               show:true,
               showNone:false,
               allBalance:0,
@@ -140,6 +142,7 @@
             that.legal_id = data.legal_id;
             that.currency_name = data.currency_name;
             that.legal_name = data.leg_name;
+            that.buy_sell(that.legal_id,that.currency_id)
         });
         eventBus.$on('toTrade0', function (data0) {
             console.log(data0);
@@ -148,7 +151,8 @@
                 that.currency_name = data0.currency_name;
                 that.legal_name = data0.leg_name;
                 console.log(that.currency_name);
-                console.log(that.legal_name)
+                console.log(that.legal_name);
+                that.buy_sell(that.legal_id,that.currency_id)
             })
        
         },
@@ -248,7 +252,35 @@
                 }).catch(error=>{
                     console.log(error)
                 })
-            }
+            },
+                //买入、卖出记录
+        buy_sell(legals_id,currencys_id){
+            this.$http({
+                        url: '/api/api/'+'transaction/deal',
+                        method:'post',
+                        data:{
+                            legal_id:legals_id,
+                            currency_id:currencys_id
+                        },  
+                        headers: {'Authorization':  localStorage.getItem('token')},    
+                    }).then(res=>{
+                        console.log(res ,222)
+                        // layer.close(i);
+                        if(res.data.type == "ok"){
+                            console.log('lllll')
+                        this.user_currency = res.data.message.user_currency;
+                        this.user_legal = res.data.message.user_legal;
+                        console.log(res.data)
+                        console.log(this.user_currency)
+                            this.buyInfo.buyPrice=0;
+                            this.buyInfo.buyNum=0;
+                        }else{
+                            layer.msg(res.data.message)
+                        }
+                    }).catch(error=>{
+                        // console.log(error)
+                    })
+        }
         },
         computed:{
             buyTotal(){
