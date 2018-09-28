@@ -182,7 +182,7 @@ export default {
             //     }
             // })
             this.$http({
-                url: '/api/api/' + 'wallet/get_in_address',
+                url: '/api/' + 'wallet/get_in_address',
                 method:'post',
                 data:{currency:currency},
                 headers: {'Authorization':  that.token},
@@ -354,7 +354,7 @@ export default {
             //     }
             // });
             this.$http({
-            url: '/api/api/' + 'wallet/list',
+            url: '/api/' + 'wallet/list',
             method:'post',
             data:{},
             headers: {'Authorization':  that.token},
