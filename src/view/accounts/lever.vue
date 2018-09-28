@@ -20,7 +20,7 @@
                 <li class="w25 tr">操作</li>
             </ul>
             <ul class="contentbox fColor1">
-                <li class="clearfix flex">
+                <!-- <li class="clearfix flex">
                     <p class="w11 l40">BTC/USDT</p>
                     <p class="w16 tr flex column between">
                         <span>0.00000000 BTC</span>
@@ -63,8 +63,9 @@
                         <span @click="turnout">转出</span>
                         <span>杠杆</span>
                     </p>
-                </li>
+                </li> -->
             </ul>
+            <div class="tc ft16 fColor1 mt50">暂无数据</div>
         </div>
         <div class="dialog_wrap" v-show="inDialog">
             <div class="dialog">

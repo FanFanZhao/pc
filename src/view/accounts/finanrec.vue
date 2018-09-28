@@ -90,9 +90,10 @@ export default {
         getdata(){
             $.ajax({
                 type: "POST",
-                url: this.$utils.laravel_api + 'wallet/out',
+                url: this.$utils.laravel_api + 'wallet/legal_log',
                 data: {
-     
+
+                    // type:'change'
                 },
                 dataType: "json",
                 async: true,
@@ -102,12 +103,9 @@ export default {
                 success: function(res){
                     console.log(res)
                     if (res.type=="ok"){
-                        layer.alert(res.message)
-                        setTimeout(() => {
-                          window.location.reload();
-                    }, 1500);
+                 
                     }else{
-                        layer.alert(res.message)
+                       
                     }
                 }
             })
