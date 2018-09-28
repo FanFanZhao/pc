@@ -4,8 +4,8 @@
         <div class="reg-content">
             <div class="title">注册</div>
             <div class="tab">
-                <span :class="{active:!isMb}" @click="setIsMb(false)">邮箱注册</span>
                 <span :class='{active:isMb}' @click="setIsMb(true)">手机号注册</span>
+                <span :class="{active:!isMb}" @click="setIsMb(false)">邮箱注册</span>
             </div>
             <div class="step-one" v-if="!codeTrue">
 
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
     codeTrue:false,
-      isMb: false,
+      isMb: true,
       account: "",
       pwd: "",
       repwd: "",
@@ -66,6 +66,7 @@ export default {
         this.code = '';
         this.invite = '';
         this.isMb = boo;
+        this.codeTrue = false;
         var codeBtn = document.querySelector('.code-btn');
         codeBtn.disabled = false;
         codeBtn.innerHTML = '验证码'
@@ -118,9 +119,7 @@ export default {
         layer.msg(res.data.message);
       });
     },
-    setTime(e) {
-      console.log(e.target);
-    },
+    
     checkCode(){
         let code = this.code;
         if(this.code == ''){
@@ -153,7 +152,7 @@ export default {
                 console.log(res.data);
                 
                 if(res.data.type == 'ok'){
-                    // this.codeTrue = true;
+                    this.codeTrue = true;
                     layer.msg('true')
                 } else {
                     layer.msg('false')
@@ -164,35 +163,18 @@ export default {
         }
     },
     register() {
-      if (this.account == "") {
-        layer.msg("请输入账号");
-        return;
-      }
-      else if (isMb) {
-        var reg = /^1[34578]\d{9}$/;
-        if (!reg.test(this.account)) {
-          layer.msg("您输入的手机号不符合规则");
-          return;
-        }
-      } else if (!isMb) {
-        var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-        if (!emreg.test(this.account)) {
-          layer.msg("您输入的邮箱不符合规则");
-          return;
-        } 
-      } else if (this.code == "") {
-        layer.msg("请输入验证码");
-        return;
-      } else if (this.pwd == "") {
+      
+      if(this.pwd == ''){
         layer.msg("请输入密码");
         return;
-      } else if (this.repwd == "") {
+      } else if(this.repwd ==''){
         layer.msg("请再次输入密码");
         return;
-      } else if (this.pwd !== this.repwd) {
+      } else if(this.pwd !== this.repwd){
         layer.msg("两次输入的密码不一致");
         return;
       } else {
+
       }
       var data = {};
       var isMb = this.isMb;
@@ -203,12 +185,13 @@ export default {
       data.re_password = this.repwd;
       data.extension_code =this.invite;
       this.$http({
-        url: this.$utils.laravel_api + "user/register",
+        url: '/api/api/' + "user/register",
         data: data,
         method: "post"
       }).then(res => {
-        console.log(res);
+        layer.msg(res.data.message)
         if(res.data.type == 'ok'){
+
             this.$router.push('/components/login')
         }
       });

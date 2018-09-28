@@ -46,11 +46,11 @@
             <div slot="button-prev" class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"></div>
             <div slot="button-next" class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"></div>
         </div> -->
-        <div class="notice">
+        <!-- <div class="notice">
            <ul class="flex alcenter around notice_ul">
                <li v-for="item in noticeList" :key="item.id" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" :data-id='item.id'>{{item.name}}</a></li>
            </ul>
-        </div>
+        </div> -->
         <div class="active-data clearfix">
             <div class="data high">
                 <div class="name">最高价</div>
@@ -268,7 +268,7 @@ export default {
     };
   },
   created() {
-    this.init(this.initKline);
+    // this.init(this.initKline);
   },
   mounted() {
     var mySwiper = new Swiper(".swiper-container01", {
@@ -322,7 +322,7 @@ export default {
           this.swiperList = res.data.message.coin_list;
           callback && callback();
         } else {
-          layer.msg(res.message);
+          // layer.msg(res.message);
         }
       });
     },

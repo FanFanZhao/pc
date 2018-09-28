@@ -26,7 +26,7 @@
             changeCyle(index){
               var index=index;
               this.current=index;
-              this.getData();
+        //       this.getData();
             },
             // Chart(){
             
@@ -226,7 +226,7 @@
             // }
         },
         mounted(){
-            this.getData();
+        //     this.getData();
         }
 }
 </script>

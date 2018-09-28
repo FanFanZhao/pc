@@ -22,16 +22,16 @@
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
                         <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent >
-                        <span>CNY</span>
+                        <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入量</label>
                         <input type="number" v-model="buyInfo.buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
-                        <span>JNB</span>
+                        <span>{{legal_name}}</span>
                     </div>
                     <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 fColor1 ft16">交易额 {{buyTotal}} CNY</div>
-                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16" @click="buyCoin">买JNB</div>
+                    <div class="mt50 fColor1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
+                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16" @click="buyCoin">买{{legal_name}}</div>
                 </div>
             </div>
             <div class="w50 fl second">
@@ -47,16 +47,16 @@
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
                         <input type="number" @keydown.69.prevent v-model="sellInfo.sellPrice">
-                        <span>CNY</span>
+                        <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出量</label>
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellInfo.sellNum">
-                        <span>JNB</span>
+                        <span>{{legal_name}}</span>
                     </div>
                     <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 fColor1 ft16">交易额 {{sellTotal}} CNY</div>
-                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16" @click="sellCoin">卖JNB</div>
+                    <div class="mt50 fColor1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
+                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16" @click="sellCoin">卖{{legal_name}}</div>
                 </div>
             </div>
         </div>
@@ -75,14 +75,14 @@
                     <div class="mt40 input-item clear">
                         <label>买入价</label>
                         <input type="number" value="以市场最低价买入" @keydown.69.prevent  disabled>
-                        <span>CNY</span>
+                        <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入量</label>
                         <input type="number"  @keydown.69.prevent  @keyup="numFilter($event)">
-                        <span>CNY</span>
+                        <span>{{legal_name}}</span>
                     </div>
-                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16">买JNB</div>
+                    <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16">买{{legal_name}}</div>
                 </div>
             </div>
             <div class="w50 fl second">
@@ -98,14 +98,14 @@
                     <div class="mt40 input-item clear">
                         <label>卖出价</label>
                         <input type="number" value="以市场最优价格卖出" @keydown.69.prevent disabled>
-                        <span>CNY</span>
+                        <span>{{currency_name}}</span>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出量</label>
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)">
-                        <span>JNB</span>
+                        <span>{{legal_name}}</span>
                     </div>
-                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16">卖JNB</div>
+                    <div class="sell_btn curPer mt40 tc redBack fColor1 ft16">卖{{legal_name}}</div>
                 </div>
             </div>
         </div>  
@@ -127,12 +127,13 @@
             }
         },
         created(){
-            this.address = localStorage.getItem('address') || '';
+            this.address = localStorage.getItem('token') || '';
             // this.init();
        
         },
         mounted(){
             var that = this;
+             that.address = localStorage.getItem('token') || '';
             eventBus.$on('toTrade', function (data) {
             console.log(data);
             that.currency_id = data.currency_id,
@@ -188,7 +189,7 @@
                 }
                 var i=layer.load();
                 this.$http({
-                    url: this.$utils.laravel_api+this.buyInfo.url,
+                    url: '/api/api/'+this.buyInfo.url,
                     method:'post',
                     data:{
                         legal_id:this.legal_id,
@@ -196,10 +197,7 @@
                         price:this.buyInfo.buyPrice,
                         num:this.buyInfo.buyNum,  
                     },
-                   beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", localStorage.getItem('token'));
-			},
-                    
+                     headers: {'Authorization':  localStorage.getItem('token')},           
                 }).then(res=>{
                     // console.log(res ,222)
                     layer.close(i);
@@ -207,6 +205,7 @@
                     if(res.data.type=="ok"){
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
+                        layer.msg(res.data.message)
                     }else{
                         layer.msg(res.data.message)
                     }
@@ -224,19 +223,17 @@
                     layer.msg('请输入卖出量');
                     return;
                 }
-                var i=layer.load();
+                // var i=layer.load();
                 this.$http({
-                    url: this.$utils.laravel_api+this.sellInfo.url,
+                    url: '/api/api/'+this.sellInfo.url,
                     method:'post',
                     data:{
                         legal_id:this.legal_id,
                         currency_id:this.currency_id,
-                        price:this.sellInfo.buyPrice,
-                        num:this.sellInfo.buyNum
+                        price:this.sellInfo.sellPrice,
+                        num:this.sellInfo.sellNum
                     },
-                    beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", localStorage.getItem('token'));
-			},
+                    headers: {'Authorization':  localStorage.getItem('token')}, 
                 }).then(res=>{
                     console.log(res)
                     // layer.close(i);
@@ -244,6 +241,9 @@
                     if(res.data.type=="ok"){
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
+                        layer.msg(res.data.message);
+                    }else{
+                        layer.msg(res.data.message);
                     }
                 }).catch(error=>{
                     console.log(error)
