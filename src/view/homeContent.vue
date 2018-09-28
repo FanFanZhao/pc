@@ -260,10 +260,10 @@ export default {
         }
       ],
       noticeList: [
-        { text: "DQ交易所测试上线。。。", url: "" },
-        { text: "DQ交易所测试上线。。。", url: "" },
-        { text: "DQ交易所测试上线。。。", url: "" },
-        { text: "DQ交易所测试上线。。。", url: "" }
+        { text: "2KEX交易所测试上线。。。", url: "" },
+        { text: "2KEX交易所测试上线。。。", url: "" },
+        { text: "2KEX交易所测试上线。。。", url: "" },
+        { text: "2KEX交易所测试上线。。。", url: "" }
       ]
     };
   },
