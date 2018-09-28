@@ -55,7 +55,8 @@ export default {
       pwd: "",
       repwd: "",
       code: "",
-      invite: ""
+      invite: "",
+      timer:''
     };
   },
   methods: {
@@ -67,9 +68,12 @@ export default {
         this.invite = '';
         this.isMb = boo;
         this.codeTrue = false;
+        clearInterval(this.timer);
         var codeBtn = document.querySelector('.code-btn');
         codeBtn.disabled = false;
-        codeBtn.innerHTML = '验证码'
+        codeBtn.innerHTML = '验证码';
+        console.log(codeBtn);
+        
     },
     sendCode(e) {
       let isMb = this.isMb;
@@ -96,12 +100,12 @@ export default {
       } else {
       }
       var time = 60;
-      var timer = null;
-      timer = setInterval(function() {
+      
+      this.timer = setInterval(function() {
         e.target.innerHTML = time + "秒";
         e.target.disabled = true;
         if (time == 0) {
-          clearInterval(timer);
+          clearInterval(this.timer);
           e.target.innerHTML = "验证码";
           e.target.disabled = false;
           return;
@@ -111,7 +115,7 @@ export default {
         let data = {user_string:this.account};
         
       this.$http({
-        url: '/api/api/' + url,
+        url: '/api/' + url,
         method: "post",
         data: data
       }).then(res => {
@@ -144,18 +148,17 @@ export default {
             //   }
             // })
             this.$http({
-                url: '/api/api/' + url,
+                url: '/api/' + url,
                 method:'post',
                 data:data
             }).then(res => {
-                console.log(res);
-                console.log(res.data);
+                layer.msg(res.data.message)
                 
                 if(res.data.type == 'ok'){
                     this.codeTrue = true;
-                    layer.msg('true')
+                    
                 } else {
-                    layer.msg('false')
+                    
                     
                 }
                 
@@ -185,7 +188,7 @@ export default {
       data.re_password = this.repwd;
       data.extension_code =this.invite;
       this.$http({
-        url: '/api/api/' + "user/register",
+        url: '/api/' + "user/register",
         data: data,
         method: "post"
       }).then(res => {

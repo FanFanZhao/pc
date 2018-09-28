@@ -34,6 +34,7 @@
                         <span class="register-item">请再次输入密码</span>
                         <input type="password" class="input-main input-content"  v-model="re_password" id="repwd">
                     </div>
+                    <button class="register-button curPer" type="button" @click="resetPass" style="margin-top:20px">确认</button>
                 </div>
             </div>
         </div>
@@ -149,10 +150,38 @@ export default {
                     console.log(res);
                     layer.msg(res.data.message);
                     if(res.data.type == 'ok'){
+                        this.showReset = true;
                         // window.location.href = "resetpass.html?user_string=" + names + "&" + "code=" + verify;
                         // this.$router.push({path:'/resetPwd',params:{user_string:user_string,code:this.phoneCode}})
                     }
                 })
+      },
+      resetPass(){
+          if(this.password == ''){
+              layer.msg('请输入密码');return;
+          } else if(this.re_password == ''){
+               layer.msg('请再次输入密码');return;
+          } else if(this.password !== this.re_password){
+              layer.msg('两次输入的密码不一致');return;
+          } else {
+              let data = {
+                  account:this.account_number,
+                  password:this.password,
+                  repassword:this.re_password,
+                  code:this.phoneCode
+              };
+              this.$http({
+                  url: '/api/user/forget',
+                  method:'post',
+                  data:data
+              }).then( res => {
+                //   console.log(res);
+                  layer.msg(res.data.message);
+                  if(res.data.type =='ok'){
+                      this.$router.push('/components/login')
+                  }
+              })
+          }
       }
   }
 };
