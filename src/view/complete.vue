@@ -3,10 +3,6 @@
         <div class="title fColor1">
             <div class="inblock">
                 <span>全站交易</span>
-                <!-- <span class="ft12 curPer ml10 baseColor" @click="newData">刷新</span> -->
-            </div>
-            <div class="tab_title fr ft12 clear hide">
-                <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoosed(index)">{{way}}</span>
             </div>
         </div>
         <div class="content">
@@ -99,7 +95,7 @@ export default {
 }
 .no_data{padding: 50px 0;}
 .container{height: 260px;overflow: auto;}
-.list-item li{line-height: 30px;}
+.list-item li{line-height: 45px;}
 .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
 
 .list-item li:hover{background-color: #2b3648}
