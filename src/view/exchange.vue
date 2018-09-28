@@ -68,6 +68,7 @@ export default {
       console.log(that.legal_name);
       that.buy_sell(that.legal_id,that.currency_id);
       that.connect();
+      console.log('shift')
     });
     that.userInfo()
   },
@@ -82,9 +83,7 @@ export default {
         this.newData = msg.content;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        console.log(inData);
         if (inData.length > 0) {
-          console.log('pppp');
            this.inlist = inData;
         }
         if (outData.length > 0) {
@@ -189,9 +188,7 @@ export default {
         this.newData = msg.content;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        console.log(inData);
         if (inData.length > 0) {
-          console.log('pppp');
            this.inlist = inData;
         }
         if (outData.length > 0) {
