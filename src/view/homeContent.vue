@@ -322,7 +322,7 @@ export default {
           this.swiperList = res.data.message.coin_list;
           callback && callback();
         } else {
-          layer.msg(res.message);
+          // layer.msg(res.message);
         }
       });
     },
