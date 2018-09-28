@@ -40,7 +40,7 @@
               <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':isShow==index&&idx==ids}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
                 <span>{{itm.name}}</span>
                 <span>${{itm.last_price}}</span>
-                <span :class="{'green':itm.proportion<=0}">{{itm.proportion>=0?'+'+itm.proportion:'-'+itm.proportion}}%</span>
+                <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+itm.proportion):itm.proportion}}%</span>
                 </p>
             </li>
             

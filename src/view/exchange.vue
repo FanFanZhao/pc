@@ -3,7 +3,7 @@
 		<!-- <div class="title fColor1">交易所</div> -->
         <div class="content fColor1">
             <div class="new_price">
-                <span class="ft14">最新价 {{newData}} {{legal_name}}/{{currency_name}}</span>
+                <span class="ft14">最新价 {{newData}}{{currency_name}}</span>
             </div>
             <div class="exchange_title ft12 clear tc">
                 <span>方向</span>
@@ -123,7 +123,7 @@ export default {
     //买入、卖出记录
     buy_sell(legals_id,currencys_id){
         this.$http({
-                    url: '/api/api/'+'transaction/deal',
+                    url: '/api/'+'transaction/deal',
                     method:'post',
                     data:{
                         legal_id:legals_id,
@@ -132,10 +132,12 @@ export default {
                       headers: {'Authorization':  localStorage.getItem('token')},    
                 }).then(res=>{
                     console.log(res ,222)
-                    layer.close(i);
+                    // layer.close(i);
                     if(res.data.type=="ok"){
                        this.inlist = res.data.message.in;
-                    this.outlist = res.data.message.out
+                    this.outlist = res.data.message.out;
+                    this.newData = res.data.message.last_price;
+                    console.log(this.newData)
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
                     }else{
