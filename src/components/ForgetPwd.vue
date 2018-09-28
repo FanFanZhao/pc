@@ -24,7 +24,16 @@
                     </div>
                    
                 </div>
-                <div class="main" v-if="showReset"></div>
+                <div class="main" v-if="showReset">
+                    <div class="register-input">
+                        <span class="register-item">请输入密码</span>
+                        <input type="password" class="input-main input-content"  v-model="password" id="pwd">
+                    </div>
+                    <div class="register-input">
+                        <span class="register-item">请再次输入密码</span>
+                        <input type="password" class="input-main input-content"  v-model="re_password" id="repwd">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -40,9 +49,12 @@ export default {
   components: { indexHeader, indexFooter },
   data() {
     return {
+    isMb:true,
       account_number: "",
       phoneCode: "",
-      showReset:false
+      showReset:true,
+      password:'',
+      re_password:''
     };
   },
   created() {},
@@ -51,15 +63,18 @@ export default {
           var reg = /^1[34578]\d{9}$/;
           var url = 'sms_send';
             var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-            if(reg.test(this.account_number)){
+            if(this.account_number == ''){
+                layer.tips('请输入账号', '#account');return;
+            }
+            else if(reg.test(this.account_number)){
 
             } else if(emreg.test(this.account_number)){
-                url = 'sms_mail'
+                url = 'sms_mail';this.isMb = false;
             } else {
-                layer.tips('您输入的手机或邮箱账号不符合规则!', '#account');
+                layer.tips('您输入的手机或邮箱账号不符合规则!', '#account');return;
             }
           this.$http({
-              url: this.$utils.laravel_api + url,
+              url: '/api/api/' + url,
               method:'post',
               data:{
                   user_string:this.account_number,
@@ -72,11 +87,7 @@ export default {
           })
       },
       setTime(e){
-          if(this.account_number == ''){
-               layer.tips('请输入账号!', '#account');
-                  return;
-              }
-          console.log(e.target);
+          
           if(e.target.disabled){
               
               return
@@ -96,9 +107,7 @@ export default {
                   }
                   time --;
               },1000)
-              if(time == 0){
-                  
-              }
+              
           }
       },
       check(){
@@ -109,6 +118,7 @@ export default {
           var isEmail = emreg.test(user_string);
           var url = 'user/check_mobile';
           var data = {};
+          
             if(user_string == ''){
                 console.log('请输入账号');
                 
