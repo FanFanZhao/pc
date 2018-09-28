@@ -94,7 +94,7 @@
 						<div class="right-tip">
 							
 							<p class="mt20">验证邮件可能会被误判为垃圾邮件，请注意查收。</p>
-							<p class="mt20">请妥善保存您的Huobi账号及登录密码。</p>
+							<p class="mt20">请妥善保存您的2KEX账号及登录密码。</p>
 							<p class="mt20">请勿和其他网站使用相同的登录密码。</p>
 						</div>
 					</div>
