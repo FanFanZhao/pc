@@ -10,7 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    // proxyTable: {},
     proxyTable: {
       '/api': {
           target: 'http://ice.adminchao.com',//后端接口地址

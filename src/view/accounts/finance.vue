@@ -315,34 +315,34 @@ export default {
         getdata(){
             var that = this;
             console.log(that.token)
-            $.ajax({
-                url: this.$utils.laravel_api + "wallet/list",
-                type: "POST",
-                dataType: "json",
-                async: true,
-                beforeSend: function beforeSend(request) {
-                   request.setRequestHeader("Authorization", that.token);
-                },
-                success: function (data) {
-                console.log(data)
-                if (data.type == 'ok') {
-                    that.asset_list=data.message.change_wallet.balance;
-                } else if (data.type == '999') {
+            // $.ajax({
+            //     url: this.$utils.laravel_api + "wallet/list",
+            //     type: "POST",
+            //     dataType: "json",
+            //     async: true,
+            //     beforeSend: function beforeSend(request) {
+            //        request.setRequestHeader("Authorization", that.token);
+            //     },
+            //     success: function (data) {
+            //     console.log(data)
+            //     if (data.type == 'ok') {
+            //         that.asset_list=data.message.change_wallet.balance;
+            //     } else if (data.type == '999') {
                     
-                }
-                }
-            });
-            // this.$http({
-            // url: this.$utils.laravel_api + 'wallet/list',
-            // method:'post',
-            // data:{},
-            // headers: {'Authorization':  that.token},
-            // }).then(res=>{
-            //     console.log(res)
+            //     }
+            //     }
+            // });
+            this.$http({
+            url: '/api/api/' + 'wallet/list',
+            method:'post',
+            data:{},
+            headers: {'Authorization':  that.token},
+            }).then(res=>{
+                console.log(res)
  
-            // }).catch(error=>{
-            //     console.log(error)
-            // })
+            }).catch(error=>{
+                console.log(error)
+            })
         }
     },
     created(){
