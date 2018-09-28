@@ -61,8 +61,8 @@
             }
         },
         created:function(){
-            this.init();
-            this.methods01();
+            // this.init();
+          
             //法币列表
             this.$http({
 					url: this.$utils.laravel_api + 'currency/quotation',
@@ -192,9 +192,7 @@
                eventBus.$emit('toTrade',tradeDatas);
                eventBus.$emit('toExchange',tradeDatas)
             },
-            methods01(){
-                 
-            }
+            
 
         },
         

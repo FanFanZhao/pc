@@ -30,9 +30,9 @@
             }
         },
         created(){
-            this.init();
+            // this.init();
             setInterval(()=>{
-                this.init();
+                // this.init();
                 // console.log('setInterval')
             },5*60*1000)
         },

@@ -43,30 +43,8 @@ export default {
     };
   },
   created: function() {
-    this.init();
-     //买入、卖出记录
-        that.$http({
-                    url: this.$utils.laravel_api+'transaction/deal',
-                    method:'post',
-                    data:{
-                        legal_id:this.legal_id,
-                        currency_id:this.currency_id
-                    },  
-                }).then(res=>{
-                    console.log(res ,222)
-                    layer.close(i);
-                    this.inlist = res.message.in;
-                    this.outlist = res.message.out
-                    
-                    if(res.data.type=="ok"){
-                        this.buyInfo.buyPrice=0;
-                        this.buyInfo.buyNum=0;
-                    }else{
-                        layer.msg(res.data.message)
-                    }
-                }).catch(error=>{
-                    console.log(error)
-                })
+    // this.init();
+     
   },
   mounted: function() {
       var that = this;
@@ -78,6 +56,7 @@ export default {
       that.legal_name = data0.leg_name;
       console.log(that.currency_name);
       console.log(that.legal_name);
+      //  that.buy_sell(that.legal_id,that.currency_id)
     });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
@@ -87,6 +66,7 @@ export default {
       that.legal_name = data.leg_name;
       console.log(that.currency_name);
       console.log(that.legal_name);
+      that.buy_sell(that.legal_id,that.currency_id)
     });
   },
   sockets: {
@@ -136,10 +116,39 @@ export default {
           // console.log(res.data.message)
           this.outlist = message.out;
         } else {
-          layer.msg(res.data.message);
+          // layer.msg(res.data.message);
         }
       });
+    },
+    //买入、卖出记录
+    buy_sell(legals_id,currencys_id){
+        this.$http({
+                    url: this.$utils.laravel_api+'transaction/deal',
+                    method:'post',
+                    data:{
+                        legal_id:legals_id,
+                        currency_id:currencys_id
+                    },  
+                      beforeSend: function beforeSend(request) {
+				request.setRequestHeader("Authorization", token);
+			},
+                }).then(res=>{
+                    console.log(res ,222)
+                    layer.close(i);
+                    this.inlist = res.message.in;
+                    this.outlist = res.message.out
+                    
+                    if(res.data.type=="ok"){
+                        this.buyInfo.buyPrice=0;
+                        this.buyInfo.buyNum=0;
+                    }else{
+                        layer.msg(res.data.message)
+                    }
+                }).catch(error=>{
+                    // console.log(error)
+                })
     }
+        
   }
 };
 </script>
