@@ -21,18 +21,21 @@
 						<exchange></exchange>
 					</div>
 				</div>
-        <div class="entrust_box" style="background: #181b2a;">
+        <!-- <div class="entrust_box" style="background: #181b2a;">
           <entrust></entrust>
-      </div>
-			<div class="deatil_box" style="background: #181b2a;">
+      </div> -->
+			<!-- <div class="deatil_box" style="background: #181b2a;">
           <detail></detail>
+        </div> -->
+        <div class="deatil_box" style="background: #181b2a;">
+          <complete></complete>
         </div>
 				<div class="currency_box">
           <currency></currency>
         </div>
-				<div class="depth-map flex btween" >
+				<!-- <div class="depth-map flex btween" >
 					<deal></deal>
-				</div>
+				</div> -->
 
 			</div>
 		</div>
@@ -51,6 +54,7 @@ import chart from "@/view/chart";
 import entrust from "@/view/entrust";
 import detail from "@/view/detail";
 import currency from "@/view/currency";
+import complete from "@/view/complete";
 export default {
   name: "dealCenter",
   components: {
@@ -63,7 +67,8 @@ export default {
     chart,
     entrust,
     detail,
-    currency
+    currency,
+    complete
   },
   data() {
     return {};
@@ -78,6 +83,7 @@ export default {
 <style scoped lang="scss">
 .home {
   .main {
+      overflow: hidden;
     .main-l {
       width: 360px;
       height: 100%;

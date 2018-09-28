@@ -12,17 +12,17 @@
             <div class="swiper-wrapper">
                <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="@/assets/images/bg2.png" />
+                   <img src="../../static/imgs/bg01.png" />
                    </a>
                </div>
                 <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="@/assets/images/bg2.png" />
+                   <img src="../../static/imgs/bg02.png" />
                    </a>
                </div>
                <div class="swiper-slide sliders">
                    <a href="">
-                   <img src="@/assets/images/bg2.png" />
+                   <img src="../../static/imgs/bg03.png" />
                    </a>
                </div>
             </div>
