@@ -56,7 +56,7 @@ export default {
       that.legal_name = data0.leg_name;
       console.log(that.currency_name);
       console.log(that.legal_name);
-      //  that.buy_sell(that.legal_id,that.currency_id)
+       that.buy_sell(that.legal_id,that.currency_id)
     });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
@@ -85,7 +85,7 @@ export default {
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
         if (inData && inData.legth > 0) {
-          this.inlist = inData;
+          // this.inlist = inData;
         }
         if (outData && outData.legth > 0) {
           this.outlist = outData;
@@ -123,22 +123,19 @@ export default {
     //买入、卖出记录
     buy_sell(legals_id,currencys_id){
         this.$http({
-                    url: this.$utils.laravel_api+'transaction/deal',
+                    url: '/api/api/'+'transaction/deal',
                     method:'post',
                     data:{
                         legal_id:legals_id,
                         currency_id:currencys_id
                     },  
-                      beforeSend: function beforeSend(request) {
-				request.setRequestHeader("Authorization", token);
-			},
+                      headers: {'Authorization':  localStorage.getItem('token')},    
                 }).then(res=>{
                     console.log(res ,222)
                     layer.close(i);
-                    this.inlist = res.message.in;
-                    this.outlist = res.message.out
-                    
                     if(res.data.type=="ok"){
+                       this.inlist = res.data.message.in;
+                    this.outlist = res.data.message.out
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
                     }else{

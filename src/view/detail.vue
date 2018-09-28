@@ -83,14 +83,14 @@ export default {
             })
         },
         newData(){
-            this.getData();
+            // this.getData();
             if(this.new){
                 layer.msg("更新成功")
             }
         }
     },
     mounted(){
-        this.getData();
+        // this.getData();
     }
 
     
