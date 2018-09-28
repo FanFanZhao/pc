@@ -84,7 +84,7 @@ export default {
       } else if (e.target.disabled) {
         return;
       } else if (isMb) {
-        var reg = /^1[34578]\d{9}$/;
+        var reg = /^1[345678]\d{9}$/;
         if (!reg.test(this.account)) {
           layer.msg("您输入的手机号不符合规则");
           return;
