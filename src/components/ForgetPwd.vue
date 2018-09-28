@@ -62,7 +62,7 @@ export default {
   created() {},
   methods: {
       sendCode(){
-          var reg = /^1[34578]\d{9}$/;
+          var reg = /^1[345678]\d{9}$/;
           var url = 'sms_send';
             var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
             if(this.account_number == ''){
@@ -113,7 +113,7 @@ export default {
           }
       },
       check(){
-          var reg = /^1[34578]\d{9}$/;
+          var reg = /^1[345678]\d{9}$/;
             var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
           let user_string = this.account_number;
           var isMobile = reg.test(user_string);
