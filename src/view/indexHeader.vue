@@ -4,6 +4,12 @@
 			<div class="fl"><img src="@/assets/images/logo.png" class="navbar-logo" style="width:100px;"></div>
 			<ul  class="navbar-item fl mouseDefault ml20">
 				<li  class="base" :class="{active:index==current}"  v-for="(tabs,index) in tabList"  @click="goto(index,tabs.page)">{{tabs.title}}</li>
+        <li class="base downapp" @click="showapp">APP下载
+          <div class="appcode tc" v-show="appshow">
+            <span></span>
+            <p><img src="@/assets/images/code.jpg" alt=""></p>
+          </div>
+        </li>
 			</ul>
 			<div class="fr">
 				<div class="account-box fl positionR curPer flex">
@@ -71,6 +77,7 @@ export default {
   name: "indexHeader",
   data() {
     return {
+      appshow:false,
       address: "",
       account_number: "",
       assets: "资产",
@@ -83,7 +90,6 @@ export default {
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
         { title: "我的资产", page: "homeContent" },
-        { title: "APP下载", page: "homeContent" }
       ],
       accountList: [
         {
@@ -185,6 +191,9 @@ export default {
     });
   },
   methods: {
+    showapp(){
+      this.appshow=!this.appshow
+    },
     goto(index, name) {
       this.current = index;
       console.log(index, name);
@@ -410,4 +419,31 @@ export default {
     }
   }
 }
+.downapp{
+  position: relative;
+  div{
+    position: absolute;
+    top: 15px;
+    z-index: 10;
+    left: 0;
+    span{
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-width: 10px;
+      border-style: solid;
+      border-color:  transparent transparent #fff  transparent ;
+    }
+    p{
+      position: relative;
+      top: -25px;
+      img{
+        width: 100px;
+        height: 100px;
+      }
+    }
+    
+  }
+}
+
 </style>

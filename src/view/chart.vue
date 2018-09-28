@@ -1,11 +1,13 @@
 <template>
     <div class="chart">
-        <div class="line_title fColor1">
+        <!-- <div class="line_title fColor1">
             <span v-for="(item,index) in lineList" :class="{'active' :index==current}" @click="changeCyle(index)">{{item}}</span>     
-        </div>
-        <div id="container" style="min-width:400px;height:510px">图表加载中...</div>
-		<!-- <iframe src="../../static/k_line/kline.html" frameborder="0" width="100%" height="540" allowfullscreen scrolling="no" allowtransparency="true"></iframe> -->
+        </div> -->
+        <!-- <div id="container" style="min-width:400px;height:510px">图表加载中...</div> -->
+        <div>
+		<iframe src="../../static/k_line/kline.html" frameborder="0" width="100%" height="540" allowfullscreen scrolling="no" allowtransparency="true"></iframe>
 	</div>
+    </div>
 </template>
 
 <script>
@@ -48,7 +50,8 @@
                         url:'https://data.jianshukeji.com/stock/history/000001',
                         method:'get',
                 }).then(res=>{
-                // console.log(res.data.data)
+
+                console.log(res.data.data)
                 // this.kData.push(res.data.data)
                 // this.kData=this.kData
                 // console.log(res.data.data[0])

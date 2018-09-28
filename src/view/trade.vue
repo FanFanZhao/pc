@@ -145,13 +145,13 @@
             that.buy_sell(that.legal_id,that.currency_id)
         });
         eventBus.$on('toTrade0', function (data0) {
-            console.log(data0);
+            // console.log(data0);
                 that.currency_id = data0.currency_id,
                 that.legal_id = data0.legal_id;
                 that.currency_name = data0.currency_name;
                 that.legal_name = data0.leg_name;
-                console.log(that.currency_name);
-                console.log(that.legal_name);
+                // console.log(that.currency_name);
+                // console.log(that.legal_name);
                 that.buy_sell(that.legal_id,that.currency_id)
             })
        
@@ -264,13 +264,13 @@
                         },  
                         headers: {'Authorization':  localStorage.getItem('token')},    
                     }).then(res=>{
-                        console.log(res ,222)
+                        // console.log(res ,222)
                         // layer.close(i);
                         if(res.data.type == "ok"){
                         
                         this.user_currency = res.data.message.user_currency;
                         this.user_legal = res.data.message.user_legal;
-                        console.log(res.data)
+                        // console.log(res.data)
                             this.buyInfo.buyPrice=0;
                             this.buyInfo.buyNum=0;
                         }else{
