@@ -353,11 +353,11 @@ export default {
       } else if( b == 0){
         return '+100%';
       } else {
-        var p  = a-b;
+        var p  = ((a-b)/100).toFixed(2);
         if(p>0){
-          p = '+'+p/100 + '00%';
+          p = '+'+p+ '%';
         } else {
-          p = '-'+p/100+'00%'
+          p = '-'+p+'%'
         }
         return p;
       }
