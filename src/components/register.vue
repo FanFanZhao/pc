@@ -69,7 +69,7 @@ export default {
   },
   data() {
     return {
-      codeTrue: true,             //验证码是否正确
+      codeTrue: false,             //验证码是否正确
       isMb: true,                  //是否为手机注册
       account: "",                //用户名
       pwd: "",                    //密码
