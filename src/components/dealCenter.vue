@@ -21,11 +21,14 @@
 						<exchange></exchange>
 					</div>
 				</div>
-        <!-- <div class="entrust_box" style="background: #181b2a;">
+        <div class="entrust_box" style="background: #181b2a;">
           <entrust></entrust>
-      </div> -->
-			<!-- <div class="deatil_box" style="background: #181b2a;">
-          <detail></detail>
+        </div>
+        <div class="entrust_box" style="background: #181b2a;">
+          <hisentrust></hisentrust>
+        </div>
+        <!-- <div class="deatil_box" style="background: #181b2a;">
+            <detail></detail>
         </div> -->
         <div class="deatil_box" style="background: #181b2a;">
           <complete></complete>
@@ -52,6 +55,7 @@ import market from "@/view/market";
 import trade from "@/view/trade";
 import chart from "@/view/chart";
 import entrust from "@/view/entrust";
+import hisentrust from "@/view/hisentrust";
 import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
@@ -66,6 +70,7 @@ export default {
     trade,
     chart,
     entrust,
+    hisentrust,
     detail,
     currency,
     complete

@@ -92,35 +92,41 @@ export default {
         { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
-        {
-          src1: require("@/assets/images/m0.png"),
-          src2: require("@/assets/images/m1.png"),
-          title: "我的资产",
-          page: "accountCenter"
-        },
-        {
-          src1: require("@/assets/images/e0.png"),
-          src2: require("@/assets/images/e1.png"),
-          title: "我的交易",
-          page: "accountEntrust"
-        },
-        {
-          src1: require("@/assets/images/c0.png"),
-          src2: require("@/assets/images/c1.png"),
-          title: "充值",
-          page: "recharge"
-        },
+        // {
+        //   src1: require("@/assets/images/m0.png"),
+        //   src2: require("@/assets/images/m1.png"),
+        //   title: "我的资产",
+        //   page: "accountCenter"
+        // },
+        // {
+        //   src1: require("@/assets/images/e0.png"),
+        //   src2: require("@/assets/images/e1.png"),
+        //   title: "我的交易",
+        //   page: "accountEntrust"
+        // },
+        // {
+        //   src1: require("@/assets/images/c0.png"),
+        //   src2: require("@/assets/images/c1.png"),
+        //   title: "充值",
+        //   page: "recharge"
+        // },
         {
           src1: require("@/assets/images/z0.png"),
           src2: require("@/assets/images/z1.png"),
           title: "账户设置",
           page: "accountSet"
         },
+        // {
+        //   src1: require("@/assets/images/s0.png"),
+        //   src2: require("@/assets/images/s1.png"),
+        //   title: "承兑商",
+        //   page: "aceite"
+        // },
         {
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
-          title: "承兑商",
-          page: "aceite"
+          title: "区域代理",
+          page: "region"
         }
       ],
       assetstList: [
