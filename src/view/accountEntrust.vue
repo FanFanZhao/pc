@@ -130,7 +130,7 @@ export default {
       }
   },
   created(){
-      this.address = localStorage.getItem('address') || '';
+      this.address = localStorage.getItem('token') || '';
   },
   methods:{
       changeEntrust(index,url){
@@ -261,7 +261,7 @@ export default {
       }
   },
   mounted(){
-      this.getData();
+    //   this.getData();
   }
 };
 </script>
