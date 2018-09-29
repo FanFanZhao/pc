@@ -20,14 +20,14 @@
             </ul>
             <div class="container scroll" v-if="inList.length>0">
                 <ul class="list-item fColor1 ft12">
-                    <li v-for="item in inList" class="clear">
+                    <li v-for="(item,index) in inList" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
                         <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
                         <span class="fl w12">{{type=='in'?'买入':'卖出'}}</span>
                         <span class="fl w12">{{item.number}}</span>
                         <span class="fl w14">{{item.price}}</span>
                         <span class="fl w20">{{(item.price * item.number) | numFilter}}</span>
-                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id)">撤销</span>
+                        <span class="fl w8 tr curPer ceilColor" @click="revoke(index,item.id)">撤销</span>
                     </li>
                 </ul>
                 <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && inList.length>8">{{more}}</div>
@@ -90,9 +90,11 @@ export default {
             this.getData();
         },
         // 撤销
-        revoke(id){
+        revoke(indexs,id){
+            console.log(indexs)
             var that =this;
             var id = id;
+            var indexs = indexs;
             var type = that.type;
             layer.open({
                 content: '您确定要撤销吗？'
@@ -107,10 +109,11 @@ export default {
                     },
                     headers: {'Authorization':  that.token}
                     }).then(res=>{
-                    console.log(res)
-                        if(res.data.type  === 'ok'){
+                    // console.log(res)
+                        if(res.data.type  =='ok'){
+                            console.log(indexs)
+                            that.inList.splice(indexs,1);
                             layer.msg(res.data.message)
-                            // that.getData();
                         }else{
                             layer.msg(res.message);
                         }
