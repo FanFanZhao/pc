@@ -57,7 +57,7 @@
                 isShow:0,
                 tabList:[],
                 marketList:[],
-                newData:['JNB', "$0.076128",'-1.11%']
+                newData:['2KEX', "$0.076128",'-1.11%']
             }
         },
         created:function(){
@@ -138,7 +138,7 @@
                 })
             },
             init(){
-                var index=layer.load();
+                // var index=layer.load();
                 this.address = localStorage.getItem('address') || '';
                 this.$http({
                     url: this.$utils.laravel_api+'quotation',
@@ -147,7 +147,7 @@
                         address:this.address
                     }
                 }).then(res=>{
-                    layer.close(index);
+                    // layer.close(index);
                     // console.log(res)
                      if(res.data.type=="ok"){
                          this.getSymbols(()=>{
