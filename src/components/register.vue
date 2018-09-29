@@ -123,7 +123,7 @@ export default {
         url: "/api/region" + pId,
         method: "get"
       }).then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         if(res.data.type == 'ok'&&res.data.message.length != 0){
 
           if (type == "provinces") {
@@ -163,7 +163,7 @@ export default {
       var codeBtn = document.querySelector(".code-btn");
       codeBtn.disabled = false;
       codeBtn.innerHTML = "验证码";
-      console.log(codeBtn);
+      //console.log(codeBtn);
     },
     // 发送验证码
     sendCode(e) {
@@ -210,7 +210,7 @@ export default {
         method: "post",
         data: data
       }).then(res => {
-        console.log(res);
+        //console.log(res);
         layer.msg(res.data.message);
       });
     },
@@ -277,7 +277,7 @@ export default {
       data.password = this.pwd;
       data.re_password = this.repwd;
       data.extension_code = this.invite;
-      console.log(data);return;
+      //console.log(data);return;
       
       this.$http({
         url: "/api/" + "user/register",
