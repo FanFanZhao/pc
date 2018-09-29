@@ -19,11 +19,11 @@
 						<span class="sp">{{assets}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
-					<div class="order_item fColor1 fl" @mouseover="order_over" @mouseout="order_out" v-if="address.length>0">
+					<!-- <div class="order_item fColor1 fl" @mouseover="order_over" @mouseout="order_out" v-if="address.length>0">
 						<img class="order_icon_img" src="@/assets/images/order.png" alt="">
 						<span class="sp">{{orders}}</span>
-						<img src="@/assets/images/arrow0.png" alt="">
-					</div>
+						<img src="@/assets/images/arrow0.png" alt="
+					</div> -->
 					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
 						<span>{{account_number}}</span>

@@ -131,7 +131,7 @@
                         callback && callback();
                     }else{
                         // console.log(123)
-                        alert(res.message)
+                        // alert(res.message)
                     }  
                 }).catch(error=>{
                     return error
@@ -170,7 +170,7 @@
                          })
                          
                     }else{
-                        layer.msg(res.data.message)
+                        // layer.msg(res.data.message)
                     }
                     
                 }).catch(error=>{
