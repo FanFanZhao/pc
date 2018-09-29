@@ -203,8 +203,8 @@
                     url: '/api/'+this.buyInfo.url,
                     method:'post',
                     data:{
-                        legal_id:this.legal_id,
-                        currency_id:this.currency_id,
+                        legal_id:this.currency_id,
+                        currency_id:this.legal_id,
                         price:this.buyInfo.buyPrice,
                         num:this.buyInfo.buyNum,  
                     },
@@ -239,8 +239,8 @@
                     url: '/api/'+this.sellInfo.url,
                     method:'post',
                     data:{
-                        legal_id:this.legal_id,
-                        currency_id:this.currency_id,
+                        legal_id:this.currency_id,
+                        currency_id:this.legal_id,
                         price:this.sellInfo.sellPrice,
                         num:this.sellInfo.sellNum
                     },
@@ -266,8 +266,8 @@
                         url: '/api/'+'transaction/deal',
                         method:'post',
                         data:{
-                            legal_id:legals_id,
-                            currency_id:currencys_id
+                            legal_id:currencys_id,
+                            currency_id:legals_id
                         },  
                         headers: {'Authorization':  localStorage.getItem('token')},    
                     }).then(res=>{
