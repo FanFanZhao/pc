@@ -85,11 +85,42 @@
             <div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgb(153, 153, 153); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 533px; top: 67px;">22:00:00<br>
                 <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:RGBA(110, 68, 110, .7);"></span>当前价: 708.9</div> -->
         </div>
-        <div class="coinTable">
+        <div class="coins-list">
+          <div class="coin-tab">
+            <ul class="coins">
+              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">{{coin.name}}</li>
+            </ul>
+          </div>
+          <div class="list-title">
+            <span>交易对</span>
+            <span>昨日</span>
+            <span>今日</span>
+            <span>涨幅</span>
+          </div>
+          
+          <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
+            <li v-for="(li,inde) in item.quotation" :key="inde">
+              <div class="two-coin">
+                <span>{{li.name}}</span>
+                <span style="color:#61688a">/{{item.name}}</span>
+              </div>
+              <div class="yester">
+                <span>{{li.yesterday_last_price}}</span>
+              </div>
+              <div class="today">
+                <span>{{li.last_price}}</span>
+              </div>
+              <div class="yes-toa">
+                <span>{{setPercent(li.last_price,li.yesterday_last_price)}}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="coinTable" style='display:none'>
             <div class="tabhang">
                 <div class="tabul">
                     <ul class="clearfix">
-                        <li :class="{active:index==curCoinTab}" v-for="(tab,index) in coinTabList" @click="getCurrent(index)" >{{tab.title}}</li> 
+                        <li :class="{active:index==curCoinTab}" v-for="(tab,index) in quotation" :key="index" @click="getCurrent(index)" >{{tab.name}}</li> 
                     </ul>
                 </div>
                 <div class="tabtable">
@@ -165,6 +196,8 @@ export default {
   components: { indexHeader },
   data() {
     return {
+      quotation: [],
+      nowCoin: "",
       //   banner_imgs:[
       //       {href:'',img:'../assets/images/bg2.png'},
       //       {href:'',img:'../assets/images/bg2.png'},
@@ -271,6 +304,7 @@ export default {
   },
   created() {
     // this.init(this.initKline);
+    this.getQuotation();
   },
   mounted() {
     var mySwiper = new Swiper(".swiper-container01", {
@@ -296,21 +330,54 @@ export default {
     });
     this.setChart();
     this.$http({
-					url: this.$utils.laravel_api + 'news/help',
-					method:'post',
-					data:{}
-				}).then(res=>{
-					console.log(res)
-					if(res.status  === 200){
-						this.noticeList = res.data.message;
-					}else{
-						layer.msg(res.message);
-					}
-				}).catch(error=>{
-					console.log(error)
-				})
+      url: this.$utils.laravel_api + "news/help",
+      method: "post",
+      data: {}
+    })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          this.noticeList = res.data.message;
+        } else {
+          layer.msg(res.message);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   methods: {
+    setPercent(a,b){
+      if((a-b) == 0){
+        return '0%';
+      }
+      else if(a == 0){
+        return '-100%';
+      } else if( b == 0){
+        return '+100%';
+      } else {
+        var p  = ((a-b)/b/100).toFixed(2);
+        if(p>0){
+          p = '+'+p+ '%';
+        } else {
+          p = '-'+p+'%'
+        }
+        return p;
+      }
+      
+    },
+    getQuotation() {
+      this.$http({
+        url: "/api/currency/quotation",
+        method: "get"
+      }).then(res => {
+        console.log(res.data);
+        if (res.data.type == "ok" && res.data.message.length != 0) {
+          this.quotation = res.data.message;
+          this.nowCoin = this.quotation[0].name;
+        }
+      });
+    },
     getCurrent(index) {
       this.curCoinTab = index;
     },
@@ -451,7 +518,55 @@ export default {
   }
 };
 </script>
-<style>
+<style lang='scss' scoped>
+/* 币种列表 */
+.coins-list {
+  margin: 10px 50px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #4e5b85;
+  .coin-tab {
+    height: 42px;
+    color: #c7cce6;
+    display: flex;
+    > ul {
+      border-left: 1px solid #4e5b85;
+      display: flex;
+      li {
+        padding: 0 40px;
+        box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
+        border-bottom: 1px solid #4e5b85;
+        border-right: 1px solid #4e5b85;
+      }
+      .activeCoin {
+        border-bottom: none;
+      }
+    }
+  }
+  .list-title {
+    display: flex;
+    > span {
+      flex: 1;
+
+      text-align: center;
+      color: #c7cce6;
+      font-size: 14px;
+    }
+  }
+  .list-con {
+    background: rgb(32, 36, 55);
+    max-height: 680px;
+    overflow: scroll;
+    li {
+      display: flex;
+      border-bottom: 1px solid #282e44;
+      color: #c7cce6;
+      > div {
+        flex: 1;
+      }
+    }
+  }
+}
 .carousel .swiper-slide:hover {
   background-color: #327add;
 }
