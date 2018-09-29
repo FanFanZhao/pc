@@ -89,7 +89,7 @@ export default {
       tabList: [
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
-        { title: "我的资产", page: "homeContent" },
+        // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
         // {
@@ -130,17 +130,17 @@ export default {
         }
       ],
       assetstList: [
-        {
+        // {
+        //   src1: require("@/assets/images/s0.png"),
+        //   src2: require("@/assets/images/s1.png"),
+        //   title: "充币&提币",
+        //   page:'finance'
+		    // },
+	    	{
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
-          title: "充币&提币",
-          page:'finance'
-		},
-		{
-          src1: require("@/assets/images/s0.png"),
-          src2: require("@/assets/images/s1.png"),
-          title: "杠杆",
-           page:'lever'
+          title: "交易",
+           page:'finance'
         }
       ],
       orderList: [
