@@ -45,11 +45,11 @@
                 <div class="title">设置密码</div>
                 <div class="pwd-box">
                     <div class="tip">请输入密码</div>
-                    <input type="password" v-model="pwd" class="pwd-input">
+                    <input type="password" v-model="pwd" class="pwd-input" placeholder="密码在6-16位之间">
                 </div>
                 <div class="repwd-box">
                     <div class="tip">请再次输入密码</div>
-                    <input type="password" v-model="repwd" class="repwd-input">
+                    <input type="password" v-model="repwd" class="repwd-input" placeholder="请再次输入密码">
                 </div>
                 <div class="invite-box">
                     <div class="tip">请输入邀请码</div>
@@ -69,7 +69,7 @@ export default {
   },
   data() {
     return {
-      codeTrue: false,             //验证码是否正确
+      codeTrue: true,             //验证码是否正确
       isMb: true,                  //是否为手机注册
       account: "",                //用户名
       pwd: "",                    //密码
@@ -258,7 +258,10 @@ export default {
       if (this.pwd == "") {
         layer.msg("请输入密码");
         return;
-      } else if (this.repwd == "") {
+      }else if(this.pwd.length <6 || this.pwd.length >16){
+        layer.msg('密码只能在6-16位之间');return;
+      }
+       else if (this.repwd == "") {
         layer.msg("请再次输入密码");
         return;
       } else if (this.pwd !== this.repwd) {
