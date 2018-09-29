@@ -252,7 +252,7 @@ export default {
         this.city.id == "" ||
         this.district.id == ""
       ) {
-        layer.msg("请选设置地区");
+        layer.msg("请设置地区");
         return;
       }
       if (this.pwd == "") {
