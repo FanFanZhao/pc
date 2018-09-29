@@ -29,7 +29,7 @@
                    <p class="flex1 tc operation">
                        <span @click="excharge(index,item.currency)" >充币</span>
                        <span @click="withdraw(index,item.currency)">提币</span>
-                       <span @click="exchange">兑换</span>
+                       <!-- <span @click="exchange">兑换</span> -->
                        <span @click="rec(index)">记录</span>
                    </p>
                    </div>

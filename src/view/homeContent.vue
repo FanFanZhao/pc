@@ -136,38 +136,40 @@
                         </div>
                         <li class="last tc fr">操作</li>
                     </ul>
-                    <ul class="content" v-for="(coin,index) in coin_list">
-                        <div class="con_left">
-                        <li class="hovertd" style="width:220px;text-align:left;">
-                            <i class="iconfont icon-BTCUSDT-copy" style="float:initial;"></i>
-                            <!-- <span class="hover">{{coin.symbol}}</span><br> -->
-                            <span>{{coin.name}}</span>
-                        </li>
-                        <!-- <li> -->
-                            <!-- <span >¥ {{coin.quotes.USD.price}}</span> -->
-                            <!-- <span>{{coin.name}}</span> -->
-                            <!-- / ¥ {{coin.quotes.USD.price}} -->
-                            <!-- <i class="iconfont icon-arrow-down"></i> -->
-                        <!-- </li> -->
-                        <li style="width:220px;text-align:center;">{{coin.min_price}}</li>
-                        <li style="width:220px;text-align:center;">{{coin.max_price}}</li>
-                        <li style="width:220px;text-align:center;">{{coin.new_price}}≈0.00CNY</li>
-                        <!-- <li class="red" :class="{green:coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'}">
-                            <i v-if="coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'" class="iconfont icon-arrow-down"></i>
-                            <i v-else class="iconfont icon-arrow-up"></i>
-                            {{coin.quotes.USD.percent_change_24h}}%
-                            </li> -->
-                        <!-- <li>{{coin.highest}}</li>
-                        <li>{{coin.lowest}}</li> -->
-                        <!-- <li>{{coin.total_supply}}</li> -->
-                        </div>
-                        <li class="last fr">
-                            <a class="baseColor">充币</a>
-                            <a class="baseColor withdraw">提币</a>
-                            <a class="baseColor">兑换</a>
-                            <!-- <button>交易</button> -->
-                        </li>
-                    </ul>
+                    <div class="scroll list-list">
+                      <ul class="content" v-for="(coin,index) in coin_list">
+                          <div class="con_left">
+                          <li class="hovertd" style="width:220px;text-align:left;">
+                              <i class="iconfont icon-BTCUSDT-copy" style="float:initial;"></i>
+                              <!-- <span class="hover">{{coin.symbol}}</span><br> -->
+                              <span>{{coin.name}}</span>
+                          </li>
+                          <!-- <li> -->
+                              <!-- <span >¥ {{coin.quotes.USD.price}}</span> -->
+                              <!-- <span>{{coin.name}}</span> -->
+                              <!-- / ¥ {{coin.quotes.USD.price}} -->
+                              <!-- <i class="iconfont icon-arrow-down"></i> -->
+                          <!-- </li> -->
+                          <li style="width:220px;text-align:center;">{{coin.min_price}}</li>
+                          <li style="width:220px;text-align:center;">{{coin.max_price}}</li>
+                          <li style="width:220px;text-align:center;">{{coin.new_price}}≈0.00CNY</li>
+                          <!-- <li class="red" :class="{green:coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'}">
+                              <i v-if="coin.quotes.USD.percent_change_24h.toString().substr(0, 1)=='-'" class="iconfont icon-arrow-down"></i>
+                              <i v-else class="iconfont icon-arrow-up"></i>
+                              {{coin.quotes.USD.percent_change_24h}}%
+                              </li> -->
+                          <!-- <li>{{coin.highest}}</li>
+                          <li>{{coin.lowest}}</li> -->
+                          <!-- <li>{{coin.total_supply}}</li> -->
+                          </div>
+                          <li class="last fr">
+                              <a class="baseColor">充币</a>
+                              <a class="baseColor withdraw">提币</a>
+                              <a class="baseColor">兑换</a>
+                              <!-- <button>交易</button> -->
+                          </li>
+                      </ul>
+                    </div>
                     
                 </div>
             </div>

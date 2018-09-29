@@ -172,7 +172,8 @@
 }
 .coinTable{
 	width: 100%;
-	margin: 0 auto;
+  margin: 0 auto;
+  padding: 30px 60px;
 	margin-bottom: 104px;
 }
 .tabul{
@@ -190,6 +191,9 @@
     line-height: inherit;
 
 }
+.tabhang{
+  border: 1px solid #4e5b85;
+}
 .coinTable .tabhang .tabtable .table-nav{
   padding: 0 25px;
 	width: 100%;
@@ -203,9 +207,8 @@
 	    justify-content: space-between;
 	-ms-flex-align: center;
 	    align-items: center;
-	background: #161923;
+	background: #262a42;
 	margin-bottom: 8px;
-	border-radius: 8px;
 }
 .coinTable .tabhang .tabtable .table-nav li{
 	padding-left: 20px;
@@ -235,22 +238,22 @@
 }
 .coinTable .tabhang .tabtable .content{
   padding: 0 25px;
-	height: 70px;
+	height: 40px;
 	font-size: 14px;
-	color: #666;
-	border-radius: 6px;
+	color: #61688a;
 	display: -ms-flexbox;
 	display: flex;
 	-ms-flex-pack: start;
 	    justify-content: space-between;
 	-ms-flex-align: center;
 	    align-items: center;
-	background: #161923;
 	margin-bottom: 8px;
-	border-radius: 8px;
 }
 .coinTable .tabhang .tabtable .content li{
 	padding-left: 20px;
+}
+.tabtable{
+  background: #202437
 }
 .coinTable .tabhang .tabtable .content li button{
 	color: #fff;
@@ -370,4 +373,7 @@
 	text-align: center;
 	color: #6B80AE;
 }
-
+.list-list{
+  height: 680px;
+  overflow-y: scroll;
+}

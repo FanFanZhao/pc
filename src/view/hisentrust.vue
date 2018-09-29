@@ -2,41 +2,39 @@
     <div class="entrust">
         <div class="title fColor1 topshadow">
             <div class="tab_title">
-                <span>当前委托</span>
+                <span>历史委托</span>
             </div>
-            <div class="tab_title fr ft12">
+            <!-- <div class="tab_title fr ft12">
                 <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.url)">{{way.title}}</span>
-            </div>
+            </div> -->
         </div>
         <div class="content">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w12">交易对</li>
-                <li class="fl w12">方向</li>
                 <li class="fl w12">价格</li>
                 <li class="fl w14">数量</li>
                 <li class="fl w20">委托总额</li>
-                <li class="fl w8 tr">操作</li>
+                <li class="fl w12 tr">方向</li>
             </ul>
-            <div class="container scroll" v-if="inList.length>0">
+            <div class="container scroll" v-if="comList.length>0">
                 <ul class="list-item fColor1 ft12">
-                    <li v-for="item in inList" class="clear">
-                        <span class="fl w20">{{item.create_time}}</span>
+                    <li v-for="item in comList" class="clear">
+                        <span class="fl w20">{{item.time}}</span>
                         <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
-                        <span class="fl w12">{{type=='in'?'买入':'卖出'}}</span>
                         <span class="fl w12">{{item.number}}</span>
                         <span class="fl w14">{{item.price}}</span>
-                        <span class="fl w20">{{(item.price * item.number) | numFilter}}</span>
-                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id)">撤销</span>
+                        <span class="fl w20">{{(item.price * item.number)}}</span>
+                        <span class="fl w12 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
-                <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && inList.length>8">{{more}}</div>
+                <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && comList.length>8">{{more}}</div>
                 <div class="tc pdb20" v-if="loading">
                     <img src="@/assets/images/loading.gif" alt=""  class="lodw20">
                     <p class="ft12 baseColor">加载中...</p>
                 </div>
             </div>
-            <div class="no_data tc" v-if="inList.length<=0 && !loading">
+            <div class="no_data tc" v-if="comList.length<=0 && !loading">
                 <img src="@/assets/images/nodata.png" alt="">
                 <p class="fColor2 ft18">暂无数据</p> 
             </div>
@@ -46,7 +44,7 @@
 <script>
 
 export default {
-    name:"entrust",
+    name:"hisentrust",
     data (){
         return{
             address:'',
@@ -57,9 +55,8 @@ export default {
             type:'in',
             more:'加载更多',
             loading:false,
-            urlList:[{title:"当前委托"},{title:"历史委托"}],
             wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"}],
-            inList:[]
+            comList:[]
         }
     },
     created(){
@@ -70,7 +67,7 @@ export default {
         wayChoose(index,url){
             var that=this;
             console.log(url)
-            that.inList='';
+            that.comList='';
             that.page=1;
             that.url = url;
             console.log(that.url)
@@ -89,62 +86,29 @@ export default {
             console.log(this.page)
             this.getData();
         },
-        // 撤销
-        revoke(id){
-            var that =this;
-            var id = id;
-            var type = that.type;
-            layer.open({
-                content: '您确定要撤销吗？'
-                ,btn: ['确定', '取消']
-                ,yes: function(index){
-                that.$http({
-                    url: '/api/' + 'transaction_del',
-                    method:'post',
-                    data:{
-                        id:id,
-                        type:type
-                    },
-                    headers: {'Authorization':  that.token}
-                    }).then(res=>{
-                    console.log(res)
-                        if(res.data.type  === 'ok'){
-                            layer.msg(res.data.message)
-                            // that.getData();
-                        }else{
-                            layer.msg(res.message);
-                        }
-                    }).catch(error=>{
-                        console.log(error)
-                    })
-                }
-            });
-        },
         getData(){
             var that = this;
-            var url = that.url;
             var page = that.page;
             that.loading = true;
             this.$http({
-                url: '/api/' + url,
+                url: '/api/' + 'transaction_complete',
                 method:'post',
                 data:{page:page},
                 headers: {'Authorization':  that.token}
             }).then(res=>{
                 console.log(res)
                 that.loading=false;
-                console.log(url)
                 if(res.data.type == 'ok'){
                         console.log(res.data.message.list)
                         var list=res.data.message.list;
                         if(that.page==1){
-                            that.inList=list;
+                            that.comList=list;
                         }else{
                             if(list.length<=0){
                                     that.more='没有更多数据了...';
                                     return;
                                 }else{
-                                    that.inList=that.inList.concat(list)
+                                    that.comList=that.comList.concat(list)
                                 }
                             }
                     }else{
@@ -172,7 +136,7 @@ export default {
 .no_data{padding: 50px 0;}
 .container{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}
-.list-item li span{display: inline-block;float: left;}
+.list-item li span{display: inline-block;float: left;height: 30px;}
 .list-item li span:nth-child(3){color:#cc4951;}
 .list-item li:hover{background-color: #2b3648}
 .list-item li span.green{color: #55a067}

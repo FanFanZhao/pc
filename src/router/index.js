@@ -17,6 +17,7 @@ import coinRecord from '@/view/coinRecord'
 import noticeList from '@/components/noticeList'
 import noticeDetail from '@/components/noticeDetail'
 import aceite from '@/view/aceite'
+import region from '@/view/region'
 import chargeRecord from '@/view/chargeRecord'
 import new_account from '@/components/new_account'
 import finance from '@/view/accounts/finance'
@@ -126,6 +127,11 @@ export default new Router({
 					path:'/aceite',
 					name:'aceite',
 					component:aceite
+				},
+				{
+					path:'/region',
+					name:'region',
+					component:region
 				},
 				{
 					path:'/chargeRecord',

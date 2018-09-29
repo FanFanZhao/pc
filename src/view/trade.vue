@@ -135,9 +135,16 @@
         },
         mounted(){
             var that = this;
-             that.address = localStorage.getItem('token') || '';
+            that.address = localStorage.getItem('token') || '';
+            eventBus.$on('toPrice', function (data) {
+              console.log(data);
+              if(data){
+                that.buyInfo.buyPrice=data;
+                that.sellInfo.sellPrice=data;  
+              }
+            });
             eventBus.$on('toTrade', function (data) {
-            console.log(data);
+            // console.log(data);
             that.currency_id = data.currency_id,
             that.legal_id = data.legal_id;
             that.currency_name = data.currency_name;

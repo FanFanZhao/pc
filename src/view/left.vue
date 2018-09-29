@@ -15,20 +15,20 @@
 			return {
 				curActive:0,
 				array:[
-					{
-						src1: require("@/assets/images/icon_mine.png"),
-						src2: require("@/assets/images/icon_mine_s.png"),
-						text: '账户中心',
-						page:'accountCenter',
-						children:['recharge']
-					},
+					// {
+					// 	src1: require("@/assets/images/icon_mine.png"),
+					// 	src2: require("@/assets/images/icon_mine_s.png"),
+					// 	text: '账户中心',
+					// 	page:'accountCenter',
+					// 	children:['recharge']
+					// },
 
-					{
-						src1: require("@/assets/images/icon_delegate.png"),
-						src2: require("@/assets/images/icon_delegate_s.png"),
-						text: '我的交易',
-						page:'accountEntrust'
-					},
+					// {
+					// 	src1: require("@/assets/images/icon_delegate.png"),
+					// 	src2: require("@/assets/images/icon_delegate_s.png"),
+					// 	text: '我的交易',
+					// 	page:'accountEntrust'
+					// },
 					{
 						src1: require("@/assets/images/icon_account_settings.png"),
 						src2: require("@/assets/images/icon_account_settings_s.png"),
@@ -41,12 +41,18 @@
 						text: '我的消息',
 						page:'accountMessage'
 					},
+					// {
+					// 	src1: require("@/assets/images/icon_mine.png"),
+					// 	src2: require("@/assets/images/icon_mine_s.png"),
+					// 	text: '承兑商',
+					// 	page:'aceite',
+					// 	children: ['chargeRecord']
+					// },
 					{
 						src1: require("@/assets/images/icon_mine.png"),
 						src2: require("@/assets/images/icon_mine_s.png"),
-						text: '承兑商',
-						page:'aceite',
-						children: ['chargeRecord']
+						text: '区域代理',
+						page:'region',
 					}
 				],
 			}

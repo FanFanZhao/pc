@@ -61,7 +61,7 @@ export default {
     },
     methods:{
         init(){
-            var i=layer.load();
+            // var i=layer.load();
             this.address=localStorage.getItem('address') || '';
             if(this.address !=""){
                  this.$http({
