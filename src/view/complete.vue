@@ -1,6 +1,6 @@
 <template>
     <div class="detail">
-        <div class="title fColor1">
+        <div class="title fColor1 topshadow">
             <div class="inblock">
                 <span>全站交易</span>
             </div>

@@ -73,7 +73,7 @@ export default {
         url:this.$utils.laravel_api + 'news/list',
         method:'post',
       }).then(res => {
-        // console.log(res);
+        console.log(res);
         this.newList=res.data.message.list
         
       })

@@ -11,13 +11,13 @@
                 <span>数量(JNB)</span>
             </div>
             <ul class="list-item ft12 tc">
-                <li v-for="(out,index) in outlist">
+                <li class="curPer" v-for="(out,index) in outlist" @click="price(out.price)">
                     <span class="red">卖出</span>
                     <span>{{out.price}}</span>
                     <span>{{out.number}}</span>
                 </li>
                 <div class="line"></div>
-                 <li v-for="(buy,index) in inlist">
+                 <li class="curPer" v-for="(buy,index) in inlist" @click="price(buy.price)">
                     <span class="green">买入</span>
                     <span>{{buy.price}}</span>
                     <span>{{buy.number}}</span>
@@ -47,7 +47,7 @@ export default {
      
   },
   mounted: function() {
-      var that = this;
+    var that = this;
     eventBus.$on("toExchange0", function(data0) {
       // console.log(data0);
       that.currency_id = data0.currency_id,
@@ -108,6 +108,9 @@ export default {
     // }
   },
   methods: {
+    price(price){
+      eventBus.$emit('toPrice',price);
+    },
     init() {
       var index = layer.load();
       this.address = localStorage.getItem("address") || "";
@@ -237,6 +240,9 @@ export default {
 }
 .red {
   color: #cc4951;
+}
+.list-item li:hover{
+  background: #262a42;
 }
 .line {
   height: 5px;

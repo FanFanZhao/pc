@@ -19,11 +19,11 @@
 						<span class="sp">{{assets}}</span>
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
-					<div class="order_item fColor1 fl" @mouseover="order_over" @mouseout="order_out" v-if="address.length>0">
+					<!-- <div class="order_item fColor1 fl" @mouseover="order_over" @mouseout="order_out" v-if="address.length>0">
 						<img class="order_icon_img" src="@/assets/images/order.png" alt="">
 						<span class="sp">{{orders}}</span>
-						<img src="@/assets/images/arrow0.png" alt="">
-					</div>
+						<img src="@/assets/images/arrow0.png" alt="
+					</div> -->
 					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
 						<span>{{account_number}}</span>
@@ -89,52 +89,58 @@ export default {
       tabList: [
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
-        { title: "我的资产", page: "homeContent" },
+        // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
-        {
-          src1: require("@/assets/images/m0.png"),
-          src2: require("@/assets/images/m1.png"),
-          title: "我的资产",
-          page: "accountCenter"
-        },
-        {
-          src1: require("@/assets/images/e0.png"),
-          src2: require("@/assets/images/e1.png"),
-          title: "我的委托",
-          page: "accountEntrust"
-        },
-        {
-          src1: require("@/assets/images/c0.png"),
-          src2: require("@/assets/images/c1.png"),
-          title: "充值",
-          page: "recharge"
-        },
+        // {
+        //   src1: require("@/assets/images/m0.png"),
+        //   src2: require("@/assets/images/m1.png"),
+        //   title: "我的资产",
+        //   page: "accountCenter"
+        // },
+        // {
+        //   src1: require("@/assets/images/e0.png"),
+        //   src2: require("@/assets/images/e1.png"),
+        //   title: "我的交易",
+        //   page: "accountEntrust"
+        // },
+        // {
+        //   src1: require("@/assets/images/c0.png"),
+        //   src2: require("@/assets/images/c1.png"),
+        //   title: "充值",
+        //   page: "recharge"
+        // },
         {
           src1: require("@/assets/images/z0.png"),
           src2: require("@/assets/images/z1.png"),
           title: "账户设置",
           page: "accountSet"
         },
+        // {
+        //   src1: require("@/assets/images/s0.png"),
+        //   src2: require("@/assets/images/s1.png"),
+        //   title: "承兑商",
+        //   page: "aceite"
+        // },
         {
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
-          title: "承兑商",
-          page: "aceite"
+          title: "区域代理",
+          page: "region"
         }
       ],
       assetstList: [
-        {
+        // {
+        //   src1: require("@/assets/images/s0.png"),
+        //   src2: require("@/assets/images/s1.png"),
+        //   title: "充币&提币",
+        //   page:'finance'
+		    // },
+	    	{
           src1: require("@/assets/images/s0.png"),
           src2: require("@/assets/images/s1.png"),
-          title: "充币&提币",
-          page:'finance'
-		},
-		{
-          src1: require("@/assets/images/s0.png"),
-          src2: require("@/assets/images/s1.png"),
-          title: "杠杆",
-           page:'lever'
+          title: "交易",
+           page:'finance'
         }
       ],
       orderList: [

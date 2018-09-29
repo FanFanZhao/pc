@@ -1,9 +1,9 @@
 <template>
     <div class="chart">
         <div class="line_title fColor1">
-            <span v-for="(item,index) in lineList" :class="{'active' :index==current}"  @click="changeCyle(index)">{{item}}</span>     
+            <span v-for="(item,index) in lineList" :class="{'active' :index==current}" @click="changeCyle(index)">{{item}}</span>     
         </div>
-        <div id="container" style="min-width:400px;height:510px"></div>
+        <div id="container" style="min-width:400px;height:510px">暂无数据..</div>
         <!-- <div>
 		<iframe src="../../static/k_line/kline.html" frameborder="0" width="100%" height="540" allowfullscreen scrolling="no" allowtransparency="true"></iframe>
 	</div> -->
@@ -30,15 +30,89 @@
               this.current=index;
         //       this.getData();
             },
+            // Chart(){
+            
+            // this.$http({
+            //         url:this.$utils.laravel_api+'',
+            //         method:'post',
+            //         data:{
+                       
+            //         }
+            // }).then(res=>{
+            //     if(res.data.type=='ok'){
+            //         console.log(data)
+            //     }else{
+            //         layer.msg(res.data.message)
+            //     }
+            // })
             getData(){
-                var that=this
                 this.$http({
                         url:'https://data.jianshukeji.com/stock/history/000001',
                         method:'get',
                 }).then(res=>{
+
                 console.log(res.data.data)
-                this.chartLine(res.data.data)
+                // this.kData.push(res.data.data)
+                // this.kData=this.kData
+                // console.log(res.data.data[0])
+                // console.log(this.kData[0][0])
+                // this.chartLine(this.kData)
+
                 })
+                    this.$http({
+                        url: this.$utils.laravel_api + 'historical_data',
+                        method:'post',
+                        data:{
+                           address:this.addrsss
+                        }
+                    }).then(res=>{
+                        if(res.data.type=='ok'){
+                            console.log(res.data.message)
+                            var day=res.data.message.day;
+                            var week=res.data.message.week;
+                            var month=res.data.message.month;
+                        //     console.log(month)
+                            var dline=[];
+                            var wline=[];
+                            var mline=[];
+                        // 天
+                            for(let i=0;i<day.length;i++){
+                                var dayData=[];
+                                dayData.push((day[i].data.timestamp*1000),Number(day[i].data.open),Number(day[i].data.hight),Number(day[i].data.low),Number(day[i].data.close),Number(day[i].data.volume))
+                                dline.push(dayData)
+                            }
+                        //     console.log(dline)
+                        // 周
+                            for(let i=0;i<week.length;i++){
+                                var weekData=[];
+                                weekData.push((week[i].data.timestamp*1000),Number(week[i].data.open),Number(week[i].data.hight),Number(week[i].data.low),Number(week[i].data.close),Number(week[i].data.volume))
+                                wline.push(weekData)
+                            }
+                        //     console.log(wline) 
+                        //  月
+                             for(let i=0;i<month.length;i++){
+                                var monthData=[];
+                                monthData.push((month[i].data.timestamp*1000),Number(month[i].data.open),Number(month[i].data.hight),Number(month[i].data.low),Number(month[i].data.close),Number(month[i].data.volume))
+                                mline.push(monthData)
+                            }
+                        //     console.log(mline)
+                        if(this.current==0){
+                           this.kData=dline;   
+                        console.log('day')  
+                        }else if(this.current==1){
+                           this.kData=wline;   
+                        console.log('week')
+                        }else{
+                           this.kData=mline; 
+                        console.log('month')    
+                        }
+                            
+                            this.chartLine(this.kData)
+                        }else{
+                            layer.msg(res.data.message)
+                        }
+                    })
+           
             },
             chartLine(data){
                 Highcharts.setOptions({
@@ -104,7 +178,7 @@
                                         x: -3
                                 },
                                 title: {
-                                        text: '价格'
+                                        text: '股价'
                                 },
                                 height: '65%',
                                 resize: {
@@ -126,7 +200,7 @@
                         }],
                         series: [{
                                 type: 'candlestick',
-                                name: '2KEX',
+                                name: 'JNB',
                                 color: 'green',
                                 lineColor: 'green',
                                 upColor: 'red',
@@ -153,7 +227,7 @@
             }
         },
         mounted(){
-            this.getData();
+        //     this.getData();
         }
 }
 </script>
