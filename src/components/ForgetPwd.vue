@@ -51,138 +51,139 @@ export default {
   components: { indexHeader, indexFooter },
   data() {
     return {
-    isMb:true,
+      isMb: true,
       account_number: "",
       phoneCode: "",
-      showReset:false,
-      password:'',
-      re_password:''
+      showReset: false,
+      password: "",
+      re_password: ""
     };
   },
   created() {},
   methods: {
-      sendCode(){
-          var reg = /^1[345678]\d{9}$/;
-          var url = 'sms_send';
-            var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-            if(this.account_number == ''){
-                layer.tips('请输入账号', '#account');return;
-            }
-            else if(reg.test(this.account_number)){
+    sendCode(url) {
+      this.$http({
+        url: "/api/" + url,
+        method: "post",
+        data: {
+          user_string: this.account_number,
+          type: "forget"
+        }
+      }).then(res => {
+        console.log(res);
+        layer.msg(res.data.message);
+      });
+    },
+    setTime(e) {
+      if (e.target.disabled) {
+        return;
+      } else {
+        var reg = /^1[345678]\d{9}$/;
+        var url = "sms_send";
+        var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if (this.account_number == "") {
+          layer.tips("请输入账号", "#account");
+          return;
+        } else if (reg.test(this.account_number)) {
+        } else if (emreg.test(this.account_number)) {
+          url = "sms_mail";
+          this.isMb = false;
+        } else {
+          layer.tips("您输入的手机或邮箱账号不符合规则!", "#account");
+          return;
+        }
 
-            } else if(emreg.test(this.account_number)){
-                url = 'sms_mail';this.isMb = false;
-            } else {
-                layer.tips('您输入的手机或邮箱账号不符合规则!', '#account');return;
-            }
-          this.$http({
-              url: '/api/' + url,
-              method:'post',
-              data:{
-                  user_string:this.account_number,
-                  type:'forget'
-              }
-          }).then(res => {
-              console.log(res);
-              layer.msg(res.data.message)
-              
-          })
-      },
-      setTime(e){
-          
-          if(e.target.disabled){
-              
-              return
-          } else {
-              
-              this.sendCode();
-              var time = 60;var timer =null;
-              timer = setInterval(function(){
-                  
-                  e.target.innerHTML = time +'秒';
-                  e.target.disabled = true;
-                  if(time == 0){
-                      clearInterval(timer);
-                    e.target.innerHTML = '验证码';
-                    e.target.disabled = false;
-                      return;
-                  }
-                  time --;
-              },1000)
-              
+        this.sendCode(url);
+        var time = 60;
+        var timer = null;
+        timer = setInterval(function() {
+          e.target.innerHTML = time + "秒";
+          e.target.disabled = true;
+          if (time == 0) {
+            clearInterval(timer);
+            e.target.innerHTML = "验证码";
+            e.target.disabled = false;
+            return;
           }
-      },
-      check(){
-          var reg = /^1[345678]\d{9}$/;
-            var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-          let user_string = this.account_number;
-          var isMobile = reg.test(user_string);
-          var isEmail = emreg.test(user_string);
-          var url = 'user/check_mobile';
-          var data = {};
-          
-            if(user_string == ''){
-                console.log('请输入账号');
-                
-                layer.tips('请输入账号!', '#account');return;
-            } else if(this.phoneCode == ''){
-                // console.log('请输入验证码');
-                
-                layer.tips('请输入验证码!', '#pwd');return;
-            }
-            else if(isEmail){
-                url = 'user/check_email';
-                data.email_code = this.phoneCode;
-            }  else if(isMobile){
-                url = 'user/check_mobile';
-                data.mobile_code = this.phoneCode;
-            }
-                else  {
-                layer.tips('您输入的邮箱或手机号不符合规则!', '#account');return;
-            } 
-            console.log(data);
-            
-            this.$http({
-                    url:'/api/' + url,
-                    method:'post',
-                    data:data
-                }).then(res => {
-                    console.log(res);
-                    layer.msg(res.data.message);
-                    if(res.data.type == 'ok'){
-                        this.showReset = true;
-                        // window.location.href = "resetpass.html?user_string=" + names + "&" + "code=" + verify;
-                        // this.$router.push({path:'/resetPwd',params:{user_string:user_string,code:this.phoneCode}})
-                    }
-                })
-      },
-      resetPass(){
-          if(this.password == ''){
-              layer.msg('请输入密码');return;
-          } else if(this.re_password == ''){
-               layer.msg('请再次输入密码');return;
-          } else if(this.password !== this.re_password){
-              layer.msg('两次输入的密码不一致');return;
-          } else {
-              let data = {
-                  account:this.account_number,
-                  password:this.password,
-                  repassword:this.re_password,
-                  code:this.phoneCode
-              };
-              this.$http({
-                  url: '/api/user/forget',
-                  method:'post',
-                  data:data
-              }).then( res => {
-                //   console.log(res);
-                  layer.msg(res.data.message);
-                  if(res.data.type =='ok'){
-                      this.$router.push('/components/login')
-                  }
-              })
-          }
+          time--;
+        }, 1000);
       }
+    },
+    check() {
+      var reg = /^1[345678]\d{9}$/;
+      var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+      let user_string = this.account_number;
+      var isMobile = reg.test(user_string);
+      var isEmail = emreg.test(user_string);
+      var url = "user/check_mobile";
+      var data = {};
+
+      if (user_string == "") {
+        console.log("请输入账号");
+
+        layer.tips("请输入账号!", "#account");
+        return;
+      } else if (this.phoneCode == "") {
+        // console.log('请输入验证码');
+
+        layer.tips("请输入验证码!", "#pwd");
+        return;
+      } else if (isEmail) {
+        url = "user/check_email";
+        data.email_code = this.phoneCode;
+      } else if (isMobile) {
+        url = "user/check_mobile";
+        data.mobile_code = this.phoneCode;
+      } else {
+        layer.tips("您输入的邮箱或手机号不符合规则!", "#account");
+        return;
+      }
+      console.log(data);
+
+      this.$http({
+        url: "/api/" + url,
+        method: "post",
+        data: data
+      }).then(res => {
+        console.log(res);
+        layer.msg(res.data.message);
+        if (res.data.type == "ok") {
+          this.showReset = true;
+          // window.location.href = "resetpass.html?user_string=" + names + "&" + "code=" + verify;
+          // this.$router.push({path:'/resetPwd',params:{user_string:user_string,code:this.phoneCode}})
+        }
+      });
+    },
+    resetPass() {
+      if (this.password == "") {
+        layer.msg("请输入密码");
+        return;
+      } else if (this.re_password == "") {
+        layer.msg("请再次输入密码");
+        return;
+      } else if (this.password !== this.re_password) {
+        layer.msg("两次输入的密码不一致");
+        return;
+      } else {
+        let data = {
+          account: this.account_number,
+          password: this.password,
+          repassword: this.re_password,
+          code: this.phoneCode
+        };
+        this.$http({
+          url: "/api/user/forget",
+          method: "post",
+          data: data
+        }).then(res => {
+          //   console.log(res);
+          layer.msg(res.data.message);
+          if (res.data.type == "ok") {
+            this.$router.push("/components/login");
+          }
+        });
+      }
+    }
   }
 };
 </script>
@@ -276,17 +277,21 @@ export default {
   font-size: 14px;
   color: #61688a;
 }
-.code-box{
-    width: 520px;
-    border: 1px solid #4e5b85;
-    background:#1e2235;
+.code-box {
+  width: 520px;
+  border: 1px solid #4e5b85;
+  background: #1e2235;
 }
 .code-box .input-main {
-  width: 419px;border:none;
+  width: 419px;
+  border: none;
 }
-.code-box button{
-    border:none;
-    border-left: 1px solid #4e5b85;
-    line-height:44px;color:#7a98f7;background:#1e2235;width:94px;
+.code-box button {
+  border: none;
+  border-left: 1px solid #4e5b85;
+  line-height: 44px;
+  color: #7a98f7;
+  background: #1e2235;
+  width: 94px;
 }
 </style>

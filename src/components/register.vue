@@ -22,6 +22,26 @@
                 <button class="confirm-btn" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-if="codeTrue">
+                <div class="title">设置地区</div>
+                <div class="area-box">
+                  <div class="area">
+                    <div :class="['province',{light:showList == 'provinces'}]" @click="showList = showList?false:'provinces'">{{province.name}}</div>
+                    <div :class="['city',{light:showList =='cities'}]" @click="showList = showList?false:'cities'">{{city.name}}</div>
+                    <div :class="['districts',{light:showList == 'districts'}]" @click="showList = showList?false:'districts'">{{district.name}}</div>
+                  </div>
+                  <div class="area-list" v-if="showList">
+                    <ul class="provinces" v-if="showList == 'provinces'">
+                      <li v-for="(item,index) in provinces" :key="index" @click="getRegion(item.id,'cities',item.region_name)">{{item.region_name}}</li>
+                    </ul>
+                    <ul class="cities" v-if="showList == 'cities'">
+                      <li v-for="(item,index) in cities" :key="index" @click="getRegion(item.id,'districts',item.region_name)">{{item.region_name}}</li>
+                    </ul>
+                    <ul class="districts" v-if="showList == 'districts'">
+                      <li v-for="(item,index) in districts" :key="index" @click="getRegion(item.id,'',item.region_name)">{{item.region_name}}</li>
+                    </ul>
+                  </div>
+                </div>
+                
                 <div class="title">设置密码</div>
                 <div class="pwd-box">
                     <div class="tip">请输入密码</div>
@@ -49,32 +69,103 @@ export default {
   },
   data() {
     return {
-    codeTrue:false,
-      isMb: true,
-      account: "",
-      pwd: "",
-      repwd: "",
-      code: "",
-      invite: "",
-      timer:''
+      codeTrue: false,             //验证码是否正确
+      isMb: true,                  //是否为手机注册
+      account: "",                //用户名
+      pwd: "",                    //密码
+      repwd: "",                  //重复密码
+      code: "",                   //验证码
+      invite: "",                  //邀请码
+      timer: "",                  //倒计时timer
+      showList: false,            //是否显示地址列表
+      province: { id: "", name: "请选择省" },      //所选省份
+      provinces: [],                              //省份列表
+
+      city: { id: "", name: "请选择市" },         //所选城市
+      cities: [],                                //城市列表
+
+      district: { id: "", name: "请选择区" },     //所选地区
+      districts: []                              //地区列表
     };
   },
+  created() {
+    //获取所有省份
+    this.getRegion("", "provinces");
+  },
   methods: {
-    setIsMb(boo){
-        this.account = '';
-        this.pwd = '';
-        this.repwd = '';
-        this.code = '';
-        this.invite = '';
-        this.isMb = boo;
-        this.codeTrue = false;
-        clearInterval(this.timer);
-        var codeBtn = document.querySelector('.code-btn');
-        codeBtn.disabled = false;
-        codeBtn.innerHTML = '验证码';
-        console.log(codeBtn);
-        
+    // 获取地区列表
+    getRegion(id, type, name) {
+      if (type == "") {
+        this.showList = false;
+        this.district = { id: id, name: name };
+        return;
+      } else if (type == "cities") {
+        if (name == this.province.name) {
+          this.showList = "cities";
+          return;
+        }
+      } else if (type == "districts") {
+        if (name == this.city.name) {
+          this.showList = "districts";
+          return;
+        }
+      }
+      var pId = '';
+      //  if(id != ''){
+      //    data.parent_id = id;
+      //  }
+      if (id !== "") {
+        pId = "?parent_id=" + id;
+      }
+      
+
+      this.$http({
+        url: "/api/region" + pId,
+        method: "get"
+      }).then(res => {
+        console.log(res.data);
+        if(res.data.type == 'ok'&&res.data.message.length != 0){
+
+          if (type == "provinces") {
+            this.provinces = res.data.message;
+          } else if (type == "cities") {
+            this.province = { name: name, id: id };
+            this.city = { id: "", name: "请选择市" };
+            this.district = { id: "", name: "请选择区" };
+            this.showList = "cities";
+            this.cities = res.data.message;
+          } else {
+            this.district = { id: "", name: "请选择区" };
+            this.showList = "districts";
+            this.city = { name: name, id: id };
+            this.showCities = false;
+            this.districts = res.data.message;
+          }
+        }
+      });
     },
+    // 切换注册方式
+    setIsMb(boo) {
+      this.account = "";
+      this.pwd = "";
+      this.repwd = "";
+      this.code = "";
+      this.invite = "";
+      this.isMb = boo;
+      this.codeTrue = false;
+      this.showList = false;
+      this.provinces = [];this.cities = [];this.districts = [];
+      this.province = { id: "", name: "请选择省" };
+      this.city = { id: "", name: "请选择市" };
+      this.district = { id: "", name: "请选择区" };
+      
+      clearInterval(this.timer);
+      var codeBtn = document.querySelector(".code-btn");
+      codeBtn.disabled = false;
+      codeBtn.innerHTML = "验证码";
+      console.log(codeBtn);
+    },
+    // 发送验证码
     sendCode(e) {
       let isMb = this.isMb;
       let url = "sms_send";
@@ -100,7 +191,7 @@ export default {
       } else {
       }
       var time = 60;
-      
+
       this.timer = setInterval(function() {
         e.target.innerHTML = time + "秒";
         e.target.disabled = true;
@@ -112,10 +203,10 @@ export default {
         }
         time--;
       }, 1000);
-        let data = {user_string:this.account};
-        
+      let data = { user_string: this.account };
+
       this.$http({
-        url: '/api/' + url,
+        url: "/api/" + url,
         method: "post",
         data: data
       }).then(res => {
@@ -123,79 +214,78 @@ export default {
         layer.msg(res.data.message);
       });
     },
-    
-    checkCode(){
-        let code = this.code;
-        if(this.code == ''){
-            layer.msg('请输入验证码');return;
+    // 验证验证码
+    checkCode() {
+      let code = this.code;
+      if (this.code == "") {
+        layer.msg("请输入验证码");
+        return;
+      } else {
+        let data = {};
+        let url = "user/check_email";
+        if (this.isMb) {
+          data = { mobile_code: this.code };
+          url = "user/check_mobile";
         } else {
-            let data = {};
-            let url = 'user/check_email';
-            if(this.isMb){
-                data = {"mobile_code":this.code}
-                url = 'user/check_mobile'
-            } else {
-                data = {"email_code":this.code}
-            }
-            // $.ajax({
-            //   url: this.$utils.laravel_api + url,
-            //   type:'post',
-            //   data:data,
-            //   dataType:'json',
-            //   success:res => {
-            //     console.log(res);
-                
-            //   }
-            // })
-            this.$http({
-                url: '/api/' + url,
-                method:'post',
-                data:data
-            }).then(res => {
-                layer.msg(res.data.message)
-                
-                if(res.data.type == 'ok'){
-                    this.codeTrue = true;
-                    
-                } else {
-                    
-                    
-                }
-                
-            })
+          data = { email_code: this.code };
         }
+       
+        this.$http({
+          url: "/api/" + url,
+          method: "post",
+          data: data
+        }).then(res => {
+          layer.msg(res.data.message);
+
+          if (res.data.type == "ok") {
+            this.codeTrue = true;
+          } else {
+          }
+        });
+      }
     },
+    // 注册
     register() {
-      
-      if(this.pwd == ''){
+      if (
+        this.province.id == "" ||
+        this.city.id == "" ||
+        this.district.id == ""
+      ) {
+        layer.msg("请选设置地区");
+        return;
+      }
+      if (this.pwd == "") {
         layer.msg("请输入密码");
         return;
-      } else if(this.repwd ==''){
+      } else if (this.repwd == "") {
         layer.msg("请再次输入密码");
         return;
-      } else if(this.pwd !== this.repwd){
+      } else if (this.pwd !== this.repwd) {
         layer.msg("两次输入的密码不一致");
         return;
       } else {
-
       }
       var data = {};
+      data.province_id = this.province.id;
+      data.city_id = this.city.id;
+      data.district_id = this.district.id;
       var isMb = this.isMb;
       data.type = isMb ? "mobile" : "email";
       data.user_string = this.account;
       data.code = this.code;
       data.password = this.pwd;
       data.re_password = this.repwd;
-      data.extension_code =this.invite;
+      data.extension_code = this.invite;
+      console.log(data);return;
+      
       this.$http({
-        url: '/api/' + "user/register",
+        url: "/api/" + "user/register",
         data: data,
         method: "post"
       }).then(res => {
-        layer.msg(res.data.message)
-        if(res.data.type == 'ok'){
-
-            this.$router.push('/components/login')
+        layer.msg(res.data.message);
+        if (res.data.type == "ok") {
+          this.$router.push("/components/login");
         }
       });
     }
@@ -212,7 +302,7 @@ export default {
   }
   .reg-content {
     padding: 100px 100px;
-    >div> div {
+    > div > div {
       margin: 10px 0 30px;
     }
 
@@ -257,13 +347,56 @@ export default {
       }
     }
   }
-  .reg-btn,.confirm-btn {
+  .reg-btn,
+  .confirm-btn {
     line-height: 46px;
     width: 200px;
     margin: 20px 0 0;
     border: none;
     background: #7a98f7;
     color: #fff;
+  }
+  .area-box {
+    position: relative;
+    width: 520px;
+    line-height: 44px;
+    background-color: #1e2235;
+    color: #c7cce6;
+    text-align: center;
+    height: 46px;
+    .light {
+      color: #7a98f7;
+    }
+    // overflow: hidden;
+    .area {
+      display: flex;
+      border: 1px solid #4e5b85;
+      > div {
+        flex: 1;
+      }
+      .city {
+        border-left: 1px solid #4e5b85;
+        border-right: 1px solid #4e5b85;
+      }
+    }
+    .area-list {
+      position: absolute;
+      width: 520px;
+      top: 46px;
+      left: 0;
+      display: flex;
+      z-index: 999;
+
+      > ul {
+        flex: 1;
+        background-color: #1e2235;
+        height: 265px;
+        overflow: scroll;
+      }
+      > ul::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 }
 </style>
