@@ -104,7 +104,7 @@
                                         x: -3
                                 },
                                 title: {
-                                        text: '股价'
+                                        text: '价格'
                                 },
                                 height: '65%',
                                 resize: {
