@@ -348,12 +348,15 @@ export default {
   },
   methods: {
     setPercent(a,b){
-      if(a == 0){
+      if((a-b) == 0){
+        return '0%';
+      }
+      else if(a == 0){
         return '-100%';
       } else if( b == 0){
         return '+100%';
       } else {
-        var p  = ((a-b)/100).toFixed(2);
+        var p  = ((a-b)/b/100).toFixed(2);
         if(p>0){
           p = '+'+p+ '%';
         } else {
