@@ -7,7 +7,7 @@
                 <span :class='{active:isMb}' @click="setIsMb(true)">手机号注册</span>
                 <span :class="{active:!isMb}" @click="setIsMb(false)">邮箱注册</span>
             </div>
-            <div class="step-one" v-if="!codeTrue">
+            <div class="step-one" v-show="!codeTrue">
 
                 <div class="account-box">
                     <div class="tip" v-if="isMb">请输入手机号</div>
@@ -21,7 +21,7 @@
                 </div>
                 <button class="confirm-btn" @click="checkCode" type="button">确认</button>
             </div>
-            <div class="setpass" v-if="codeTrue">
+            <div class="setpass" v-show="codeTrue">
                 <div class="title">设置地区</div>
                 <div class="area-box">
                   <div class="area">
@@ -90,7 +90,7 @@ export default {
   },
   created() {
     //获取所有省份
-    this.getRegion("", "provinces");
+    
   },
   methods: {
     // 获取地区列表
@@ -239,6 +239,7 @@ export default {
 
           if (res.data.type == "ok") {
             this.codeTrue = true;
+            this.getRegion("", "provinces");
           } else {
           }
         });
