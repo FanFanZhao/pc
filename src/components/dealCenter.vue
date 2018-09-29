@@ -87,6 +87,7 @@ export default {
     .main-l {
       width: 360px;
       height: 100%;
+      margin-top: 10px;
       > div {
         background: #181b2a;
         margin: 0 10px 10px;

@@ -145,6 +145,7 @@ input{
 .fColor4{color: #4e546f}
 .baseColor {color: #7a98f7;}
 .ceilColor{color: #009688;}
+.redColor{color: #cc4951}
 .curPer{cursor: pointer;}
 .contentBK{background-color: #181b2a}
 .topshadow{box-shadow: 0 3px 6px rgba(0,0,0,.1);}
@@ -178,9 +179,11 @@ input{
     overflow: hidden;
 }
 .account-main{
-	width: 1270px;
+    width: 1270px;
+    min-height: 600px;
     background-color: #181b2a;
     float: right;
+    padding-bottom: 20px;
 }
 .back-nav {
     height: 72px;

@@ -26,7 +26,7 @@
 					{
 						src1: require("@/assets/images/icon_delegate.png"),
 						src2: require("@/assets/images/icon_delegate_s.png"),
-						text: '我的委托',
+						text: '我的交易',
 						page:'accountEntrust'
 					},
 					{

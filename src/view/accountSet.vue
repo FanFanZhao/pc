@@ -76,7 +76,8 @@ export default {
     },
     methods:{
         goTo(index){
-            this.$router.push({name: this.routerList[index]})
+            // this.$router.push({name: this.routerList[index]})
+            layer.msg("暂未开放...")
         },
         goNone(){
             layer.msg("暂未开放...")
