@@ -49,7 +49,21 @@ Vue.filter('numFilter', function (value) {
 
 let bus = new Vue()
 Vue.prototype.bus = bus
-
+// router.beforeEach((to,from,next) => {
+// 	if(to.meta.requireLogin == 'no'){
+// 		next()
+// 	} else {
+// 		let token = window.localStorage.getItem('token') || '';
+// 		if(token == ''){
+// 			// next({path:'/components/login'})next()
+// 			next()
+// 		} else {
+// 			next()
+// 		}
+// 	}
+	
+	
+// })
 //Vue.use(Ws, 'http://test.maxf.pub/users/chatRoom');
 /* eslint-disable no-new */
 new Vue({

@@ -35,11 +35,13 @@ export default new Router({
 			path: '/',
 			name: 'home',
 			component: home,
+			
 			children:[
 				{
 					path:'',
 					name:'homeContent',
 					component:homeContent
+					
 				},
 				{
 					path:'/dealCenter',
