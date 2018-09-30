@@ -7,8 +7,8 @@
             </div>
             <div class="exchange_title ft12 clear tc">
                 <span>方向</span>
-                <span>价格(USDT)</span>
-                <span>数量(JNB)</span>
+                <span>价格({{currency_name}})</span>
+                <span>数量({{legal_name}})</span>
             </div>
             <ul class="list-item ft12 tc">
                 <li class="curPer" v-for="(out,index) in outlist" @click="price(out.price)">
@@ -76,7 +76,7 @@ export default {
       // console.log('socket',this.address)
       this.$socket.emit("login", localStorage.getItem('user_id'));
       this.$socket.on("transaction", msg => {
-        // console.log(msg);
+        console.log(msg);
         if (msg.type == "transaction") {
         
         this.newData = msg.content;
@@ -184,7 +184,7 @@ export default {
       // console.log('socket',this.address)
       this.$socket.emit("login", localStorage.getItem('user_id'));
       this.$socket.on("transaction", msg => {
-        // console.log(msg);
+        console.log(msg);
         if (msg.type == "transaction") {
         
         this.newData = msg.content;
