@@ -143,8 +143,8 @@ export default {
                     url: '/api/'+'transaction/deal',
                     method:'post',
                     data:{
-                        legal_id:legals_id,
-                        currency_id:currencys_id
+                        legal_id:currencys_id,
+                        currency_id:legals_id
                     },  
                       headers: {'Authorization':  localStorage.getItem('token')},    
                 }).then(res=>{
