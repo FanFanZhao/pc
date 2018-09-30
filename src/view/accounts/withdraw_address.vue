@@ -116,7 +116,7 @@ export default {
             headers: { Authorization: this.token }
         }).then(res => {
             console.log(res);
-            if(res.data.type == 'ok'&&res.data.message.length != 0){
+            if(res.data.type == 'ok'){
                 this.list = res.data.message;
             }
         });
