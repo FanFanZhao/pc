@@ -16,7 +16,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{user_currency}} {{currency_name}}</span>
+                        <span class="fl fColor1">可用 {{user_legal}} {{currency_name}}</span>
                         <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
@@ -41,7 +41,7 @@
                     开始交易
                     </div>
                     <div class="clear available" v-else>
-                        <span class="fl fColor1">可用 {{user_legal}} {{legal_name}}</span>
+                        <span class="fl fColor1">可用 {{user_currency}} {{legal_name}}</span>
                         <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
                     <div class="mt40 input-item clear">
@@ -189,7 +189,7 @@
                 })
             },
             buyCoin(){
-                
+                var that = this;
                 if(!this.buyInfo.buyPrice || this.buyInfo.buyPrice<=0){
                    layer.msg('请输入买入价');
                     return;
@@ -216,6 +216,7 @@
                     if(res.data.type=="ok"){
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
+                        that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message)
                     }else{
                         layer.msg(res.data.message)
@@ -226,6 +227,7 @@
             }, 
             sellCoin(){
                 console.log(localStorage.getItem('token'))
+                var that = this;
                 if(!this.sellInfo.sellPrice || this.sellInfo.sellPrice<=0){
                    layer.msg('请输入卖出价');
                     return;
@@ -252,6 +254,7 @@
                     if(res.data.type=="ok"){
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
+                        that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{
                         layer.msg(res.data.message);

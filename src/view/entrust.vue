@@ -100,6 +100,7 @@ export default {
                 content: '您确定要撤销吗？'
                 ,btn: ['确定', '取消']
                 ,yes: function(index){
+                var i=layer.load();
                 that.$http({
                     url: '/api/' + 'transaction_del',
                     method:'post',
@@ -110,6 +111,7 @@ export default {
                     headers: {'Authorization':  that.token}
                     }).then(res=>{
                     // console.log(res)
+                        layer.close(i)
                         if(res.data.type  =='ok'){
                             console.log(indexs)
                             that.inList.splice(indexs,1);
