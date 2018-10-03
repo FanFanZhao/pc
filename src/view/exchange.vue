@@ -75,7 +75,7 @@ export default {
           that.buy_sell(that.legal_id,that.currency_id)
       }  
     })
-    
+
     that.userInfo()
   },
   sockets: {
@@ -89,10 +89,10 @@ export default {
         this.newData = msg.content;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if (inData.length > 0) {
+        if (inData.length >= 0) {
            this.inlist = inData;
         }
-        if (outData.length > 0) {
+        if (outData.length >= 0) {
          this.outlist = outData;
         }
       }
@@ -197,10 +197,10 @@ export default {
         this.newData = msg.content;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if (inData.length > 0) {
+        if (inData.length >= 0) {
            this.inlist = inData;
         }
-        if (outData.length > 0) {
+        if (outData.length >= 0) {
          this.outlist = outData;
         }
       }
