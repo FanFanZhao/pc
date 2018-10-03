@@ -164,11 +164,11 @@ export default {
     mounted(){
         var that = this;
         eventBus.$on('buyTrade', function (data) {
-              console.log(data);
-              if(data){
-                that.getData();
-              }
-            });
+            console.log(data);
+            if(data){
+            that.getData();
+            }
+        });
         that.getData();
     }
     

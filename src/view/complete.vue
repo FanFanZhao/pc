@@ -36,7 +36,9 @@ export default {
             isChoosed:2,
             new:false,
             wayList:["买入","卖出","全部"],
-            deList:[]
+            deList:[],
+            legal_id:'',
+            currency_id:''
         }
     },
     created(){
@@ -72,11 +74,20 @@ export default {
     mounted(){
          var that = this;
           eventBus.$on('toTrade0', function (data0) {
+                // that.currency_id=data0.currency_id
+                // that.legal_id=data.legal_id
                 that.complete(data0.legal_id,data0.currency_id)
           });
            eventBus.$on('toTrade', function (data0) {
+                // that.currency_id=data0.currency_id
+                // that.legal_id=data.legal_id
                 that.complete(data0.legal_id,data0.currency_id)
           })
+        //   eventBus.$on('buyTrade', function (data) {
+        //     if(data){
+        //         that.complete(that.legal_id,that.currency_id)
+        //     }
+        // });
     }
 
     

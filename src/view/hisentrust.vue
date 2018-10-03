@@ -62,6 +62,14 @@ export default {
     created(){
         this.token = localStorage.getItem('token') || '';
     },
+    wacth(){
+        eventBus.$on('buyTrade', function (data) {
+            console.log(data);
+            if(data){
+                that.getData();
+            }
+        });
+    },
     methods:{
         // 类型切换
         wayChoose(index,url){
@@ -121,9 +129,14 @@ export default {
     },
     mounted(){
         var that = this;
+        eventBus.$on('buyTrade', function (data) {
+            console.log(data);
+            if(data){
+                that.getData();
+            }
+        });
         that.getData();
     }
-    
 }
 </script>
 <style scoped>
