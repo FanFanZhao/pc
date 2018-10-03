@@ -75,6 +75,7 @@ export default {
           that.buy_sell(that.legal_id,that.currency_id)
       }  
     })
+    
     that.userInfo()
   },
   sockets: {

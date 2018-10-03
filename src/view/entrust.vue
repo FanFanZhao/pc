@@ -13,8 +13,8 @@
                 <li class="fl w20">时间</li>
                 <li class="fl w12">交易对</li>
                 <li class="fl w12">方向</li>
-                <li class="fl w12">价格</li>
-                <li class="fl w14">数量</li>
+                <li class="fl w12">数量</li>
+                <li class="fl w14">价格</li>
                 <li class="fl w20">委托总额</li>
                 <li class="fl w8 tr">操作</li>
             </ul>
