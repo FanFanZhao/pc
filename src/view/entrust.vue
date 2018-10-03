@@ -115,6 +115,7 @@ export default {
                         if(res.data.type  =='ok'){
                             console.log(indexs)
                             that.inList.splice(indexs,1);
+                            eventBus.$emit('tocel','celbuy');
                             layer.msg(res.data.message)
                         }else{
                             layer.msg(res.message);
@@ -162,6 +163,12 @@ export default {
     },
     mounted(){
         var that = this;
+        eventBus.$on('buyTrade', function (data) {
+              console.log(data);
+              if(data){
+                that.getData();
+              }
+            });
         that.getData();
     }
     

@@ -69,6 +69,12 @@ export default {
       that.buy_sell(that.legal_id,that.currency_id);
       that.connect();
     });
+    eventBus.$on('tocel', function (datas) {
+    // console.log(datas);
+      if(datas){
+          that.buy_sell(that.legal_id,that.currency_id)
+      }  
+    })
     that.userInfo()
   },
   sockets: {

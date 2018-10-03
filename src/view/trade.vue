@@ -144,15 +144,15 @@
               }
             });
             eventBus.$on('toTrade', function (data) {
-            // console.log(data);
-            that.currency_id = data.currency_id,
-            that.legal_id = data.legal_id;
-            that.currency_name = data.currency_name;
-            that.legal_name = data.leg_name;
-            that.buy_sell(that.legal_id,that.currency_id)
-        });
-        eventBus.$on('toTrade0', function (data0) {
-            // console.log(data0);
+                // console.log(data);
+                that.currency_id = data.currency_id,
+                that.legal_id = data.legal_id;
+                that.currency_name = data.currency_name;
+                that.legal_name = data.leg_name;
+                that.buy_sell(that.legal_id,that.currency_id)
+            });
+            eventBus.$on('toTrade0', function (data0) {
+                // console.log(data0);
                 that.currency_id = data0.currency_id,
                 that.legal_id = data0.legal_id;
                 that.currency_name = data0.currency_name;
@@ -160,6 +160,12 @@
                 // console.log(that.currency_name);
                 // console.log(that.legal_name);
                 that.buy_sell(that.legal_id,that.currency_id)
+            });
+            eventBus.$on('tocel', function (datas) {
+                // console.log(datas);
+                if(datas){
+                    that.buy_sell(that.legal_id,that.currency_id)
+                }  
             })
        
         },
@@ -217,6 +223,7 @@
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
                         that.buy_sell(that.legal_id,that.currency_id)
+                        eventBus.$emit('buyTrade','tradebuy');
                         layer.msg(res.data.message)
                     }else{
                         layer.msg(res.data.message)
@@ -254,6 +261,7 @@
                     if(res.data.type=="ok"){
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
+                        eventBus.$emit('buyTrade','tradebuy');
                         that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{
@@ -289,7 +297,7 @@
                     }).catch(error=>{
                         // console.log(error)
                     })
-        }
+            }
         },
         computed:{
             buyTotal(){
