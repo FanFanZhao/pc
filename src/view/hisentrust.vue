@@ -12,8 +12,8 @@
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w12">交易对</li>
-                <li class="fl w12">价格</li>
-                <li class="fl w14">数量</li>
+                <li class="fl w12">数量</li>
+                <li class="fl w14">价格</li>
                 <li class="fl w20">委托总额</li>
                 <li class="fl w12 tr">方向</li>
             </ul>
@@ -21,7 +21,7 @@
                 <ul class="list-item fColor1 ft12">
                     <li v-for="item in comList" class="clear">
                         <span class="fl w20">{{item.time}}</span>
-                        <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
+                        <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w12">{{item.number}}</span>
                         <span class="fl w14">{{item.price}}</span>
                         <span class="fl w20">{{(item.price * item.number)}}</span>
@@ -150,7 +150,7 @@ export default {
 .container{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}
 .list-item li span{display: inline-block;float: left;height: 30px;}
-.list-item li span:nth-child(3){color:#cc4951;}
+/* .list-item li span:nth-child(3){color:#cc4951;} */
 .list-item li:hover{background-color: #2b3648}
 .list-item li span.green{color: #55a067}
 .pdb20{padding-bottom: 20px;}

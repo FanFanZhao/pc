@@ -22,7 +22,7 @@
                 <ul class="list-item fColor1 ft12">
                     <li v-for="(item,index) in inList" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
-                        <span class="fl w12">{{item.legal_name}}/{{item.currency_name}}</span>
+                        <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w12">{{type=='in'?'买入':'卖出'}}</span>
                         <span class="fl w12">{{item.number}}</span>
                         <span class="fl w14">{{item.price}}</span>
