@@ -11,11 +11,14 @@
         <div class="content">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w20">时间</li>
-                <li class="fl w12">交易对</li>
-                <li class="fl w12">数量</li>
-                <li class="fl w14">价格</li>
-                <li class="fl w20">委托总额</li>
-                <li class="fl w12 tr">方向</li>
+                <li class="fl w10">交易对</li>
+                <li class="fl w8">数量</li>
+                <li class="fl w8">价格</li>
+                <li class="fl w8">委托总额</li>
+                <li class="fl w8">已成交</li>
+                <li class="fl w8">成交均价</li>
+                <li class="fl w10">状态</li>
+                <li class="fl w8 tr">方向</li>
             </ul>
             <div class="container scroll" v-if="comList.length>0">
                 <ul class="list-item fColor1 ft12">
@@ -25,6 +28,8 @@
                         <span class="fl w12">{{item.number}}</span>
                         <span class="fl w14">{{item.price}}</span>
                         <span class="fl w20">{{(item.price * item.number)}}</span>
+                         <span class="fl w8">已成交</span>
+                         <span class="fl w8">未成交</span>
                         <span class="fl w12 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
@@ -55,7 +60,7 @@ export default {
             type:'in',
             more:'加载更多',
             loading:false,
-            wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"}],
+            wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"},{title:"全部",url:"transaction_all"}],
             comList:[]
         }
     },

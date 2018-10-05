@@ -14,7 +14,7 @@
                 <!-- <span class="active">USDT</span>
                 <span>JNB</span>
                 <span>JNB</span> -->
-                <span v-for="(tab,index) in tabList " :class="{'active': index == isShow}" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
+                <span v-for="(tab,index) in tabList " :key="index" :class="{'active': index == (legal_index || isShow)}" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
             </div>
         </div>
         <div class="coin-title clear">
@@ -36,11 +36,11 @@
             <!-- <li>
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
-            <li v-for="(market,index) in marketList " :key="index" v-if="isShow == index">
-              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':isShow==index&&idx==ids}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
+            <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index">
+              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
                 <span>{{itm.name}}</span>
                 <span>${{itm.last_price}}</span>
-                <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+itm.proportion):itm.proportion}}%</span>
+                <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span>
                 </p>
             </li>
             
@@ -57,11 +57,14 @@
                 isShow:0,
                 tabList:[],
                 marketList:[],
-                newData:['2KEX', "$0.076128",'-1.11%']
+                newData:['2KEX', "$0.076128",'-1.11%'],
+                legal_index:this.$route.params.legal_index,
+                currency_index:this.$route.params.currency_index
             }
         },
         created:function(){
             // this.init();
+
           
             //法币列表
             this.$http({

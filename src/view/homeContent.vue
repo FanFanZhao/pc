@@ -514,7 +514,17 @@ export default {
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
-    }
+    },
+    // go_detail(index,inde){
+    //   this.$router.push({
+    //     path:'/dealCenter',
+    //     name:'dealCenter',
+    //     params:{
+    //       legal_index:index,
+    //       currency_index:inde
+    //     }
+    //   })
+    // }
   }
 };
 </script>

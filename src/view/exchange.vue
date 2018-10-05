@@ -12,13 +12,13 @@
             </div>
             <ul class="list-item ft12 tc">
                 <li class="curPer" v-for="(out,index) in outlist" @click="price(out.price)">
-                    <span class="red">卖出</span>
+                    <span class="red">卖 {{index+1}}</span>
                     <span>{{out.price}}</span>
                     <span>{{out.number}}</span>
                 </li>
                 <div class="line"></div>
                  <li class="curPer" v-for="(buy,index) in inlist" @click="price(buy.price)">
-                    <span class="green">买入</span>
+                    <span class="green">买 {{index+1}}</span>
                     <span>{{buy.price}}</span>
                     <span>{{buy.number}}</span>
                 </li>

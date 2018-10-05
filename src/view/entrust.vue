@@ -11,11 +11,13 @@
         <div class="content">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w20">时间</li>
-                <li class="fl w12">交易对</li>
-                <li class="fl w12">方向</li>
-                <li class="fl w12">数量</li>
-                <li class="fl w14">价格</li>
-                <li class="fl w20">委托总额</li>
+                <li class="fl w10">交易对</li>
+                <li class="fl w8">方向</li>
+                <li class="fl w8">数量</li>
+                <li class="fl w8">价格</li>
+                <li class="fl w8">已成交</li>
+                <li class="fl w8">未成交</li>
+                <li class="fl w10">委托总额</li>
                 <li class="fl w8 tr">操作</li>
             </ul>
             <div class="container scroll" v-if="inList.length>0">
@@ -25,8 +27,10 @@
                         <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w12">{{type=='in'?'买入':'卖出'}}</span>
                         <span class="fl w12">{{item.number}}</span>
-                        <span class="fl w14">{{item.price}}</span>
-                        <span class="fl w20">{{(item.price * item.number) | numFilter}}</span>
+                        <span class="fl w8">{{item.price}}</span>
+                        <span class="fl w8"></span>
+                         <span class="fl w8"></span>
+                        <span class="fl w10">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w8 tr curPer ceilColor" @click="revoke(index,item.id)">撤销</span>
                     </li>
                 </ul>
@@ -49,6 +53,7 @@ export default {
     name:"entrust",
     data (){
         return{
+            isshow:false,
             address:'',
             isChoosed:0,
             isUrl:0,
@@ -58,7 +63,7 @@ export default {
             more:'加载更多',
             loading:false,
             urlList:[{title:"当前委托"},{title:"历史委托"}],
-            wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"}],
+            wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"},{title:"全部",url:"wallet/detail"}],
             inList:[]
         }
     },
@@ -68,7 +73,15 @@ export default {
     methods:{
         // 类型切换
         wayChoose(index,url){
+            
             var that=this;
+            if(index ==2){
+                that.isshow = true;
+               
+            }else{
+                that.isshow = false;
+                that.getData();
+            }
             console.log(url)
             that.inList='';
             that.page=1;
@@ -76,12 +89,14 @@ export default {
             console.log(that.url)
             if(url=='transaction_in'){
                 that.type="in";
-            }else{
+            }else if(url == 'transaction_out'){
                 that.type="out";
+            }else{
+                that.type="all";
             }
             that.more="加载更多";
             that.isChoosed=index;
-            that.getData();
+           
         },
         // 加载更多
         getMore(){
@@ -158,8 +173,9 @@ export default {
                 }
             }).catch(error=>{
                 console.log(error)
-        })
+        }) 
       },
+     
     },
     mounted(){
         var that = this;
