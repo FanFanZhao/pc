@@ -24,13 +24,13 @@
                 <ul class="list-item fColor1 ft12">
                     <li v-for="(item,index) in inList" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
-                        <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
-                        <span class="fl w12">{{type=='in'?'买入':'卖出'}}</span>
-                        <span class="fl w12">{{item.number}}</span>
+                        <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
+                        <span class="fl w8">{{type=='in'?'买入':'卖出'}}</span>
+                        <span class="fl w8">{{item.total_number}}</span>
                         <span class="fl w8">{{item.price}}</span>
-                        <span class="fl w8"></span>
-                         <span class="fl w8"></span>
-                        <span class="fl w10">{{(item.price * item.number) | numFilter}}</span>
+                        <span class="fl w8">{{item.complete_number}}</span>
+                         <span class="fl w8">{{item.number}}</span>
+                        <span class="fl w10">{{(item.total_money) | numFilter}}</span>
                         <span class="fl w8 tr curPer ceilColor" @click="revoke(index,item.id)">撤销</span>
                     </li>
                 </ul>

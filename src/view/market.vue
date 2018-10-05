@@ -59,7 +59,8 @@
                 marketList:[],
                 newData:['2KEX', "$0.076128",'-1.11%'],
                 legal_index:this.$route.params.legal_index,
-                currency_index:this.$route.params.currency_index
+                currency_index:this.$route.params.currency_index,
+                tradeDatas:''
             }
         },
         created:function(){
@@ -96,6 +97,7 @@
                         currency_name:this.currency_name,
                         leg_name:legal_name
                  }
+                
                  //组件间传值
                  setTimeout(() => {
                    eventBus.$emit('toTrade0',tradeDatas);
@@ -109,6 +111,9 @@
 					console.log(error)
                 })
                 
+        },
+        mounted(){
+               
         },
         methods:{
             changeType(index,currency,currency_id){
