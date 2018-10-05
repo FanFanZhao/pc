@@ -121,8 +121,8 @@
                this.ids = 'a';
                this.currency_name = currency;
                this.currency_id = currency_id;
-               console.log(this.currency_name);
-               console.log(this.currency_id)
+            //    console.log(this.currency_name);
+            //    console.log(this.currency_id)
             },
             getSymbols(callback){
                 if(this.address.length<=0){
@@ -190,7 +190,7 @@
             //币种切换
             quota_shift(idx,id,legal_name){
                this.ids = idx;
-               console.log(idx,id,legal_name);
+            //    console.log(idx,id,legal_name);
                var tradeDatas = {
                    currency_id:this.currency_id,
                    legal_id:id,

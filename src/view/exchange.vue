@@ -44,7 +44,7 @@ export default {
   },
   created: function() {
     // this.init();
-     var that = this;
+    var that = this;
     eventBus.$on("toExchange0", function(data0) {
       console.log(data0);
       that.currency_id = data0.currency_id,
@@ -71,7 +71,7 @@ export default {
     //     that.connect(that.legal_id,that.currency_id);
     // });
     eventBus.$on("toExchange", function(data) {
-      // console.log(data);
+      console.log(data);
       that.currency_id = data.currency_id,
       that.legal_id = data.legal_id;
       that.currency_name = data.currency_name;
