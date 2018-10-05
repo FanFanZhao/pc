@@ -12,7 +12,7 @@
             </div>
             <ul class="list-item ft12 tc">
                 <li class="curPer" v-for="(out,index) in outlist" @click="price(out.price)">
-                    <span class="red">卖 {{index+1}}</span>
+                    <span class="red">卖 {{outlist.length-index}}</span>
                     <span>{{out.price}}</span>
                     <span>{{out.number}}</span>
                 </li>
