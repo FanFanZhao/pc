@@ -29,8 +29,8 @@
                         <span class="fl w8">{{item.total_number}}</span>
                         <span class="fl w8">{{item.price}}</span>
                         <span class="fl w8">{{item.complete_number}}</span>
-                         <span class="fl w8">{{item.number}}</span>
-                        <span class="fl w10">{{(item.total_money) | numFilter}}</span>
+                        <span class="fl w8">{{item.number}}</span>
+                        <span class="fl w10">{{item.total_money}}</span>
                         <span class="fl w8 tr curPer ceilColor" @click="revoke(index,item.id)">撤销</span>
                     </li>
                 </ul>
@@ -62,8 +62,8 @@ export default {
             type:'in',
             more:'加载更多',
             loading:false,
-            urlList:[{title:"当前委托"},{title:"历史委托"}],
-            wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"},{title:"全部",url:"wallet/detail"}],
+            urlList:[{title:"当前委托"}],
+            wayList:[{title:"买入",url:"transaction_in"},{title:"卖出",url:"transaction_out"}],
             inList:[]
         }
     },
@@ -73,16 +73,14 @@ export default {
     methods:{
         // 类型切换
         wayChoose(index,url){
-            
             var that=this;
-            if(index ==2){
-                that.isshow = true;
-               
-            }else{
-                that.isshow = false;
-                that.getData();
-            }
-            console.log(url)
+            // if(index ==2){
+            //     that.isshow = true; 
+            // }else{
+            //     that.isshow = false;
+            //     that.getData();
+            // }
+            // console.log(url)
             that.inList='';
             that.page=1;
             that.url = url;
@@ -94,6 +92,7 @@ export default {
             }else{
                 that.type="all";
             }
+            that.getData();
             that.more="加载更多";
             that.isChoosed=index;
            
