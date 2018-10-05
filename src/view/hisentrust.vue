@@ -13,10 +13,9 @@
                 <li class="fl w20">时间</li>
                 <li class="fl w10">交易对</li>
                 <li class="fl w8">数量</li>
-                <li class="fl w8">价格</li>
+                <li class="fl w10">价格</li>
                 <li class="fl w8">委托总额</li>
-                <li class="fl w8">已成交</li>
-                <li class="fl w8">成交均价</li>
+                <li class="fl w10">成交均价</li>
                 <li class="fl w10">状态</li>
                 <li class="fl w8 tr">方向</li>
             </ul>
@@ -24,13 +23,13 @@
                 <ul class="list-item fColor1 ft12">
                     <li v-for="item in comList" class="clear">
                         <span class="fl w20">{{item.time}}</span>
-                        <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
-                        <span class="fl w12">{{item.number}}</span>
-                        <span class="fl w14">{{item.price}}</span>
-                        <span class="fl w20">{{(item.price * item.number)}}</span>
-                         <span class="fl w8">已成交</span>
-                         <span class="fl w8">未成交</span>
-                        <span class="fl w12 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
+                        <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
+                        <span class="fl w8">{{item.number}}</span>
+                        <span class="fl w10">{{item.price}}</span>
+                        <span class="fl w8">{{(item.price * item.number)}}</span>
+                        <span class="fl w10">{{item.price}}</span>
+                        <span class="fl w10">已成交</span>
+                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
                 <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && comList.length>8">{{more}}</div>
