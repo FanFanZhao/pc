@@ -17,6 +17,7 @@
                 <li class="fl w8">委托总额</li>
                 <li class="fl w10">成交均价</li>
                 <li class="fl w10">状态</li>
+                <li class="fl w10">手续费</li>
                 <li class="fl w8 tr">方向</li>
             </ul>
             <div class="container scroll" v-if="comList.length>0">
@@ -26,9 +27,10 @@
                         <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w8">{{item.number}}</span>
                         <span class="fl w10">{{item.price}}</span>
-                        <span class="fl w8">{{(item.price * item.number)}}</span>
+                        <span class="fl w8">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">已成交</span>
+                        <span class="fl w10">{{item.fee}}</span>
                         <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>

@@ -69,12 +69,11 @@ export default {
       that.buy_sell(that.legal_id,that.currency_id);
       that.connect();
     });
-    eventBus.$on('tocel', function (datas) {
-    // console.log(datas);
-      if(datas){
-          that.buy_sell(that.legal_id,that.currency_id)
-      }  
-    })
+    // eventBus.$on('tocel', function (datas) {
+    //   if(datas){
+    //       that.buy_sell(that.legal_id,that.currency_id)
+    //   }  
+    // })
 
     that.userInfo()
   },
@@ -146,6 +145,7 @@ export default {
     },
     //买入、卖出记录
     buy_sell(legals_id,currencys_id){
+        // var index = layer.load();
         this.$http({
                     url: '/api/'+'transaction/deal',
                     method:'post',
@@ -158,7 +158,7 @@ export default {
                     // console.log(res ,222)
                     // layer.close(i);
                     if(res.data.type=="ok"){
-                       this.inlist = res.data.message.in;
+                    this.inlist = res.data.message.in;
                     this.outlist = res.data.message.out;
                     this.newData = res.data.message.last_price;
                     // console.log(this.newData)
