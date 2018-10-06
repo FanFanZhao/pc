@@ -12,6 +12,7 @@
 			<div class="main-r">
 				<div class="chart_wrap">
           <chart></chart>
+          <!-- <kline></kline> -->
         </div>
 				<div class="parts  flex between" >
 					<div class="trade-wrap part-l">
@@ -59,11 +60,13 @@ import hisentrust from "@/view/hisentrust";
 import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
+import kline from "@/view/kline";
 export default {
   name: "dealCenter",
   
   components: {
     indexHeader,
+    load:1,
     notice,
     deal,
     exchange,
@@ -74,7 +77,8 @@ export default {
     hisentrust,
     detail,
     currency,
-    complete
+    complete,
+    kline
   },
   data() {
     return {};
@@ -85,7 +89,16 @@ export default {
     // console.log(this.address)
   },
   mounted(){
+<<<<<<< HEAD
  
+=======
+    // console.log('wejdewhbewjdbewjdhbcwj')
+    // if(this.load==1){
+    //   console.log(1111)
+    //   window.location.reload();
+    //   this.load=2;
+    // }
+>>>>>>> 900ad01103f07ed593181e77055bb58d9dc5441a
    
   }
 };
