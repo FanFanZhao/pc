@@ -70,7 +70,7 @@ export default {
       // console.log(that.currency_name);
       // console.log(that.legal_name);
         that.buy_sell(that.legal_id,that.currency_id);
-        that.connect(that.legal_id,that.currency_id);
+        // that.connect(that.legal_id,that.currency_id);
     });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
@@ -81,7 +81,7 @@ export default {
       // console.log(that.currency_name);
       // console.log(that.legal_name);
       that.buy_sell(that.legal_id,that.currency_id);
-      that.connect(that.legal_id,that.currency_id);
+      // that.connect(that.legal_id,that.currency_id);
     });
     // 下单强制更新数据
     // eventBus.$on('tocel', function (datas) {
@@ -94,25 +94,47 @@ export default {
     // that.userInfo()
   },
   sockets: {
-    connect() {
+    connect(legal_id,currency_id) {
+      // var that=this;
       // console.log('socket',this.address)
       this.$socket.emit("login", localStorage.getItem('user_id'));
       this.$socket.on("transaction", msg => {
-        console.log(msg,123);
+        console.log(msg);
         if (msg.type == "transaction") {
         
         this.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
+        if(msg.currency==currency_id&&msg.legal == legal_id){
         if (inData.length >= 0) {
            this.inlist = inData;
         }
         if (outData.length >= 0) {
          this.outlist = outData;
+        }    
         }
       }
       });
     },
+    // connect() {
+    //   // console.log('socket',this.address)
+    //   this.$socket.emit("login", localStorage.getItem('user_id'));
+    //   this.$socket.on("transaction", msg => {
+    //     console.log(msg);
+    //     if (msg.type == "transaction") {
+        
+    //     this.newData = msg.last_price;
+    //     var inData = JSON.parse(msg.in);
+    //     var outData = JSON.parse(msg.out);
+    //     if (inData.length >= 0) {
+    //        this.inlist = inData;
+    //     }
+    //     if (outData.length >= 0) {
+    //      this.outlist = outData;
+    //     }
+    //   }
+    //   });
+    // },
     // new_msg(msg) {
     //   // console.log(msg)
     //   if (msg.type == "transaction") {
@@ -203,14 +225,15 @@ export default {
     //             })
                   
     // },
-    connect(legal_id,currency_id) {
-      var that=this;
-      console.log('connetct-------------')
-      that.$socket.emit("login", localStorage.getItem('user_id'));
-      that.$socket.on("transaction", msg => {
-        console.log(msg,456);
-        if (msg.type == "transaction") {
+    // connect(legal_id,currency_id) {
+    //   var that=this;
+    //   // console.log('socket',this.address)
+    //   that.$socket.emit("login", localStorage.getItem('user_id'));
+    //   that.$socket.on("transaction", msg => {
+    //     console.log(msg);
+    //     if (msg.type == "transaction") {
         
+<<<<<<< HEAD
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
@@ -225,6 +248,22 @@ export default {
       }
       });
     },
+=======
+    //     that.newData = msg.last_price;
+    //     var inData = JSON.parse(msg.in);
+    //     var outData = JSON.parse(msg.out);
+    //     if(msg.currency==currency_id&&msg.legal == legal_id){
+    //     if (inData.length >= 0) {
+    //        that.inlist = inData;
+    //     }
+    //     if (outData.length >= 0) {
+    //      that.outlist = outData;
+    //     }    
+    //     }
+    //   }
+    //   });
+    // },
+>>>>>>> 6414851a0a7a81219b3a248e9494512a4b3d4091
         
   }
 };
