@@ -9123,15 +9123,18 @@ function requestOverSocket() {
         RequestData(true);
     }, 1000);
 }
-
+function ndata(num){
+    var date = new Date(num);
+    return Date.parse(date);
+}
 function requestOverHttp() {
     if (KlineIns.debug) {
         console.log("DEBUG: " + KlineIns.requestParam);
     }
     $(document).ready(
         KlineIns.G_HTTP_REQUEST = $.ajax({
-            type: "GET",
-            url: KlineIns.url,
+            type: "POST",
+            url: 'http://ice.adminchao.com/api/deal/info',
             dataType: 'json',
             data: KlineIns.datas,
             timeout: 30000,
@@ -9141,9 +9144,17 @@ function requestOverHttp() {
                 this.symbol = KlineIns.symbol;
             },
             success: function (res) {
+                console.log(res.message.quotation)
+                var datas=res.message.quotation;
+                var dateses=[];
+                for(let i=0;i<datas.length;i++){
+                    var dataList=[];
+                    dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),10)
+                    dateses.push(dataList)
+                }
                 console.log(res)
                 if (KlineIns.G_HTTP_REQUEST) {
-                    requestSuccessHandler(res);
+                    requestSuccessHandler(dateses);
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -9168,17 +9179,17 @@ function requestSuccessHandler(res) {
     if (KlineIns.debug) {
         console.log(res);
     }
-    if (!res || !res.success) {
-        KlineIns.timer = setTimeout(function () {
-            RequestData(true);
-        }, KlineIns.intervalTime);
-        return;
-    }
+    // if (!res || !res.success) {
+    //     KlineIns.timer = setTimeout(function () {
+    //         RequestData(true);
+    //     }, KlineIns.intervalTime);
+    //     return;
+    // }
     var chart = ChartManager.getInstance().getChart();
     chart.setTitle();
-    KlineIns.data = eval(res.data);
+    KlineIns.data = eval(res);
 
-    var updateDataRes = KlineIns.chartMgr.updateData("frame0.k0", KlineIns.data.lines);
+    var updateDataRes = KlineIns.chartMgr.updateData("frame0.k0", KlineIns.data);
     KlineIns.requestParam = setHttpRequestParam(KlineIns.symbol, KlineIns.range, null, KlineIns.chartMgr.getDataSource("frame0.k0").getLastDate());
 
     var intervalTime = KlineIns.intervalTime < KlineIns.range ? KlineIns.intervalTime : KlineIns.range;
