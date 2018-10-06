@@ -106,7 +106,7 @@ export default {
 }
 .no_data{padding: 50px 0;}
 .container{height: 260px;overflow: auto;}
-.list-item li{line-height: 45px;}
+.list-item li{line-height: 45px; display: flex;}
 .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
 
 .list-item li:hover{background-color: #2b3648}

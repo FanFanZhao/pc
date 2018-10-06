@@ -70,7 +70,7 @@ export default {
       // console.log(that.currency_name);
       // console.log(that.legal_name);
         that.buy_sell(that.legal_id,that.currency_id);
-        that.connect(that.legal_id,that.currency_id);
+        // that.connect(that.legal_id,that.currency_id);
     });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
@@ -81,20 +81,21 @@ export default {
       // console.log(that.currency_name);
       // console.log(that.legal_name);
       that.buy_sell(that.legal_id,that.currency_id);
-      that.connect(that.legal_id,that.currency_id);
+      // that.connect(that.legal_id,that.currency_id);
     });
     // 下单强制更新数据
-    eventBus.$on('tocel', function (datas) {
-      if(datas){
-        that.buy_sell(that.legal_id,that.currency_id);
-        that.connect(that.legal_id,that.currency_id);
-      }  
-    })
+    // eventBus.$on('tocel', function (datas) {
+    //   if(datas){
+    //     that.buy_sell(that.legal_id,that.currency_id);
+    //     that.connect(that.legal_id,that.currency_id);
+    //   }  
+    // })
 
     // that.userInfo()
   },
   sockets: {
-    connect() {
+    connect(legal_id,currency_id) {
+      // var that=this;
       // console.log('socket',this.address)
       this.$socket.emit("login", localStorage.getItem('user_id'));
       this.$socket.on("transaction", msg => {
@@ -104,15 +105,36 @@ export default {
         this.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
+        if(msg.currency==currency_id&&msg.legal == legal_id){
         if (inData.length >= 0) {
            this.inlist = inData;
         }
         if (outData.length >= 0) {
          this.outlist = outData;
+        }    
         }
       }
       });
     },
+    // connect() {
+    //   // console.log('socket',this.address)
+    //   this.$socket.emit("login", localStorage.getItem('user_id'));
+    //   this.$socket.on("transaction", msg => {
+    //     console.log(msg);
+    //     if (msg.type == "transaction") {
+        
+    //     this.newData = msg.last_price;
+    //     var inData = JSON.parse(msg.in);
+    //     var outData = JSON.parse(msg.out);
+    //     if (inData.length >= 0) {
+    //        this.inlist = inData;
+    //     }
+    //     if (outData.length >= 0) {
+    //      this.outlist = outData;
+    //     }
+    //   }
+    //   });
+    // },
     // new_msg(msg) {
     //   // console.log(msg)
     //   if (msg.type == "transaction") {
@@ -204,21 +226,22 @@ export default {
                   
     // },
     connect(legal_id,currency_id) {
+      var that=this;
       // console.log('socket',this.address)
-      this.$socket.emit("login", localStorage.getItem('user_id'));
-      this.$socket.on("transaction", msg => {
+      that.$socket.emit("login", localStorage.getItem('user_id'));
+      that.$socket.on("transaction", msg => {
         console.log(msg);
         if (msg.type == "transaction") {
         
-        this.newData = msg.last_price;
+        that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if(msg.currency==currency_id&&msg.legal == legal_id){
+        if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
         if (inData.length >= 0) {
-           this.inlist = inData;
+           that.inlist = inData;
         }
         if (outData.length >= 0) {
-         this.outlist = outData;
+         that.outlist = outData;
         }    
         }
       }
