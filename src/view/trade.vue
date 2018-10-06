@@ -224,6 +224,7 @@
                         this.buyInfo.buyNum=0;
                         that.buy_sell(that.legal_id,that.currency_id)
                         eventBus.$emit('buyTrade','tradebuy');
+                        eventBus.$emit('tocel','updata');
                         layer.msg(res.data.message)
                     }else{
                         layer.msg(res.data.message)
@@ -262,6 +263,7 @@
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
                         eventBus.$emit('buyTrade','tradebuy');
+                        eventBus.$emit('tocel','updata');
                         that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{

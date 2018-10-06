@@ -35,6 +35,7 @@ export default {
     return {
       outlist: [],
       inlist: [],
+      load:1,
       newData: 0,
       currency_name:'',
       legal_name:'',
@@ -45,20 +46,7 @@ export default {
   created: function() {
     // this.init();
     var that = this;
-    eventBus.$on("toExchange0", function(data0) {
-      console.log(data0);
-      that.currency_id = data0.currency_id,
-      that.legal_id = data0.legal_id;
-      that.currency_name = data0.currency_name;
-      that.legal_name = data0.leg_name;
-      // console.log(that.currency_name);
-      // console.log(that.legal_name);
-       that.buy_sell(that.legal_id,that.currency_id);
-        that.connect(that.legal_id,that.currency_id);
-    });
-  },
-  mounted: function() {
-    var that = this;
+   
     // eventBus.$on("toExchange0", function(data0) {
     //   console.log(data0);
     //   that.currency_id = data0.currency_id,
@@ -68,8 +56,22 @@ export default {
     //   // console.log(that.currency_name);
     //   // console.log(that.legal_name);
     //    that.buy_sell(that.legal_id,that.currency_id);
-    //     that.connect(that.legal_id,that.currency_id);
+    //    that.connect(that.legal_id,that.currency_id);
     // });
+  },
+  mounted: function() {
+    var that = this;
+    eventBus.$on("toExchange0", function(data0) {
+      console.log(data0);
+      that.currency_id = data0.currency_id,
+      that.legal_id = data0.legal_id;
+      that.currency_name = data0.currency_name;
+      that.legal_name = data0.leg_name;
+      // console.log(that.currency_name);
+      // console.log(that.legal_name);
+        that.buy_sell(that.legal_id,that.currency_id);
+        that.connect(that.legal_id,that.currency_id);
+    });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
       that.currency_id = data.currency_id,
@@ -81,13 +83,14 @@ export default {
       that.buy_sell(that.legal_id,that.currency_id);
       that.connect(that.legal_id,that.currency_id);
     });
-    // eventBus.$on('tocel', function (datas) {
-    //   if(datas){
-    //       that.buy_sell(that.legal_id,that.currency_id)
-    //   }  
-    // })
+    eventBus.$on('tocel', function (datas) {
+      if(datas){
+        that.buy_sell(that.legal_id,that.currency_id);
+        that.connect(that.legal_id,that.currency_id);
+      }  
+    })
 
-    that.userInfo()
+    // that.userInfo()
   },
   sockets: {
     connect() {
@@ -129,32 +132,32 @@ export default {
     price(price){
       eventBus.$emit('toPrice',price);
     },
-    init() {
-      var index = layer.load();
-      this.address = localStorage.getItem("address") || "";
-      var inData = JSON.parse(
-        '[{"price":"0.50000","number":"1.00000","account_number":null},{"price":"0.50000","number":"1.00000","account_number":null},{"price":"0.50000","number":"1.00000","account_number":null},{"price":"0.49500","number":"160.00000","account_number":null},{"price":"0.49000","number":"300.00000","account_number":null}]'
-      );
-      // console.log(inData)
-      this.$http({
-        url: "http://jnbadmin.mobile369.com/api/transaction/deal",
-        method: "POST",
-        data: {
-          address: this.address
-        }
-      }).then(res => {
-        layer.close(index);
-        if (res.data.type == "ok") {
-          var message = res.data.message;
-          this.inlist = message.in;
-          this.newData = message.last_price;
-          // console.log(res.data.message)
-          this.outlist = message.out;
-        } else {
-          // layer.msg(res.data.message);
-        }
-      });
-    },
+    // init() {
+    //   var index = layer.load();
+    //   this.address = localStorage.getItem("address") || "";
+    //   var inData = JSON.parse(
+    //     '[{"price":"0.50000","number":"1.00000","account_number":null},{"price":"0.50000","number":"1.00000","account_number":null},{"price":"0.50000","number":"1.00000","account_number":null},{"price":"0.49500","number":"160.00000","account_number":null},{"price":"0.49000","number":"300.00000","account_number":null}]'
+    //   );
+    //   // console.log(inData)
+    //   this.$http({
+    //     url: "http://jnbadmin.mobile369.com/api/transaction/deal",
+    //     method: "POST",
+    //     data: {
+    //       address: this.address
+    //     }
+    //   }).then(res => {
+    //     layer.close(index);
+    //     if (res.data.type == "ok") {
+    //       var message = res.data.message;
+    //       this.inlist = message.in;
+    //       this.newData = message.last_price;
+    //       // console.log(res.data.message)
+    //       this.outlist = message.out;
+    //     } else {
+    //       // layer.msg(res.data.message);
+    //     }
+    //   });
+    // },
     //买入、卖出记录
     buy_sell(legals_id,currencys_id){
         // var index = layer.load();
@@ -183,22 +186,22 @@ export default {
                     // console.log(error)
                 })
     },
-    userInfo(){
-      this.$http({
-                    url: '/api/'+'user/info',
-                    method:'get',
-                    data:{},  
-                      headers: {'Authorization':  localStorage.getItem('token')},    
-                }).then(res=>{
-                    // console.log(res);
-                    if(res.data.type == 'ok'){
-                      localStorage.setItem('user_id',res.data.message.id)
-                    }
-                }).catch(error=>{
+    // userInfo(){
+    //   this.$http({
+    //                 url: '/api/'+'user/info',
+    //                 method:'get',
+    //                 data:{},  
+    //                   headers: {'Authorization':  localStorage.getItem('token')},    
+    //             }).then(res=>{
+    //                 // console.log(res);
+    //                 if(res.data.type == 'ok'){
+    //                   localStorage.setItem('user_id',res.data.message.id)
+    //                 }
+    //             }).catch(error=>{
                     
-                })
+    //             })
                   
-    },
+    // },
     connect(legal_id,currency_id) {
       // console.log('socket',this.address)
       this.$socket.emit("login", localStorage.getItem('user_id'));

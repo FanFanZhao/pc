@@ -65,6 +65,7 @@ export default {
   name: "dealCenter",
   components: {
     indexHeader,
+    load:1,
     notice,
     deal,
     exchange,
@@ -87,7 +88,13 @@ export default {
     // console.log(this.address)
   },
   mounted(){
-    // window.location.reload();
+    // console.log('wejdewhbewjdbewjdhbcwj')
+    // if(this.load==1){
+    //   console.log(1111)
+    //   window.location.reload();
+    //   this.load=2;
+    // }
+   
   }
 };
 </script>

@@ -55,6 +55,22 @@ import indexFooter from '@/view/indexFooter'
 			this.account_number = this.$route.query.account_number || ''
 		},
         methods:{
+            userInfo(){
+                this.$http({
+                                url: '/api/'+'user/info',
+                                method:'get',
+                                data:{},  
+                                headers: {'Authorization':  localStorage.getItem('token')},    
+                            }).then(res=>{
+                                // console.log(res);
+                                if(res.data.type == 'ok'){
+                                localStorage.setItem('user_id',res.data.message.id)
+                                }
+                            }).catch(error=>{
+                                
+                            })
+                            
+            },
             login(){
                 let account_number = this.$utils.trim(this.account_number);
                 let password = this.$utils.trim(this.password);
@@ -82,6 +98,7 @@ import indexFooter from '@/view/indexFooter'
 						localStorage.setItem('token',res.message);
                         localStorage.setItem('accountNum',account_number);
                         this.$store.commit('setAccountNum');
+                        this.userInfo();
                         this.$router.push('/');
 					}else{
 						layer.msg(res.message);
