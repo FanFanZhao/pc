@@ -32,8 +32,14 @@
               symbol: "coin5/coin4",
               symbolName: "COIN5_COIN4",
               type: "poll", // poll/socket
-              url: "../../static/lib/mock.json",
-              datas:{id:123},
+            //   url: "../../static/lib/mock.json",
+            //   datas:{id:123},
+              url: 'http://ice.adminchao.com/api/deal/info',
+              datas:{
+                legal_id: 3,
+                currency_id: 2,
+                type: 5
+            },
               limit: 1000,
               intervalTime: 5000,
               debug: true,
@@ -48,11 +54,12 @@
           getData(){
             var that = this
             this.$http({
-                url: 'http://t.fuwuqian.cn/api/' + 'currency/market_day',
+                url: '/api/'+'deal/info',
                 method:'post',
                 data:{
-                    legal_id: 19,
-                    currency_id: 9
+                    legal_id: 3,
+                    currency_id: 2,
+                    type: 5
                 },
                 headers: {'Authorization':  that.token}
             }).then(res=>{

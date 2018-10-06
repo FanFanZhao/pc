@@ -63,6 +63,7 @@ import complete from "@/view/complete";
 import kline from "@/view/kline";
 export default {
   name: "dealCenter",
+  
   components: {
     indexHeader,
     load:1,
