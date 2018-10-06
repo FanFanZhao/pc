@@ -11,7 +11,11 @@ import homeContent from '@/view/homeContent'
 import indexFooter from '@/view/indexFooter'
 export default {
     name:'home', 
-    data(){}, 
+    data(){
+       return{
+           
+       } 
+    }, 
     methods:{
        },
     components:{indexHeader,homeContent,indexFooter},
