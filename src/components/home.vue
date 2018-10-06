@@ -11,9 +11,6 @@ import homeContent from '@/view/homeContent'
 import indexFooter from '@/view/indexFooter'
 export default {
     name:'home', 
-    data(){}, 
-    methods:{
-       },
     components:{indexHeader,homeContent,indexFooter},
     created(){
         console.log('homeContent');

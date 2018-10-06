@@ -214,7 +214,7 @@ export default {
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if(msg.currency==currency_id&&msg.legal == legal_id){
+        if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
         if (inData.length >= 0) {
            that.inlist = inData;
         }

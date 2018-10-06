@@ -204,6 +204,9 @@ export default {
 .list-item li:hover{background-color: #2b3648}
 .list-item li span.green{color: #55a067}
 .pdb20{padding-bottom: 20px;}
+.container span{
+    margin-left: 0;
+}
 </style>
 
 
