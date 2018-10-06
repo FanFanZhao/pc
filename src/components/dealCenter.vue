@@ -61,6 +61,7 @@ import currency from "@/view/currency";
 import complete from "@/view/complete";
 export default {
   name: "dealCenter",
+  
   components: {
     indexHeader,
     notice,
@@ -84,7 +85,8 @@ export default {
     // console.log(this.address)
   },
   mounted(){
-    // window.location.reload();
+ 
+   
   }
 };
 </script>

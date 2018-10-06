@@ -4,7 +4,7 @@
             <p>法币账户  总资产折合：{{totle}}（CNY）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle/6.5}}</span> USDT</span></p>
         </div>
         <ul class="list">
-            <li v-for="(item,index) in list" :key="index">
+            <li v-for="(item,index) in list" :key="index" @click="go_legalAccount(item.currency)">
                 <p class="legal_name">{{item.currency_name}}</p>
                 <div class="balance_detail">
                     <div class="use_balance flex1">
@@ -59,6 +59,15 @@ export default {
                     }).catch(error=>{
                         console.log(error)
                     })
+        },
+        go_legalAccount(currency_id){
+             this.$router.push({
+                path:'/legalAccount',
+                name:'legalAccount',
+                params:{
+                  currency_id:currency_id
+                }
+            })
         }
     }
 }

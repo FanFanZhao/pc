@@ -25,6 +25,7 @@ import lever from '@/view/accounts/lever'
 import finanrec from '@/view/accounts/finanrec'
 import manger from '@/view/accounts/lever_manger'
 import legal from '@/view/accounts/legal'
+import legalAccount from '@/view/accounts/legalAccount'
 import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
 import withdraw_address from '@/view/accounts/withdraw_address'
@@ -165,6 +166,11 @@ export default new Router({
 					path:'/legal',
 					name:'legal',
 					component:legal
+				},
+				{
+					path:'/legalAccount',
+					name:'legalAccount',
+					component:legalAccount
 				}
 				
 

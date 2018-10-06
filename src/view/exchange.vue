@@ -58,6 +58,7 @@ export default {
     });
   },
   mounted: function() {
+    
     var that = this;
     // eventBus.$on("toExchange0", function(data0) {
     //   console.log(data0);
@@ -81,11 +82,11 @@ export default {
       that.buy_sell(that.legal_id,that.currency_id);
       that.connect(that.legal_id,that.currency_id);
     });
-    // eventBus.$on('tocel', function (datas) {
-    //   if(datas){
-    //       that.buy_sell(that.legal_id,that.currency_id)
-    //   }  
-    // })
+    eventBus.$on('tocel', function (datas) {
+      if(datas){
+          that.buy_sell(that.legal_id,that.currency_id)
+      }  
+    })
 
     that.userInfo()
   },
