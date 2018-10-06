@@ -29,7 +29,7 @@
               <li class="flex arround ft12"></li>
            </ul>
         </div>
-        <p class="huazhuan">划转</p>
+        <router-link tag="p" class="huazhuan" to='/transferLegal'>划转</router-link>
     </div>
 </template>
 <script>
