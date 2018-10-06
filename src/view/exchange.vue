@@ -46,25 +46,7 @@ export default {
   created: function() {
     // this.init();
     var that = this;
-<<<<<<< HEAD
-    eventBus.$on("toExchange0", function(data0) {
-      console.log(data0);
-      that.currency_id = data0.currency_id,
-      that.legal_id = data0.legal_id;
-      that.currency_name = data0.currency_name;
-      that.legal_name = data0.leg_name;
-      // console.log(that.currency_name);
-      // console.log(that.legal_name);
-       that.buy_sell(that.legal_id,that.currency_id);
-        that.connect(that.legal_id,that.currency_id);
-    });
-  },
-  mounted: function() {
-    
-    var that = this;
-=======
    
->>>>>>> 900ad01103f07ed593181e77055bb58d9dc5441a
     // eventBus.$on("toExchange0", function(data0) {
     //   console.log(data0);
     //   that.currency_id = data0.currency_id,
@@ -101,17 +83,11 @@ export default {
       that.buy_sell(that.legal_id,that.currency_id);
       that.connect(that.legal_id,that.currency_id);
     });
-<<<<<<< HEAD
-    eventBus.$on('tocel', function (datas) {
-      if(datas){
-          that.buy_sell(that.legal_id,that.currency_id)
-=======
     // 下单强制更新数据
     eventBus.$on('tocel', function (datas) {
       if(datas){
         that.buy_sell(that.legal_id,that.currency_id);
         that.connect(that.legal_id,that.currency_id);
->>>>>>> 900ad01103f07ed593181e77055bb58d9dc5441a
       }  
     })
 

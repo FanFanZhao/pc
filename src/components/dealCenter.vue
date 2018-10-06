@@ -89,16 +89,12 @@ export default {
     // console.log(this.address)
   },
   mounted(){
-<<<<<<< HEAD
- 
-=======
     // console.log('wejdewhbewjdbewjdhbcwj')
     // if(this.load==1){
     //   console.log(1111)
     //   window.location.reload();
     //   this.load=2;
     // }
->>>>>>> 900ad01103f07ed593181e77055bb58d9dc5441a
    
   }
 };
