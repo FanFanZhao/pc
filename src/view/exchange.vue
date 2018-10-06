@@ -98,7 +98,7 @@ export default {
       // console.log('socket',this.address)
       this.$socket.emit("login", localStorage.getItem('user_id'));
       this.$socket.on("transaction", msg => {
-        console.log(msg,123);
+        console.log(msg);
         if (msg.type == "transaction") {
         
         this.newData = msg.last_price;
@@ -204,22 +204,21 @@ export default {
                   
     // },
     connect(legal_id,currency_id) {
-      var that=this;
-      console.log('connetct-------------')
-      that.$socket.emit("login", localStorage.getItem('user_id'));
-      that.$socket.on("transaction", msg => {
-        console.log(msg,456);
+      // console.log('socket',this.address)
+      this.$socket.emit("login", localStorage.getItem('user_id'));
+      this.$socket.on("transaction", msg => {
+        console.log(msg);
         if (msg.type == "transaction") {
         
-        that.newData = msg.last_price;
+        this.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
         if(msg.currency==currency_id&&msg.legal == legal_id){
         if (inData.length >= 0) {
-           that.inlist = inData;
+           this.inlist = inData;
         }
         if (outData.length >= 0) {
-         that.outlist = outData;
+         this.outlist = outData;
         }    
         }
       }
