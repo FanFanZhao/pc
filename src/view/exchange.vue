@@ -225,15 +225,14 @@ export default {
     //             })
                   
     // },
-    // connect(legal_id,currency_id) {
-    //   var that=this;
-    //   // console.log('socket',this.address)
-    //   that.$socket.emit("login", localStorage.getItem('user_id'));
-    //   that.$socket.on("transaction", msg => {
-    //     console.log(msg);
-    //     if (msg.type == "transaction") {
+    connect(legal_id,currency_id) {
+      var that=this;
+      // console.log('socket',this.address)
+      that.$socket.emit("login", localStorage.getItem('user_id'));
+      that.$socket.on("transaction", msg => {
+        console.log(msg);
+        if (msg.type == "transaction") {
         
-<<<<<<< HEAD
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
@@ -248,22 +247,6 @@ export default {
       }
       });
     },
-=======
-    //     that.newData = msg.last_price;
-    //     var inData = JSON.parse(msg.in);
-    //     var outData = JSON.parse(msg.out);
-    //     if(msg.currency==currency_id&&msg.legal == legal_id){
-    //     if (inData.length >= 0) {
-    //        that.inlist = inData;
-    //     }
-    //     if (outData.length >= 0) {
-    //      that.outlist = outData;
-    //     }    
-    //     }
-    //   }
-    //   });
-    // },
->>>>>>> 6414851a0a7a81219b3a248e9494512a4b3d4091
         
   }
 };
