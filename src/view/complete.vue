@@ -11,7 +11,7 @@
                 <li class="fl w12">价格</li>
                 <li class="fl w12">交易量</li>
             </ul>
-            <div class="container scroll" v-if="deList.length>0">
+            <div class="containers scroll" v-if="deList.length>0">
                 <ul v-for="itm in deList" class="list-item fColor1 ft12">
                     <li class="clear">
                         <span class="fl w12">{{itm.time}}</span>
@@ -105,7 +105,7 @@ export default {
     text-align: center;
 }
 .no_data{padding: 50px 0;}
-.container{height: 260px;overflow: auto;}
+.containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 45px; display: flex;}
 .list-item li span{display: inline-block; float: left; width: 33.3%;text-align: center;}
 

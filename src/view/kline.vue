@@ -44,7 +44,7 @@
                 type: 1
             },
               limit: 1000,
-              intervalTime: 5000,
+              intervalTime: 500000,
               debug: true,
               showTrade: false,
               onResize: function(width, height) {
@@ -75,26 +75,24 @@
             }).catch(error=>{
                 console.log(error)
         }) 
-          }
+      }
 
+        },
+        beforeDestroy () {
+          $eventBus.$off('toTrade') // 注意这里off掉了'home-on'的订阅事件
         },
         mounted(){
           var that = this;
+          this.king();
           eventBus.$on('toTrade', function (data) {
-              console.log(data);
-              if(data){
-                 that.currency_id =  data.legal_id,
+            console.log(data);
+            if(data){
+                that.currency_id =  data.legal_id,
                 that.legal_id =data.currency_id;
                 that.king()
-              }
-             
-              // that.currency_name = data.currency_name;
-              // that.legal_name = data.leg_name;
-              // that.buy_sell(that.legal_id,that.currency_id)
+            }
           });
-          this.king();
         }
-      
       }
       </script>
       

@@ -9152,7 +9152,7 @@ function requestOverHttp() {
                     dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),Number(datas[i].sum))
                     dateses.push(dataList)
                 }
-                console.log(res)
+                console.log(dateses)
                 if (KlineIns.G_HTTP_REQUEST) {
                     requestSuccessHandler(dateses);
                 }
