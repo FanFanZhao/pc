@@ -2,7 +2,7 @@
     <div id="transfer-legal" v-if="coins.length">
        <div class="title">划转</div>
        <ul class="coins">
-           <li v-for="(coin,index) in coins" :key="index" :class="{active:index == coinIndex}" @click="coinIndex = index">
+           <li v-for="(coin,index) in coins" :key="index" :class="{active:index == coinIndex}" @click="coinIndex = index;number = ''">
                {{coin.currency_name}}
            </li>
        </ul>
