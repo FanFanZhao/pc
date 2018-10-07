@@ -25,6 +25,7 @@
                <span class="ft14">记录</span>
                <span class="ft14">时间</span>
            </p>
+           <p style="text-align:center;margin:30px 0;">暂无记录</p>
            <ul>
               <li class="flex arround ft12"></li>
            </ul>
@@ -115,11 +116,10 @@ export default {
    .huazhuan{
        text-align: center;
        margin-top: 60px;
-       background: #1b1e2e;
+       background: #7a98f7;
        padding: 8px;
    }
    .huazhuan:hover{
-       color: #61688a;
        cursor: pointer;
    }
 </style>

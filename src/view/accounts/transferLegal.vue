@@ -78,7 +78,7 @@ export default {
                         layer.msg(res.data.message)
 
                     setTimeout(() => {
-                        this.$router.push({path:'/legalAccount'})
+                        this.$router.push({path:'/legalAccount',name:'legalAccount',params:{currency_id:this.coins[this.coinIndex].currency}})
                     },2000)
             
                     
@@ -103,6 +103,7 @@ export default {
   }
   > .coins {
     display: flex;
+    justify-content: center;
     li {
       margin-right: 20px;
       padding: 5px 20px;
@@ -115,7 +116,7 @@ export default {
   }
   >.types{
       margin: 30px 0;
-      width: 400px;
+    //   width: 400px;
       height: 80px;
       display: flex;
       justify-content: space-between;
@@ -131,14 +132,14 @@ export default {
   }
   .number{
       margin: 30px 0 0;
-      width: 430px;
+    //   width: 430px;
       line-height: 40px;
       input{
           border:none;
           color:#f2f5ff;
           background: none;
           line-height: 40px;
-          width: 300px;
+          width: 800px;
       border-bottom: 2px solid #ccc;
 
       }
@@ -149,6 +150,8 @@ export default {
       }
   }
   .transfer{
+      display: block;
+      margin: 0 auto;
       line-height: 40px;
       width: 200px;
       background: #7a98f7;
