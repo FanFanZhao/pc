@@ -20,7 +20,7 @@
                 <li class="fl w10">手续费</li>
                 <li class="fl w8 tr">方向</li>
             </ul>
-            <div class="container scroll" v-if="comList.length>0">
+            <div class="containers scroll" v-if="comList.length>0">
                 <ul class="list-item fColor1 ft12">
                     <li v-for="item in comList" class="clear">
                         <span class="fl w20">{{item.time}}</span>
@@ -30,7 +30,7 @@
                         <span class="fl w8">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">已成交</span>
-                        <span class="fl w10">{{item.fee}}</span>
+                        <span class="fl w10">{{item.type=='in'? item.in_fee:item.out_fee}}</span>
                         <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
@@ -153,14 +153,14 @@ export default {
 .content{padding: 0 40px 0 30px;height: 300px;}
 .list-title{line-height: 40px; border-bottom: 1px solid #303b4b;height: 40px;}
 .no_data{padding: 50px 0;}
-.container{height: 260px;overflow: auto;}
+.containers{height: 260px;overflow: auto;}
 .list-item li{line-height: 30px;}
 .list-item li span{display: inline-block;float: left;height: 30px;}
 /* .list-item li span:nth-child(3){color:#cc4951;} */
 .list-item li:hover{background-color: #2b3648}
 .list-item li span.green{color: #55a067}
 .pdb20{padding-bottom: 20px;}
-.container span{
+.containers span{
     margin-left: 0;
 }
 </style>

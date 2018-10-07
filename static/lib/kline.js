@@ -9145,11 +9145,11 @@ function requestOverHttp() {
             },
             success: function (res) {
                 console.log(res.message.quotation)
-                var datas=res.message.quotation;
+                var datas=res.message.quotation.reverse();
                 var dateses=[];
                 for(let i=0;i<datas.length;i++){
                     var dataList=[];
-                    dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),10)
+                    dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),Number(datas[i].sum))
                     dateses.push(dataList)
                 }
                 console.log(res)

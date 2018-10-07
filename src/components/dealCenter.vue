@@ -11,8 +11,8 @@
 			</div>
 			<div class="main-r">
 				<div class="chart_wrap">
-          <chart></chart>
-          <!-- <kline></kline> -->
+          <!-- <chart></chart> -->
+          <kline></kline>
         </div>
 				<div class="parts  flex between" >
 					<div class="trade-wrap part-l">
