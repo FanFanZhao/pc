@@ -40,7 +40,7 @@
               url: 'http://ice.adminchao.com/api/deal/info',
               datas:{
                 legal_id:_that.legal_id,
-               currency_id :_that.currency_id,
+                currency_id :_that.currency_id,
                 type: 1
             },
               limit: 1000,
@@ -79,7 +79,7 @@
 
         },
         beforeDestroy () {
-          $eventBus.$off('toTrade') // 注意这里off掉了'home-on'的订阅事件
+          $eventBus.$off('toTrade') 
         },
         mounted(){
           var that = this;

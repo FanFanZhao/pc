@@ -9177,7 +9177,7 @@ function requestOverHttp() {
 
 function requestSuccessHandler(res) {
     if (KlineIns.debug) {
-        console.log(res);
+        // console.log(res);
     }
     // if (!res || !res.success) {
     //     KlineIns.timer = setTimeout(function () {
