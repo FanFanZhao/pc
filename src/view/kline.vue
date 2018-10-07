@@ -44,7 +44,7 @@
                 type: 1
             },
               limit: 1000,
-              intervalTime: 5000000,
+              intervalTime: 5000,
               debug: true,
               showTrade: false,
               onResize: function(width, height) {
