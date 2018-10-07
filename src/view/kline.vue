@@ -89,7 +89,7 @@
             if(data){
                 that.currency_id =  data.legal_id,
                 that.legal_id =data.currency_id;
-                that.king()
+                that.king();
             }
           });
         }
