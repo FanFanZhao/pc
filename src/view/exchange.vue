@@ -84,12 +84,12 @@ export default {
       // that.connect(that.legal_id,that.currency_id);
     });
     // 下单强制更新数据
-    // eventBus.$on('tocel', function (datas) {
-    //   if(datas){
-    //     that.buy_sell(that.legal_id,that.currency_id);
-    //     that.connect(that.legal_id,that.currency_id);
-    //   }  
-    // })
+    eventBus.$on('tocel', function (datas) {
+      if(datas){
+        that.buy_sell(that.legal_id,that.currency_id);
+        that.connect(that.legal_id,that.currency_id);
+      }  
+    })
 
     // that.userInfo()
   },
