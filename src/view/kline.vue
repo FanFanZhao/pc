@@ -79,7 +79,7 @@
 
         },
         beforeDestroy () {
-          $eventBus.$off('toTrade') 
+          eventBus.$off('toTrade') 
         },
         mounted(){
           var that = this;

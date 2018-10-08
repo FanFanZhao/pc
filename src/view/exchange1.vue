@@ -44,7 +44,8 @@ export default {
     };
   },
   created: function() {
-      var that = this;
+    // this.init();
+    var that = this;
   },
   mounted: function() {
     var that = this;
@@ -54,8 +55,10 @@ export default {
       that.legal_id = data0.legal_id;
       that.currency_name = data0.currency_name;
       that.legal_name = data0.leg_name;
-      that.buy_sell(that.legal_id,that.currency_id);
-      that.connect(data0.legal_id,data0.currency_id)
+      // console.log(that.currency_name);
+      // console.log(that.legal_name);
+        that.buy_sell(data0.legal_id,data0.currency_id);
+       
     });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
@@ -63,42 +66,47 @@ export default {
       that.legal_id = data.legal_id;
       that.currency_name = data.currency_name;
       that.legal_name = data.leg_name;
-      that.buy_sell(that.legal_id,that.currency_id);
-      that.connect(data.legal_id,data.currency_id)
+      // console.log(that.currency_name);
+      // console.log(that.legal_name);
+      that.buy_sell(data.legal_id,data.currency_id);
+     
     });
     // 下单强制更新数据
     // eventBus.$on('tocel', function (datas) {
     //   if(datas){
     //     that.buy_sell(that.legal_id,that.currency_id);
+    //     that.connect(that.legal_id,that.currency_id);
     //   }  
     // })
+
+    // that.userInfo()
+    console.log(this.$socket)
   },
   sockets: {
-    connect(legal_id,currency_id) {
-      this.$socket.emit("login", localStorage.getItem('user_id'));
-      this.$socket.on("transaction", msg => {
-        // console.log(msg);
-        if (msg.type == "transaction") {
+    connect() {
+      console.log('socket')
+    },
+    transaction(msg) {
+      console.log(msg)
+      if (msg.type == "transaction") {
+        console.log('------------------------')
         this.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        // if(msg.currency==currency_id&&msg.legal == legal_id){
-          if (inData.length >= 0) {
-            this.inlist = inData;
-          }
-          if (outData.length >= 0) {
+        if (inData && inData.legth > 0) {
+          this.inlist = inData;
+        }
+        if (outData && outData.legth > 0) {
           this.outlist = outData;
-          }    
-        // }
+        }
       }
-      });
-    },
+    }
   },
   methods: {
     price(price){
       eventBus.$emit('toPrice',price);
     },
-    // 第一次默认最新价数据
+    //买入、卖出记录
     buy_sell(legals_id,currencys_id){
         // var index = layer.load();
         this.$http({
@@ -110,42 +118,23 @@ export default {
                     },  
                       headers: {'Authorization':  localStorage.getItem('token')},    
                 }).then(res=>{
+                    // console.log(res ,222)
                     // layer.close(i);
                     if(res.data.type=="ok"){
                     this.inlist = res.data.message.in;
                     this.outlist = res.data.message.out;
                     this.newData = res.data.message.last_price;
+                    // console.log(this.newData)
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
-                        this.connect(legal_id,currency_id)
+                        // this.connect(currencys_id,legals_id)
                     }else{
                         layer.msg(res.data.message)
                     }
                 }).catch(error=>{
                     // console.log(error)
                 })
-    },
-    connect(legal_id,currency_id) {
-      var that=this;
-      console.log('socket')
-      that.$socket.emit("login", localStorage.getItem('user_id'));
-      that.$socket.on("transaction", msg => {
-        // console.log(msg);
-        if (msg.type == "transaction") {
-        that.newData = msg.last_price;
-        var inData = JSON.parse(msg.in);
-        var outData = JSON.parse(msg.out);
-        if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
-          if (inData.length >= 0) {
-            that.inlist = inData;
-          }
-          if (outData.length >= 0) {
-          that.outlist = outData;
-          }    
-          }
-        }
-      });
-    },     
+    },       
   }
 };
 </script>
