@@ -8,8 +8,6 @@
       </template>
       
       <script>
-      // import "../static/lib/jquery.mousewheel.js"
-      // import"../../static/js/kline.js"
       export default {
         name: 'kline',
         data () {
@@ -27,7 +25,7 @@
               var _that =this;
               var kline = new Kline({
               element: "#kline_container",
-              width: 850,
+              width: $(".kline").width(),
               height: 530,
               theme: 'dark', // light/dark
               language: 'zh-cn', // zh-cn/en-us/zh-tw
