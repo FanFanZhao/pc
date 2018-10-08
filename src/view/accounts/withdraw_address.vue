@@ -118,6 +118,8 @@ export default {
             console.log(res);
             if(res.data.type == 'ok'){
                 this.list = res.data.message;
+            } else {
+                this.list = []
             }
         });
         
