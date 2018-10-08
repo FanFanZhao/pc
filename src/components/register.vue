@@ -217,7 +217,10 @@ export default {
     // 验证验证码
     checkCode() {
       let code = this.code;
-      if (this.code == "") {
+      if(this.account == ''){
+        layer.msg('请输入账号');return;
+      }
+      else if (this.code == "") {
         layer.msg("请输入验证码");
         return;
       } else {
