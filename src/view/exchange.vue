@@ -142,7 +142,10 @@ export default {
         //组件间传值
         var newPrice = {
           newprice:msg.last_price,
+          newup:msg.proportion,
           istoken:msg.token,
+          yesprice:msg.yesterday,
+          toprice:msg.today
         }
         setTimeout(() => {
           eventBus.$emit('toNew',newPrice);

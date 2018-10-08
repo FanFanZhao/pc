@@ -118,28 +118,20 @@
             eventBus.$on('toNew', function (data) {
                console.log(data);
                if(data){
-                // var cname=data.istoken.split('/');
-                var newprice=data.newprice;
-                var cname=data.istoken
-                console.log(that.currency_name) 
-                // $("span[data-name='BTC/HQ']").html('$'+newprice)
-                console.log(newprice)
-                $("span[data-name='"+cname+"']").html('$'+newprice);
-                // $('span').data(name,cname).html()
-                // $('span').each((index,item) => {
-                    
-                //     if($(this).data('name') == cname ){
-                //         console.log($(this));
-                        
-                //         $(this).html('$'+newprice)
-                //     }
-                    
-                // })
+                    var newprice=data.newprice;
+                    var cname=data.istoken;
+                    var newup=data.newup;
+                    console.log(newup) 
+                    if(newup>=0){
+                        newup="+"+newup+'%';
+                        $("span[data-name='"+cname+"']").next().css('color','#55a067')
+                    }else{
+                        newup=newup+'%';
+                        $("span[data-name='"+cname+"']").next().css('color','#cc4951')
+                    }
+                    $("span[data-name='"+cname+"']").html('$'+newprice).next().html(newup);
                }
-              
-            //    if(data.)
-
-          }); 
+            }); 
         },
         methods:{
             changeType(index,currency,currency_id){
