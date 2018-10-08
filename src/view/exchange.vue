@@ -87,7 +87,7 @@ export default {
             this.inlist = inData;
           }
           if (outData.length >= 0) {
-          this.outlist = outData;
+          this.outlist = outData.reverse();
           }    
         // }
       }
@@ -113,7 +113,7 @@ export default {
                     // layer.close(i);
                     if(res.data.type=="ok"){
                     this.inlist = res.data.message.in;
-                    this.outlist = res.data.message.out;
+                    this.outlist = res.data.message.out.reverse();
                     this.newData = res.data.message.last_price;
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
@@ -148,7 +148,7 @@ export default {
             that.inlist = inData;
           }
           if (outData.length >= 0) {
-          that.outlist = outData;
+            that.outlist = outData;
           }    
           }
         }
