@@ -137,15 +137,12 @@ export default {
         var newPrice = {
           newprice:msg.last_price,
           newup:msg.proportion,
-          istoken:msg.token
-        }
-        var newIndex = {
+          istoken:msg.token,
           yesprice:msg.yesterday,
           toprice:msg.today
         }
         setTimeout(() => {
           eventBus.$emit('toNew',newPrice);
-          eventBus.$emit('toNewindex',newIndex);
         },1000);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);

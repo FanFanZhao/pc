@@ -99,7 +99,7 @@
           </div>
           
           <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
-            <li v-for="(li,inde) in item.quotation" :key="inde">
+            <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='item.name+"/"+li.name'>
               <div class="two-coin">
                 <span>{{li.name}}</span>
                 <span style="color:#61688a">/{{item.name}}</span>
@@ -344,18 +344,51 @@ export default {
     .catch(error => {
       console.log(error);
     });
-    eventBus.$on('toNewindex', function (data) {
-      console.log(data);
-      if(data){
-            // var newprice=data.newprice;
-            // var cname=data.istoken
-            // console.log(that.currency_name) 
-            // console.log(newprice)
-            // $("span[data-name='"+cname+"']").html('$'+newprice);
-        }
-    }); 
+    //  eventBus.$on('toNew', function (data) {
+    //   console.log(data);
+    //   if(data){
+    //         var newprice=data.newprice;
+    //         var cname=data.istoken
+    //         console.log(that.currency_name) 
+    //         console.log(newprice)
+    //         $("span[data-name='"+cname+"']").html('$'+newprice);
+    //     }
+    // }); 
+    this.connect();
+       
   },
   methods: {
+    connect() { 
+      var that=this;
+      console.log('socket')
+      that.$socket.emit("login", localStorage.getItem('user_id'));
+      that.$socket.on("transaction", msg => {
+        console.log(msg);
+        var cname=msg.token;
+        var yesprice = msg.yesterday;
+        var toprice = msg.today;
+        console.log(cname)
+        var zf=0;
+        if((toprice-yesprice )==0){
+            zf='0%'
+        }else if(toprice==0){
+            zf='-100'
+        }else if(yesprice){
+            zf="+100%"
+        }else{
+          zf=((toprice-yesprice)/yesprice/100).toFixed(2);
+          if(zf>0){
+            zf = '+'+zf+ '%';
+          } else {
+            zf = zf+'%'
+          }
+        }
+          var zf=toprice-yesprice
+          $("li[data-name='"+cname+"']").find('.yester span').html(yesprice);
+          $("li[data-name='"+cname+"']").find('.today span').html(toprice);
+          $("li[data-name='"+cname+"']").find('.yes-toa span').html(zf);
+      });
+    },
     setPercent(a,b){
       if((a-b) == 0){
         return '0%';
@@ -369,7 +402,7 @@ export default {
         if(p>0){
           p = '+'+p+ '%';
         } else {
-          p = '-'+p+'%'
+          p = p+'%'
         }
         return p;
       }
