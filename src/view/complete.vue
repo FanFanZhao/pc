@@ -97,9 +97,6 @@ export default {
                 that.complete(data0.legal_id,data0.currency_id)
           })
           eventBus.$on('buyTrade', function (data) {
-            if(data){
-                // that.complete(that.legal_id,that.currency_id)
-            }
              that.connect();
         });
        

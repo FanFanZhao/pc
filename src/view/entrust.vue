@@ -84,7 +84,7 @@ export default {
             that.inList='';
             that.page=1;
             that.url = url;
-            console.log(that.url)
+            // console.log(that.url)
             if(url=='transaction_in'){
                 that.type="in";
             }else if(url == 'transaction_out'){
@@ -151,11 +151,11 @@ export default {
                 data:{page:page},
                 headers: {'Authorization':  that.token}
             }).then(res=>{
-                console.log(res)
+                // console.log(res)
                 that.loading=false;
-                console.log(url)
+                // console.log(url)
                 if(res.data.type == 'ok'){
-                        console.log(res.data.message.list)
+                        // console.log(res.data.message.list)
                         var list=res.data.message.list;
                         if(that.page==1){
                             that.inList=list;

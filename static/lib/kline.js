@@ -8,7 +8,7 @@ var Kline = function (option) {
     this.init = false;
     this.requestParam = "";
     this.data = {};
-    this.width = 1200;
+    this.width = 100+'%';
     this.height = 462;
     this.symbol = "";
     this.symbolName = "";
@@ -168,7 +168,7 @@ Kline.prototype = {
 
     onLangChange: function (lang) {
         if (this.debug) {
-            console.log("DEBUG: language changed to " + lang);
+            // console.log("DEBUG: language changed to " + lang);
         }
     },
 
@@ -180,13 +180,13 @@ Kline.prototype = {
 
     onThemeChange: function (theme) {
         if (this.debug) {
-            console.log("DEBUG: theme changed to : " + theme);
+            // console.log("DEBUG: theme changed to : " + theme);
         }
     },
 
     onRangeChange: function (range) {
         if (this.debug) {
-            console.log("DEBUG: range changed to " + range);
+            // console.log("DEBUG: range changed to " + range);
         }
     }
 
@@ -5325,7 +5325,7 @@ DarkTheme.prototype.__construct = function () {
         this._colors[Theme.Color.NegativeDark] = "#3b0e08";
     }
     this._colors[Theme.Color.Unchanged] = "#fff";
-    this._colors[Theme.Color.Background] = "#0a0a0a";
+    this._colors[Theme.Color.Background] = "#181b2a";
     this._colors[Theme.Color.Cursor] = "#aaa";
     this._colors[Theme.Color.RangeMark] = "#f9ee30";
     this._colors[Theme.Color.Indicator0] = "#ddd";
@@ -9144,7 +9144,7 @@ function requestOverHttp() {
                 this.symbol = KlineIns.symbol;
             },
             success: function (res) {
-                console.log(res.message.quotation)
+                // console.log(res.message.quotation)
                 var datas=res.message.quotation.reverse();
                 var dateses=[];
                 for(let i=0;i<datas.length;i++){
@@ -9152,7 +9152,7 @@ function requestOverHttp() {
                     dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),Number(datas[i].sum))
                     dateses.push(dataList)
                 }
-                console.log(dateses)
+                // console.log(dateses)
                 if (KlineIns.G_HTTP_REQUEST) {
                     requestSuccessHandler(dateses);
                 }

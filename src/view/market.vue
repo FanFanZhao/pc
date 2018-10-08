@@ -73,7 +73,7 @@
 					method:'get',
 					data:{}
 				}).then(res=>{
-                    console.log(res);
+                    // console.log(res);
                     if(res.data.type == 'ok'){
                       this.tabList = res.data.message;
                       var msg = res.data.message;
@@ -81,16 +81,16 @@
                       for(var i=0;i<msg.length;i++){
                           arr_quota[i] = msg[i].quotation
                       };
-                      console.log(arr_quota);
+                    //   console.log(arr_quota);
                       this.marketList = arr_quota;
-                      console.log(this.marketList);
+                    //   console.log(this.marketList);
                       //默认法币id和name
-                      this.currency_name = msg[0].name;
+                       this.currency_name = msg[0].name;
                        this.currency_id = msg[0].id;
-                        var id = arr_quota[0][0].id;
+                       var id = arr_quota[0][0].id;
                        var legal_name = arr_quota[0][0].name;
-                      console.log(this.currency_name);
-                      console.log(this.currency_id);
+                        // console.log(this.currency_name);
+                        // console.log(this.currency_id);
                      var tradeDatas = {
                         currency_id:this.currency_id,
                         legal_id:id,

@@ -1,5 +1,6 @@
 <template>
         <div class="klines">
+          <div class="top-txt fColor1 ft14">{{leg_name}}/{{currency_name}}</div>
           <div class="kline">
             <div id="kline_container"></div>
           </div>
@@ -8,14 +9,15 @@
       </template>
       
       <script>
-      // import "../static/lib/jquery.mousewheel.js"
-      // import"../../static/js/kline.js"
       export default {
         name: 'kline',
         data () {
           return {
             legal_id:3,
-            currency_id:2
+            currency_id:2,
+            leg_name:'HQ',
+            currency_name:"BTC"
+
           }
         },
         created(){
@@ -27,8 +29,8 @@
               var _that =this;
               var kline = new Kline({
               element: "#kline_container",
-              width: 850,
-              height: 530,
+              width: $(".kline").width(),
+              height: 490,
               theme: 'dark', // light/dark
               language: 'zh-cn', // zh-cn/en-us/zh-tw
               ranges: ["1w", "1d", "1h", "30m", "15m", "5m", "1m", "line"],
@@ -77,10 +79,7 @@
         }) 
       }
 
-        },
-        beforeDestroy () {
-          eventBus.$off('toTrade') 
-        },
+      },
         mounted(){
           var that = this;
           this.king();
@@ -89,6 +88,8 @@
             if(data){
                 that.currency_id =  data.legal_id,
                 that.legal_id =data.currency_id;
+                that.currency_name =  data.currency_name,
+                that.leg_name = data.leg_name;
                 that.king();
             }
           });
@@ -98,12 +99,19 @@
       
       <!-- Add "scoped" attribute to limit CSS to this component only -->
       <style scoped>
-      *{padding: 0;margin: 0;}
+      .top-txt{
+        height: 40px;
+        line-height: 40px;
+        background: #181b2a;
+        -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.1);
+        box-shadow: 0 2px 6px rgba(0,0,0,.1);
+        padding: 0 15px;
+      }
       .kline {
           width: 100%;
           margin-left: auto;
           margin-right: auto;
-          height: 530;
+          height: 490;
           position: relative;
       }
       </style>
