@@ -135,10 +135,16 @@ export default {
         //组件间传值
         var newPrice = {
           newprice:msg.last_price,
-          istoken:msg.token,
+          newup:msg.proportion,
+          istoken:msg.token
+        }
+        var newIndex = {
+          yesprice:msg.yesterday,
+          toprice:msg.today
         }
         setTimeout(() => {
           eventBus.$emit('toNew',newPrice);
+          eventBus.$emit('toNewindex',newIndex);
         },1000);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);

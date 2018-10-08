@@ -333,18 +333,27 @@ export default {
       url: this.$utils.laravel_api + "news/help",
       method: "post",
       data: {}
-    })
-      .then(res => {
+    }).then(res => {
         console.log(res);
         if (res.status === 200) {
           this.noticeList = res.data.message;
         } else {
           layer.msg(res.message);
         }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    eventBus.$on('toNewindex', function (data) {
+      console.log(data);
+      if(data){
+            // var newprice=data.newprice;
+            // var cname=data.istoken
+            // console.log(that.currency_name) 
+            // console.log(newprice)
+            // $("span[data-name='"+cname+"']").html('$'+newprice);
+        }
+    }); 
   },
   methods: {
     setPercent(a,b){
