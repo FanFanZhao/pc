@@ -20,8 +20,8 @@ export default {
        },
     components:{indexHeader,homeContent,indexFooter},
     created(){
-        console.log('homeContent');
-        console.log(this.$http);
+        // console.log('homeContent');
+        // console.log(this.$http);
         
         // this.$router.push({name:'homeContent'})
         // this.$http({
