@@ -47,6 +47,7 @@ export default {
       var that = this;
   },
   created: function() {
+   var local_lid = window.localStorage.getItem('l_id'),local_cid = window.localStorage.getItem('c_id');
     var l_id,c_id;
     var that = this;
     eventBus.$on("toExchange0", function(data0) {
@@ -55,6 +56,7 @@ export default {
       l_id = data0.legal_id;
       that.currency_name = data0.currency_name;
       that.legal_name = data0.leg_name;
+      console.log(local_lid,local_cid)
       that.buy_sell(l_id,c_id);
       that.connect(l_id,c_id)
     });
@@ -62,6 +64,9 @@ export default {
       console.log(data);
       c_id = data.currency_id,
       l_id = data.legal_id;
+      window.localStorage.setItem('c_id',data.currency_id);
+       window.localStorage.setItem('l_id',data.legal_id);
+        
       that.currency_name = data.currency_name;
       that.legal_name = data.leg_name;
       that.buy_sell(l_id,c_id);
@@ -127,6 +132,7 @@ export default {
                 })
     },
     connect(legal_id,currency_id) { 
+      console.log(legal_id,currency_id)
       var that=this;
       console.log('socket')
       that.$socket.emit("login", localStorage.getItem('user_id'));
