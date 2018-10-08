@@ -55,6 +55,7 @@ export default {
       that.currency_name = data0.currency_name;
       that.legal_name = data0.leg_name;
       that.buy_sell(that.legal_id,that.currency_id);
+      that.connect(data0.legal_id,data0.currency_id)
     });
     eventBus.$on("toExchange", function(data) {
       console.log(data);
@@ -80,14 +81,14 @@ export default {
         this.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if(msg.currency==currency_id&&msg.legal == legal_id){
-        if (inData.length >= 0) {
-           this.inlist = inData;
-        }
-        if (outData.length >= 0) {
-         this.outlist = outData;
-        }    
-        }
+        // if(msg.currency==currency_id&&msg.legal == legal_id){
+          if (inData.length >= 0) {
+            this.inlist = inData;
+          }
+          if (outData.length >= 0) {
+          this.outlist = outData;
+          }    
+        // }
       }
       });
     },
@@ -115,7 +116,7 @@ export default {
                     this.newData = res.data.message.last_price;
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
-                        this.connect(that.legal_id,that.currency_id)
+                        this.connect(legal_id,currency_id)
                     }else{
                         layer.msg(res.data.message)
                     }
@@ -133,14 +134,14 @@ export default {
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
-        if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
+        // if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
           if (inData.length >= 0) {
             that.inlist = inData;
           }
           if (outData.length >= 0) {
           that.outlist = outData;
           }    
-          }
+          // }
         }
       });
     },     
