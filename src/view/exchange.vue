@@ -114,7 +114,7 @@ export default {
                     // layer.close(i);
                     if(res.data.type=="ok"){
                     this.inlist = res.data.message.in;
-                    this.outlist = res.data.message.out;
+                    this.outlist = res.data.message.out.reverse();
                     this.newData = res.data.message.last_price;
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
@@ -133,6 +133,14 @@ export default {
       that.$socket.on("transaction", msg => {
         console.log(msg);
         if (msg.type == "transaction") {
+        //组件间传值
+        var newPrice = {
+          newprice:msg.last_price,
+          istoken:msg.token,
+        }
+        setTimeout(() => {
+          eventBus.$emit('toNew',newPrice);
+        },1000);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
@@ -141,7 +149,7 @@ export default {
             that.inlist = inData;
           }
           if (outData.length >= 0) {
-          that.outlist = outData;
+            that.outlist = outData;
           }    
           }
         }
