@@ -73,10 +73,10 @@ export default {
         },
        connect() {
             var that=this;
-            console.log('socket')
+            console.log('socket-complete')
             that.$socket.emit("login", localStorage.getItem('user_id'));
             that.$socket.on("deal_list", msg => {
-                console.log(msg);
+                // console.log(msg);
                 if (msg.type == "deal_list") {
                 //  var comData = JSON.parse();
                     // this.deList

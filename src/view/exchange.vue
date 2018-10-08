@@ -129,8 +129,16 @@ export default {
       console.log('socket')
       that.$socket.emit("login", localStorage.getItem('user_id'));
       that.$socket.on("transaction", msg => {
-        // console.log(msg);
+        console.log(msg);
         if (msg.type == "transaction") {
+        //组件间传值
+        var newPrice = {
+          newprice:msg.last_price,
+          istoken:msg.token,
+        }
+        setTimeout(() => {
+          eventBus.$emit('toNew',newPrice);
+        },1000);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
