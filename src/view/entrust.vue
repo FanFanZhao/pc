@@ -84,7 +84,7 @@ export default {
             that.inList='';
             that.page=1;
             that.url = url;
-            console.log(that.url)
+            // console.log(that.url)
             if(url=='transaction_in'){
                 that.type="in";
             }else if(url == 'transaction_out'){
