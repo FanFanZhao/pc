@@ -195,7 +195,7 @@
                 })
             },
             buyCoin(){
-                var that = this;
+                // var that = this;
                 if(!this.buyInfo.buyPrice || this.buyInfo.buyPrice<=0){
                    layer.msg('请输入买入价');
                     return;
@@ -216,16 +216,19 @@
                     },
                      headers: {'Authorization':  localStorage.getItem('token')},           
                 }).then(res=>{
-                    // console.log(res ,222)
-                    layer.close(i);
+                    console.log(res ,222)
+                     layer.close(i);
                     
                     if(res.data.type=="ok"){
+                        layer.msg(res.data.message)
                         this.buyInfo.buyPrice=0;
                         this.buyInfo.buyNum=0;
-                        that.buy_sell(that.legal_id,that.currency_id)
+                        // that.buy_sell(that.legal_id,that.currency_id)
                         eventBus.$emit('buyTrade','tradebuy');
                         eventBus.$emit('tocel','updata');
-                        layer.msg(res.data.message)
+                        console.log(res.data.message)
+                         
+                       
                     }else{
                         layer.msg(res.data.message)
                     }
@@ -244,7 +247,7 @@
                     layer.msg('请输入卖出量');
                     return;
                 }
-                // var i=layer.load();
+                var i=layer.load();
                 this.$http({
                     url: '/api/'+this.sellInfo.url,
                     method:'post',
@@ -257,14 +260,14 @@
                     headers: {'Authorization':  localStorage.getItem('token')}, 
                 }).then(res=>{
                     console.log(res)
-                    // layer.close(i);
+                    layer.close(i);
                     // layer.msg(res.data.message)
                     if(res.data.type=="ok"){
                         this.sellInfo.sellPrice=0;
                         this.sellInfo.sellNum=0;
                         eventBus.$emit('buyTrade','tradebuy');
                         eventBus.$emit('tocel','updata');
-                        that.buy_sell(that.legal_id,that.currency_id)
+                        // that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{
                         layer.msg(res.data.message);
