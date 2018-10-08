@@ -86,16 +86,13 @@
           eventBus.$on('toTrade', function (data) {
             $('#kline_container').html('');
             console.log(data);
-             setTimeout(() => {
-                  if(data){
+              if(data){
                 that.currency_id =  data.legal_id,
                 that.legal_id =data.currency_id;
                 that.currency_name =  data.currency_name,
                 that.leg_name = data.leg_name;
                 that.king();
-            }  
-             },2000);
-           
+              }         
           });
         }
       }
