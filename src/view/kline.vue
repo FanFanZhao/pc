@@ -87,7 +87,7 @@
             $('#kline_container').html('');
             console.log(data);
              setTimeout(() => {
-              if(data){
+                  if(data){
                 that.currency_id =  data.legal_id,
                 that.legal_id =data.currency_id;
                 that.currency_name =  data.currency_name,
