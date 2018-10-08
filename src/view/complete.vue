@@ -63,13 +63,26 @@ export default {
                         // layer.close(i);
                         if(res.data.type == "ok"){
                            this.deList = res.data.message.complete;
+                           this.connect();
                         }else{
                             layer.msg(res.data.message)
                         }
                     }).catch(error=>{
                         // console.log(error)
                     })
-        }
+        },
+       connect() {
+            var that=this;
+            console.log('socket')
+            that.$socket.emit("login", localStorage.getItem('user_id'));
+            that.$socket.on("deal_list", msg => {
+                console.log(msg);
+                if (msg.type == "deal_list") {
+                //  var comData = JSON.parse();
+                    // this.deList
+                }
+      });
+    },  
     },
     mounted(){
          var that = this;
@@ -88,6 +101,7 @@ export default {
                 that.complete(that.legal_id,that.currency_id)
             }
         });
+        that.connect();
     }
 
     
