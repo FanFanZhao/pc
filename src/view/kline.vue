@@ -79,10 +79,7 @@
         }) 
       }
 
-        },
-        beforeDestroy () {
-          $eventBus.$off('toTrade') 
-        },
+      },
         mounted(){
           var that = this;
           this.king();

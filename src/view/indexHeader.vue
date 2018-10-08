@@ -193,7 +193,7 @@ export default {
         val =>
           val.page === name || (val.children && val.children.includes(name))
       );
-      console.log(this.current);
+      // console.log(this.current);
     });
   },
   methods: {
@@ -202,7 +202,7 @@ export default {
     },
     goto(index, name) {
       this.current = index;
-      console.log(index, name);
+      // console.log(index, name);
       this.bus.$emit('nav_name',name);
       this.$router.push({ name: name });
     },
@@ -213,7 +213,7 @@ export default {
       this.$router.push({ name: name });
     },
     loginOut() {
-      console.log("out");
+      // console.log("out");
       localStorage.removeItem("token");
       localStorage.removeItem("accountNum");
       this.$router.push({ name: "login" });
