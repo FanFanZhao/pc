@@ -83,9 +83,6 @@
         mounted(){
           var that = this;
           this.king();
-          // setInterval(function(){
-            that.king();
-          // },2000)
           eventBus.$on('toTrade', function (data) {
             $('#kline_container').html('');
             console.log(data);
