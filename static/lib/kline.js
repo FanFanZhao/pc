@@ -9137,7 +9137,7 @@ function requestOverHttp() {
             url: 'http://ice.adminchao.com/api/deal/info',
             dataType: 'json',
             data: KlineIns.datas,
-            timeout: 30000,
+            timeout: 5000,
             created: Date.now(),
             beforeSend: function () {
                 this.range = KlineIns.range;
