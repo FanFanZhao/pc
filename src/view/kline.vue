@@ -13,10 +13,10 @@
         name: 'kline',
         data () {
           return {
-            legal_id:3,
-            currency_id:2,
-            leg_name:'HQ',
-            currency_name:"BTC"
+            legal_id:'',
+            currency_id:'',
+            leg_name:'',
+            currency_name:"",
 
           }
         },
@@ -25,9 +25,9 @@
         },
         methods:{
           
-            king(){
-              var _that =this;
-              var kline = new Kline({
+          king(){
+            var _that =this;
+            var kline = new Kline({
               element: "#kline_container",
               width: $(".kline").width(),
               height: 490,
@@ -44,50 +44,29 @@
                 legal_id:_that.legal_id,
                 currency_id :_that.currency_id,
                 type: 1
-            },
+              },
               limit: 1000,
-              intervalTime: 500000,
+              intervalTime: 50000,
               debug: true,
               showTrade: false,
               onResize: function(width, height) {
                   console.log("chart resized: " + width + " " + height);
               }
             })
-            kline.draw();
+            kline.draw();  
           },
-
-          getData(){
-            var that = this
-            this.$http({
-                url: '/api/'+'deal/info',
-                method:'post',
-                data:{
-                    legal_id: that.legal_id,
-                    currency_id: that.currency_id,
-                    type: 5
-                },
-                headers: {'Authorization':  that.token}
-            }).then(res=>{
-                console.log(res)
-                if(res.data.type == 'ok'){
-                    
-                }else{
-                        
-                }
-            }).catch(error=>{
-                console.log(error)
-        }) 
-      }
-
       },
         mounted(){
           var that = this;
-          this.king();
-          // setInterval(function(){
+          eventBus.$on("toExchange0", function(data0) {
+            console.log(data0);
+            that.legal_id = data0.currency_id,
+            that.currency_id = data0.legal_id;
+            that.currency_name = data0.currency_name;
+            that.leg_name = data0.leg_name;
             that.king();
-          // },2000)
+          });
           eventBus.$on('toTrade', function (data) {
-            $('#kline_container').html('');
             console.log(data);
               if(data){
                 that.currency_id =  data.legal_id,

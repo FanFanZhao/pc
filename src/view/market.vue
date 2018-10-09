@@ -120,7 +120,7 @@
                if(data){
                     var newprice=data.newprice;
                     var cname=data.istoken;
-                    var newup=data.newup;
+                    var newup=data.newup.tofixed(2);
                     console.log(newup) 
                     if(newup>=0){
                         newup="+"+newup+'%';

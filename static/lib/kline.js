@@ -9134,7 +9134,7 @@ function requestOverHttp() {
     $(document).ready(
         KlineIns.G_HTTP_REQUEST = $.ajax({
             type: "POST",
-            url: 'http://ice.adminchao.com/api/deal/info',
+            url: KlineIns.url,
             dataType: 'json',
             data: KlineIns.datas,
             timeout: 5000,
