@@ -14,7 +14,7 @@
                 <!-- <span class="active">USDT</span>
                 <span>JNB</span>
                 <span>JNB</span> -->
-                <span v-for="(tab,index) in tabList " :key="index" :class="index==index1?'active':''"  @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
+                <span v-for="(tab,index) in tabList " :key="index" :class="{'active': index == (legal_index || isShow)}" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
             </div>
         </div>
         <div class="coin-title clear">
@@ -36,8 +36,8 @@
             <!-- <li>
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
-            <li class="currency_p" v-for="(market,index) in marketList "  :key="index" v-if="(legal_index || isShow) == index" >
-              <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
+            <li v-for="(market,index) in marketList " :key="index" v-if="(legal_index || isShow) == index" >
+              <p v-for="(itm,idx) in market" :key="itm.id" :class="{'active_p':(legal_index || isShow)==index&&idx==(currency_index || ids)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
                 <span>{{itm.name}}</span>
                 <span :data-name='currency_name+"/"+itm.name'>${{itm.last_price}}</span>
                 <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span>
@@ -61,8 +61,7 @@
                 legal_index:this.$route.params.legal_index,
                 currency_index:this.$route.params.currency_index,
                 tradeDatas:'',
-                index2:0,
-                index1:0,
+
             }
         },
         created:function(){
@@ -99,13 +98,13 @@
                         currency_name:this.currency_name,
                         leg_name:legal_name
                     }
-                    // if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
-                    //     window.localStorage.setItem('legal_id',id);
-                    //     window.localStorage.setItem('currency_id',this.currency_id);
-                    //     window.localStorage.setItem('legal_name',legal_name);
-                    //     window.localStorage.setItem('currency_name',this.currency_name);
-                    // }
-
+                    if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
+                        window.localStorage.setItem('legal_id',id);
+                        window.localStorage.setItem('currency_id',this.currency_id);
+                        window.localStorage.setItem('legal_name',legal_name);
+                        window.localStorage.setItem('currency_name',this.currency_name);
+                    }
+                    
                  //组件间传值
                  setTimeout(() => {
                    eventBus.$emit('toTrade0',tradeDatas);
@@ -118,8 +117,6 @@
 				}).catch(error=>{
 					console.log(error)
                 })
-                 this.index2= window.localStorage.getItem('index2');
-            this.index1=window.localStorage.getItem('index1')
                 
         },
         mounted(){
@@ -141,21 +138,13 @@
                     $("span[data-name='"+cname+"']").html('$'+newprice).next().html(newup);
                }
             }); 
-           
-
         },
         methods:{
             changeType(index,currency,currency_id){
-                window.localStorage.setItem('index1',index);
-                 window.localStorage.setItem('index2',null);
-               $('.currency_p p').removeClass('active_p')
-               console.log(this.index2)
                this.isShow=index;
                this.ids = 'a';
                this.currency_name = currency;
                this.currency_id = currency_id;
-               this.index1=localStorage.getItem('index1')
-               this.index2='NaN'
             //    console.log(this.currency_name);
             //    console.log(this.currency_id)
             },
@@ -224,8 +213,6 @@
             },
             //币种切换
             quota_shift(idx,id,legal_name){
-                window.localStorage.setItem('index2',idx);
-                
                this.ids = idx;
             //    console.log(idx,id,legal_name);
                var tradeDatas = {

@@ -9127,6 +9127,8 @@ function ndata(num){
     var date = new Date(num);
     return Date.parse(date);
 }
+var __that=this;
+console.log(__that)
 function requestOverHttp() {
     if (KlineIns.debug) {
         console.log("DEBUG: " + KlineIns.requestParam);
@@ -9144,6 +9146,7 @@ function requestOverHttp() {
                 this.symbol = KlineIns.symbol;
             },
             success: function (res) {
+                console.log(res)
                 // console.log(res.message.quotation)
                 var datas=res.message.quotation.reverse();
                 var dateses=[];
@@ -9151,10 +9154,12 @@ function requestOverHttp() {
                     var dataList=[];
                     dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),Number(datas[i].sum))
                     dateses.push(dataList)
+                    __that.dateses=dateses
+
                 }
                 console.log(dateses)
                 if (KlineIns.G_HTTP_REQUEST) {
-                    requestSuccessHandler(dateses);
+                    requestSuccessHandler(__that.dateses);
                 }
             },
             error: function (xhr, textStatus, errorThrown) {

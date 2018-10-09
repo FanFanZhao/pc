@@ -25,7 +25,7 @@
           }
         },
         created(){
-          this.token = localStorage.getItem('token') || '';
+            this.token = localStorage.getItem('token') || '';
         },
         methods:{
           king(){
@@ -80,7 +80,7 @@
         mounted(){
           this.legal_id=localStorage.getItem('legal_id');
           this.currency_id=localStorage.getItem('currency_id');
-          this.leg_name=localStorage.getItem('legal_name');
+          this.legal_name=localStorage.getItem('legal_name');
           this.currency_name=localStorage.getItem('currency_name');
           this.king();
           var that = this;
@@ -92,8 +92,8 @@
             // that.currency_name = data0.currency_name;
             // that.leg_name = data0.leg_name;
             that.Kline.datas={
-              legal_id:localStorage.getItem('currency_id'),
-              currency_id :localStorage.getItem('legal_id'),
+              legal_id:that.currency_id,
+              currency_id :that.legal_id,
               type:1
             };
             that.Kline.draw(); 

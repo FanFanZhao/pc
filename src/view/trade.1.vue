@@ -121,11 +121,11 @@
                 legal_name:'',
                 user_currency:'',
                 user_legal:'',
-                show:true,
-                showNone:false,
-                allBalance:0,
-                buyInfo:{buyPrice:0,buyNum:0,url:'transaction/in'},
-                sellInfo:{sellPrice:0,sellNum:0,url:'transaction/out'}
+              show:true,
+              showNone:false,
+              allBalance:0,
+              buyInfo:{buyPrice:0,buyNum:0,url:'transaction/in'},
+              sellInfo:{sellPrice:0,sellNum:0,url:'transaction/out'}
             }
         },
         created(){
@@ -136,11 +136,6 @@
         mounted(){
             var that = this;
             that.address = localStorage.getItem('token') || '';
-            this.legal_id=localStorage.getItem('legal_id');
-            this.currency_id=localStorage.getItem('currency_id');
-            this.legal_name=localStorage.getItem('legal_name');
-            this.currency_name=localStorage.getItem('currency_name');
-            that.buy_sell(that.legal_id,that.currency_id)
             eventBus.$on('toPrice', function (data) {
               console.log(data);
               if(data){
@@ -148,20 +143,24 @@
                 that.sellInfo.sellPrice=data;  
               }
             });
-            // eventBus.$on('toTrade', function (data) {
-            //     that.currency_id = data.currency_id,
-            //     that.legal_id = data.legal_id;
-            //     that.currency_name = data.currency_name;
-            //     that.legal_name = data.leg_name;
-            //     that.buy_sell(that.legal_id,that.currency_id)
-            // });
-            // eventBus.$on('toTrade0', function (data0) {
-            //     that.currency_id = data0.currency_id,
-            //     that.legal_id = data0.legal_id;
-            //     that.currency_name = data0.currency_name;
-            //     that.legal_name = data0.leg_name;
-            //     that.buy_sell(that.legal_id,that.currency_id)
-            // });
+            eventBus.$on('toTrade', function (data) {
+                // console.log(data);
+                that.currency_id = data.currency_id,
+                that.legal_id = data.legal_id;
+                that.currency_name = data.currency_name;
+                that.legal_name = data.leg_name;
+                that.buy_sell(that.legal_id,that.currency_id)
+            });
+            eventBus.$on('toTrade0', function (data0) {
+                // console.log(data0);
+                that.currency_id = data0.currency_id,
+                that.legal_id = data0.legal_id;
+                that.currency_name = data0.currency_name;
+                that.legal_name = data0.leg_name;
+                // console.log(that.currency_name);
+                // console.log(that.legal_name);
+                that.buy_sell(that.legal_id,that.currency_id)
+            });
             eventBus.$on('tocel', function (datas) {
                 // console.log(datas);
                 if(datas){

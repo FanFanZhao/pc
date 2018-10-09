@@ -63,7 +63,11 @@ import complete from "@/view/complete";
 import kline from "@/view/kline";
 export default {
   name: "dealCenter",
-  
+  provide (){
+      return{
+        reload:this.reload
+      }
+  },
   components: {
     indexHeader,
     load:1,
@@ -81,12 +85,22 @@ export default {
     kline
   },
   data() {
-    return {};
+    return {
+      isRouterAlive:true
+    };
   },
   created() {
     this.address = localStorage.getItem("address") || "";
    
     // console.log(this.address)
+  },
+  methods:{
+reload(){
+  this.isRouterAlive = false
+  this.$nextTick(function(){
+    this.isRouterAlive = true
+  })
+}
   },
   mounted(){
     // console.log('wejdewhbewjdbewjdhbcwj')

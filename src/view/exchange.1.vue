@@ -47,33 +47,31 @@ export default {
       var that = this;
   },
   created: function() {
-    var local_lid = window.localStorage.getItem('l_id'),local_cid = window.localStorage.getItem('c_id');
+   var local_lid = window.localStorage.getItem('l_id'),local_cid = window.localStorage.getItem('c_id');
+    var l_id,c_id;
     var that = this;
-    this.legal_id=localStorage.getItem('legal_id');
-    this.currency_id=localStorage.getItem('currency_id');
-    this.legal_name=localStorage.getItem('legal_name');
-    this.currency_name=localStorage.getItem('currency_name');
-    that.buy_sell(this.legal_id,this.currency_id);
-    that.connect(this.legal_id,this.currency_id)
-    // eventBus.$on("toExchange0", function(data0) {
-    //   console.log(data0);
-    //   c_id = data0.currency_id,
-    //   l_id = data0.legal_id;
-    //   that.currency_name = data0.currency_name;
-    //   that.legal_name = data0.leg_name;
-    //   console.log(local_lid,local_cid)
-    //   that.buy_sell(l_id,c_id);
-    //   that.connect(l_id,c_id)
-    // });
-    // eventBus.$on("toExchange", function(data) {
-    //   console.log(data);
-    //   c_id = data.currency_id,
-    //   l_id = data.legal_id;
-    //   that.currency_name = data.currency_name;
-    //   that.legal_name = data.leg_name;
-    //   that.buy_sell(l_id,c_id);
-    //   that.connect(l_id,c_id)
-    // });
+    eventBus.$on("toExchange0", function(data0) {
+      console.log(data0);
+      c_id = data0.currency_id,
+      l_id = data0.legal_id;
+      that.currency_name = data0.currency_name;
+      that.legal_name = data0.leg_name;
+      console.log(local_lid,local_cid)
+      that.buy_sell(l_id,c_id);
+      that.connect(l_id,c_id)
+    });
+    eventBus.$on("toExchange", function(data) {
+      console.log(data);
+      c_id = data.currency_id,
+      l_id = data.legal_id;
+       window.localStorage.setItem('c_id',data.currency_id);
+       window.localStorage.setItem('l_id',data.legal_id);
+        
+      that.currency_name = data.currency_name;
+      that.legal_name = data.leg_name;
+      that.buy_sell(l_id,c_id);
+      that.connect(l_id,c_id)
+    });
     // 下单强制更新数据
     // eventBus.$on('tocel', function (datas) {
     //   if(datas){

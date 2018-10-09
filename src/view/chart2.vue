@@ -46,24 +46,26 @@
             //     }
             // })
             getData(){
-                this.$http({
-                        url:'https://data.jianshukeji.com/stock/history/000001',
-                        method:'get',
-                }).then(res=>{
+                // this.$http({
+                //         url:'https://data.jianshukeji.com/stock/history/000001',
+                //         method:'get',
+                // }).then(res=>{
 
-                console.log(res.data.data)
-                // this.kData.push(res.data.data)
-                // this.kData=this.kData
-                // console.log(res.data.data[0])
-                // console.log(this.kData[0][0])
-                // this.chartLine(this.kData)
+                // console.log(res.data.data)
+                // // this.kData.push(res.data.data)
+                // // this.kData=this.kData
+                // // console.log(res.data.data[0])
+                // // console.log(this.kData[0][0])
+                // // this.chartLine(this.kData)
 
-                })
+                // })
                     this.$http({
-                        url: this.$utils.laravel_api + 'historical_data',
+                        url: 'http://ice.adminchao.com/api/deal/info',
                         method:'post',
                         data:{
-                           address:this.addrsss
+                           legal_id:3,
+                           currency_id :2,
+                           type:1
                         }
                     }).then(res=>{
                         if(res.data.type=='ok'){

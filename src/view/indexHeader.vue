@@ -216,6 +216,7 @@ export default {
       // console.log("out");
       localStorage.removeItem("token");
       localStorage.removeItem("accountNum");
+      localStorage.clear();
       this.$router.push({ name: "login" });
     },
     assets_over() {
