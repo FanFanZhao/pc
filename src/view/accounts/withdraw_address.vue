@@ -140,7 +140,7 @@ export default {
       });
     },
     addAddress(){
-        if(this.addId === ''){
+        if(this.addId == '币种'){
             layer.msg('请选择币种');return;
         }
         if(this.address == ''){
@@ -156,6 +156,8 @@ export default {
                 console.log(res);
                 layer.msg(res.data.message);
                 if(res.data.type == 'ok'){
+                    this.address = '';
+                    this.notes = '';
                     this.getList()
                 }
             })
