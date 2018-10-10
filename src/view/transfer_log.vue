@@ -7,14 +7,14 @@
                 <span class="flex1 tc">说明</span>
                 <span class="flex1 tc">金额</span>
             </li>
-            <div class="li_wrap">
-            <li class="flex ft12 around" v-for="(item,index) in log_list" :key="index">
-                <span class="flex1 tc">{{item.created_time}}</span>
-                <span class="flex1 tc">{{item.account}}</span>
-                <span class="flex1 tc">{{item.info}}</span>
-                <span class="flex1 tc">{{item.value}}</span>
-            </li>
-             <p class="tc more" @click="getMore">{{more}}</p>
+            <div class="li_wrap scroll">
+                <li class="flex ft12 around" v-for="(item,index) in log_list" :key="index">
+                    <span class="flex1 tc">{{item.created_time}}</span>
+                    <span class="flex1 tc">{{item.account}}</span>
+                    <span class="flex1 tc">{{item.info}}</span>
+                    <span class="flex1 tc">{{item.value}}</span>
+                </li>
+                <p class="tc more" @click="getMore">{{more}}</p>
             </div>
         </ul>
        

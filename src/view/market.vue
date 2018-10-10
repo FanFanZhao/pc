@@ -107,12 +107,12 @@
                     // }
 
                  //组件间传值
-                 setTimeout(() => {
-                   eventBus.$emit('toTrade0',tradeDatas);
-                 },1000);
-                  setTimeout(() => {
-                   eventBus.$emit('toExchange0',tradeDatas);
-                 },1000)
+                //  setTimeout(() => {
+                //    eventBus.$emit('toTrade0',tradeDatas);
+                //  },1000);
+                //   setTimeout(() => {
+                //    eventBus.$emit('toExchange0',tradeDatas);
+                //  },1000)
                     }
 					
 				}).catch(error=>{
@@ -129,7 +129,7 @@
                if(data){
                     var newprice=data.newprice;
                     var cname=data.istoken;
-                    var newup=(data.newup).toFixed(2);
+                    var newup=data.newup;
                     console.log(newup) 
                     if(newup>=0){
                         newup="+"+newup+'%';

@@ -64,7 +64,9 @@ import indexFooter from '@/view/indexFooter'
                             }).then(res=>{
                                 // console.log(res);
                                 if(res.data.type == 'ok'){
+                                console.log(res)
                                 localStorage.setItem('user_id',res.data.message.id)
+                                localStorage.setItem('extension_code',res.data.message.extension_code);
                                 }
                             }).catch(error=>{
                                 
