@@ -53,6 +53,12 @@
 						src2: require("@/assets/images/icon_mine_s.png"),
 						text: '区域代理',
 						page:'region',
+					},
+					{
+						src1: require("@/assets/images/icon_mine.png"),
+						src2: require("@/assets/images/icon_mine_s.png"),
+						text: '交易日志',
+						page:'transferLog',
 					}
 				],
 			}

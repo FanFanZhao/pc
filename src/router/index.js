@@ -27,6 +27,7 @@ import manger from '@/view/accounts/lever_manger'
 import legal from '@/view/accounts/legal'
 import legalAccount from '@/view/accounts/legalAccount'
 import transferLegal from '@/view/accounts/transferLegal'
+import transferLog from '@/view/transfer_log'
 
 import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
@@ -143,6 +144,11 @@ export default new Router({
 					path:'/chargeRecord',
 					name:'chargeRecord',
 					component:chargeRecord
+				},
+				{
+					path:'/transferLog',
+					name:'transferLog',
+					component:transferLog
 				}
 
 			]
