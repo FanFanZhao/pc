@@ -53,6 +53,8 @@ export default {
                         }
                         if(res.data.message.data.length<this.limit){
                             this.more = '没有更多记录了...'
+                        }else if(res.data.message.data.length==this.limit){
+                             this.more = '加载更多'
                         }
                     }else{
                         layer.msg(res.data.message)
@@ -62,6 +64,7 @@ export default {
                 })
         },
         getMore(){
+             this.more = '加载中...'
             this.page+=1;
             this.init();
         }
