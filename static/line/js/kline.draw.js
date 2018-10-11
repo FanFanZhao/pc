@@ -1,7 +1,7 @@
 var GLOBAL_VAR = {
     KLineAllData: new Object,
     KLineData: new Object,
-    time_type: "15min",
+    time_type: "1min",
     market_from: "1",
     market_from_name: biType,//币种id
     limit: "1000",
@@ -8884,31 +8884,32 @@ var RequestData = function (showLoading) {
     ChartManager.getInstance().redraw("All", false);
 }
 
-//var RequestData = function(showLoading) {
+// var RequestData = function(showLoading) {
 //    AbortRequest();
 //    window.clearTimeout(GLOBAL_VAR.TimeOutId);
 //    if (showLoading == true) {
 //        $("#chart_loading").addClass("activated")
 //    }
-//    debugger
+// //    debugger
 //    $(document).ready(GLOBAL_VAR.G_HTTP_REQUEST = $.ajax({
-//        type: "post",
+//        type: "get",
 //        url: GLOBAL_VAR.url,
 //        dataType: "json",
 //        data: GLOBAL_VAR.requestParam,
-//        timeout: 30000,
+//        timeout: 3000,
 //        created: Date.now(),
 //        beforeSend: function() {
 //            this.time = GLOBAL_VAR.time_type;
 //            this.market = GLOBAL_VAR.market_from
 //        },
 //        success: function (json) {
-//            debugger
+//            console.log(json)
+//         //    debugger
 //            if (GLOBAL_VAR.G_HTTP_REQUEST) {
-//                if (this.time != GLOBAL_VAR.time_type || this.market != GLOBAL_VAR.market_from) {
-//                    GLOBAL_VAR.TimeOutId = setTimeout(RequestData, 1000);
-//                    return
-//                }
+//             //    if (this.time != GLOBAL_VAR.time_type || this.market != GLOBAL_VAR.market_from) {
+//             //        GLOBAL_VAR.TimeOutId = setTimeout(RequestData, 1000);
+//             //        return
+//             //    }
 //                if (!json) {
 //                    return
 //                }
@@ -8929,9 +8930,9 @@ var RequestData = function (showLoading) {
 //                GLOBAL_VAR.KLineData = json.datas.data;
 //                try {
 //                    if (!GLOBAL_VAR.chartMgr.updateData("frame0.k0", GLOBAL_VAR.KLineData)) {
-//                        //GLOBAL_VAR.requestParam = setHttpRequestParam(GLOBAL_VAR.market_from, GLOBAL_VAR.time_type, GLOBAL_VAR.limit, null);
-//                        //推送点下次请求
-//                        //GLOBAL_VAR.TimeOutId = setTimeout(RequestData, 2*1000);//可用
+//                        GLOBAL_VAR.requestParam = setHttpRequestParam(GLOBAL_VAR.market_from, GLOBAL_VAR.time_type, GLOBAL_VAR.limit, null);
+//                        推送点下次请求
+//                        GLOBAL_VAR.TimeOutId = setTimeout(RequestData, 2*1000);//可用
 //                        return
 //                    }
 //                    clear_refresh_counter()
@@ -8961,7 +8962,7 @@ var RequestData = function (showLoading) {
 //            GLOBAL_VAR.G_HTTP_REQUEST = null
 //        }
 //    }))
-//};
+// };
 function AbortRequest() {
     if (GLOBAL_VAR.G_HTTP_REQUEST && GLOBAL_VAR.G_HTTP_REQUEST.readyState != 4) {
         GLOBAL_VAR.G_HTTP_REQUEST.abort()
