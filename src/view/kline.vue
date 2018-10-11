@@ -5,7 +5,7 @@
             <div id="kline_container"></div>
             </div> -->
         <div>
-    <iframe src="../../static/line/kline.html" frameborder="0" width="100%" height="490" allowfullscreen scrolling="no" allowtransparency="true"></iframe>
+    <iframe src="../../static/lib/kline.html" frameborder="0" width="100%" height="490" allowfullscreen scrolling="no" allowtransparency="true"></iframe>
     </div>
         </div>
       </template>
