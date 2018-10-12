@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     get_all_params() {
-      var url = location.href+'?extension_code=rk21';
+      var url = location.href;
       var nameValue;
       var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
       var paraObj = {};
