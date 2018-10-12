@@ -36,7 +36,7 @@
             <!-- <li>
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
-            <li class="currency_p" v-for="(market,index) in marketList "  :key="index" v-if="(legal_index || isShow) == index" >
+            <li class="currency_p" v-for="(market,index) in marketList "  :key="index" v-show="index1 == index" >
               <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
                 <span>{{itm.name}}</span>
                 <span :data-name='currency_name+"/"+itm.name'>${{itm.last_price}}</span>

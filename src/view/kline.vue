@@ -11,7 +11,6 @@
       <script>
       import Vue from 'vue'
       export default {
-        inject:['reload'],
         name: 'kline',
         data () {
           return {
