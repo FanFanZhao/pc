@@ -39,7 +39,7 @@
             <li class="currency_p" v-for="(market,index) in marketList "  :key="index" v-show="index1 == index" >
               <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
                 <span>{{itm.name}}</span>
-                <span :data-name='currency_name+"/"+itm.name'>${{itm.last_price}}</span>
+                <span :data-name='tabList[index].name+"/"+itm.name'>${{itm.last_price}}</span>
                 <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span>
                 </p>
             </li>
@@ -67,7 +67,7 @@
         },
         created:function(){
             // this.init();
-
+          
           
             //法币列表
             this.$http({
@@ -77,7 +77,8 @@
 				}).then(res=>{
                     // console.log(res);
                     if(res.data.type == 'ok'){
-                      this.tabList = res.data.message;
+                      this.tabList = res.data.message; 
+                      console.log(this.curr_name)
                       var msg = res.data.message;
                       var arr_quota = [];
                       for(var i=0;i<msg.length;i++){
@@ -87,18 +88,27 @@
                       this.marketList = arr_quota;
                     //   console.log(this.marketList);
                       //默认法币id和name
-                       this.currency_name = msg[0].name;
-                       this.currency_id = msg[0].id;
-                       var id = arr_quota[0][0].id;
-                       var legal_name = arr_quota[0][0].name;
+                      if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
+                        this.currency_name = msg[0].name;
+                        this.currency_id = msg[0].id;
+                        //  var id = arr_quota[0][0].id;
+                        // var legal_name = arr_quota[0][0].name;
+                    }else{
+                        this.currency_name=window.localStorage.getItem('currency_name');
+                        this.currency_id=window.localStorage.getItem('currency_id');
+                    }
+                    //    this.currency_name = msg[0].name;
+                    //    this.currency_id = msg[0].id;
+                    //    var id = arr_quota[0][0].id;
+                    //    var legal_name = arr_quota[0][0].name;
                         // console.log(this.currency_name);
                         // console.log(this.currency_id);
-                     var tradeDatas = {
-                        currency_id:this.currency_id,
-                        legal_id:id,
-                        currency_name:this.currency_name,
-                        leg_name:legal_name
-                    }
+                    //  var tradeDatas = {
+                    //     currency_id:this.currency_id,
+                    //     legal_id:id,
+                    //     currency_name:this.currency_name,
+                    //     leg_name:legal_name
+                    // }
                     // if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
                     //     window.localStorage.setItem('legal_id',id);
                     //     window.localStorage.setItem('currency_id',this.currency_id);
@@ -118,8 +128,11 @@
 				}).catch(error=>{
 					console.log(error)
                 })
-                 this.index2= window.localStorage.getItem('index2');
-            this.index1=window.localStorage.getItem('index1')
+                if(window.localStorage.getItem('index2')&&window.localStorage.getItem('index1')){
+                    this.index2= window.localStorage.getItem('index2');
+                    this.index1=window.localStorage.getItem('index1')
+                }
+                console.log(this.index1,this.index2)
                 
         },
         mounted(){
@@ -146,16 +159,18 @@
         },
         methods:{
             changeType(index,currency,currency_id){
-                window.localStorage.setItem('index1',index);
-                 window.localStorage.setItem('index2',null);
+                // window.localStorage.setItem('index1',index);
+                // window.localStorage.setItem('index2',null);
+                this.index1=index;
+                this.index2=null; 
                $('.currency_p p').removeClass('active_p')
-               console.log(this.index2)
+               console.log(this.index1)
                this.isShow=index;
                this.ids = 'a';
                this.currency_name = currency;
                this.currency_id = currency_id;
-               this.index1=localStorage.getItem('index1')
-               this.index2='NaN'
+            //    this.index1=localStorage.getItem('index1')
+            //    this.index2='NaN'
             //    console.log(this.currency_name);
             //    console.log(this.currency_id)
             },
@@ -224,6 +239,7 @@
             },
             //币种切换
             quota_shift(idx,id,legal_name){
+                window.localStorage.setItem('index1',this.index1);
                 window.localStorage.setItem('index2',idx);
                 
                this.ids = idx;
@@ -240,8 +256,8 @@
                window.localStorage.setItem('currency_name',this.currency_name);
                location.reload()
                //向兄弟组件传数据
-               eventBus.$emit('toTrade',tradeDatas);
-               eventBus.$emit('toExchange',tradeDatas)
+            //    eventBus.$emit('toTrade',tradeDatas);
+            //    eventBus.$emit('toExchange',tradeDatas)
             },
             
 
