@@ -57,20 +57,20 @@ import indexFooter from '@/view/indexFooter'
         methods:{
             userInfo(){
                 this.$http({
-                                url: '/api/'+'user/info',
-                                method:'get',
-                                data:{},  
-                                headers: {'Authorization':  localStorage.getItem('token')},    
-                            }).then(res=>{
-                                // console.log(res);
-                                if(res.data.type == 'ok'){
-                                console.log(res)
-                                localStorage.setItem('user_id',res.data.message.id)
-                                localStorage.setItem('extension_code',res.data.message.extension_code);
-                                }
-                            }).catch(error=>{
-                                
-                            })
+                    url: '/api/'+'user/info',
+                    method:'get',
+                    data:{},  
+                    headers: {'Authorization':  localStorage.getItem('token')},    
+                }).then(res=>{
+                    // console.log(res);
+                    if(res.data.type == 'ok'){
+                    console.log(res)
+                    localStorage.setItem('user_id',res.data.message.id)
+                    localStorage.setItem('extension_code',res.data.message.extension_code);
+                    }
+                }).catch(error=>{
+                    
+                })
                             
             },
             login(){

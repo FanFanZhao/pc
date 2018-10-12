@@ -53,7 +53,7 @@
                 </div>
                 <div class="invite-box">
                     <div class="tip">请输入邀请码</div>
-                    <input type="password" v-model="invite" class="invite-input">
+                    <input type="text" v-model="invite" class="invite-input">
                 </div>
                 <button type="button" @click="register" class="reg-btn confirm-btn">确认</button>
             </div>
@@ -87,20 +87,27 @@ export default {
     };
   },
   created() {
-    console.log(this.get_param('extension_code'));
-    var invite=this.get_param('extension_code');
+    console.log(this.get_all_params().extension_code);
+    var invite=this.get_all_params().extension_code;
     if(invite){
-        this.invite=invite;
+      this.invite=invite;
     }
   },
   methods: {
-    get_param(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) {
-            return unescape(r[2]);
-        }
-        return null;
+    get_all_params() {
+      var url = location.href+'?extension_code=rk21';
+      var nameValue;
+      var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+      var paraObj = {};
+      for (var i = 0; nameValue = paraString[i]; i++) {
+          var name = nameValue.substring(0, nameValue.indexOf("=")).toLowerCase();
+          var value = nameValue.substring(nameValue.indexOf("=") + 1, nameValue.length);
+          if (value.indexOf("#") > -1) {
+              value = value.split("#")[0];
+          }
+          paraObj[name] = decodeURI(value);
+      }
+      return paraObj;
     },
     // 获取地区列表
     getRegion(id, type, name) {

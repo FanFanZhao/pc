@@ -27,7 +27,7 @@
 					<div class="account_login fColor1 fl" @mouseover="mine_over" @mouseout="mine_out"  v-if="address.length>0">
 						<img class="icon_img" src="@/assets/images/account.png" alt="">
 						<span>{{account_number}}</span>
-            <span v-if="extension_code.length>0">(邀请码：{{extension_code}})</span>
+            <!-- <span v-if="extension_code.length>0">(邀请码：{{extension_code}})</span> -->
 						<img src="@/assets/images/arrow0.png" alt="">
 					</div>
 					</div>
@@ -87,7 +87,7 @@ export default {
       show2: false,
       show3: false,
       current: 0,
-      extension_code:'',
+      extension_code: "",
       tabList: [
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
@@ -163,8 +163,7 @@ export default {
     
     
     this.address = localStorage.getItem("token") || "";
-    this.account_number = localStorage.getItem('accountNum') || '';
-    this.extension_code = localStorage.getItem('extension_code') || '';
+  
     // var address = this.address;
     // if (address != "") {
     //   this.$http({
@@ -190,6 +189,8 @@ export default {
 
   },
   mounted() {
+    this.account_number = localStorage.getItem('accountNum') || '';
+    this.extension_code = localStorage.getItem('extension_code') || '';
     this.bus.$on("nav_name", name => {
       console.log(name);
       this.current = this.tabList.findIndex(
