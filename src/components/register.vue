@@ -80,19 +80,28 @@ export default {
       showList: false,            //是否显示地址列表
       province: { id: "", name: "请选择省" },      //所选省份
       provinces: [],                              //省份列表
-
       city: { id: "", name: "请选择市" },         //所选城市
       cities: [],                                //城市列表
-
       district: { id: "", name: "请选择区" },     //所选地区
-      districts: []                              //地区列表
+      districts: [],                           //地区列表
     };
   },
   created() {
-    //获取所有省份
-    
+    console.log(this.get_param('extension_code'));
+    var invite=this.get_param('extension_code');
+    if(invite){
+        this.invite=invite;
+    }
   },
   methods: {
+    get_param(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    },
     // 获取地区列表
     getRegion(id, type, name) {
       if (type == "") {

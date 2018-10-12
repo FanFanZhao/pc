@@ -24,7 +24,7 @@
                     <span class="fColor1">{{extension_code}}</span>
                 </p>
                 <span  class="fr base ml25 mouseDefault"></span>
-                <span  class="fr base mouseDefault"></span>
+                <span  class="fr base mouseDefault" id="copy" @click="copy">复制邀请码</span>
             </li>
             <li ><img  src="@/assets/images/success.png" >
                 <span  class="ml20">绑定手机</span>
@@ -75,6 +75,7 @@
     </div>
 </template>
 <script>
+import "@/lib/clipboard.min.js"
 export default {
     name:'accountSet',
     data(){
@@ -108,10 +109,26 @@ export default {
                     this.account=res.data.message.account;
                     this.extension_code=res.data.message.extension_code;
                 }
-            }).catch(error=>{
-                
-        })               
-    }
+                }).catch(error=>{
+                    
+            })               
+        },
+        copy(){
+            var that=this;
+            var clipboard = new Clipboard('#copy',{
+                text:function(){
+                    return that.$utils.host+'/dist/#/components/register?extension_code='+that.extension_code
+                }
+            });
+            clipboard.on("success", function (e) {
+                that.flags = true;
+                layer.msg('复制成功');       
+            });
+            clipboard.on("error", function (e) {
+                that.flags = false;
+                layer.msg('请重新复制')
+            });
+        },
     }
 }
 </script>
