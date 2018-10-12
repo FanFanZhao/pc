@@ -73,10 +73,10 @@ export default {
                     if(res.data.type=='ok'){
                         this.aceiteList=res.data.message
                     }else{
-                        layer.msg(res.message)
+                        // layer.msg(res.message)
                     }
                 }).catch(err=>{
-                    layer.msg(err)
+                    // layer.msg(err)
                 })
             }
            

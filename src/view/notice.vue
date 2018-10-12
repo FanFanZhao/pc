@@ -28,7 +28,7 @@
                     this.title = res.message.list[0].title;
                     this.id = res.message.list[0].id
                 }else{
-                    layer.msg(res.message);
+                    // layer.msg(res.message);
                 }
             }).catch(error=>{
                 console.log(error)

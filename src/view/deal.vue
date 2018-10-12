@@ -51,7 +51,7 @@
                     if(res.data.type=='ok'){
 
                     }else{
-                        layer.msg(res.data.message)
+                        // layer.msg(res.data.message)
                     }
                 })
             }

@@ -69,7 +69,7 @@ export default {
                             that.lock_legal_balance = msg.lock_legal_balance;
                             that.ustd_price = msg.ustd_price;
                         }else{
-                            layer.msg(res.message);
+                            // layer.msg(res.message);
                         }
                     }).catch(error=>{
                         console.log(error)

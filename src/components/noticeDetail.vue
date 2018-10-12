@@ -57,7 +57,7 @@ export default {
                 this.update_time=res.message.update_time;
                 this.setProperty();
             }else{
-                layer.msg(res.message);
+                // layer.msg(res.message);
             }
         }).catch(error=>{
             console.log(error)

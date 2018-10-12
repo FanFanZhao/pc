@@ -83,7 +83,7 @@ export default {
                         console.log(res.message)
                         this.coinList=res.message
                     }else{
-                        layer.msg(res.message);
+                        // layer.msg(res.message);
                     }
                 }).catch(error=>{
                     console.log(error)

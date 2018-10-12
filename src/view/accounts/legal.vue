@@ -54,7 +54,7 @@ export default {
                             that.list = res.data.message.legal_wallet.balance;
                             this.totle = res.data.message.legal_wallet.totle;
                         }else{
-                            layer.msg(res.message);
+                            // layer.msg(res.message);
                         }
                     }).catch(error=>{
                         console.log(error)

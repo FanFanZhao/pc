@@ -75,7 +75,7 @@ export default {
             }).then(res => {
                 console.log(res);
                 if(res.data.type == 'ok'){
-                        layer.msg(res.data.message)
+                        // layer.msg(res.data.message)
 
                     setTimeout(() => {
                         this.$router.push({path:'/legalAccount',name:'legalAccount',params:{currency_id:this.coins[this.coinIndex].currency}})
