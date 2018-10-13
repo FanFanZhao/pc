@@ -19,6 +19,10 @@
                     <input type="text" v-model="code" class="code">
                     <button type='button' class="code-btn" @click="sendCode">发送验证码</button>
                 </div>
+                <div class="invite-box">
+                    <div class="tip">邀请码</div>
+                    <input type="text" v-model="invite" class="invite-input">
+                </div>
                 <button class="confirm-btn" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
@@ -50,10 +54,6 @@
                 <div class="repwd-box">
                     <div class="tip">请再次输入密码</div>
                     <input type="password" v-model="repwd" class="repwd-input" placeholder="请再次输入密码">
-                </div>
-                <div class="invite-box">
-                    <div class="tip">请输入邀请码</div>
-                    <input type="text" v-model="invite" class="invite-input">
                 </div>
                 <button type="button" @click="register" class="reg-btn confirm-btn">确认</button>
             </div>
