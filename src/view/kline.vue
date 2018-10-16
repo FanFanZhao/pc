@@ -11,7 +11,6 @@
       <script>
       import Vue from 'vue'
       export default {
-        inject:['reload'],
         name: 'kline',
         data () {
           return {
@@ -94,7 +93,7 @@
             that.Kline.datas={
               legal_id:localStorage.getItem('currency_id'),
               currency_id :localStorage.getItem('legal_id'),
-              type:1
+              type:2
             };
             that.Kline.draw(); 
           // });

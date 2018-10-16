@@ -127,7 +127,7 @@ export default {
                         this.buyInfo.buyNum=0;
                         this.connect(legals_id,currencys_id)
                     }else{
-                        layer.msg(res.data.message)
+                        // layer.msg(res.data.message)
                     }
                 }).catch(error=>{
                     // console.log(error)

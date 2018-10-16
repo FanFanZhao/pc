@@ -65,7 +65,7 @@ export default {
                            this.deList = res.data.message.complete;
                            this.connect();
                         }else{
-                            layer.msg(res.data.message)
+                            // layer.msg(res.data.message)
                         }
                     }).catch(error=>{
                         // console.log(error)

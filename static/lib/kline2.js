@@ -8,7 +8,7 @@ var Kline = function (option) {
     this.init = false;
     this.requestParam = "";
     this.data = {};
-    this.width = 100+'%';
+    this.width = '100%';
     this.height = 462;
     this.symbol = "";
     this.symbolName = "";
@@ -29,6 +29,8 @@ var Kline = function (option) {
     this.socketConnected = false;
     this.enableSockjs = true;
     this.reverseColor = false;
+    this.legal_id='';
+    this.currency_id=''
 
     this.periodMap = {
         "01w": 7 * 86400 * 1000,
@@ -61,6 +63,7 @@ var Kline = function (option) {
         "5m": "05m",
         "3m": "03m",
         "1m": "01m",
+        "1y": "1y",
         "line": "line"
     };
 
@@ -103,7 +106,7 @@ Kline.prototype = {
     setShowTrade: function (isShow) {
         this.showTrade = isShow;
         if (isShow) {
-            $(".trade_container").show();
+            $(".trade_container").hide();
         } else {
             $(".trade_container").hide();
         }
@@ -113,7 +116,7 @@ Kline.prototype = {
     toggleTrade: function () {
         if (!this.showTrade) {
             this.showTrade = true;
-            $(".trade_container").show();
+            $(".trade_container").hide();
         } else {
             this.showTrade = false;
             $(".trade_container").hide();
@@ -168,7 +171,7 @@ Kline.prototype = {
 
     onLangChange: function (lang) {
         if (this.debug) {
-            // console.log("DEBUG: language changed to " + lang);
+            console.log("DEBUG: language changed to " + lang);
         }
     },
 
@@ -180,13 +183,13 @@ Kline.prototype = {
 
     onThemeChange: function (theme) {
         if (this.debug) {
-            // console.log("DEBUG: theme changed to : " + theme);
+            console.log("DEBUG: theme changed to : " + theme);
         }
     },
 
     onRangeChange: function (range) {
         if (this.debug) {
-            // console.log("DEBUG: range changed to " + range);
+            console.log("DEBUG: range changed to " + range);
         }
     }
 
@@ -2399,7 +2402,7 @@ Chart.strPeriod = {
         '15min': '(15分钟)',
         '30min': '(30分钟)',
         '1hour': '(1小时)',
-        '1day': '(日线)',
+        '1day': '(1天)',
         '1week': '(周线)',
         '3min': '(3分钟)',
         '2hour': '(2小时)',
@@ -2431,7 +2434,7 @@ Chart.strPeriod = {
         '15min': '(15分钟)',
         '30min': '(30分钟)',
         '1hour': '(1小時)',
-        '1day': '(日线)',
+        '1day': '(1天)',
         '1week': '(周线)',
         '3min': '(3分钟)',
         '2hour': '(2小時)',
@@ -2496,6 +2499,7 @@ Chart.prototype.setCurrentMoneyType = function (moneyType) {
     this.updateDataAndDisplay();
 };
 Chart.prototype.setCurrentPeriod = function (period) {
+    console.log(period,2499)
     this._range = KlineIns.periodMap[period];
     this.updateDataAndDisplay();
     KlineIns.onRangeChange(this._range);
@@ -5314,20 +5318,20 @@ DarkTheme.prototype.__construct = function () {
     this._colors = [];
     
     if (KlineIns.reverseColor) {
-        this._colors[Theme.Color.Positive] = "#990e0e";
-        this._colors[Theme.Color.Negative] = "#19b34c";
+        this._colors[Theme.Color.Positive] = "#E86D43";
+        this._colors[Theme.Color.Negative] = "#3CBC6C";
         this._colors[Theme.Color.PositiveDark] = "#3b0e08";
         this._colors[Theme.Color.NegativeDark] = "#004718";
     } else {
-        this._colors[Theme.Color.Positive] = "#19b34c";
-        this._colors[Theme.Color.Negative] = "#990e0e";
+        this._colors[Theme.Color.Positive] = "#3CBC6C";
+        this._colors[Theme.Color.Negative] = "#E86D43";
         this._colors[Theme.Color.PositiveDark] = "#004718";
         this._colors[Theme.Color.NegativeDark] = "#3b0e08";
     }
     this._colors[Theme.Color.Unchanged] = "#fff";
-    this._colors[Theme.Color.Background] = "#181b2a";
+    this._colors[Theme.Color.Background] = "#131f30";
     this._colors[Theme.Color.Cursor] = "#aaa";
-    this._colors[Theme.Color.RangeMark] = "#f9ee30";
+    this._colors[Theme.Color.RangeMark] = "#fff";
     this._colors[Theme.Color.Indicator0] = "#ddd";
     this._colors[Theme.Color.Indicator1] = "#f9ee30";
     this._colors[Theme.Color.Indicator2] = "#f600ff";
@@ -5335,17 +5339,17 @@ DarkTheme.prototype.__construct = function () {
     this._colors[Theme.Color.Indicator4] = "#a5cf81";
     this._colors[Theme.Color.Indicator5] = "#e18b89";
     this._colors[Theme.Color.Grid0] = "#333";
-    this._colors[Theme.Color.Grid1] = "#444";
+    this._colors[Theme.Color.Grid1] = "#1E2D42";
     this._colors[Theme.Color.Grid2] = "#666";
     this._colors[Theme.Color.Grid3] = "#888";
     this._colors[Theme.Color.Grid4] = "#aaa";
     this._colors[Theme.Color.TextPositive] = "#1bd357";
     this._colors[Theme.Color.TextNegative] = "#ff6f5e";
-    this._colors[Theme.Color.Text0] = "#444";
+    this._colors[Theme.Color.Text0] = "#1E2D42";
     this._colors[Theme.Color.Text1] = "#666";
     this._colors[Theme.Color.Text2] = "#888";
     this._colors[Theme.Color.Text3] = "#aaa";
-    this._colors[Theme.Color.Text4] = "#ccc";
+    this._colors[Theme.Color.Text4] = "#5a718e";
     this._colors[Theme.Color.LineColorNormal] = "#a6a6a6";
     this._colors[Theme.Color.LineColorSelected] = "#ffffff";
     this._colors[Theme.Color.CircleColorFill] = "#000000";
@@ -5378,16 +5382,16 @@ LightTheme.prototype.__construct = function () {
     this._colors[Theme.Color.Indicator3] = "#1478c8";
     this._colors[Theme.Color.Grid0] = "#eee";
     this._colors[Theme.Color.Grid1] = "#afb1b3";
-    this._colors[Theme.Color.Grid2] = "#ccc";
+    this._colors[Theme.Color.Grid2] = "#5a718e";
     this._colors[Theme.Color.Grid3] = "#bbb";
     this._colors[Theme.Color.Grid4] = "#aaa";
     this._colors[Theme.Color.TextPositive] = "#53b37b";
     this._colors[Theme.Color.TextNegative] = "#db5542";
-    this._colors[Theme.Color.Text0] = "#ccc";
+    this._colors[Theme.Color.Text0] = "#5a718e";
     this._colors[Theme.Color.Text1] = "#aaa";
     this._colors[Theme.Color.Text2] = "#888";
     this._colors[Theme.Color.Text3] = "#666";
-    this._colors[Theme.Color.Text4] = "#444";
+    this._colors[Theme.Color.Text4] = "#1E2D42";
     this._colors[Theme.Color.LineColorNormal] = "#8c8c8c";
     this._colors[Theme.Color.LineColorSelected] = "#393c40";
     this._colors[Theme.Color.CircleColorFill] = "#ffffff";
@@ -7241,6 +7245,7 @@ ChartSettings.init = function () {
     ChartSettings.checkVersion();
 };
 ChartSettings.load = function () {
+    console.log('chartSettings',start)
     if (document.cookie.length <= 0)
         return;
     var start = document.cookie.indexOf("chartSettings=");
@@ -7251,11 +7256,13 @@ ChartSettings.load = function () {
     if (end < 0)
         end = document.cookie.length;
     var json = unescape(document.cookie.substring(start, end));
+    console.log(json,'json----')
     ChartSettings._data = JSON.parse(json);
 };
 ChartSettings.save = function () {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + 2);
+    console.log(ChartSettings._data,1234)
     document.cookie = "chartSettings=" + escape(JSON.stringify(ChartSettings._data)) +
         ";expires=" + exdate.toGMTString();
 };
@@ -8801,19 +8808,34 @@ function KLineMouseEvent() {
             });
         });
         $("#close_settings").click(function () {
+            $('#chart_toolbar_periods_vert .chart_dropdown_t').removeClass('selected')
+
             $('#chart_parameter_settings').removeClass("clicked");
+            switch_period($(this).parent().attr('name'));
         });
         $(".chart_container .chart_toolbar_tabgroup a")
             .click(function () {
+                // _set_current_url(KlineIns.url)
+                // KlineIns.url=_API + "currency/"+$(this).parent().data('url')
+                console.log(_API +  KlineIns.url)
+                $('#chart_toolbar_periods_vert .chart_dropdown_t').removeClass('selected')
+                $('#chart_dropdown_settings .chart_dropdown_t').removeClass('selected')
                 switch_period($(this).parent().attr('name'));
-
             });
         $("#chart_toolbar_periods_vert ul a").click(function () {
-
+            // KlineIns.url=_API + "currency/"+$(this).parent().data('url')
+            $('#chart_dropdown_settings .chart_dropdown_t').removeClass('selected')
+            $('#chart_toolbar_periods_vert .chart_dropdown_t').addClass('selected')
+            // _set_current_url(_API +  KlineIns.url)
+            console.log( KlineIns.url)
             switch_period($(this).parent().attr('name'));
-
+          
         });
-
+        $("#chart_toolbar_periods_vert .chart_dropdown_t").click(function () {
+            $('#chart_dropdown_settings .chart_dropdown_t').removeClass('selected')
+            $(this).addClass('selected')
+            $('#chart_toolbar_periods_horz li a').removeClass('selected')
+        });
         $(".market_chooser ul a").click(function () {
             switch_symbol($(this).attr('name'));
         });
@@ -9127,18 +9149,17 @@ function ndata(num){
     var date = new Date(num);
     return Date.parse(date);
 }
-var __that=this;
-console.log(__that)
 function requestOverHttp() {
     if (KlineIns.debug) {
         console.log("DEBUG: " + KlineIns.requestParam);
+        console.log(KlineIns.url,'======================')
     }
     $(document).ready(
         KlineIns.G_HTTP_REQUEST = $.ajax({
             type: "POST",
             url: KlineIns.url,
             dataType: 'json',
-            data: KlineIns.datas,
+            data: {legal_id: KlineIns.legal_id,currency_id: KlineIns.currency_id},
             timeout: 30000,
             created: Date.now(),
             beforeSend: function () {
@@ -9147,17 +9168,19 @@ function requestOverHttp() {
             },
             success: function (res) {
                 console.log(res)
-                // console.log(res.message.quotation)
-                var datas=res.message.quotation.reverse();
-                var dateses=[];
-                for(let i=0;i<datas.length;i++){
-                    var dataList=[];
-                    dataList.push((datas[i].e_time*1000),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),Number(datas[i].sum))
-                    dateses.push(dataList)
-                }
-                console.log(dateses)
-                if (KlineIns.G_HTTP_REQUEST) {
-                    requestSuccessHandler(dateses);
+                if(res.type=='ok'){
+                    var datas=res.message.quotation.reverse();
+                    var dateses=[];
+                    for(let i=0;i<datas.length;i++){
+                        var dataList=[];
+                        dataList.push(ndata(datas[i].end_time),Number(datas[i].start_price),Number(datas[i].highest),Number(datas[i].minimum),Number(datas[i].end_price),Number(datas[i].sum))
+                        dateses.push(dataList)
+                    }
+                    if (KlineIns.G_HTTP_REQUEST) {
+                        requestSuccessHandler(dateses);
+                    }
+                }else{
+                    // layer_msg(res.message)
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -9180,7 +9203,7 @@ function requestOverHttp() {
 
 function requestSuccessHandler(res) {
     if (KlineIns.debug) {
-        // console.log(res);
+        console.log(res);
     }
     // if (!res || !res.success) {
     //     KlineIns.timer = setTimeout(function () {
@@ -9238,8 +9261,10 @@ function readCookie() {
     ChartSettings.get();
     ChartSettings.save();
     var tmp = ChartSettings.get();
+    console.log(tmp,'cokk')
     ChartManager.getInstance().setChartStyle('frame0.k0', tmp.charts.chartStyle);
     var symbol = tmp.charts.symbol;
+
     if (!KlineIns.init) {
         symbol = KlineIns.symbol;
         KlineIns.init = true;
@@ -9343,7 +9368,7 @@ function chart_switch_language(lang) {
 
 function on_size(w, h) {
     var width = w || window.innerWidth;
-    var chartWidth = KlineIns.showTrade ? (width - KlineIns.tradeWidth) : width;
+    var chartWidth = width;
     var height = h || window.innerHeight;
     var container = $(KlineIns.element);
     container.css({
@@ -9583,19 +9608,35 @@ function switch_indic(name) {
 }
 
 function switch_period(name) {
-
+console.log(name,'----------------')
     $(".chart_container .chart_toolbar_tabgroup a").removeClass("selected");
     $("#chart_toolbar_periods_vert ul a").removeClass("selected");
+  
     $(".chart_container .chart_toolbar_tabgroup a").each(function () {
+    console.log(name,$(this).parent().attr('name'),',,,,,,,,,,,,,,,,,')
+        
         if ($(this).parent().attr('name') == name) {
             $(this).addClass('selected');
+            $("#chart_dropdown_settings .chart_dropdown_t").removeClass("selected");
+            // KlineIns.url=$(this).parent().data('url')
+            // KlineIns.url=_API + "currency/"+$(this).parent().data('url')
         }
     });
     $("#chart_toolbar_periods_vert ul a").each(function () {
+    console.log(name,$(this).parent().attr('name'),',,,,,,,,,,,,,,,,,')
+
         if ($(this).parent().attr('name') == name) {
             $(this).addClass('selected');
+            $('#chart_toolbar_periods_vert .chart_dropdown_t').addClass('selected')
+            // KlineIns.url=_API + "currency/"+$(this).parent().data('url')
         }
     });
+    $('#chart_dropdown_settings a').click(function(){
+        $(".chart_container .chart_toolbar_tabgroup a").removeClass("selected");
+        $("#chart_toolbar_periods_vert ul a").removeClass("selected");
+        $('#chart_toolbar_periods_vert .chart_dropdown_t').removeClass('selected')
+        $('#chart_dropdown_settings .chart_dropdown_t').addClass('selected')
+    })
     ChartManager.getInstance().showCursor();
     calcPeriodWeight(name);
     if (name == 'line') {
@@ -9609,6 +9650,7 @@ function switch_period(name) {
     }
     ChartManager.getInstance().getChart().strIsLine = false;
     var p = KlineIns.tagMapPeriod[name];
+    console.log(p,9631)
     ChartManager.getInstance().setChartStyle('frame0.k0', ChartSettings.get().charts.chartStyle);
     ChartManager.getInstance().getChart().setCurrentPeriod(p);
     var settings = ChartSettings.get();
@@ -9680,6 +9722,7 @@ function socketConnect() {
         KlineIns.socketClient.subscribe(KlineIns.subscribePath, function (res) {
             requestSuccessHandler(JSON.parse(res.body));
         });
+
     }, function () {
         KlineIns.socketClient.disconnect();
         console.log("DEBUG: reconnect in 5 seconds ...");
@@ -9688,9 +9731,10 @@ function socketConnect() {
         }, 5000);
     });
 }
+// "                                        <li id=\"chart_period_1y_v\" data-url=\"one_month\" style=\"display:inline-block;\" name=\"1y\"><a class=\"chart_str_period_1y\">1月</a></li>\n" +
 
 var template_str = "\n" +
-    "<div class=\"trade_container dark\">\n" +
+    "<div class=\"trade_container dark\" style=\"display:none;\">\n" +
     "        <div class=\"m_cent\">\n" +
     "            <div class=\"m_guadan\">\n" +
     "                <div class=\"symbol-title\">\n" +
@@ -9722,74 +9766,55 @@ var template_str = "\n" +
     "</div>\n" +
 
     "<div class=\"chart_container dark\">\n" +
-    "            <div id=\"chart_dom_elem_cache\"></div>\n" +
+
+   
     "            <!-- ToolBar -->\n" +
     "            <div id=\"chart_toolbar\">\n" +
     "                <div class=\"chart_toolbar_minisep\"></div>\n" +
     "                <!-- Periods -->\n" +
+    "                    <div id=\"chart_toolbar_periods_horz\">\n" +
+        "                    <ul class=\"chart_toolbar_tabgroup\" style=\"padding-left:5px; padding-right:11px;\">\n" +
+        "                        <li id=\"chart_period_line_h\" name=\"line\" data-url=\"timeshar\" style=\"display: none;\"><a class=\"chart_str_period_line selected\">分时</a></li>\n" +
+        "                        <li id=\"chart_period_15m_h\" name=\"15m\" data-url=\"fifteen_minutes\" style=\"display: none;\"><a class=\"chart_str_period_15m\">15分钟</a></li>\n" +
+        "                        <li id=\"chart_period_1h_h\" name=\"1h\" data-url=\"market_hour\" style=\"display: none;\"><a class=\"chart_str_period_1h\">1小时</a></li>\n" +
+
+        "                        <li id=\"chart_period_1d_h\" name=\"1d\" data-url=\"market_day\" style=\"display: none;\"><a class=\"chart_str_period_1d\">1天</a></li>\n" +
+        "                        <li id=\"chart_period_4h_h\" name=\"4h\" data-url=\"four_hour\" style=\"display: none;\"><a class=\"chart_str_period_4h\">4小时</a></li>\n" +
+        "                    </ul>\n" +
+        "                </div>\n" +
     "                <div class=\"chart_dropdown\" id=\"chart_toolbar_periods_vert\">\n" +
-    "                    <div class=\"chart_dropdown_t\"><a class=\"chart_str_period\">周期</a></div>\n" +
-    "                    <div class=\"chart_dropdown_data\" style=\"margin-left: -58px;\">\n" +
+    
+    "                    <div class=\"chart_dropdown_t\"><a class=\"chart_str_period\">1周</a></div>\n" +
+    "                    <div class=\"chart_dropdown_data\" >\n" +
     "                        <table>\n" +
     "                            <tbody>\n" +
     "                            <tr>\n" +
     "                                <td>\n" +
     "                                    <ul>\n" +
-    "                                        <li id=\"chart_period_1w_v\" style=\"display:none;\" name=\"1w\"><a class=\"chart_str_period_1w\">周线</a></li>\n" +
-    "                                        <li id=\"chart_period_3d_v\" style=\"display:none;\" name=\"3d\"><a class=\"chart_str_period_3d\">3日</a></li>\n" +
-    "                                        <li id=\"chart_period_1d_v\" style=\"display:none;\" name=\"1d\"><a class=\"chart_str_period_1d\">日线</a></li>\n" +
-    "                                        <li id=\"chart_period_12h_v\" style=\"display:none;\" name=\"12h\"><a class=\"chart_str_period_12h\">12小时</a></li>\n" +
-    "                                        <li id=\"chart_period_6h_v\" style=\"display:none;\" name=\"6h\"><a class=\"chart_str_period_6h\">6小时</a></li>\n" +
-    "                                        <li id=\"chart_period_4h_v\" style=\"display:none;\" name=\"4h\"><a class=\"chart_str_period_4h\">4小时</a></li>\n" +
-    "                                        <li id=\"chart_period_2h_v\" style=\"display:none;\" name=\"2h\"><a class=\"chart_str_period_2h\">2小时</a></li>\n" +
-    "                                        <li id=\"chart_period_1h_v\" style=\"display:none;\" name=\"1h\"><a class=\"chart_str_period_1h\">1小时</a></li>\n" +
-    "                                    </ul>\n" +
-    "                                </td>\n" +
-    "                            </tr>\n" +
-    "                            <tr>\n" +
-    "                                <td>\n" +
-    "                                    <ul>\n" +
-    "                                        <li id=\"chart_period_30m_v\" style=\"display:none;\" name=\"30m\"><a class=\"chart_str_period_30m\">30分钟</a></li>\n" +
-    "                                        <li id=\"chart_period_15m_v\" style=\"display:none;\" name=\"15m\"><a class=\"chart_str_period_15m\">15分钟</a></li>\n" +
-    "                                        <li id=\"chart_period_5m_v\" style=\"display:none;\" name=\"5m\"><a class=\"chart_str_period_5m\">5分钟</a></li>\n" +
-    "                                        <li id=\"chart_period_3m_v\" style=\"display:none;\" name=\"3m\"><a class=\"chart_str_period_3m\">3分钟</a></li>\n" +
-    "                                        <li id=\"chart_period_1m_v\" style=\"display:none;\" name=\"1m\"><a class=\"chart_str_period_1m selected\">1分钟</a></li>\n" +
-    "                                        <li id=\"chart_period_line_v\" style=\"display:none;\" name=\"line\"><a class=\"chart_str_period_line\">分时</a>\n" +
+    "                                        <li id=\"chart_period_1m_v\" data-url=\"market_day\" style=\"display:none;\" name=\"1m\"><a class=\"chart_str_period_1m selected\">1分钟</a></li>\n" +
+    "                                        <li id=\"chart_period_5m_v\" data-url=\"five_minutes\" style=\"display:none;\" name=\"5m\"><a class=\"chart_str_period_5m\">5分钟</a></li>\n" +
+    "                                        <li id=\"chart_period_30m_v\" data-url=\"thirty_minutes\" style=\"display:none;\" name=\"30m\"><a class=\"chart_str_period_30m\">30分钟</a></li>\n" +
+
+    "                                        <li id=\"chart_period_1w_v\" data-url=\"one_week\" style=\"display:none;\" name=\"1w\"><a class=\"chart_str_period_1w\">1周</a></li>\n" +
     "                                        </li>\n" +
     "                                    </ul>\n" +
     "                                </td>\n" +
     "                            </tr>\n" +
+                             
     "                            </tbody>\n" +
     "                        </table>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "                <div id=\"chart_toolbar_periods_horz\">\n" +
-    "                    <ul class=\"chart_toolbar_tabgroup\" style=\"padding-left:5px; padding-right:11px;\">\n" +
-    "                        <li id=\"chart_period_1w_h\" name=\"1w\" style=\"display: none;\"><a\ class=\"chart_str_period_1w\">周线</a></li>\n" +
-    "                        <li id=\"chart_period_3d_h\" name=\"3d\" style=\"display: none;\"><a\ class=\"chart_str_period_3d\">3日</a></li>\n" +
-    "                        <li id=\"chart_period_1d_h\" name=\"1d\" style=\"display: none;\"><a class=\"chart_str_period_1d\">日线</a></li>\n" +
-    "                        <li id=\"chart_period_12h_h\" name=\"12h\" style=\"display: none;\"><a class=\"chart_str_period_12h\">12小时</a></li>\n" +
-    "                        <li id=\"chart_period_6h_h\" name=\"6h\" style=\"display: none;\"><a class=\"chart_str_period_6h\">6小时</a></li>\n" +
-    "                        <li id=\"chart_period_4h_h\" name=\"4h\" style=\"display: none;\"><a class=\"chart_str_period_4h\">4小时</a></li>\n" +
-    "                        <li id=\"chart_period_2h_h\" name=\"2h\" style=\"display: none;\"><a class=\"chart_str_period_2h\">2小时</a></li>\n" +
-    "                        <li id=\"chart_period_1h_h\" name=\"1h\" style=\"display: none;\"><a class=\"chart_str_period_1h\">1小时</a></li>\n" +
-    "                        <li id=\"chart_period_30m_h\" name=\"30m\" style=\"display: none;\"><a class=\"chart_str_period_30m\">30分钟</a></li>\n" +
-    "                        <li id=\"chart_period_15m_h\" name=\"15m\" style=\"display: none;\"><a class=\"chart_str_period_15m\">15分钟</a></li>\n" +
-    "                        <li id=\"chart_period_5m_h\" name=\"5m\" style=\"display: none;\"><a class=\"chart_str_period_5m\">5分钟</a></li>\n" +
-    "                        <li id=\"chart_period_3m_h\" name=\"3m\" style=\"display: none;\"><a class=\"chart_str_period_3m\">3分钟</a></li>\n" +
-    "                        <li id=\"chart_period_1m_h\" name=\"1m\" style=\"display: none;\"><a class=\"chart_str_period_1m selected\">1分钟</a></li>\n" +
-    "                        <li id=\"chart_period_line_h\" name=\"line\" style=\"display: none;\"><a class=\"chart_str_period_line\">分时</a></li>\n" +
-    "                    </ul>\n" +
-    "                </div>\n" +
-    "                <div id=\"chart_show_indicator\" class=\"chart_toolbar_button chart_str_indicator_cap selected\">技术指标</div>\n" +
-    "                <div id=\"chart_show_tools\" class=\"chart_toolbar_button chart_str_tools_cap\">画线工具</div>\n" +
-    "                <div id=\"chart_toolbar_theme\">\n" +
+           
+    "                <div id=\"chart_show_indicator\" style=\"display:none;\" class=\"chart_toolbar_button chart_str_indicator_cap selected\">技术指标</div>\n" +
+    "                <div id=\"chart_show_tools\" style=\"display:none;\" class=\"chart_toolbar_button chart_str_tools_cap\">画线工具</div>\n" +
+    "                <div id=\"chart_toolbar_theme\" style=\"display:none;\">\n" +
     "                    <div class=\"chart_toolbar_label chart_str_theme_cap\">主题选择</div>\n" +
     "                    <a name=\"dark\" class=\"chart_icon chart_icon_theme_dark selected\"></a>\n" +
     "                    <a name=\"light\" class=\"chart_icon chart_icon_theme_light\"></a>\n" +
     "                </div>\n" +
     "                <div class=\"chart_dropdown\" id=\"chart_dropdown_settings\">\n" +
-    "                    <div class=\"chart_dropdown_t\"><a class=\"chart_str_settings\">更多</a></div>\n" +
+    "                    <div class=\"chart_dropdown_t\"><a class=\"chart_str_settings\">指标</a></div>\n" +
     "                    <div class=\"chart_dropdown_data\" style=\"margin-left: -142px;\">\n" +
     "                        <table>\n" +
     "                            <tbody>\n" +
@@ -9849,7 +9874,7 @@ var template_str = "\n" +
     "                            <tr>\n" +
     "                                <td></td>\n" +
     "                                <td>\n" +
-    "                                    <ul>\n" +
+    "                                    <ul style=\"display:none;\">\n" +
     "                                        <li><a id=\"chart_btn_parameter_settings\"\n" +
     "                                               class=\"chart_str_indicator_parameters\">指标参数设置</a>\n" +
     "                                        </li>\n" +
@@ -9860,7 +9885,7 @@ var template_str = "\n" +
     "                        </table>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "                <div class=\"chart_dropdown\" id=\"chart_language_setting_div\" style=\"padding-left: 5px;\">\n" +
+    "                <!--  <div class=\"chart_dropdown\" id=\"chart_language_setting_div\" style=\"padding-left: 5px;\">\n" +
     "                    <div class=\"chart_dropdown_t\">\n" +
     "                        <a class=\"chart_language_setting\">语言(LANG)</a>\n" +
     "                    </div>\n" +
@@ -9871,10 +9896,10 @@ var template_str = "\n" +
     "                            <li style=\"height: 25px;\"><a name=\"zh-tw\">繁體中文(zh-HK)</a></li>\n" +
     "                        </ul>\n" +
     "                    </div>\n" +
-    "                </div>\n" +
+    "                </div> \n" +
     "                <div id=\"chart_updated_time\">\n" +
     "                    <div id=\"sizeIcon\" class=\"chart_BoxSize\"></div>\n" +
-    "                </div>\n" +
+    "                </div>-->\n" +
     "            </div>\n" +
     "            <!-- ToolPanel -->\n" +
     "            <div id=\"chart_toolpanel\">\n" +
@@ -9947,6 +9972,7 @@ var template_str = "\n" +
     "                    <button style=\"color: red;\" id=\"clearCanvas\" title=\"Clear All\">X</button>\n" +
     "                </div>\n" +
     "            </div>\n" +
+    "<hr class=\"hr\">\n"+
     "            <!-- Canvas Group -->\n" +
     "            <div id=\"chart_canvasGroup\" class=\"temp\">\n" +
     "                <canvas class=\"chart_canvas\" id=\"chart_mainCanvas\"\n" +
@@ -10108,7 +10134,7 @@ var template_str = "\n" +
     "            <div id=\"chart_loading\" class=\"chart_str_loading\">正在读取数据...</div>\n" +
     "        </div>\n" +
     "        <div style=\"display: none\" id=\"chart_language_switch_tmp\">\n" +
-    "            <span name=\"chart_str_period\" zh_tw=\"週期\" zh_cn=\"周期\" en_us=\"TIME\"></span>\n" +
+    "            <span name=\"chart_str_period\" zh_tw=\"1周\" zh_cn=\"1周\" en_us=\"TIME\"></span>\n" +
     "            <span name=\"chart_str_period_line\" zh_tw=\"分時\" zh_cn=\"分时\" en_us=\"Line\"></span>\n" +
     "            <span name=\"chart_str_period_1m\" zh_tw=\"1分钟\" zh_cn=\"1分钟\" en_us=\"1m\"></span>\n" +
     "            <span name=\"chart_str_period_3m\" zh_tw=\"3分钟\" zh_cn=\"3分钟\" en_us=\"3m\"></span>\n" +
@@ -10120,11 +10146,12 @@ var template_str = "\n" +
     "            <span name=\"chart_str_period_4h\" zh_tw=\"4小時\" zh_cn=\"4小时\" en_us=\"4h\"></span>\n" +
     "            <span name=\"chart_str_period_6h\" zh_tw=\"6小時\" zh_cn=\"6小时\" en_us=\"6h\"></span>\n" +
     "            <span name=\"chart_str_period_12h\" zh_tw=\"12小時\" zh_cn=\"12小时\" en_us=\"12h\"></span>\n" +
-    "            <span name=\"chart_str_period_1d\" zh_tw=\"日線\" zh_cn=\"日线\" en_us=\"1d\"></span>\n" +
+    "            <span name=\"chart_str_period_1d\" zh_tw=\"1天\" zh_cn=\"1天\" en_us=\"1d\"></span>\n" +
     "            <span name=\"chart_str_period_3d\" zh_tw=\"3日\" zh_cn=\"3日\" en_us=\"3d\"></span>\n" +
-    "            <span name=\"chart_str_period_1w\" zh_tw=\"周線\" zh_cn=\"周线\" en_us=\"1w\"></span>\n" +
+    "            <span name=\"chart_str_period_1w\" zh_tw=\"1周\" zh_cn=\"1周\" en_us=\"1w\"></span>\n" +
+    "            <span name=\"chart_str_period_1y\" zh_tw=\"1月\" zh_cn=\"1月\" en_us=\"1y\"></span>\n" +
     "\n" +
-    "            <span name=\"chart_str_settings\" zh_tw=\"更多\" zh_cn=\"更多\" en_us=\"MORE\"></span>\n" +
+    "            <span name=\"chart_str_settings\" zh_tw=\"指标\" zh_cn=\"指标\" en_us=\"MORE\"></span>\n" +
     "            <span name=\"chart_setting_main_indicator\" zh_tw=\"均線設置\" zh_cn=\"均线设置\" en_us=\"Main Indicator\"></span>\n" +
     "            <span name=\"chart_setting_main_indicator_none\" zh_tw=\"關閉均線\" zh_cn=\"关闭均线\" en_us=\"None\"></span>\n" +
     "            <span name=\"chart_setting_indicator_parameters\" zh_tw=\"指標參數設置\" zh_cn=\"指标参数设置\"\n" +

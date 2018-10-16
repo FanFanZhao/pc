@@ -19,6 +19,10 @@
                     <input type="text" v-model="code" class="code">
                     <button type='button' class="code-btn" @click="sendCode">发送验证码</button>
                 </div>
+                <div class="invite-box">
+                    <div class="tip">邀请码</div>
+                    <input type="text" v-model="invite" class="invite-input">
+                </div>
                 <button class="confirm-btn" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
@@ -51,10 +55,6 @@
                     <div class="tip">请再次输入密码</div>
                     <input type="password" v-model="repwd" class="repwd-input" placeholder="请再次输入密码">
                 </div>
-                <div class="invite-box">
-                    <div class="tip">请输入邀请码</div>
-                    <input type="password" v-model="invite" class="invite-input">
-                </div>
                 <button type="button" @click="register" class="reg-btn confirm-btn">确认</button>
             </div>
             </div>
@@ -80,19 +80,35 @@ export default {
       showList: false,            //是否显示地址列表
       province: { id: "", name: "请选择省" },      //所选省份
       provinces: [],                              //省份列表
-
       city: { id: "", name: "请选择市" },         //所选城市
       cities: [],                                //城市列表
-
       district: { id: "", name: "请选择区" },     //所选地区
-      districts: []                              //地区列表
+      districts: [],                           //地区列表
     };
   },
   created() {
-    //获取所有省份
-    
+    console.log(this.get_all_params().extension_code);
+    var invite=this.get_all_params().extension_code;
+    if(invite){
+      this.invite=invite;
+    }
   },
   methods: {
+    get_all_params() {
+      var url = location.href;
+      var nameValue;
+      var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+      var paraObj = {};
+      for (var i = 0; nameValue = paraString[i]; i++) {
+          var name = nameValue.substring(0, nameValue.indexOf("=")).toLowerCase();
+          var value = nameValue.substring(nameValue.indexOf("=") + 1, nameValue.length);
+          if (value.indexOf("#") > -1) {
+              value = value.split("#")[0];
+          }
+          paraObj[name] = decodeURI(value);
+      }
+      return paraObj;
+    },
     // 获取地区列表
     getRegion(id, type, name) {
       if (type == "") {

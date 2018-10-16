@@ -144,10 +144,10 @@ export default {
                 }).then(res=>{
                 console.log(res)
                     if(res.data.type  === 'ok'){
-                        layer.msg(res.data.message)
+                        // layer.msg(res.data.message)
                         that.getdata();
                     }else{
-                        layer.msg(res.message);
+                        // layer.msg(res.message);
                     }
                 }).catch(error=>{
                     console.log(error)
@@ -203,7 +203,7 @@ export default {
                 }
 
             }else{
-                layer.msg(res.message);
+                // layer.msg(res.message);
             }
         }).catch(error=>{
             console.log(error)
@@ -237,7 +237,7 @@ export default {
             if(res.type  === 'ok'){
                 this.outList=this.outList.concat(res.message.data)
             }else{
-                layer.msg(res.message);
+                // layer.msg(res.message);
             }
         }).catch(error=>{
             console.log(error)

@@ -19,9 +19,17 @@
         </div>
         <ul >
             <li ><img  src="@/assets/images/success.png" >
+                <span  class="ml20">我的邀请码</span>
+                <p  class="fl">
+                    <span class="fColor1">{{extension_code}}</span>
+                </p>
+                <span  class="fr base ml25 mouseDefault"></span>
+                <span  class="fr base mouseDefault" id="copy" @click="copy">复制邀请码</span>
+            </li>
+            <li ><img  src="@/assets/images/success.png" >
                 <span  class="ml20">绑定手机</span>
                 <p  class="fl">已绑定
-                    <span class="fColor1">187****8439</span>
+                    <span class="fColor1">{{account}}</span>
                 </p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"></span>
@@ -67,12 +75,19 @@
     </div>
 </template>
 <script>
+import "@/lib/clipboard.min.js"
 export default {
     name:'accountSet',
     data(){
         return {
-            routerList:["setCash","setCash","setCash","setCash","setCash","setCash"]
+            routerList:["setCash","setCash","setCash","setCash","setCash","setCash"],
+            account:'',
+            extension_code:''
+
         }
+    },
+    created(){
+        this.userInfo();
     },
     methods:{
         goTo(index){
@@ -81,7 +96,39 @@ export default {
         },
         goNone(){
             layer.msg("暂未开放...")
-        }
+        },
+        userInfo(){
+            this.$http({
+                url: '/api/'+'user/info',
+                method:'get',
+                data:{},  
+                headers: {'Authorization':  localStorage.getItem('token')},    
+            }).then(res=>{
+                // console.log(res);
+                if(res.data.type == 'ok'){
+                    this.account=res.data.message.account;
+                    this.extension_code=res.data.message.extension_code;
+                }
+                }).catch(error=>{
+                    
+            })               
+        },
+        copy(){
+            var that=this;
+            var clipboard = new Clipboard('#copy',{
+                text:function(){
+                    return that.$utils.host+'/dist/#/components/register?extension_code='+that.extension_code
+                }
+            });
+            clipboard.on("success", function (e) {
+                that.flags = true;
+                layer.msg('复制成功');       
+            });
+            clipboard.on("error", function (e) {
+                that.flags = false;
+                layer.msg('请重新复制')
+            });
+        },
     }
 }
 </script>

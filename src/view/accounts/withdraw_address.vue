@@ -133,9 +133,10 @@ export default {
         headers: { Authorization: this.token }
       }).then(res => {
         // console.log(res);
-        layer.msg(res.data.message);
+       
         if(res.data.type == 'ok'){
             this.list.splice(index,1)
+             layer.msg(res.data.message);
         }
       });
     },
@@ -154,8 +155,9 @@ export default {
                 data:{currency_id:this.addId,address:this.address,notes:this.notes}
             }).then(res => {
                 console.log(res);
-                layer.msg(res.data.message);
+               
                 if(res.data.type == 'ok'){
+                    layer.msg(res.data.message);
                     this.address = '';
                     this.notes = '';
                     this.getList()

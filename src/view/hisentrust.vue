@@ -126,7 +126,7 @@ export default {
                                 }
                             }
                     }else{
-                        layer.msg(res.message);
+                        // layer.msg(res.message);
                 }
             }).catch(error=>{
                 console.log(error)
