@@ -178,6 +178,12 @@ export default {
     },
     mounted(){
         var that = this;
+        eventBus.$on('tocel',function(data){
+            console.log(data);
+            if(data){
+                that.getData();
+            }  
+        });
         eventBus.$on('buyTrade', function (data) {
             console.log(data);
             if(data){
