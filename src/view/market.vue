@@ -145,7 +145,7 @@
                     var newup=data.newup;
                     console.log(newup) 
                     if(newup>=0){
-                        newup="+"+newup+'%';
+                        newup="+"+Number(newup*100).toFixed(2)+'%';
                         $("span[data-name='"+cname+"']").next().css('color','#55a067')
                     }else{
                         newup=newup+'%';
