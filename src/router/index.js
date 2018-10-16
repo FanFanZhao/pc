@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import homeContent from '@/view/homeContent'
 import dealCenter from '@/components/dealCenter'
+import leverdealCenter from '@/components/lever_dealCenter'
 import login from '@/components/login'
 import register from '@/components/register'
 import account from '@/components/account'
@@ -53,6 +54,11 @@ export default new Router({
 					name:'dealCenter',
 					component:dealCenter
 				},
+				{
+					path:'/leverdealCenter',
+					name:'leverdealCenter',
+					component:leverdealCenter
+				}
 			]
 		},
 		// {
