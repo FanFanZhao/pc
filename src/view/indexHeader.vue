@@ -91,6 +91,7 @@ export default {
       tabList: [
         { title: "首页", page: "homeContent" },
         { title: "币币交易", page: "dealCenter" },
+        { title: "杠杆交易", page: "leverdealCenter" },
         // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
