@@ -31,12 +31,12 @@
         <!-- <div class="deatil_box" style="background: #181b2a;">
             <detail></detail>
         </div> -->
-        <div class="deatil_box" style="background: #181b2a;">
+        <!-- <div class="deatil_box" style="background: #181b2a;">
           <complete></complete>
-        </div>
-				<div class="currency_box">
+        </div> -->
+				<!-- <div class="currency_box">
           <currency></currency>
-        </div>
+        </div> -->
 				<!-- <div class="depth-map flex btween" >
 					<deal></deal>
 				</div> -->
