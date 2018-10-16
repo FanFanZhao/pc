@@ -136,10 +136,10 @@
         mounted(){
             var that = this;
             that.address = localStorage.getItem('token') || '';
-            this.legal_id=localStorage.getItem('legal_id');
-            this.currency_id=localStorage.getItem('currency_id');
-            this.legal_name=localStorage.getItem('legal_name');
-            this.currency_name=localStorage.getItem('currency_name');
+            this.legal_id=localStorage.getItem('lever_legal_id');
+            this.currency_id=localStorage.getItem('lever_currency_id');
+            this.legal_name=localStorage.getItem('lever_legal_name');
+            this.currency_name=localStorage.getItem('lever_currency_name');
             that.buy_sell(that.legal_id,that.currency_id)
             eventBus.$on('toPrice', function (data) {
               console.log(data);

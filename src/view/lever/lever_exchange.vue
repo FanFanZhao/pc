@@ -47,12 +47,12 @@ export default {
       var that = this;
   },
   created: function() {
-    var local_lid = window.localStorage.getItem('l_id'),local_cid = window.localStorage.getItem('c_id');
+    var local_lid = window.localStorage.getItem('lever_l_id'),local_cid = window.localStorage.getItem('lever_c_id');
     var that = this;
-    this.legal_id=localStorage.getItem('legal_id');
-    this.currency_id=localStorage.getItem('currency_id');
-    this.legal_name=localStorage.getItem('legal_name');
-    this.currency_name=localStorage.getItem('currency_name');
+    this.legal_id=localStorage.getItem('lever_legal_id');
+    this.currency_id=localStorage.getItem('lever_currency_id');
+    this.legal_name=localStorage.getItem('lever_legal_name');
+    this.currency_name=localStorage.getItem('lever_currency_name');
     that.buy_sell(this.legal_id,this.currency_id);
     that.connect(this.legal_id,this.currency_id)
     // eventBus.$on("toExchange0", function(data0) {
