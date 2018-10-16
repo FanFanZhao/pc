@@ -98,4 +98,7 @@ export default {
         margin-top: 10px;
         cursor: pointer;
    }
+   ::-webkit-scrollbar{
+       background-color: #181b2a;
+   }
 </style>
