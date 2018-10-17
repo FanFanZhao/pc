@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import home from '@/components/home'
 import homeContent from '@/view/homeContent'
 import dealCenter from '@/components/dealCenter'
+import payOpts from '@/view/payOpts'
+import userSetting from '@/components/userSetting'
+import c2c from '@/components/c2c'
 import leverdealCenter from '@/components/lever_dealCenter'
 import login from '@/components/login'
 import register from '@/components/register'
@@ -48,6 +51,22 @@ export default new Router({
 					name:'homeContent',
 					component:homeContent
 					
+				},
+				{
+					path:'/userSetting',
+					name:'userSetting',
+					component:userSetting,
+					children:[
+						{
+							path:'',
+							component:payOpts
+						}
+					]
+				},
+				{
+					path:'/c2c',
+					name:'c2c',
+					component:c2c
 				},
 				{
 					path:'/dealCenter',
