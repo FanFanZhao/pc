@@ -90,7 +90,9 @@ export default {
       extension_code: "",
       tabList: [
         { title: "首页", page: "homeContent" },
+        { title: "C2C交易", page: "c2c" },
         { title: "币币交易", page: "dealCenter" },
+        { title: "安全设置", page: "userSetting" },
         { title: "杠杆交易", page: "leverdealCenter" },
         // { title: "我的资产", page: "homeContent" },
       ],
@@ -208,8 +210,14 @@ export default {
     goto(index, name) {
       this.current = index;
       // console.log(index, name);
+      
       this.bus.$emit('nav_name',name);
-      this.$router.push({ name: name });
+      if(name == 'userSetting'){
+        this.$router.push('/userSetting')
+      } else {
+
+        this.$router.push({ name: name });
+      }
     },
     gotoAccount(index,name){
       // this.current = index;
