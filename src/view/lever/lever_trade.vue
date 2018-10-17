@@ -19,13 +19,20 @@
                         <span class="fl fColor1">可用{{user_legal}} {{currency_name}}</span>
                         <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
-                    <div class="mt40 input-item clear">
+                    <!-- <div class="mt40 input-item clear">
                         <label>买入价</label>
                         <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent >
                         <span>{{currency_name}}</span>
-                    </div>
+                    </div> -->
                     <div class="mt40 input-item clear">
-                        <label>买入量</label>
+                        <label>倍数：</label>
+                        <select class="buy_multiple" v-model="buyInfo.buy_selected">
+                             <option disabled value="">请选择倍数</option>
+                            <option v-for="(item,index) in multiple" :key="index" :value="index">{{item}}</option>
+                        </select>
+                    </div>    
+                    <div class="mt40 input-item clear">
+                        <label>买入量：</label>
                         <input type="number" v-model="buyInfo.buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
                         <span>{{legal_name}}</span>
                     </div>
@@ -44,13 +51,20 @@
                         <span class="fl fColor1">可用 {{user_currency}} {{legal_name}}</span>
                         <!-- <span class="fr baseColor curPer" @click="goNext('account')">充币</span> -->
                     </div>
-                    <div class="mt40 input-item clear">
+                    <!-- <div class="mt40 input-item clear">
                         <label>卖出价</label>
                         <input type="number" @keydown.69.prevent v-model="sellInfo.sellPrice">
                         <span>{{currency_name}}</span>
-                    </div>
+                    </div> -->
                     <div class="mt40 input-item clear">
-                        <label>卖出量</label>
+                        <label>倍数：</label>
+                        <select class="sell_multiple" v-model="sellInfo.sell_selected">
+                            <option disabled value="">请选择倍数</option>
+                            <option v-for="(item,index) in multiple" :key="index" :value="index">{{item}}</option>
+                        </select>
+                    </div> 
+                    <div class="mt40 input-item clear">
+                        <label>卖出量：</label>
                         <input type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellInfo.sellNum">
                         <span>{{legal_name}}</span>
                     </div>
@@ -119,13 +133,14 @@
             return {
                 currency_name:'',
                 legal_name:'',
+                multiple:'',
                 user_currency:'',
                 user_legal:'',
                 show:true,
                 showNone:false,
                 allBalance:0,
-                buyInfo:{buyPrice:0,buyNum:0,url:'transaction/in'},
-                sellInfo:{sellPrice:0,sellNum:0,url:'transaction/out'}
+                buyInfo:{buy_selected:'',buyNum:0,url:'lever/submit'},
+                sellInfo:{sell_selected:'',sellNum:0,url:'lever/submit'}
             }
         },
         created(){
@@ -197,8 +212,8 @@
             },
             buyCoin(){
                 // var that = this;
-                if(!this.buyInfo.buyPrice || this.buyInfo.buyPrice<=0){
-                   layer.msg('请输入买入价');
+                if(this.buyInfo.buy_selected == ''){
+                   layer.msg('请选择倍数');
                     return;
                 }
                 if(!this.buyInfo.buyNum || this.buyInfo.buyNum <=0){
@@ -212,8 +227,9 @@
                     data:{
                         legal_id:this.currency_id,
                         currency_id:this.legal_id,
-                        price:this.buyInfo.buyPrice,
+                        multiple:this.buyInfo.buy_selected,
                         num:this.buyInfo.buyNum,  
+                        type:1
                     },
                      headers: {'Authorization':  localStorage.getItem('token')},           
                 }).then(res=>{
@@ -240,8 +256,8 @@
             sellCoin(){
                 console.log(localStorage.getItem('token'))
                 var that = this;
-                if(!this.sellInfo.sellPrice || this.sellInfo.sellPrice<=0){
-                   layer.msg('请输入卖出价');
+                if(this.sellInfo.sell_selected == ''){
+                   layer.msg('请选择倍数');
                     return;
                 }
                 if(!this.sellInfo.sellNum || this.sellInfo.sellNum <=0){
@@ -255,8 +271,9 @@
                     data:{
                         legal_id:this.currency_id,
                         currency_id:this.legal_id,
-                        price:this.sellInfo.sellPrice,
-                        num:this.sellInfo.sellNum
+                        multiple:this.sellInfo.sell_selected,
+                        num:this.sellInfo.sellNum,
+                        type:2
                     },
                     headers: {'Authorization':  localStorage.getItem('token')}, 
                 }).then(res=>{
@@ -280,7 +297,7 @@
                 //买入、卖出记录
         buy_sell(legals_id,currencys_id){
             this.$http({
-                        url: '/api/'+'transaction/deal',
+                        url: '/api/'+'lever/deal',
                         method:'post',
                         data:{
                             legal_id:currencys_id,
@@ -291,9 +308,9 @@
                         // console.log(res ,222)
                         // layer.close(i);
                         if(res.data.type == "ok"){
-                        
+                        this.multiple = res.data.message.multiple
                         this.user_currency = res.data.message.user_currency;
-                        this.user_legal = res.data.message.user_legal;
+                        this.user_legal = res.data.message.user_lever;
                         // console.log(res.data)
                             this.buyInfo.buyPrice=0;
                             this.buyInfo.buyNum=0;
@@ -307,10 +324,10 @@
         },
         computed:{
             buyTotal(){
-               return (this.buyInfo.buyPrice * this.buyInfo.buyNum) || 0;
+               return (this.buyInfo.buy_selected * this.buyInfo.buyNum) || 0;
             },
             sellTotal(){
-                return this.sellInfo.sellPrice * this.sellInfo.sellNum || 0;
+                return this.sellInfo.sell_selected * this.sellInfo.sellNum || 0;
             }
         }
     
@@ -329,6 +346,16 @@
 .input-item label{width: 20%;float: left;font-size: 14px;color: #637085;}
 .input-item input{width: 80%;float: left;border: 1px solid #52688c;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;color: #cdd6e4;background-color: #262a42;line-height: 38px;}
 .input-item span{position: absolute;right: 15px;color: #637085;font-size: 16px}
+.input-item select{
+    width: 80%;
+    background: #262a42;
+    color: #cdd6e4;
+    border: 1px solid #52688c;
+    border-radius: 3px;
+    height: 40px;
+    text-indent: 10px;
+    font-size: 16px;
+}
 .attion{height: 20px;line-height: 30px;font-size: 12px;}
 .sell_btn{width: 100%;height: 40px;border-radius: 3px;color: #cdd6e4;line-height: 40px;}
 .greenBack {background-color: #55a067;}

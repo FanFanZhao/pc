@@ -110,7 +110,7 @@ export default {
     buy_sell(legals_id,currencys_id){
         // var index = layer.load();
         this.$http({
-                    url: '/api/'+'transaction/deal',
+                    url: '/api/'+'lever/deal',
                     method:'post',
                     data:{
                         legal_id:currencys_id,

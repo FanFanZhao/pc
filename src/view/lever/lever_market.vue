@@ -93,6 +93,10 @@
                         this.currency_id = msg[0].id;
                         //  var id = arr_quota[0][0].id;
                         // var legal_name = arr_quota[0][0].name;
+                        // window.localStorage.setItem('lever_legal_id',id);
+                        // window.localStorage.setItem('lever_currency_id',this.currency_id);
+                        // window.localStorage.setItem('lever_legal_name',legal_name);
+                        // window.localStorage.setItem('lever_currency_name',this.currency_name);
                     }else{
                         this.currency_name=window.localStorage.getItem('lever_currency_name');
                         this.currency_id=window.localStorage.getItem('lever_currency_id');
