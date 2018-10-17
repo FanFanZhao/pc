@@ -243,6 +243,7 @@
                         // that.buy_sell(that.legal_id,that.currency_id)
                         eventBus.$emit('buyTrade','tradebuy');
                         eventBus.$emit('tocel','updata');
+                        eventBus.$emit('to_leverExchange','leverExchange')
                         console.log(res.data.message)
                          
                        
@@ -285,6 +286,7 @@
                         this.sellInfo.sellNum=0;
                         eventBus.$emit('buyTrade','tradebuy');
                         eventBus.$emit('tocel','updata');
+                        eventBus.$emit('to_leverExchange','leverExchange')
                         // that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{

@@ -138,9 +138,9 @@ export default {
       var that=this;
       console.log('socket')
       that.$socket.emit("login", localStorage.getItem('user_id'));
-      that.$socket.on("transaction", msg => {
+      that.$socket.on("lever_transaction", msg => {
         console.log(msg);
-        if (msg.type == "transaction") {
+        if (msg.type == "lever_transaction") {
         //组件间传值
         var newPrice = {
           newprice:msg.last_price,
@@ -150,18 +150,15 @@ export default {
           toprice:msg.today
         }
         setTimeout(() => {
-          eventBus.$emit('toNew',newPrice);
+          eventBus.$emit('toNew01',newPrice);
         },1000);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
+        var lever_transaction = JSON.parse(msg.lever_transaction);
         if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
-          if (inData.length >= 0) {
             that.inlist = inData;
-          }
-          if (outData.length >= 0) {
-            that.outlist = outData;
-          }    
+            that.outlist = outData; 
           }
         }
       });
