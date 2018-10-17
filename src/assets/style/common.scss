@@ -1,6 +1,6 @@
 @import "mixin";
 html{width: 100%;color:#000;background-color: #262a42;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:PingFangSC-Regular,'微软雅黑',sans-serif;}
-html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0);box-sizing:border-box}
+html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-box-sizing:border-box;box-sizing:border-box}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}
 input,select,textarea{font-size:100%}
 table{border-collapse:collapse;border-spacing:0}
@@ -22,8 +22,18 @@ a{
 input{
 	border:0;
     outline:0;
+    border-radius: 2px;
     // #181b2a
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 .clear:after{
 	content: '';
 	display: block;
@@ -42,6 +52,7 @@ input{
 	float:right;
 }
 .flex{
+    display: -webkit-box;
     display: flex;
     -webkit-display:flex;
     -moz-display:flex;
@@ -49,22 +60,34 @@ input{
     -o-display:flex;
 }
 .column{
-    flex-direction: column
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column
 }
 .flex1{
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
 }
 .alcenter{
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 .between{
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 .around{
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 .center{
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 .tc{
 	text-align: center;
@@ -148,7 +171,7 @@ input{
 .redColor{color: #cc4951}
 .curPer{cursor: pointer;}
 .contentBK{background-color: #181b2a}
-.topshadow{box-shadow: 0 3px 6px rgba(0,0,0,.1);}
+.topshadow{-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.1);box-shadow: 0 3px 6px rgba(0,0,0,.1);}
 .ttBk{background-color: #1b1e2e;}
 .active{color: #7a98f7;border-bottom: 1px solid #7a98f7;}
 .baseBtn {
@@ -209,5 +232,6 @@ input{
     background-color: #262a42;
 }
 .bb_shadow{
-    box-shadow: 0 5px 5px #1b1e2e;
+    -webkit-box-shadow: 0 5px 5px #1b1e2e;
+            box-shadow: 0 5px 5px #1b1e2e;
 }
