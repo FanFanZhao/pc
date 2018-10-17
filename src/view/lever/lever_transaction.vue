@@ -148,6 +148,7 @@ export default {
 .list-item li span.green{color: #55a067}
 .all{
     cursor: pointer;
+    color: #7a98f7;
 }
 </style>
 
