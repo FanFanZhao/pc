@@ -23,20 +23,23 @@
 					</div>
 				</div>
         <div class="entrust_box" style="background: #181b2a;">
+        <leverTransaction></leverTransaction>
+        </div>
+        <!-- <div class="entrust_box" style="background: #181b2a;">
           <entrust></entrust>
         </div>
         <div class="entrust_box" style="background: #181b2a;">
           <hisentrust></hisentrust>
-        </div>
+        </div> -->
         <!-- <div class="deatil_box" style="background: #181b2a;">
             <detail></detail>
         </div> -->
-        <div class="deatil_box" style="background: #181b2a;">
+        <!-- <div class="deatil_box" style="background: #181b2a;">
           <complete></complete>
-        </div>
-				<div class="currency_box">
+        </div> -->
+				<!-- <div class="currency_box">
           <currency></currency>
-        </div>
+        </div> -->
 				<!-- <div class="depth-map flex btween" >
 					<deal></deal>
 				</div> -->
@@ -60,6 +63,7 @@ import hisentrust from "@/view/lever/lever_hisentrust";
 import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
+import leverTransaction from "@/view/lever/lever_transaction";
 import kline from "@/view/lever/lever_kline";
 export default {
   name: "dealCenter",
@@ -77,6 +81,7 @@ export default {
     detail,
     currency,
     complete,
+    leverTransaction,
     kline
   },
   data() {

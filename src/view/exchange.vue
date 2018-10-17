@@ -152,6 +152,7 @@ export default {
         setTimeout(() => {
           eventBus.$emit('toNew',newPrice);
         },1000);
+        
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);

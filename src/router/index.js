@@ -32,6 +32,7 @@ import legal from '@/view/accounts/legal'
 import legalAccount from '@/view/accounts/legalAccount'
 import transferLegal from '@/view/accounts/transferLegal'
 import transferLog from '@/view/transfer_log'
+import allTransaction from '@/view/all_transaction'
 
 import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
@@ -77,7 +78,13 @@ export default new Router({
 					path:'/leverdealCenter',
 					name:'leverdealCenter',
 					component:leverdealCenter
+				},
+				{
+					path:'/allTransaction',
+					name:'allTransaction',
+					component:allTransaction
 				}
+				
 			]
 		},
 		// {

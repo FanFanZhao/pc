@@ -71,7 +71,7 @@
           
             //法币列表
             this.$http({
-					url: this.$utils.laravel_api + 'currency/quotation',
+					url: this.$utils.laravel_api + 'currency/lever',
 					method:'get',
 					data:{}
 				}).then(res=>{
@@ -84,18 +84,22 @@
                       for(var i=0;i<msg.length;i++){
                           arr_quota[i] = msg[i].quotation
                       };
-                    //   console.log(arr_quota);
+                      console.log(arr_quota);
                       this.marketList = arr_quota;
                     //   console.log(this.marketList);
                       //默认法币id和name
-                      if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
+                      if(!localStorage.getItem('lever_legal_id')&&!localStorage.getItem('lever_currency_id')&&!localStorage.getItem('lever_legal_name')&&!localStorage.getItem('lever_currency_name')){
                         this.currency_name = msg[0].name;
                         this.currency_id = msg[0].id;
                         //  var id = arr_quota[0][0].id;
                         // var legal_name = arr_quota[0][0].name;
+                        // window.localStorage.setItem('lever_legal_id',id);
+                        // window.localStorage.setItem('lever_currency_id',this.currency_id);
+                        // window.localStorage.setItem('lever_legal_name',legal_name);
+                        // window.localStorage.setItem('lever_currency_name',this.currency_name);
                     }else{
-                        this.currency_name=window.localStorage.getItem('currency_name');
-                        this.currency_id=window.localStorage.getItem('currency_id');
+                        this.currency_name=window.localStorage.getItem('lever_currency_name');
+                        this.currency_id=window.localStorage.getItem('lever_currency_id');
                     }
                     //    this.currency_name = msg[0].name;
                     //    this.currency_id = msg[0].id;
@@ -128,9 +132,9 @@
 				}).catch(error=>{
 					console.log(error)
                 })
-                if(window.localStorage.getItem('index2')&&window.localStorage.getItem('index1')){
-                    this.index2= window.localStorage.getItem('index2');
-                    this.index1=window.localStorage.getItem('index1')
+                if(window.localStorage.getItem('index02')&&window.localStorage.getItem('index01')){
+                    this.index2= window.localStorage.getItem('index02');
+                    this.index1=window.localStorage.getItem('index01')
                 }
                 console.log(this.index1,this.index2)
                 
@@ -239,8 +243,8 @@
             },
             //币种切换
             quota_shift(idx,id,legal_name){
-                window.localStorage.setItem('index1',this.index1);
-                window.localStorage.setItem('index2',idx);
+                window.localStorage.setItem('index01',this.index1);
+                window.localStorage.setItem('index02',idx);
                 
                this.ids = idx;
             //    console.log(idx,id,legal_name);
@@ -250,10 +254,10 @@
                    currency_name:this.currency_name,
                    leg_name:legal_name
                }
-               window.localStorage.setItem('legal_id',id);
-               window.localStorage.setItem('currency_id',this.currency_id);
-               window.localStorage.setItem('legal_name',legal_name);
-               window.localStorage.setItem('currency_name',this.currency_name);
+               window.localStorage.setItem('lever_legal_id',id);
+               window.localStorage.setItem('lever_currency_id',this.currency_id);
+               window.localStorage.setItem('lever_legal_name',legal_name);
+               window.localStorage.setItem('lever_currency_name',this.currency_name);
                location.reload()
                //向兄弟组件传数据
             //    eventBus.$emit('toTrade',tradeDatas);
