@@ -2,7 +2,7 @@
 	<div class="k-line-area bg-1d1d29">
 		<!--<input id="text" />-->
 		<!--<div @click="chose" style="color: #fff">322332</div>-->
-		<div id="tv_chart_container" style="width:100%;height: 530px"></div>
+		<div id="tv_chart_container" style="width:100%;height: 460px"></div>
 	</div>
 </template>
 
@@ -451,9 +451,6 @@
 					// if (rangeStartDate > 0 && (rangeStartDate + '').length > 10) {
 					//   throw new Error(['Got a JS time instead of Unix one.', rangeStartDate, rangeEndDate]);
 					// }
-                    var ntime=new Date().getSeconds();
-					var rangeStartDate = rangeStartDate-ntime-5;
-                    var angeEndDate =rangeEndDate-ntime-5;
 
 					if(resolution.indexOf('D')==-1&&resolution.indexOf('W')==-1&&resolution.indexOf('M')==-1){
 						resolution=resolution+'min'

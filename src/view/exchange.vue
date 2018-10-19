@@ -134,12 +134,12 @@ export default {
                 })
     },
     connect(legal_id,currency_id) { 
-      console.log(legal_id,currency_id)
+      // console.log(legal_id,currency_id)
       var that=this;
-      console.log('socket')
+      // console.log('socket')
       that.$socket.emit("login", localStorage.getItem('user_id'));
       that.$socket.on("transaction", msg => {
-        console.log(msg);
+        // console.log(msg);
         if (msg.type == "transaction") {
         //组件间传值
         var newPrice = {

@@ -124,7 +124,7 @@ export default {
     .main-r {
       padding: 0 10px 10px 360px;
       .chart_wrap{
-        height: 530px;
+        // height: 530px;
       }
       .parts {
         margin-top: 10px;
