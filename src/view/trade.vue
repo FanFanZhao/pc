@@ -201,10 +201,10 @@
                    layer.msg('请输入买入价');
                    return;
                 }
-                if(this.buyInfo.buyPrice.length>7){
-                   layer.msg('请输入正常买入价');
-                   return;
-                }
+                // if(this.buyInfo.buyPrice.length>7){
+                //    layer.msg('请输入正常买入价');
+                //    return;
+                // }
                 if(!this.buyInfo.buyNum || this.buyInfo.buyNum <=0){
                     layer.msg('请输入买入量');
                     return;
@@ -248,10 +248,10 @@
                    layer.msg('请输入卖出价');
                     return;
                 }
-                if(this.buyInfo.sellPrice.length>7){
-                   layer.msg('请输入正常买入价');
-                   return;
-                }
+                // if(this.buyInfo.sellPrice.length>7){
+                //    layer.msg('请输入正常买入价');
+                //    return;
+                // }
                 if(!this.sellInfo.sellNum || this.sellInfo.sellNum <=0){
                     layer.msg('请输入卖出量');
                     return;
