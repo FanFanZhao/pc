@@ -18,6 +18,7 @@ window.eventBus = new Vue()
 
 // Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
 Vue.use(VueSocketio, 'http://ice.adminchao.com:2120');
+// Vue.use(VueSocketio, 'http://t.fuwuqian.cn:2120');
 
 Vue.config.productionTip = false
 Axios.interceptors.request.use(function (config) {

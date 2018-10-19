@@ -78,7 +78,7 @@
                     // console.log(res);
                     if(res.data.type == 'ok'){
                       this.tabList = res.data.message; 
-                      console.log(this.curr_name)
+
                       var msg = res.data.message;
                       var arr_quota = [];
                       for(var i=0;i<msg.length;i++){
@@ -86,13 +86,20 @@
                       };
                     //   console.log(arr_quota);
                       this.marketList = arr_quota;
-                    //   console.log(this.marketList);
+                    //   var priceScale = Math.pow(10,arr_quota.last_price.length);
+                    //   var priceScale=Math.pow(10,5)
+                    //   var symbol = 'ETH/USDT';
+                    //   var symbol= window.localStorage.getItem('legal_name')+'/'+window.localStorage.getItem('currency_name')
+                    //   window.localStorage.setItem('priceScale',priceScale);
+                    //   window.localStorage.setItem('symbol',symbol);
+        
                       //默认法币id和name
                       if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
                         this.currency_name = msg[0].name;
                         this.currency_id = msg[0].id;
                         //  var id = arr_quota[0][0].id;
                         // var legal_name = arr_quota[0][0].name;
+                        
                     }else{
                         this.currency_name=window.localStorage.getItem('currency_name');
                         this.currency_id=window.localStorage.getItem('currency_id');
@@ -132,7 +139,7 @@
                     this.index2= window.localStorage.getItem('index2');
                     this.index1=window.localStorage.getItem('index1')
                 }
-                console.log(this.index1,this.index2)
+                // console.log(this.index1,this.index2)
                 
         },
         mounted(){
@@ -142,8 +149,8 @@
                if(data){
                     var newprice=data.newprice;
                     var cname=data.istoken;
-                    var newup=data.newup;
-                    console.log(newup) 
+                    var newup=Number(data.newup).toFixed(2);
+                    // console.log(newup) 
                     if(newup>=0){
                         newup="+"+Number(newup).toFixed(2)+'%';
                         $("span[data-name='"+cname+"']").next().css('color','#55a067')
@@ -254,6 +261,8 @@
                window.localStorage.setItem('currency_id',this.currency_id);
                window.localStorage.setItem('legal_name',legal_name);
                window.localStorage.setItem('currency_name',this.currency_name);
+               var symbol= legal_name+'/'+this.currency_name;
+               window.localStorage.setItem('symbol',symbol);
                location.reload()
                //向兄弟组件传数据
             //    eventBus.$emit('toTrade',tradeDatas);

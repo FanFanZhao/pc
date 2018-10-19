@@ -12,7 +12,8 @@
 			<div class="main-r">
 				<div class="chart_wrap">
           <!-- <chart></chart> -->
-          <kline></kline>
+          <!-- <kline></kline> -->
+          <tv></tv>
         </div>
 				<div class="parts  flex between" >
 					<div class="trade-wrap part-l">
@@ -61,6 +62,7 @@ import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
 import kline from "@/view/kline";
+import tv from "@/view/tv";
 export default {
   name: "dealCenter",
   components: {
@@ -77,7 +79,8 @@ export default {
     detail,
     currency,
     complete,
-    kline
+    kline,
+    tv
   },
   data() {
     return {
@@ -120,6 +123,9 @@ export default {
     }
     .main-r {
       padding: 0 10px 10px 360px;
+      .chart_wrap{
+        height: 530px;
+      }
       .parts {
         margin-top: 10px;
         max-height: 530px;
