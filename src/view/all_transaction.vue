@@ -71,7 +71,8 @@ export default {
                         headers: {'Authorization':  localStorage.getItem('token')},    
                     }).then(res=>{
                         if(res.data.type == "ok"){
-                           layer.msg(res.data.message)
+                           layer.msg(res.data.message);
+                           location.reload();
                         }else{
                             layer.msg(res.data.message)
                         }

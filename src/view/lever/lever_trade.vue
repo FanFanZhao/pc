@@ -37,7 +37,7 @@
                         <span>{{legal_name}}</span>
                     </div>
                     <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 fColor1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
+                    <!-- <div class="mt50 fColor1 ft16">交易额 {{buyTotal}} {{currency_name}}</div> -->
                     <div class="sell_btn curPer mt40 tc greenBack fColor1 ft16" @click="buyCoin">买{{legal_name}}</div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                         <span>{{legal_name}}</span>
                     </div>
                     <div class="attion tr fColor1">范围 (0.000001,20,精度: 0.000001)</div>
-                    <div class="mt50 fColor1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
+                    <!-- <div class="mt50 fColor1 ft16">交易额 {{sellTotal}} {{currency_name}}</div> -->
                     <div class="sell_btn curPer mt40 tc redBack fColor1 ft16" @click="sellCoin">卖{{legal_name}}</div>
                 </div>
             </div>
@@ -243,6 +243,7 @@
                         // that.buy_sell(that.legal_id,that.currency_id)
                         eventBus.$emit('buyTrade','tradebuy');
                         eventBus.$emit('tocel','updata');
+                        eventBus.$emit('to_leverExchange','leverExchange')
                         console.log(res.data.message)
                          
                        
@@ -285,6 +286,7 @@
                         this.sellInfo.sellNum=0;
                         eventBus.$emit('buyTrade','tradebuy');
                         eventBus.$emit('tocel','updata');
+                        eventBus.$emit('to_leverExchange','leverExchange')
                         // that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{

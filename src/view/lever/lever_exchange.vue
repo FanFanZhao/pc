@@ -150,18 +150,14 @@ export default {
           toprice:msg.today
         }
         setTimeout(() => {
-          eventBus.$emit('toNew',newPrice);
+          eventBus.$emit('toNew01',newPrice);
         },1000);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
         if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
-          if (inData.length >= 0) {
             that.inlist = inData;
-          }
-          if (outData.length >= 0) {
-            that.outlist = outData;
-          }    
+            that.outlist = outData; 
           }
         }
       });

@@ -141,7 +141,7 @@
         },
         mounted(){
             var that =this;
-            eventBus.$on('toNew', function (data) {
+            eventBus.$on('toNew01', function (data) {
                console.log(data);
                if(data){
                     var newprice=data.newprice;

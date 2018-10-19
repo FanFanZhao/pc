@@ -2,7 +2,7 @@
     <div class="detail">
         <div class="title fColor1 topshadow">
             <div class="inblock">
-                <span>当前委托</span>
+                <span>我的交易</span>
             </div>
             <div class="inblock fr">
                 <span class="all" @click="all">全部</span>
@@ -46,12 +46,22 @@ export default {
     },
     created(){
         this.address = localStorage.getItem('address') || '';
+        this.legal_id=localStorage.getItem('lever_legal_id');
+        this.currency_id=localStorage.getItem('lever_currency_id');
+        var that = this;
+        that.complete(this.legal_id,this.currency_id);
+        eventBus.$on('to_leverExchange',function(data){
+            console.log(data)
+            if(data){
+                that.complete(localStorage.getItem('lever_legal_id'),localStorage.getItem('lever_currency_id'));
+            }
+        })
     },
     methods:{
         wayChoosed(index){
             this.isChoosed=index;
         },
-         //全站交易记录
+         //我的交易记录
         complete(legals_id,currencys_id){
             this.$http({
                         url: '/api/'+'lever/deal',
@@ -66,7 +76,7 @@ export default {
                         // layer.close(i);
                         if(res.data.type == "ok"){
                            this.deList = res.data.message.lever_transaction;
-                           this.connect();
+                        //    this.connect();
                         }else{
                             // layer.msg(res.data.message)
                         }
@@ -74,27 +84,26 @@ export default {
                         // console.log(error)
                     })
         },
-        connect(){
-            var that = this;
-             that.$socket.emit("login", localStorage.getItem('user_id'));
-            that.$socket.on('deal_list',function(msg){
-                if(msg.type == 'deal_list'){
-                    var complete = JSON.parse(msg.complete);
-                    console.log(complete);
-                    that.deList = complete;
-                }
-                console.log(msg);
-            })
-        },
+        // connect(){
+        //     var that = this;
+        //      that.$socket.emit("login", localStorage.getItem('user_id'));
+        //     that.$socket.on('deal_list',function(msg){
+        //         if(msg.type == 'deal_list'){
+        //             var complete = JSON.parse(msg.complete);
+        //             console.log(complete);
+        //             that.deList = complete;
+        //         }
+        //         console.log(msg);
+        //     })
+        // },
         all(){
             this.$router.push({name:'allTransaction'})
         }
       },
     mounted(){
         var that = this;
-        this.legal_id=localStorage.getItem('lever_legal_id');
-         this.currency_id=localStorage.getItem('lever_currency_id');
-        that.complete(this.legal_id,this.currency_id)
+        
+        
         // this.currency_id=localStorage.getItem('currency_id');
         //   eventBus.$on('toTrade0', function (data0) {
         //         that.currency_id=data0.currency_id
@@ -107,7 +116,7 @@ export default {
         //         that.complete(data0.legal_id,data0.currency_id)
         //   })
         eventBus.$on('buyTrade', function (data) {
-            that.connect();
+            // that.connect();
         });
        
     }
@@ -139,6 +148,7 @@ export default {
 .list-item li span.green{color: #55a067}
 .all{
     cursor: pointer;
+    color: #7a98f7;
 }
 </style>
 

@@ -20,7 +20,7 @@
                         <span>对cny</span>
                     </div>
                 </div>
-                <div class="top-price flex">
+                <!-- <div class="top-price flex">
                     <div>
                         <span>实时价：</span>
                         <span>￥6.83</span>
@@ -37,7 +37,7 @@
                         <span>最低价：</span>
                         <span>￥6.83</span>
                     </div>
-                </div>
+                </div> -->
                 <div class="inp-items flex">
                     <div class="inp-item">
                         <div class="inp-title flex">
