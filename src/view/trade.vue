@@ -201,10 +201,10 @@
                    layer.msg('请输入买入价');
                    return;
                 }
-                if(this.buyInfo.buyPrice.length>7){
-                   layer.msg('请输入正常买入价');
-                   return;
-                }
+                // if(this.buyInfo.buyPrice.length>7){
+                //    layer.msg('请输入正常买入价');
+                //    return;
+                // }
                 if(!this.buyInfo.buyNum || this.buyInfo.buyNum <=0){
                     layer.msg('请输入买入量');
                     return;
