@@ -2,7 +2,7 @@
     <div class="">
         <div class="header fColor1">
             <p class="fl">总资产折合：<span class="asset_num">0.0000000</span><span class="asset_name"> BTC</span><span class="ft12 baseColor"> ≈ <span>0.00</span>CNY</span>
-            <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label>
+            <!-- <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label> -->
             </p>
             <p class="fr right_text">
                 <!-- <span class="record" @click="record">财务记录</span> -->
@@ -182,32 +182,6 @@ export default {
         },
         sendData(currency){
             var that = this;
-            // $.ajax({
-            //     type: "POST",
-            //     url: this.$utils.laravel_api + 'wallet/get_in_address',
-            //     data: {
-            //         currency:currency
-            //     },
-            //     dataType: "json",
-            //     async: true,
-            //     beforeSend: function beforeSend(request) {
-            //         request.setRequestHeader("Authorization", that.token);
-            //     },
-            //     success: function(res){
-            //         if (res.type=="ok"){
-            //             console.log(res)
-            //             that.excharge_address=res.message;
-            //             // 生成二维码
-            //             $('#code').qrcode({
-            //                 width: 100, //宽度
-            //                 height:100, //高度
-            //                 text:res.message
-            //             });
-            //         }else{
-            //             console.log(res.message)
-            //         }
-            //     }
-            // })
             this.$http({
                 url: '/api/' + 'wallet/get_in_address',
                 method:'post',
@@ -380,46 +354,29 @@ export default {
         getdata(){
             var that = this;
             console.log(that.token)
-            // $.ajax({
-            //     url: this.$utils.laravel_api + "wallet/list",
-            //     type: "POST",
-            //     dataType: "json",
-            //     async: true,
-            //     beforeSend: function beforeSend(request) {
-            //        request.setRequestHeader("Authorization", that.token);
-            //     },
-            //     success: function (data) {
-            //     console.log(data)
-            //     if (data.type == 'ok') {
-            //         that.asset_list=data.message.change_wallet.balance;
-            //     } else if (data.type == '999') {
-                    
-            //     }
-            //     }
-            // });
             this.$http({
-            url: '/api/' + 'wallet/list',
-            method:'post',
-            data:{},
-            headers: {'Authorization':  that.token},
-            }).then(res=>{
-                console.log(res.data)
-                that.asset_list=res.data.message.change_wallet.balance;
-                this.asset_list.forEach((item,index) => {
-                    this.$http({
-                        url: '/api/wallet/legal_log',
-                        method:'post',
-                        data:{type:'change',currency:item.currency},
-                        headers:{'Authorization':this.token}
-                    }).then( res => {
-                        console.log(res);
-                        if(res.data.type == 'ok'){
-                            this.recData[index] = res.data.message.list;
-                        }
+                url: '/api/' + 'wallet/list',
+                method:'post',
+                data:{},
+                headers: {'Authorization':  that.token},
+                }).then(res=>{
+                    console.log(res.data)
+                    that.asset_list=res.data.message.change_wallet.balance;
+                    this.asset_list.forEach((item,index) => {
+                        this.$http({
+                            url: '/api/wallet/legal_log',
+                            method:'post',
+                            data:{type:'change',currency:item.currency},
+                            headers:{'Authorization':this.token}
+                        }).then( res => {
+                            console.log(res);
+                            if(res.data.type == 'ok'){
+                                this.recData[index] = res.data.message.list;
+                            }
+                        })
                     })
-                })
-            }).catch(error=>{
-                console.log(error)
+                }).catch(error=>{
+                    console.log(error)
             })
         }
     },

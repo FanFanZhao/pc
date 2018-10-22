@@ -4,68 +4,38 @@
             <span>净资产折合:</span> 
             <span>0.00000000 BTC</span>
             <span class="ft12 mincny">≈0.00 CNY</span>
-            <input type="checkbox" class="ml20">
+            <!-- <input type="checkbox" class="ml20">
             <span class="ft14">隐藏小额资产</span>
-            <input type="text" class="filter-input ml20">
+            <input type="text" class="filter-input ml20"> -->
             <span class="fr baseColor">财务记录</span>
         </div>
         <div class="leverbody contentBK ft12">
             <ul class="titlebox fColor3 clearfix">
-                <li class="w11">杠杆账户</li>
-                <li class="w16 tr">可用</li>
-                <li class="w16 tr">冻结</li>
-                <li class="w16 tr">已借</li>
-                <li class="w11 tr">风险率</li>
-                <li class="w5 tr">爆仓价</li>
+                <li class="w16">杠杆账户</li>
+                <li class="w20 tr">可用</li>
+                <li class="w20 tr">冻结</li>
+                <!-- <li class="w16 tr">已借</li> -->
+                <!-- <li class="w11 tr">风险率</li>
+                <li class="w5 tr">爆仓价</li> -->
                 <li class="w25 tr">操作</li>
             </ul>
             <ul class="contentbox fColor1">
-                <!-- <li class="clearfix flex">
-                    <p class="w11 l40">BTC/USDT</p>
-                    <p class="w16 tr flex column between">
-                        <span>0.00000000 BTC</span>
-                        <span>0.00000000 USDT</span>
+                <li class="clearfix flex" v-for="(item,index) in lever_list">
+                    <p class="w16 l40">{{item.currency_name}}</p>
+                    <p class="w20 tr">
+                        <span>{{item.lever_balance}}</span>
                     </p>
-                    <p class="w16 tr flex column between">
-                        <span>0.00000000 BTC</span>
-                        <span>0.00000000 USDT</span>
+                    <p class="w20 tr">
+                        <span>{{item.lock_lever_balance}}</span>
                     </p>
-                    <p class="w16 tr flex column between">
-                        <span>0.00000000 BTC</span>
-                        <span>0.00000000 USDT</span>
-                    </p>
-                    <p class="w11 tr l40">无风险</p>
-                    <p class="w5 tr l40">---</p>
                     <p class="w25 tr baseColor l40 btn">
                         <span @click="turnin">转入</span>
                         <span @click="turnout">转出</span>
                         <span @click="golever">杠杆</span>
                     </p>
                 </li>
-                <li class="clearfix flex">
-                    <p class="w11 l40">BTC/USDT</p>
-                    <p class="w16 tr flex column between">
-                        <span>0.00000000 BTC</span>
-                        <span>0.00000000 USDT</span>
-                    </p>
-                    <p class="w16 tr flex column between">
-                        <span>0.00000000 BTC</span>
-                        <span>0.00000000 USDT</span>
-                    </p>
-                    <p class="w16 tr flex column between">
-                        <span>0.00000000 BTC</span>
-                        <span>0.00000000 USDT</span>
-                    </p>
-                    <p class="w11 tr l40">无风险</p>
-                    <p class="w5 tr l40">---</p>
-                    <p class="w25 tr baseColor l40 btn">
-                        <span @click="turnin">转入</span>
-                        <span @click="turnout">转出</span>
-                        <span>杠杆</span>
-                    </p>
-                </li> -->
             </ul>
-            <div class="tc ft16 fColor1 mt50">暂无数据</div>
+            <div class="tc ft16 fColor1 mt50" v-if="lever_list.length<=0">暂无数据</div>
         </div>
         <div class="dialog_wrap" v-show="inDialog">
             <div class="dialog">
@@ -167,15 +137,16 @@
 import indexHeader from '@/view/indexHeader'
 export default {
     name:'lever',
+    components:{indexHeader},
     data(){
         return{
             current:0,
             inDialog:false,
             outDialog:false,
+            lever_list:[],
             coins:[{coin:"ETC"},{coin:"USDT"}]
         }
     },
-    components:{indexHeader},
     methods:{
         chooseCoin(index){
            this.current=index;
@@ -192,28 +163,30 @@ export default {
         },
         golever(){
             this.$router.push({name:'manger'})
+        },
+        getdata(){
+            var that = this;
+            console.log(that.token)
+            this.$http({
+                url: '/api/' + 'wallet/list',
+                method:'post',
+                data:{},
+                headers: {'Authorization':  that.token},
+                }).then(res=>{
+                    console.log(res.data)
+                    that.lever_list=res.data.message.lever_wallet.balance;
+                }).catch(error=>{
+                    console.log(error)
+            })
         }
+
     },
     created(){
-        this.address=localStorage.getItem('address') || '';
-        console.log(this.address)
-        // if(this.address){
-        //     this.$http({
-        //         url:this.$utils.laravel_api+'money/rechange?user_id='+this.address,
-        //         type:'GET'
-        //     }).then(res=>{
-        //         console.log(res)
-        //         this.addr=res.data.message.company_eth_address;
-        //         this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
-        //         var content = this.addr;
-        //         var clipboard = new Clipboard('#copy')
-        //     }).catch(error=>{
-        //         return error
-        //     })
-        // }
+         this.token= localStorage.getItem('token') || '';
     },
     mounted(){
         // this.init();
+        this.getdata();
     }
 };
 </script>
@@ -256,6 +229,7 @@ export default {
                 >p{
                     float: left;
                     height: 40px;
+                    line-height: 40px;
                 }
                 .l40{
                     line-height: 40px

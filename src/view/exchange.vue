@@ -137,7 +137,10 @@ export default {
       // console.log(legal_id,currency_id)
       var that=this;
       // console.log('socket')
-      that.$socket.emit("login", localStorage.getItem('user_id'));
+      //localStorage.getItem('user_id')
+      var nums= Math.floor(Math.random()*40)+60;
+      var socket_user_id = new Date().getTime()+nums;
+      that.$socket.emit("login",socket_user_id);
       that.$socket.on("transaction", msg => {
         // console.log(msg);
         if (msg.type == "transaction") {
