@@ -60,7 +60,7 @@
 
                 // })
                     this.$http({
-                        url: 'http://ice.adminchao.com/api/deal/info',
+                        url: 'http://www.2kex.com/api/deal/info',
                         method:'post',
                         data:{
                            legal_id:3,

@@ -458,7 +458,7 @@
 						resolution=resolution
 					}
 					$.ajax({
-						url:'http://ice.adminchao.com/api/deal/info?' +
+						url:'http://www.2kex.com/api/deal/info?' +
 						// url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
 						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',
