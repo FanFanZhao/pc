@@ -17,7 +17,7 @@
                 <div class="top-title flex">
                     <div>
                         <router-link tag="span" to="/c2c" class="link-span">tether {{currency_name}}</router-link>
-                        <span>对cny</span>
+                        <span>对CNY</span>
                     </div>
                 </div>
                 <!-- <div class="top-price flex">
