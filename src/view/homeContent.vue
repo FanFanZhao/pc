@@ -1,13 +1,5 @@
 <template>
     <div class="indexBlackes">
-        <!-- <div class="banneres">
-            <div class="content ">
-                <h1>区块链数字资产交易平台</h1>
-                <p class="introduce">安全&nbsp;&nbsp;&nbsp;公正&nbsp;&nbsp;&nbsp;高效&nbsp;&nbsp;&nbsp;不可篡改</p>
-                <div class="QRCode"><img src="@/assets/images/code.png"></div>
-                <p class="kefu">手机下载二维码</p>
-            </div>
-        </div> -->
         <div class="swiper-container banner_wrap swiper-container-horizontal">
             <div class="swiper-wrapper">
                <div class="swiper-slide sliders">
@@ -28,30 +20,8 @@
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
-        <!-- <div class="carousel">
-            <div class="swiper-container swiper-container01 swiper-container-horizontal">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" :class="{active:index==curSwiper}" v-for="(item ,index) in swiperList" style="width: 232px; margin-right: 10px;" @mouseover="mouseEnter(index)">
-                        <p class="name">{{item.symbol}}</p>
-                        <p class="last">{{item.quotes.USD.price}}</p>
-                        <p class="range" :class="{red:item.quotes.USD.percent_change_24h>=0}">
-                            <i class="iconfont icon-u-arrow3-loss" v-if="item.quotes.USD.percent_change_24h<0"></i>
-                            <i class="iconfont icon-u-arrow3-right" v-else></i>
-                            {{item.quotes.USD.percent_change_24h}}%
-                        </p>
-                    </div>
-                </div>   
-                <div class="swiper-pagination01"></div>
-            </div>
-            <div slot="button-prev" class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"></div>
-            <div slot="button-next" class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"></div>
-        </div> -->
-        <!-- <div class="notice">
-           <ul class="flex alcenter around notice_ul">
-               <li v-for="item in noticeList" :key="item.id" class="fl notice_li flex1" style="color: #cdd6e4;"><a class="notice_a ft12" :data-id='item.id'>{{item.name}}</a></li>
-           </ul>
-        </div> -->
-        <div class="active-data clearfix">
+       
+        <!-- <div class="active-data clearfix">
             <div class="data high">
                 <div class="name">最高价</div>
                 <div class="content">{{coinKline.hight}}</div>
@@ -79,12 +49,8 @@
             <div class="time">24H</div>
         </div>
         <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
-            <!-- <div style="position: relative; overflow: hidden; width: 1200px; height: 320px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
-                <canvas width="1200" height="320" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 1200px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
-            </div>
-            <div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgb(153, 153, 153); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 533px; top: 67px;">22:00:00<br>
-                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:RGBA(110, 68, 110, .7);"></span>当前价: 708.9</div> -->
-        </div>
+                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:RGBA(110, 68, 110, .7);"></span>当前价: 708.9</div>
+        </div> -->
         <div class="coins-list">
           <div class="coin-tab">
             <ul class="coins">
@@ -169,15 +135,30 @@
                               <!-- <button>交易</button> -->
                           </li>
                       </ul>
-                    </div>
-                    
+                    </div>  
                 </div>
             </div>
         </div>
-        <!-- <div class="bottom">
-            <p>温馨提示</p>
-            <p>数字资产是创新的投资产品，价格波动较大，具有较高的投资风险，请您投资前 对数字资产充分认知，理性判断自己的投资能力，审慎做出投资决策。</p>
-        </div> -->
+        <div class="feature_wrap">
+            <h2>全球领先的数字资产金融服务商</h2>
+            <p>为全球超过130个国家的数百万用户提供安全、可信赖的数字资产交易及资产管理服务</p>
+            <ul class="feature_list slide_ani a-fadeinB clearfix">
+              <li class="feature_safe">
+                <h3>安全可信赖</h3>
+                <p>5 年数字资产金融服务经验</p>
+                <p>专业分布式架构和防 DDOS 攻击系统</p>
+              </li>
+              <li class="feature_eco">
+                <h3>全球生态布局</h3>
+                <p>多个国家设立本土化交易服务中心<br>打造多业务形态为一体的区块链生态圈</p>
+              </li>
+              <li class="feature_user">
+                <h3>用户至上</h3>
+                <p>建立先行赔付机制</p>
+                <p>设立投资者保护基金</p>
+              </li>
+            </ul>
+        </div>
     </div>
     
 </template>
@@ -661,6 +642,44 @@ export default {
 .notice_a:hover {
   color: #6b80ae;
   cursor: pointer;
+}
+.feature_wrap {
+  background-color: #fff;
+  padding: 100px 0;
+  text-align: center;
+  color: #54748f;
+  line-height: 2em;
+}
+.feature_wrap h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #192544
+}
+.feature_wrap .feature_list {
+    padding-top: 80px;
+    width: 70%;
+    margin: 0 auto;
+}
+.feature_wrap .feature_list li {
+    float: left;
+    width: 33%;
+    background: transparent none no-repeat top;
+    padding-top: 218px;
+}
+.feature_wrap .feature_list li.feature_safe {
+    background-image: url(../../static/imgs/feature_safe.8e76904.svg);
+}
+.feature_wrap .feature_list li.feature_eco {
+    background-image: url(../../static/imgs/feature_eco.4f174e6.svg);
+}
+.feature_wrap .feature_list li.feature_user {
+    background-image: url(../../static/imgs/feature_user.7002f27.svg);
+}
+.feature_wrap h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #192544
 }
 </style>
 
