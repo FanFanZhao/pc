@@ -17,7 +17,7 @@
                 <div class="top-title flex">
                     <div>
                         <router-link tag="span" to="/c2c" class="link-span">tether {{currency_name}}</router-link>
-                        <span>对cny</span>
+                        <span>对CNY</span>
                     </div>
                 </div>
                 <!-- <div class="top-price flex">
@@ -273,7 +273,9 @@
                             <!-- <div></div> -->
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
-                            <div class="last">
+                            
+                            <div class="last flex">
+                                <div class="detailit">详情</div>
                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="item.status_name == '交易中'">确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                                 <span v-if="item.status_name == '等待中'">{{item.status_name}}</span>
@@ -308,7 +310,7 @@
                     
                     <div class="c2c-detail" v-if="detail.type=='c2c'">
                         <div>
-                            <span>买家账号：</span><span>{{detail.user_info.account_number}}</span>
+                            <span>买家账号：</span><span>{{detail.user_info.phone}}</span>
                         </div>
                         <div>
                             <span>买家姓名：</span><span>{{detail.c2c.name}}</span>
@@ -316,7 +318,7 @@
                     </div>
                     <div class="myC2cDetail" v-if="detail.type=='myC2c'">
                         <div>
-                            <span>我的账号：</span><span>{{detail.user_info.account_number}}</span>
+                            <span>我的账号：</span><span>{{detail.user_info.phone}}</span>
                         </div>
                         <div>
                             <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
@@ -333,7 +335,7 @@
                     </div>
                     <div class="trade-detail" v-if="detail.type=='trade'">
                         <div>
-                            <span>我的账号：</span>{{detail.transaction_user.account_number}}<span></span>
+                            <span>我的账号：</span>{{detail.transaction_user.phone}}<span></span>
                         </div>
                         <div>
                             <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
@@ -348,19 +350,19 @@
                             <span>详  情：</span><span>{{detail.c2c.content}}</span>
                         </div>
                         <div>
-                            <span>交易人 ：</span><span>{{detail.user_info.account_number}}</span>
+                            <span>交易人 ：</span><span>{{detail.user_info.phone}}</span>
                         </div>
                         <div>
                             <span>姓  名：</span><span>{{detail.c2c.name}}</span>
                         </div>
                         <div>
-                            <span>微信账号：</span><span>{{detail.account_info.wechat}}</span>
+                            <span>微信账号：</span><span>{{detail.account_info.wechat_account}}</span>
                         </div>
                         <div>
-                            <span>银行卡 ：</span><span>{{detail.account_info.bank_card}}</span>
+                            <span>银行卡 ：</span><span>{{detail.account_info.bank_account}}</span>
                         </div>
                         <div>
-                            <span>支付宝 ：</span><span>{{detail.account_info.alipay}}</span>
+                            <span>支付宝 ：</span><span>{{detail.account_info.alipay_account}}</span>
                         </div>
                     </div>
                     <div class="num">
@@ -952,5 +954,15 @@ export default {
       }
     }
   }
+}
+.detailit{
+    margin-right: 20px;
+    padding: 0 10px;
+    min-width: 55px;
+    max-width: 80px;
+    color: #fff;
+    text-align: center !important;
+    cursor: pointer;
+    background: #7a98f7;
 }
 </style>

@@ -17,13 +17,13 @@
                     <div class="tip" style="margin-bottom:10px">请输入验证码</div>
                 <div class="code-box">
                     <input type="text" v-model="code" class="code">
-                    <button type='button' class="code-btn" @click="sendCode">发送验证码</button>
+                    <button type='button' class="code-btn curPer" @click="sendCode">发送验证码</button>
                 </div>
                 <div class="invite-box">
                     <div class="tip">邀请码</div>
                     <input type="text" v-model="invite" class="invite-input">
                 </div>
-                <button class="confirm-btn" @click="checkCode" type="button">确认</button>
+                <button class="confirm-btn curPer" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
                 <div class="title">设置地区</div>
@@ -55,7 +55,7 @@
                     <div class="tip">请再次输入密码</div>
                     <input type="password" v-model="repwd" class="repwd-input" placeholder="请再次输入密码">
                 </div>
-                <button type="button" @click="register" class="reg-btn confirm-btn">确认</button>
+                <button type="button" @click="register" class="reg-btn confirm-btn curPer">确认</button>
             </div>
             </div>
     </div>

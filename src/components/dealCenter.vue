@@ -58,10 +58,10 @@ import trade from "@/view/trade";
 import chart from "@/view/chart";
 import entrust from "@/view/entrust";
 import hisentrust from "@/view/hisentrust";
-import detail from "@/view/detail";
+// import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
-import kline from "@/view/kline";
+// import kline from "@/view/kline";
 import tv from "@/view/tv";
 export default {
   name: "dealCenter",
@@ -76,10 +76,10 @@ export default {
     chart,
     entrust,
     hisentrust,
-    detail,
+    // detail,
     currency,
     complete,
-    kline,
+    // kline,
     tv
   },
   data() {

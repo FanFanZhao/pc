@@ -11,7 +11,7 @@
             </div>
             <p class="mt50">© 2013-2018 2KEX Global</p>
         </div>
-        <div class="fr">
+        <div class="fr hide">
             <ul>
                 <li class="pb50">
                     <p class="fl tl foot_title ft12" v-for="item in titleList">{{item}}</p>

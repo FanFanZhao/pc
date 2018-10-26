@@ -290,7 +290,7 @@
                         // that.buy_sell(that.legal_id,that.currency_id)
                         layer.msg(res.data.message);
                     }else{
-                        layer.msg(res.data.message);
+                        // layer.msg(res.data.message);
                     }
                 }).catch(error=>{
                     console.log(error)
@@ -317,7 +317,7 @@
                             this.buyInfo.buyPrice=0;
                             this.buyInfo.buyNum=0;
                         }else{
-                            layer.msg(res.data.message)
+                            // layer.msg(res.data.message)
                         }
                     }).catch(error=>{
                         // console.log(error)

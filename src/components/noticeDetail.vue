@@ -42,11 +42,14 @@ export default {
         }
     },
     created(){
+        this.address = localStorage.getItem('token') || '';
         this.id = this.$route.query.id;
         var id = this.id;
         this.$http({
-            url: this.$utils.laravel_api + 'news/detail?'+'id='+id,
-            method:'get',
+            url: '/api/' + 'news/detail',
+            method:'post',
+            data:{id:id},
+            headers: {'Authorization':  localStorage.getItem('token')},
         }).then(res=>{
             res = res.data;
             if(res.type  === 'ok'){
@@ -97,7 +100,7 @@ export default {
         background: url(../assets/images/account_center_bg.jpg) no-repeat;
         background-size: cover;
         .account {
-            width: 1500px;
+            width: 1200px;
             margin: 0 auto;
             padding-top: 30px;
             overflow: hidden;

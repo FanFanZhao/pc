@@ -28,16 +28,16 @@
             </li>
             <li ><img  src="@/assets/images/success.png" >
                 <span  class="ml20">绑定手机</span>
-                <p  class="fl">已绑定
+                <p  class="fl">
                     <span class="fColor1">{{account}}</span>
                 </p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"></span>
             </li>
-            <li >
+            <li>
                 <img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">绑定邮箱</span>
-                <p  class="fl">未绑定 </p>
+                <p  class="fl">{{email}} </p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault" @click="goNone()">绑定</span>
             </li>
@@ -45,27 +45,27 @@
                 <span  class="ml20">登录密码</span>
                 <p  class="fl">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</p>
                 <span  class="fr base ml25 mouseDefault"></span>
-                <span  class="fr base mouseDefault"  @click="goNone()">修改</span>
+                <span  class="fr base mouseDefault"  @click="goPwd()">修改</span>
             </li>
-            <li ><img  src="@/assets/images/icon_error.png">
+            <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">提币密码</span>
                 <p  class="fl">请设置提币专用密码，建议提现密码区别于登录密码。</p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"  @click="goTo(2)">设置</span>
             </li>
-            <li ><img  src="@/assets/images/icon_error.png">
+            <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">谷歌验证器</span>
                 <p  class="fl">用于登录、提币、找回密码、修改安全设置时进行安全验证。</p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"  @click="goNone()">绑定</span>
             </li>
-            <li ><img  src="@/assets/images/icon_error.png">
+            <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">实名认证</span>
                 <p  class="fl">请先进行实名认证。</p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"  @click="goNone()">认证</span>
             </li>
-            <li ><img  src="@/assets/images/icon_error.png">
+            <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">我的地址</span>
                 <p  class="fl"></p>
                 <span  class="fr base ml25 mouseDefault"></span>
@@ -81,7 +81,8 @@ export default {
     data(){
         return {
             routerList:["setCash","setCash","setCash","setCash","setCash","setCash"],
-            account:'',
+            account:'未绑定',
+            email:'未绑定',
             extension_code:''
 
         }
@@ -97,6 +98,9 @@ export default {
         goNone(){
             layer.msg("暂未开放...")
         },
+        goPwd(){
+            this.$router.push('/forgetPwd');
+        },
         userInfo(){
             this.$http({
                 url: '/api/'+'user/info',
@@ -106,7 +110,13 @@ export default {
             }).then(res=>{
                 // console.log(res);
                 if(res.data.type == 'ok'){
-                    this.account=res.data.message.account;
+                    console.log(res.data.message.account_number)
+                    if(res.data.message.account_number!=null){
+                        this.account=res.data.message.account_number;
+                    }
+                    if(res.data.message.email!='null'){
+                        this.email=res.data.message.email;
+                    }
                     this.extension_code=res.data.message.extension_code;
                 }
                 }).catch(error=>{

@@ -12,7 +12,7 @@
 			<div class="main-r">
 				<div class="chart_wrap">
           <!-- <chart></chart> -->
-          <kline></kline>
+          <!-- <kline></kline> -->
         </div>
 				<div class="parts  flex between" >
 					<div class="trade-wrap part-l">
@@ -64,7 +64,7 @@ import detail from "@/view/detail";
 import currency from "@/view/currency";
 import complete from "@/view/complete";
 import leverTransaction from "@/view/lever/lever_transaction";
-import kline from "@/view/lever/lever_kline";
+// import kline from "@/view/lever/lever_kline";
 export default {
   name: "dealCenter",
   components: {
@@ -82,7 +82,7 @@ export default {
     currency,
     complete,
     leverTransaction,
-    kline
+    // kline
   },
   data() {
     return {
