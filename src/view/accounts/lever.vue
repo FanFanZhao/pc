@@ -29,8 +29,8 @@
                         <span>{{item.lock_lever_balance}}</span>
                     </p>
                     <p class="w25 tr baseColor l40 btn">
-                        <span @click="turnin">转入</span>
-                        <span @click="turnout">转出</span>
+                        <span @click="current = index;inDialog = true;type = 3">转入</span>
+                        <span @click="current = index;outDialog = true;type=4">转出</span>
                         <span @click="golever">杠杆</span>
                     </p>
                 </li>
@@ -54,14 +54,14 @@
                         </div>
                         <div class="flex alcenter frombox">
                             <span class="fColor3 ft12 tc">到</span>
-                            <p class="ft14 flex1">BTC/USDT杠杆账户</p>
+                            <p class="ft14 flex1">BTC/{{nowCoin.currency_name}}杠杆账户</p>
                         </div>
                     </div>
                     <div class="div-input mt20">
                         <p class="ft12 fColor3">币种</p>
-                        <div class="dia-coin flex tc mt10 ft12 fColor3">
+                        <!-- <div class="dia-coin flex tc mt10 ft12 fColor3">
                             <p v-for="(item,index) in coins" :class="{select:index==current}" @click="chooseCoin(index)">{{item.coin}}<i></i></p>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="div-input mt20">
                         <p class="ft12 fColor3 flex between">
@@ -69,17 +69,17 @@
                             <span>可转 0.00000000 BTC</span>
                         </p>
                         <div class="inputboxs flex between alcenter mt10">
-                            <input type="text">
+                            <input type="text" v-model="amount">
                             <div class="ft12 fColor3">
                                 <span>BTC</span>
                                 <span>|</span>
-                                <span class="all">全部</span>
+                                <span class="all" @click="amount = nowCoin.lever_balance">全部</span>
                             </div>
                         </div>
                     </div>
                     <div class="btn-box flex ft16 tc">
-                        <div>取消</div>
-                        <div class="sure">确定</div>
+                        <div @click="close">取消</div>
+                        <div class="sure" @click="turn">确定</div>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     <div class="dia-container">
                         <div class="flex alcenter frombox">
                             <span class="fColor3 ft12 tc">从</span>
-                            <p class="ft14 flex1">BTC/USDT杠杆账户</p>
+                            <p class="ft14 flex1">BTC/{{nowCoin.currency_name}}杠杆账户</p>
                         </div>
                         <div class="frombox flex alcenter w10 tc">
                             <img src="@/assets/images/trade.png" alt="" class="coinimg">                      
@@ -106,9 +106,9 @@
                     </div>
                     <div class="div-input mt20">
                         <p class="ft12 fColor3">币种</p>
-                        <div class="dia-coin flex tc mt10 ft12 fColor3">
+                        <!-- <div class="dia-coin flex tc mt10 ft12 fColor3">
                             <p v-for="(item,index) in coins" :class="{select:index==current}" @click="chooseCoin(index)">{{item.coin}}<i></i></p>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="div-input mt20">
                         <p class="ft12 fColor3 flex between">
@@ -116,17 +116,17 @@
                             <span>可转 0.00000000 BTC</span>
                         </p>
                         <div class="inputboxs flex between alcenter mt10">
-                            <input type="text">
+                            <input type="text" v-model="amount">
                             <div class="ft12 fColor3">
                                 <span>BTC</span>
                                 <span>|</span>
-                                <span class="all">全部</span>
+                                <span class="all" @click="amount = nowCoin.lever_balance">全部</span>
                             </div>
                         </div>
                     </div>
                     <div class="btn-box flex ft16 tc">
-                        <div>取消</div>
-                        <div class="sure">确定</div>
+                        <div @click="close">取消</div>
+                        <div class="sure" @click="turn">确定</div>
                     </div>
                 </div>
             </div>
@@ -144,29 +144,24 @@ export default {
             inDialog:false,
             outDialog:false,
             lever_list:[],
+            amount:'',
+            type:3,
             coins:[{coin:"ETC"},{coin:"USDT"}]
         }
     },
     methods:{
-        chooseCoin(index){
-           this.current=index;
-        },
-        turnin(){
-            this.inDialog=true
-        },
-        turnout(){
-            this.outDialog=true
-        },
+        
         close(){
+            
             this.inDialog=false
-            this.outDialog=false
+            this.outDialog=false;
+            this.amount = '';
         },
         golever(){
             this.$router.push({name:'manger'})
         },
         getdata(){
             var that = this;
-            console.log(that.token)
             this.$http({
                 url: '/api/' + 'wallet/list',
                 method:'post',
@@ -178,6 +173,23 @@ export default {
                 }).catch(error=>{
                     console.log(error)
             })
+        },
+        turn(){
+            this.$http({
+                url:'/api/wallet/change',
+                method:'post',
+                data:{
+                    type:this.type,
+                    number:this.amount,
+                    currency_id:this.nowCoin.currency
+                },
+                headers: {'Authorization':  this.token},
+            }).then(res => {
+                layer.msg(res.data.message);
+                if(res.data.type == 'ok'){
+                    this.close()
+                }
+            })
         }
 
     },
@@ -187,6 +199,18 @@ export default {
     mounted(){
         // this.init();
         this.getdata();
+    },
+    computed:{
+        nowCoin:function(){
+            var l = this.lever_list;
+            if(l.length){
+                
+                
+                return l[this.current]
+            } else {
+                return {}
+            }
+        }
     }
 };
 </script>
