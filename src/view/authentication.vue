@@ -60,7 +60,7 @@ export default {
         }
     },
     created(){
-        
+        this.token=localStorage.getItem('token')
     },
     methods:{
         file1(){
@@ -129,11 +129,11 @@ export default {
                     front_pic:that.src1,
                     reverse_pic:that.src2
                 },  
-                headers: {'Authorization':  localStorage.getItem('token')},    
+                headers: {'Authorization':  that.token}    
             }).then(res=>{
                 console.log(res);
                     layer.msg(res.data.message)
-                    
+
                 }).catch(error=>{
                     
             })  
@@ -144,7 +144,7 @@ export default {
                 url: '/api/'+'user/center',
                 method:'get',
                 data:{},  
-                headers: {'Authorization':  localStorage.getItem('token')},    
+                headers: {'Authorization':  that.token}   
             }).then(res=>{
                 that.review_status=res.data.message.review_status;
                 }).catch(error=>{

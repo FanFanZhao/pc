@@ -458,8 +458,8 @@
 						resolution=resolution
 					}
 					$.ajax({
-						url:'http://www.2kex.com/api/deal/info?' +
-						// url:'http://t.fuwuqian.cn/api/currency/timeshar_test?' +
+						url:'http://www.2kex.com/api/currency/new_timeshar?' +
+						// url:'http://ice.adminchao.com/api/currency/new_timeshar?' +
 						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',
 						success: function(res){
