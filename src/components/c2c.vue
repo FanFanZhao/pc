@@ -462,13 +462,14 @@ export default {
       let page = 1;
       page = type == 1 ? this.listOut.page : this.listIn.page;
       ////console.log(type);
-
+      let i =layer.load();
       this.$http({
         url: "/api/c2c/list?type=" + type + "&page=" + page,
 
         method: "get",
         headers: { Authorization: this.token }
       }).then(res => {
+        layer.close(i);
         if (res.data.type == "ok") {
           let list = res.data.message.list;
           ////console.log(list);
@@ -502,6 +503,7 @@ export default {
     },
     // c2c列表买入卖出
     buySell(id, type) {
+      let i = layer.load();
       // this.showDetail  = false;
       this.$http({
         url: "/api/c2c/" + type,
@@ -509,6 +511,7 @@ export default {
         data: { id: id },
         headers: { Authorization: this.token }
       }).then(res => {
+        layer.close(i);
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           if (type == "buy") {
@@ -527,13 +530,14 @@ export default {
     getMy(type) {
       let t = "";
       t = type == "myAdd" ? "my_add" : "my_transaction";
+      let i = layer.load();
       this.$http({
         url: "/api/c2c/" + t + "?page=" + this[type].page,
 
         headers: { Authorization: this.token }
       }).then(res => {
         //console.log(res);
-
+        layer.close(i);
         if (res.data.type == "ok") {
           if (res.data.message.length == 0) {
             this[type]["hasMore"] = false;
