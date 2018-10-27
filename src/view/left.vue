@@ -59,13 +59,13 @@
 						src2: require("@/assets/images/icon_news_s.png"),
 						text: '交易日志',
 						page:'transferLog',
-					}
-					// {
-					// 	src1: require("@/assets/images/icon_mine.png"),
-					// 	src2: require("@/assets/images/icon_mine_s.png"),
-					// 	text: '身份认证',
-					// 	page:'authentication',
-					// },
+					},
+					{
+						src1: require("@/assets/images/icon_mine.png"),
+						src2: require("@/assets/images/icon_mine_s.png"),
+						text: '身份认证',
+						page:'authentication',
+					},
 				],
 			}
 		},

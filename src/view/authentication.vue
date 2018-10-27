@@ -31,13 +31,13 @@
                 </div>
             </div>
             <div  v-show="review_status==1">
-                <div>
-                    审核中   
+                <div class="tc ft30 au-statue">
+                    审核中...  
                 </div> 
             </div>
             <div v-show="review_status==2">
-                <div>
-                    已认证
+                <div class="tc ft30 au-statue">
+                    已认证!
                 </div>
             </div>
             
@@ -81,7 +81,7 @@ export default {
                 contentType: false,
                 success: function (msg) {
                     console.log(msg)
-                    that.src1=mag.message
+                    that.src1=msg.message
 
                 }
             });     
@@ -104,7 +104,7 @@ export default {
                 processData: false,
                 contentType: false,
                 success: function (msg) {
-                    that.src2=mag.message
+                    that.src2=msg.message
                 }
             });    
         },
@@ -132,24 +132,28 @@ export default {
                 headers: {'Authorization':  localStorage.getItem('token')},    
             }).then(res=>{
                 console.log(res);
-                    layer.msg(res.message)
+                    layer.msg(res.data.message)
+                    
                 }).catch(error=>{
                     
             })  
+        },
+        Info(){
+            var that = this;
+            this.$http({
+                url: '/api/'+'user/center',
+                method:'get',
+                data:{},  
+                headers: {'Authorization':  localStorage.getItem('token')},    
+            }).then(res=>{
+                that.review_status=res.data.message.review_status;
+                }).catch(error=>{
+                    
+            })
         }
     },
     mounted(){
-       var that = this;
-       this.$http({
-            url: '/api/'+'user/center',
-            method:'get',
-            data:{},  
-            headers: {'Authorization':  localStorage.getItem('token')},    
-        }).then(res=>{
-               that.review_status=res.data.message.review_status;
-            }).catch(error=>{
-                
-        })
+       this.Info();
     }
 }
 </script>
@@ -219,6 +223,10 @@ export default {
                     margin-top: 60px;
                     background: #5697f4
                 }
+            }
+            .au-statue{
+                padding-top: 100px;
+                font-size: 30px
             }
         }
         

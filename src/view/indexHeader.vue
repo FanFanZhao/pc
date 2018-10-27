@@ -140,17 +140,17 @@ export default {
           page: "transferLog"
         },
         {
-          src1: require("@/assets/images/icon_mine.png"),
-          src2: require("@/assets/images/icon_mine_s.png"),
+          src1: require("@/assets/images/z0.png"),
+          src2: require("@/assets/images/z1.png"),
           title: '安全设置',
           page:'userSetting',
-        }
-        // {
-        //   src1: require("@/assets/images/icon_mine.png"),
-        //   src2: require("@/assets/images/icon_mine_s.png"),
-        //   title: '身份认证',
-        //   page:'authentication',
-        // },
+        },
+        {
+          src1: require("@/assets/images/icon_mine.png"),
+          src2: require("@/assets/images/icon_mine_s.png"),
+          title: '身份认证',
+          page:'authentication',
+        },
       ],
       assetstList: [
         // {
