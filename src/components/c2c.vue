@@ -249,6 +249,7 @@
 
                                 <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
                                 <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div>
+                                <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
                                 <span v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                                 <span v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
                             </div>
@@ -264,7 +265,7 @@
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
                         <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" @click="getDetail(item.id,'trade',$event)">
-                            <div style="color:#25796a">卖出</div>
+                            <div style="color:#25796a">{{item.type_name}}</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -276,7 +277,7 @@
                             
                             <div class="last flex">
                                 <div class="detailit">详情</div>
-                                <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="item.status_name == '交易中'">确认</div>
+                                <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                                 <span v-if="item.status_name == '等待中'">{{item.status_name}}</span>
                                 <span v-if="item.status_name == '已成功'">{{item.status_name}}</span>
@@ -545,7 +546,9 @@ export default {
           //console.log(res);
           if (type == "complete") {
             this.myBuySell = { hasMore: true, list: [], page: 1 };
+            this.myAdd = { hasMore: true, list: [], page: 1 };
             this.getMy("myBuySell");
+            this.getMy("myAdd");
           } else {
             this.myAdd = { hasMore: true, list: [], page: 1 };
             this.getMy("myAdd");
@@ -922,6 +925,7 @@ export default {
           text-align: right;
           .btn-last {
             float: right;
+            margin: 0 5px;
             padding: 0 10px;
             min-width: 55px;
             max-width: 80px;

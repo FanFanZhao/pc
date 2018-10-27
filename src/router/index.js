@@ -39,6 +39,7 @@ import ForgetPwd from '@/components/ForgetPwd'  //忘记密码
 import ResetPwd from '@/components/ResetPwd'  //重置密码密码
 import withdraw_address from '@/view/accounts/withdraw_address'
 import leverRecord from '../view/lever/leverRecord.vue'
+import bindEmail from '../view/bindEmail.vue'
 Vue.use(Router)
 export default new Router({
 	routes: [
@@ -87,8 +88,12 @@ export default new Router({
 					component:allTransaction
 				},
 				{
-					'path':'leverRecord',
+					path:'/leverRecord',
 					component:leverRecord
+				},
+				{
+					path:'/bindEmail',
+					component:bindEmail
 				}
 				
 			]
