@@ -34,7 +34,7 @@
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"></span>
             </li>
-            <li>
+            <li class="hide">
                 <img  :src="esrc">
                 <span  class="ml20">绑定邮箱</span>
                 <p  class="fl">{{email}} </p>
