@@ -9,11 +9,11 @@ import VueAxios from 'vue-axios'
 import Qs from 'qs'
 import "@/assets/style/common.scss"
 import VueSocketio from 'vue-socket.io'
-import echarts from 'echarts'
+// import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
 Vue.use(VueAwesomeSwiper)
-Vue.prototype.$echarts = echarts 
+// Vue.prototype.$echarts = echarts 
 window.eventBus = new Vue()
 
 // Vue.use(VueSocketio, 'http://jnbadmin.mobile369.com:2120');
