@@ -52,11 +52,11 @@
                             </div> -->
                             <div class="inp-box">
                                 <span>买入量{{currency_name}}</span>
-                                <input type="text" v-model="num">
+                                <input type="number" v-model="num">
                             </div>
                             <div class="inp-box">
                                 <span>单价CNY</span>
-                                <input type="text" v-model="price">
+                                <input type="number" v-model="price">
                             </div>
                             <div class="inp-box">
                                 <span>姓名</span>
@@ -114,11 +114,11 @@
                             </div> -->
                             <div class="inp-box">
                                 <span>卖出量{{currency_name}}</span>
-                                <input type="text" v-model="num01">
+                                <input type="number" v-model="num01">
                             </div>
                             <div class="inp-box">
                                 <span>单价CNY</span>
-                                <input type="text" v-model="price01">
+                                <input type="number" v-model="price01">
                             </div>
                              <div class="inp-box">
                                 <span>姓名</span>
@@ -166,9 +166,9 @@
                 
                 <div class="bot-title flex">
                     <div>
-                        <span @click="nowList ='listIn'" :class="{'active':nowList == 'listIn'}">c2c</span>
-                        <span @click="nowList =  'myAdd';" :class="{'active':nowList == 'myAdd'}">我发布的c2c</span>
-                        <span @click="nowList = 'myBuySell'" :class="{'active':nowList == 'myBuySell'}">我交易的c2c</span>
+                        <span @click="nowList ='listIn';reloadC2c()" :class="{'active':nowList == 'listIn'}">c2c</span>
+                        <span @click="nowList =  'myAdd';reloadMyAdd()" :class="{'active':nowList == 'myAdd'}">我发布的c2c</span>
+                        <span @click="nowList = 'myBuySell';reloadMyBuySell()" :class="{'active':nowList == 'myBuySell'}">我交易的c2c</span>
                     
                     </div>
                     <div class="flex" @click="showList = !showList">
@@ -201,7 +201,7 @@
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
-
+                                <div class="detailit">详情</div>
                                 <div class="btn-last" @click="buySell(item.id,'buy')">买入</div>
                             </div>
                         </li>
@@ -223,7 +223,7 @@
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
-
+                                <div class="detailit">详情</div>
                                 <div v-if="item.status_name == '等待中'" @click="buySell(item.id,'sell')" class="btn-last">卖出</div>
                             </div>
                         </li>
@@ -246,12 +246,12 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #7a98f7;">取消交易</div> -->
-
+                                <div class="detailit">详情</div>
                                 <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
                                 <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div>
                                 <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
-                                <span v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
-                                <span v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
+                                <span class="btn-last" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
+                                <span class="btn-last" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -279,9 +279,9 @@
                                 <div class="detailit">详情</div>
                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
-                                <span v-if="item.status_name == '等待中'">{{item.status_name}}</span>
-                                <span v-if="item.status_name == '已成功'">{{item.status_name}}</span>
-                                <span v-if="item.status_name == '已取消'">{{item.status_name}}</span>
+                                <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
+                                <span class="btn-last" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
+                                <span class="btn-last" v-if="item.status_name == '已取消'">{{item.status_name}}</span>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -395,25 +395,25 @@ export default {
       id: "",
       price: "",
       num: "",
-      pay: "",
+      pay: "支付宝",
       user_name: "",
       content: "",
       price01: "",
       num01: "",
-      pay01: "",
+      pay01: "支付宝",
       user_name01: "",
       content01: "",
       currency_list: [],
       currency_name: "",
       showList: true,
-      showDetail:false,
-      detail:{}             //li详情
+      showDetail: false,
+      detail: {} //li详情
     };
   },
   created() {
     this.token = window.localStorage.getItem("token") || "";
-    if(this.token == ''){
-        this.$router.push('/components/login');
+    if (this.token == "") {
+      this.$router.push("/components/login");
     }
     this.get_currency();
     this.getList(1);
@@ -422,6 +422,20 @@ export default {
     this.getMy("myBuySell");
   },
   methods: {
+    reloadC2c() {
+      this.listIn = { page: 1, list: [], hasMore: true };
+      this.listOut = { page: 1, list: [], hasMore: true };
+      this.getList(1);
+      this.getList(0);
+    },
+    reloadMyAdd(){
+       this.myAdd= { page: 1, list: [], hasMore: true };
+       this.getMy('myAdd')
+    },
+    reloadMyBuySell(){
+        this.myBuySell= { page: 1, list: [], hasMore: true };
+        this.getMy('myBuySell')
+    },
     // 获取币种列表
     get_currency() {
       this.$http({
@@ -488,7 +502,7 @@ export default {
     },
     // c2c列表买入卖出
     buySell(id, type) {
-        // this.showDetail  = false;
+      // this.showDetail  = false;
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
@@ -534,7 +548,7 @@ export default {
       });
     },
     cancelComplete(type, id, index) {
-        // this.showDetail = false;
+      // this.showDetail = false;
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
@@ -556,30 +570,30 @@ export default {
         }
       });
     },
-    getDetail(id,type,e){
-        if(e.target.className == 'btn-last'){
-            return;
+    getDetail(id, type, e) {
+      if (e.target.className == "btn-last") {
+        return;
+      }
+
+      this.$http({
+        url: "/api/c2c/detail?id=" + id,
+        headers: { Authorization: this.token }
+      }).then(res => {
+        console.log(res);
+
+        if (res.data.type == "ok") {
+          //console.log(res.data.message);
+          this.detail.c2c = res.data.message.c2c;
+          this.detail.account_info = res.data.message.account_info;
+          this.detail.user_info = res.data.message.user_info;
+          this.detail.type = type;
+          if (res.data.message.transaction_user) {
+            this.detail.transaction_user = res.data.message.transaction_user;
+          }
+          console.log(this.detail);
+          this.showDetail = true;
         }
-        
-        this.$http({
-            url:'/api/c2c/detail?id='+id,
-             headers: { Authorization: this.token }
-        }).then(res => {
-            console.log(res);
-            
-            if(res.data.type == 'ok'){
-                //console.log(res.data.message);
-                this.detail.c2c = res.data.message.c2c;
-                this.detail.account_info = res.data.message.account_info;
-                this.detail.user_info = res.data.message.user_info;
-                this.detail.type = type;
-                if(res.data.message.transaction_user){
-                    this.detail.transaction_user = res.data.message.transaction_user;
-                }
-                console.log(this.detail);
-                this.showDetail = true;
-            }
-        })
+      });
     },
     //添加买入
     bui_in() {
@@ -656,95 +670,96 @@ export default {
 <style lang='scss'>
 #c2c-box {
   margin: 10px 0 10px;
-  .redColor{color: #7a98f7;}
+  .redColor {
+    color: #7a98f7;
+  }
   // background: #181b2a;
   color: #c7cce6;
-    .mask{
-        position: fixed;
+  .mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
+    > .m-content {
+      border-radius: 4px;
+      background: #fff;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 40px 20px 30px;
+      // min-height: 400px;
+      max-height: 550px;
+      width: 400px;
+      > .title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
         width: 100%;
-        height: 100%;
-        z-index: 999;
-        background: rgba(0,0,0,0.7);
-        >.m-content{
-            border-radius: 4px;
-            background: #fff;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            padding: 40px 20px 30px;
-            // min-height: 400px;
-            max-height: 550px;
-            width: 400px;
-            >.title{
-                position: absolute;
-                top: 0;
-                left: 0;
-                text-align: center;
-                width: 100%;
-                height: 40px;
-                line-height: 40px;
-                font-size: 18px;
-                text-align: center;
-                font-weight: 600;
-                >div:last-child{
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    padding: 0 15px;
-                    cursor: pointer;
-                }
-            }
-            >div:not(.title){
-                line-height: 32px;
-                // border-top: 1px solid #eaecef;
-            }
-            div{
-                span:first-child{
-                    margin-right: 5px;
-                    display: inline-block;
-                    width: 70px;
-                    color: #7a98f7;
-                }
-            }
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        text-align: center;
+        font-weight: 600;
+        > div:last-child {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 0 15px;
+          cursor: pointer;
         }
+      }
+      > div:not(.title) {
+        line-height: 32px;
+        // border-top: 1px solid #eaecef;
+      }
+      div {
+        span:first-child {
+          margin-right: 5px;
+          display: inline-block;
+          width: 70px;
+          color: #7a98f7;
+        }
+      }
     }
+  }
   .more {
     color: #7a98f7;
     text-align: center;
     cursor: pointer;
   }
-  
-  
+
   font-size: 14px;
   > .c2c-l {
     margin: 0 10px;
     padding: 10px;
-      background: #181b2a;
+    background: #181b2a;
     width: 23%;
     ul {
     }
     li {
       // padding: 0 10px;
-      padding:  0 20px;
+      padding: 0 20px;
       justify-content: space-between;
       cursor: pointer;
 
       line-height: 40px;
-      
+
       .redColor {
         margin-left: 10px;
       }
-      &:hover{
+      &:hover {
         background: rgb(38, 42, 66);
       }
     }
   }
   > .c2c-r {
     padding: 10px 30px;
-      background: #181b2a;
+    background: #181b2a;
 
-    margin-right:  10px;
+    margin-right: 10px;
     width: 77%;
     > .top {
       // margin: 10px 30px 10px;
@@ -799,7 +814,6 @@ export default {
                 // text-align: center;
                 top: 0;
                 left: 0;
-                
               }
               > div,
               > input {
@@ -816,7 +830,6 @@ export default {
                 color: #7a98f7;
               }
             }
-            
           }
           .pay-opts {
             flex-wrap: wrap;
@@ -840,7 +853,6 @@ export default {
             color: #fff;
             background: #4e5b85;
           }
-          
         }
       }
     }
@@ -959,14 +971,16 @@ export default {
     }
   }
 }
-.detailit{
-    margin-right: 20px;
-    padding: 0 10px;
-    min-width: 55px;
-    max-width: 80px;
-    color: #fff;
-    text-align: center !important;
-    cursor: pointer;
-    background: #7a98f7;
+
+.detailit {
+  float: right;
+  margin-right: 20px;
+  padding: 0 10px;
+  min-width: 55px;
+  max-width: 80px;
+  color: #fff;
+  text-align: center !important;
+  cursor: pointer;
+  background: #7a98f7;
 }
 </style>
