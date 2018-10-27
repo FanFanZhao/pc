@@ -171,7 +171,7 @@ import "@/assets/style/index.css";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
 import indexHeader from "@/view/indexHeader";
-var echarts = require("echarts");
+// var echarts = require("echarts");
 export default {
   name: "homeContent",
   components: { indexHeader },
@@ -309,7 +309,7 @@ export default {
       observer: true, //修改swiper自己或子元素时，自动初始化swiper
       observeParents: true //修改swiper的父元素时，自动初始化swiper
     });
-    this.setChart();
+    // this.setChart();
     this.$http({
       url: this.$utils.laravel_api + "news/help",
       method: "post",
@@ -441,103 +441,103 @@ export default {
       return Y + M + D;
     },
 
-    setChart() {
-      var myChart = echarts.init(document.getElementById("chart"));
-      var that = this;
-      // 指定图表的配置项和数据
-      var base = 2;
-      var date = [];
-      var data = [1, 2, 4, 5, 6, 7, 8];
-      var now = new Date();
-      console.log(that.coinKlineList);
-      for (var i in that.coinKlineList) {
-        let temp = that.timestampToTime(that.coinKlineList[i].timestamp);
-        console.log(temp);
-        date.push(temp);
-      }
-      console.log(date);
-      var option = {
-        textStyle: {
-          color: "#818283"
-        },
-        backgroundColor: "#161923",
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "cross",
-            label: {
-              backgroundColor: "#6a7985"
-            }
-          }
-        },
-        title: {
-          left: "center",
-          text: "24小时数据图"
-        },
-        grid: {
-          left: "3%",
-          right: "3%",
-          bottom: "5%",
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            // dataZoom: {
-            //     yAxisIndex: 'none'
-            // },
-            // restore: {},
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-          data: date,
-          color: ["#ff9232"]
-        },
+    // setChart() {
+    //   var myChart = echarts.init(document.getElementById("chart"));
+    //   var that = this;
+    //   // 指定图表的配置项和数据
+    //   var base = 2;
+    //   var date = [];
+    //   var data = [1, 2, 4, 5, 6, 7, 8];
+    //   var now = new Date();
+    //   console.log(that.coinKlineList);
+    //   for (var i in that.coinKlineList) {
+    //     let temp = that.timestampToTime(that.coinKlineList[i].timestamp);
+    //     console.log(temp);
+    //     date.push(temp);
+    //   }
+    //   console.log(date);
+    //   var option = {
+    //     textStyle: {
+    //       color: "#818283"
+    //     },
+    //     backgroundColor: "#161923",
+    //     tooltip: {
+    //       trigger: "axis",
+    //       axisPointer: {
+    //         type: "cross",
+    //         label: {
+    //           backgroundColor: "#6a7985"
+    //         }
+    //       }
+    //     },
+    //     title: {
+    //       left: "center",
+    //       text: "24小时数据图"
+    //     },
+    //     grid: {
+    //       left: "3%",
+    //       right: "3%",
+    //       bottom: "5%",
+    //       containLabel: true
+    //     },
+    //     toolbox: {
+    //       feature: {
+    //         // dataZoom: {
+    //         //     yAxisIndex: 'none'
+    //         // },
+    //         // restore: {},
+    //         saveAsImage: {}
+    //       }
+    //     },
+    //     xAxis: {
+    //       type: "category",
+    //       boundaryGap: false,
+    //       data: date,
+    //       color: ["#ff9232"]
+    //     },
 
-        yAxis: {
-          type: "value",
-          yaxisLabel: {
-            backgroundColor: "#fff"
-          }
-        },
-        series: [
-          {
-            name: "当前价格",
-            type: "line",
-            smooth: true,
-            symbol: "none",
-            sampling: "average",
-            itemStyle: {
-              normal: {
-                // 6e446e
-                color: "#6e446e"
-              }
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: "#6e446e"
-                  },
-                  {
-                    offset: 1,
-                    color: "#1e1e2a"
-                  }
-                ])
-              }
-            },
+    //     yAxis: {
+    //       type: "value",
+    //       yaxisLabel: {
+    //         backgroundColor: "#fff"
+    //       }
+    //     },
+    //     series: [
+    //       {
+    //         name: "当前价格",
+    //         type: "line",
+    //         smooth: true,
+    //         symbol: "none",
+    //         sampling: "average",
+    //         itemStyle: {
+    //           normal: {
+    //             // 6e446e
+    //             color: "#6e446e"
+    //           }
+    //         },
+    //         areaStyle: {
+    //           normal: {
+    //             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+    //               {
+    //                 offset: 0,
+    //                 color: "#6e446e"
+    //               },
+    //               {
+    //                 offset: 1,
+    //                 color: "#1e1e2a"
+    //               }
+    //             ])
+    //           }
+    //         },
 
-            data: data
-          }
-        ]
-      };
+    //         data: data
+    //       }
+    //     ]
+    //   };
 
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-    },
+    //   // 使用刚指定的配置项和数据显示图表。
+    //   myChart.setOption(option);
+    // },
     // go_detail(index,inde){
     //   this.$router.push({
     //     path:'/dealCenter',

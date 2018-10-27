@@ -278,10 +278,10 @@
                             <div class="last flex">
                                 <div class="detailit">详情</div>
                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
-                                <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                                 <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
                                 <span class="btn-last" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
                                 <span class="btn-last" v-if="item.status_name == '已取消'">{{item.status_name}}</span>
+                                <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                             </div>
                         </li>
                         <!-- <li class="flex">
