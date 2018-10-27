@@ -152,10 +152,7 @@ export default {
           yesprice:msg.yesterday,
           toprice:msg.today
         }
-        setTimeout(() => {
-          eventBus.$emit('toNew',newPrice);
-        },1000);
-        
+        eventBus.$emit('toNew',newPrice);
         that.newData = msg.last_price;
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
