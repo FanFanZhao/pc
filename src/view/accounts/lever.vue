@@ -31,7 +31,7 @@
                     <p class="w25 tr baseColor l40 btn">
                         <span @click="current = index;inDialog = true;type = 3">转入</span>
                         <span @click="current = index;outDialog = true;type=4">转出</span>
-                        <span @click="golever">杠杆</span>
+                        <span @click="$router.push({path:'/leverRecord',query:{id:item.currency}})">记录</span>
                     </p>
                 </li>
             </ul>
