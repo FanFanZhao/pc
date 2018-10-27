@@ -105,7 +105,7 @@
 							'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo',
 							'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press',
 							'snapshot_trading_drawings', 'symbol_info', 'timeframes_toolbar', 'use_localstorage_for_settings',
-							'volume_force_overlay'
+							'volume_force_overlay','widget_logo'
 						],
 						enabled_features: [ //  启用的功能（备注：disable_resolution_rebuild 功能用于控制当时间范围为1个月时，日期刻度是否都是每个月1号
 							'dont_show_boolean_study_arguments', 'hide_last_na_study_output', 'move_logo_to_main_pane',
@@ -128,7 +128,8 @@
 						// document.getElementById('trade-view').childNodes[0].setAttribute('style', 'display:block;width:100%;height:100%;');
 						//let that =this
 
-						widget.chart().createStudy('Moving Average', false, true, [15,'close', 0],null,{'Plot.color':'#181b2a'});
+						widget.chart().createStudy('Moving Average', false, true, [15,'close', 0],null,{'Plot.color':'#e843da'});
+						widget.chart().createStudy("MA Cross", false, false, [10, 20]);
 						let buttonArr = [
 							{
 								value: "1min",
