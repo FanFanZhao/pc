@@ -35,12 +35,12 @@
 						text: '账户设置',
 						page:'accountSet'
 					},
-					{
-						src1: require("@/assets/images/icon_news.png"),
-						src2: require("@/assets/images/icon_news_s.png"),
-						text: '我的消息',
-						page:'accountMessage'
-					},
+					// {
+					// 	src1: require("@/assets/images/icon_news.png"),
+					// 	src2: require("@/assets/images/icon_news_s.png"),
+					// 	text: '我的消息',
+					// 	page:'accountMessage'
+					// },
 					// {
 					// 	src1: require("@/assets/images/icon_mine.png"),
 					// 	src2: require("@/assets/images/icon_mine_s.png"),
@@ -49,17 +49,23 @@
 					// 	children: ['chargeRecord']
 					// },
 					{
-						src1: require("@/assets/images/icon_mine.png"),
-						src2: require("@/assets/images/icon_mine_s.png"),
+						src1: require("@/assets/images/s0.png"),
+						src2: require("@/assets/images/s1.png"),
 						text: '区域代理',
 						page:'region',
 					},
 					{
-						src1: require("@/assets/images/icon_mine.png"),
-						src2: require("@/assets/images/icon_mine_s.png"),
+						src1: require("@/assets/images/icon_news.png"),
+						src2: require("@/assets/images/icon_news_s.png"),
 						text: '交易日志',
 						page:'transferLog',
 					}
+					// {
+					// 	src1: require("@/assets/images/icon_mine.png"),
+					// 	src2: require("@/assets/images/icon_mine_s.png"),
+					// 	text: '身份认证',
+					// 	page:'authentication',
+					// },
 				],
 			}
 		},

@@ -13,6 +13,7 @@ import account from '@/components/account'
 import accountCenter from '@/view/accountCenter'
 import accountEntrust from '@/view/accountEntrust'
 import accountSet from '@/view/accountSet'
+import authentication from '@/view/authentication'
 import accountMessage from '@/view/accountMessage'
 import setCash from '@/components/setCash'
 import recharge from '@/view/recharge'
@@ -181,7 +182,12 @@ export default new Router({
 					path:'/transferLog',
 					name:'transferLog',
 					component:transferLog
-				}
+				},
+				{
+					path:'/authentication',
+					name:'authentication',
+					component:authentication
+				},
 
 			]
 

@@ -1,0 +1,227 @@
+<template>
+    <div class="account-main wrap fColor1">
+        <div class="title">
+                身份认证
+        </div>
+        <div class="main-content mt20">
+            <div v-show="review_status==0">
+                <div class="main-input">
+                    <div class="flex alcenter center">
+                        <span>姓名：</span>
+                        <input type="text" placeholder="请输入真实姓名" id="name" v-model="name">
+                    </div>
+                    <div class="flex alcenter center mt20">
+                        <span>身份证：</span>
+                        <input type="text" placeholder="请输入身份证号" id="card" v-model="card_id">
+                    </div>
+                </div>
+                <div class="mt40 fColor1 ft14 tc">请上传身份证正反面，第一张为正面，第二张为反面。</div>
+                <div class="idimg flex center mt40">
+                    <div>
+                        <img :src="src1" alt="">
+                        <input type="file" id="file" accept="image/*" name="file" @change="file1">
+                    </div>
+                    <div>
+                        <img :src="src2" alt="">
+                        <input type="file" id="file" accept="image/*" name="file" @change="file2">
+                    </div>
+                </div>
+                <div class="updata tc">
+                    <input type="button" value="提交" @click="updata">
+                </div>
+            </div>
+            <div  v-show="review_status==1">
+                <div>
+                    审核中   
+                </div> 
+            </div>
+            <div v-show="review_status==2">
+                <div>
+                    已认证
+                </div>
+            </div>
+            
+        </div>
+
+
+       
+    </div>
+</template>
+<script>
+export default {
+    name:'authentication',
+    data(){
+        return {
+           name:'',
+           card_id:'',
+           src1:'',
+           src2:'',
+           review_status:''
+        }
+    },
+    created(){
+        
+    },
+    methods:{
+        file1(){
+            var that = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]); 
+            reader.onload = function(e){
+                console.log(e.target.result)
+                that.src1=e.target.result
+            } 
+            var formData = new FormData();
+            formData.append("file", event.target.files[0]); 
+            $.ajax({
+                url: '/api/'+'upload',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    console.log(msg)
+                    that.src1=mag.message
+
+                }
+            });     
+
+        },
+        file2(){
+            var that = this;
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]); 
+            reader.onload = function(e){
+                console.log(e.target.result)
+                that.src2=e.target.result
+            } 
+            var formData = new FormData();
+            formData.append("file", event.target.files[0]); 
+            $.ajax({
+                url: '/api/'+'upload',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    that.src2=mag.message
+                }
+            });    
+        },
+        updata(){
+            var that = this;
+            let name = this.$utils.trim(that.name);
+            let card_id = this.$utils.trim(that.card_id);
+            if(this.name.length == ''){
+                layer.tips('请输入姓名!', '#name');
+                return;
+            }
+            if(this.card_id.length == ''){
+                layer.tips('请输入身份证号!', '#card');
+                return;
+            }
+            this.$http({
+                url: '/api/'+'user/real_name',
+                method:'post',
+                data:{
+                    name:name,
+                    card_id:card_id,
+                    front_pic:that.src1,
+                    reverse_pic:that.src2
+                },  
+                headers: {'Authorization':  localStorage.getItem('token')},    
+            }).then(res=>{
+                console.log(res);
+                    layer.msg(res.message)
+                }).catch(error=>{
+                    
+            })  
+        }
+    },
+    mounted(){
+       var that = this;
+       this.$http({
+            url: '/api/'+'user/center',
+            method:'get',
+            data:{},  
+            headers: {'Authorization':  localStorage.getItem('token')},    
+        }).then(res=>{
+               that.review_status=res.data.message.review_status;
+            }).catch(error=>{
+                
+        })
+    }
+}
+</script>
+<style scoped lang="scss">
+    .account-main{
+        background: #273041;
+        .title{
+            width: 100%;
+            line-height: 60px;
+            background: #181b2a;
+            border-radius: 4px;
+            padding-left: 20px;
+        }
+        .main-content{
+            background: #181b2a;
+            min-height: 700px;
+            border-radius: 2px;
+            .main-input{
+                margin: 0 auto;
+                text-align: center;
+                padding-top: 100px;
+                span{
+                    width:100px;
+                }
+                input{
+                    width: 320px;
+                    min-height: 46px;
+                    border: 1px solid #4e5b85;
+                    padding: 0 20px;
+                    color: #c7cce6;
+                    font-size: 14px;
+                    border-radius: 3px;
+                    background-color: #1e2235;
+                }
+            }
+            .idimg{
+                div{
+                    width: 160px;
+                    height: 160px;
+                    overflow: hidden;
+                    position: relative;
+                    background: url('../../static/imgs/addimg.png') no-repeat;
+                    background-size: 100% 100%;
+                    border: 1px solid #E2E2E2;
+                    margin-left: 50px;
+                    input{
+                        position: absolute;
+                        z-index: 11110;
+                        opacity: 0;
+                        width: 100%;
+                        height: 160px;
+                        top: 0;
+                        cursor: pointer;
+                    }
+                }
+                
+            }
+            .updata{
+                input{
+                    width: 300px;
+                    height: 45px;
+                    border-radius: 4px;
+                    color: #c7cce6;
+                    font-size: 14px;
+                    margin: 0 auto;
+                    margin-left: 100px;
+                    margin-top: 60px;
+                    background: #5697f4
+                }
+            }
+        }
+        
+    }
+    
+</style>
