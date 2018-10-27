@@ -92,8 +92,8 @@ export default {
         { title: "首页", page: "homeContent" },
         { title: "C2C交易", page: "c2c" },
         { title: "币币交易", page: "dealCenter" },
-        { title: "安全设置", page: "userSetting" },
-        { title: "杠杆交易", page: "leverdealCenter" },
+        // { title: "安全设置", page: "userSetting" },
+        // { title: "杠杆交易", page: "leverdealCenter" },
         // { title: "我的资产", page: "homeContent" },
       ],
       accountList: [
@@ -132,7 +132,25 @@ export default {
           src2: require("@/assets/images/s1.png"),
           title: "区域代理",
           page: "region"
+        },
+        {
+          src1: require("@/assets/images/icon_news.png"),
+					src2: require("@/assets/images/icon_news_s.png"),
+          title: "交易日志",
+          page: "transferLog"
+        },
+        {
+          src1: require("@/assets/images/icon_mine.png"),
+          src2: require("@/assets/images/icon_mine_s.png"),
+          title: '安全设置',
+          page:'userSetting',
         }
+        // {
+        //   src1: require("@/assets/images/icon_mine.png"),
+        //   src2: require("@/assets/images/icon_mine_s.png"),
+        //   title: '身份认证',
+        //   page:'authentication',
+        // },
       ],
       assetstList: [
         // {

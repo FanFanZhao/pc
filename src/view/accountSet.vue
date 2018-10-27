@@ -26,7 +26,7 @@
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault" id="copy" @click="copy">复制邀请码</span>
             </li>
-            <li ><img  src="@/assets/images/success.png" >
+            <li ><img  :src="psrc" >
                 <span  class="ml20">绑定手机</span>
                 <p  class="fl">
                     <span class="fColor1">{{account}}</span>
@@ -34,12 +34,12 @@
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"></span>
             </li>
-            <li>
-                <img  src="@/assets/images/icon_error.png">
+            <li class="hide">
+                <img  :src="esrc">
                 <span  class="ml20">绑定邮箱</span>
                 <p  class="fl">{{email}} </p>
                 <span  class="fr base ml25 mouseDefault"></span>
-                <span  class="fr base mouseDefault" @click="goNone()">绑定</span>
+                <span  class="fr base mouseDefault"></span>
             </li>
             <li ><img  src="@/assets/images/success.png">
                 <span  class="ml20">登录密码</span>
@@ -83,7 +83,9 @@ export default {
             routerList:["setCash","setCash","setCash","setCash","setCash","setCash"],
             account:'未绑定',
             email:'未绑定',
-            extension_code:''
+            extension_code:'',
+            psrc:require('@/assets/images/icon_error.png'),
+            esrc:require('@/assets/images/icon_error.png')
 
         }
     },
@@ -110,12 +112,13 @@ export default {
             }).then(res=>{
                 // console.log(res);
                 if(res.data.type == 'ok'){
-                    console.log(res.data.message.account_number)
-                    if(res.data.message.account_number!=null){
-                        this.account=res.data.message.account_number;
+                    if(res.data.message.phone!=null){
+                        this.account=res.data.message.phone;
+                        this.psrc=require('@/assets/images/success.png')
                     }
-                    if(res.data.message.email!='null'){
+                    if(res.data.message.email!=null){
                         this.email=res.data.message.email;
+                        this.esrc=require('@/assets/images/success.png')
                     }
                     this.extension_code=res.data.message.extension_code;
                 }
