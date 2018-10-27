@@ -142,7 +142,7 @@ export default {
       var socket_user_id = new Date().getTime()+nums;
       that.$socket.emit("login",socket_user_id);
       that.$socket.on("transaction", msg => {
-        // console.log(msg);
+        console.log(msg);
         if (msg.type == "transaction") {
         //组件间传值
         var newPrice = {
@@ -153,7 +153,10 @@ export default {
           toprice:msg.today
         }
         eventBus.$emit('toNew',newPrice);
-        that.newData = msg.last_price;
+        if(msg.token==that.currency_name+'/'+that.legal_name){
+          that.newData = msg.last_price;
+        }
+        
         var inData = JSON.parse(msg.in);
         var outData = JSON.parse(msg.out);
         if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
