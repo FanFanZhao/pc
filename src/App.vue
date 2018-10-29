@@ -21,7 +21,7 @@ export default {
                       for(var i=0;i<msg.length;i++){
                           arr_quota[i] = msg[i].quotation
                       };
-                      console.log(arr_quota[0][0].id)
+                      // console.log(arr_quota[0][0].id)
                     //    this.currency_name = msg[0].name;
                     //    this.currency_id = msg[0].id;
                     //    var id = arr_quota[0][0].id;
@@ -61,7 +61,7 @@ export default {
                       for(var i=0;i<msg.length;i++){
                           arr_quota[i] = msg[i].quotation
                       };
-                      console.log(arr_quota)
+                      // console.log(arr_quota)
                     //    this.currency_name = msg[0].name;
                     //    this.currency_id = msg[0].id;
                     //    var id = arr_quota[0][0].id;

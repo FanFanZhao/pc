@@ -418,11 +418,11 @@
 				Datafeed.Container.prototype.resolveSymbol = function(symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
 					this._logMessage("GOWNO :: resolve symbol "+ symbolName);
 					Promise.resolve().then(() => {
-						console.log(this_vue.priceScale,'12345s313123122adaslast')
+						// console.log(this_vue.priceScale,'12345s313123122adaslast')
 
 
 						// this._logMessage("GOWNO :: onResultReady inject "+'AAPL');
-						console.log(this_vue.priceScale,'123stf')
+						// console.log(this_vue.priceScale,'123stf')
 						onSymbolResolvedCallback({
 							"name": this_vue.symbol,
 							"timezone": "Asia/Shanghai",
