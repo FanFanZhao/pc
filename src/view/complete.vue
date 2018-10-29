@@ -74,7 +74,7 @@ export default {
         connect(){
             var that = this;
              that.$socket.emit("login", localStorage.getItem('user_id'));
-            that.$socket.on('deal_list',function(msg){
+             that.$socket.on('deal_list',function(msg){
                 if(msg.type == 'deal_list'){
                     var complete = JSON.parse(msg.complete);
                     // console.log(complete);
@@ -100,9 +100,9 @@ export default {
         //         that.legal_id=data0.legal_id
         //         that.complete(data0.legal_id,data0.currency_id)
         //   })
-        eventBus.$on('buyTrade', function (data) {
-            that.connect();
-        });
+        // eventBus.$on('buyTrade', function (data) {
+        //     that.connect();
+        // });
        
     }
 
