@@ -21,36 +21,7 @@
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
        
-        <!-- <div class="active-data clearfix">
-            <div class="data high">
-                <div class="name">最高价</div>
-                <div class="content">{{coinKline.hight}}</div>
-            </div>
-            <div class="data high">
-                <div class="name">最低价</div>
-                <div class="content">{{coinKline.low}}</div>
-            </div>
-             <div class="data high">
-                <div class="name">开盘价</div>
-                <div class="content">{{coinKline.open}}</div>
-            </div>
-            <div class="data high">
-                <div class="name">收盘价</div>
-                <div class="content">{{coinKline.close}}</div>
-            </div>
-            <div class="data range">
-                <div class="name">涨跌幅</div>
-                <div class="content">-{{Math.floor(((coinKline.close-coinKline.open)/coinKline.open) * 100)/100 || 0}}%</div>
-            </div>
-            <div class="data vol">
-                <div class="name">成交量</div>
-                <div class="content">{{coinKline.volume}}</div>
-            </div>
-            <div class="time">24H</div>
-        </div>
-        <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
-                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:RGBA(110, 68, 110, .7);"></span>当前价: 708.9</div>
-        </div> -->
+       
         <div class="coins-list">
           <div class="coin-tab">
             <ul class="coins">
@@ -71,13 +42,13 @@
                 <span style="color:#61688a">/{{item.name}}</span>
               </div>
               <div class="yester">
-                <span>{{li.yesterday_last_price}}</span>
+                {{li.last_price}}
               </div>
-              <div class="today">
-                <span>{{li.last_price}}</span>
+              <div class="today" :data-name='item.name+"/"+li.name'>
+                {{li.now_price}}
               </div>
               <div class="yes-toa">
-                <span>{{setPercent(li.last_price,li.yesterday_last_price)}}</span>
+                {{li.change}}%
               </div>
             </li>
           </ul>
@@ -189,30 +160,8 @@ export default {
       coinTabList: [{ title: "USDT行情" }, { title: "BTC行情" }],
       coinKlineList: [],
       coinKline: {},
-      swiperList: [
-        //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
-        //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
-        //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'BTYUSDT',price:'0.2103',mixed:'-2.09%'},
-        //   {name:'BTCUSDT',price:'6568.20',mixed:'-8.13%'},
-        //   {name:'BCCUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETHUSDT',price:'376.30',mixed:'-7.38%'},
-        //   {name:'ETCUSDT',price:'376.30',mixed:'-7.38%'},
-      ],
-      coinList: [
-        //   {ico:'icon-BTYUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-BTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-BCCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-ETHUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-ETCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-ZECUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-LTCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-DCRUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-BTSUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-        //   {ico:'icon-SCUSDT-copy',coin:'BTY/USDT',type:'比特元',cur:0.2102,price:1.42,mixed:-2.14,highest:0.2233,lowest:0.1299,volume:640227.5},
-      ],
+      swiperList: [],
+      coinList: [],
       coin_list: [
         {
           name: "BTC",
@@ -315,86 +264,79 @@ export default {
       method: "post",
       data: {}
     }).then(res => {
-        console.log(res);
-        if (res.status === 200) {
-          this.noticeList = res.data.message;
-        } else {
-          layer.msg(res.message);
-        }
-    })
-    .catch(error => {
-      console.log(error);
+      if (res.status === 200) {
+        this.noticeList = res.data.message;
+      } else {
+        layer.msg(res.message);
+      }
     });
-    //  eventBus.$on('toNew', function (data) {
-    //   console.log(data);
-    //   if(data){
-    //         var newprice=data.newprice;
-    //         var cname=data.istoken
-    //         console.log(that.currency_name) 
-    //         console.log(newprice)
-    //         $("span[data-name='"+cname+"']").html('$'+newprice);
-    //     }
-    // }); 
+
     this.connect();
-       
   },
   methods: {
-    connect() { 
-      var that=this;
-      console.log('socket')
-      that.$socket.emit("login", localStorage.getItem('user_id'));
+    connect() {
+      var that = this;
+      console.log("socket");
+      that.$socket.emit("login", localStorage.getItem("user_id"));
       that.$socket.on("transaction", msg => {
         console.log(msg);
-        var cname=msg.token;
+        var cname = msg.token;
         var yesprice = msg.yesterday;
         var toprice = msg.today;
-        console.log(cname)
-        var zf=0;
-        if((toprice-yesprice )==0){
-            zf='0%'
-        }else if(toprice==0){
-            zf='-100'
-        }else if(yesprice){
-            zf="+100%"
-        }else{
-          zf=((toprice-yesprice)/yesprice/100).toFixed(2);
-          if(zf>0){
-            zf = '+'+zf+ '%';
-          } else {
-            zf = zf+'%'
-          }
+        console.log(msg);
+        var zf = 0;
+        if (toprice == yesprice) {
+          zf = "0";
+        } else if (toprice == 0) {
+          zf = "-100";
+        } else if (yesprice == 0) {
+          zf = "100";
+        } else {
+          zf = ((toprice - yesprice) / yesprice / 100);
+          
         }
-          var zf=toprice-yesprice
-          $("li[data-name='"+cname+"']").find('.yester span').html(yesprice);
-          $("li[data-name='"+cname+"']").find('.today span').html(toprice);
-          $("li[data-name='"+cname+"']").find('.yes-toa span').html(zf);
+        if (zf >= 0) {
+          zf = "+" + Number(zf).toFixed(2) + "%";
+          $("div[data-name='" + cname + "']")
+            .next()
+            .css("color", "#55a067");
+        } else {
+          zf = zf + "%";
+          $("div[data-name='" + cname + "']")
+            .next()
+            .css("color", "#cc4951");
+        }
+        $("li div[data-name='" + cname + "']")
+          .prev()
+          .text(yesprice);
+        $("li div[data-name='" + cname + "']")
+          .html(toprice)
+          .next()
+          .html(zf);
       });
     },
-    setPercent(a,b){
-      if((a-b) == 0){
-        return '0%';
-      }
-      else if(a == 0){
-        return '-100%';
-      } else if( b == 0){
-        return '+100%';
+    setPercent(a, b) {
+      if (a - b == 0) {
+        return "0%";
+      } else if (a == 0) {
+        return "-100%";
+      } else if (b == 0) {
+        return "+100%";
       } else {
-        var p  = ((a-b)/b/100).toFixed(2);
-        if(p>0){
-          p = '+'+p+ '%';
+        var p = ((a - b) / b / 100).toFixed(2);
+        if (p > 0) {
+          p = "+" + p + "%";
         } else {
-          p = p+'%'
+          p = p + "%";
         }
         return p;
       }
-      
     },
     getQuotation() {
       this.$http({
         url: "/api/currency/quotation",
         method: "get"
       }).then(res => {
-        console.log(res.data);
         if (res.data.type == "ok" && res.data.message.length != 0) {
           this.quotation = res.data.message;
           this.nowCoin = this.quotation[0].name;
@@ -418,18 +360,7 @@ export default {
         }
       });
     },
-    initKline() {
-      this.$http.post(this.$utils.laravel_api + "historical_data").then(res => {
-        if (res.data.type == "ok") {
-          if (res.data.message.day.length > 0) {
-            this.coinKline = res.data.message.day[0].data;
-            this.coinKlineList = res.data.message.day;
-          }
-          console.log(res.data.message.day[0].data);
-          console.log(res.data.message.day);
-        }
-      });
-    },
+
     timestampToTime(timestamp) {
       var date = new Date(timestamp);
       let Y = date.getFullYear() + "/";
@@ -439,115 +370,7 @@ export default {
           : date.getMonth() + 1) + "/";
       let D = date.getDate() + " ";
       return Y + M + D;
-    },
-
-    // setChart() {
-    //   var myChart = echarts.init(document.getElementById("chart"));
-    //   var that = this;
-    //   // 指定图表的配置项和数据
-    //   var base = 2;
-    //   var date = [];
-    //   var data = [1, 2, 4, 5, 6, 7, 8];
-    //   var now = new Date();
-    //   console.log(that.coinKlineList);
-    //   for (var i in that.coinKlineList) {
-    //     let temp = that.timestampToTime(that.coinKlineList[i].timestamp);
-    //     console.log(temp);
-    //     date.push(temp);
-    //   }
-    //   console.log(date);
-    //   var option = {
-    //     textStyle: {
-    //       color: "#818283"
-    //     },
-    //     backgroundColor: "#161923",
-    //     tooltip: {
-    //       trigger: "axis",
-    //       axisPointer: {
-    //         type: "cross",
-    //         label: {
-    //           backgroundColor: "#6a7985"
-    //         }
-    //       }
-    //     },
-    //     title: {
-    //       left: "center",
-    //       text: "24小时数据图"
-    //     },
-    //     grid: {
-    //       left: "3%",
-    //       right: "3%",
-    //       bottom: "5%",
-    //       containLabel: true
-    //     },
-    //     toolbox: {
-    //       feature: {
-    //         // dataZoom: {
-    //         //     yAxisIndex: 'none'
-    //         // },
-    //         // restore: {},
-    //         saveAsImage: {}
-    //       }
-    //     },
-    //     xAxis: {
-    //       type: "category",
-    //       boundaryGap: false,
-    //       data: date,
-    //       color: ["#ff9232"]
-    //     },
-
-    //     yAxis: {
-    //       type: "value",
-    //       yaxisLabel: {
-    //         backgroundColor: "#fff"
-    //       }
-    //     },
-    //     series: [
-    //       {
-    //         name: "当前价格",
-    //         type: "line",
-    //         smooth: true,
-    //         symbol: "none",
-    //         sampling: "average",
-    //         itemStyle: {
-    //           normal: {
-    //             // 6e446e
-    //             color: "#6e446e"
-    //           }
-    //         },
-    //         areaStyle: {
-    //           normal: {
-    //             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-    //               {
-    //                 offset: 0,
-    //                 color: "#6e446e"
-    //               },
-    //               {
-    //                 offset: 1,
-    //                 color: "#1e1e2a"
-    //               }
-    //             ])
-    //           }
-    //         },
-
-    //         data: data
-    //       }
-    //     ]
-    //   };
-
-    //   // 使用刚指定的配置项和数据显示图表。
-    //   myChart.setOption(option);
-    // },
-    // go_detail(index,inde){
-    //   this.$router.push({
-    //     path:'/dealCenter',
-    //     name:'dealCenter',
-    //     params:{
-    //       legal_index:index,
-    //       currency_index:inde
-    //     }
-    //   })
-    // }
+    }
   }
 };
 </script>
@@ -651,35 +474,35 @@ export default {
   line-height: 2em;
 }
 .feature_wrap h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    color: #192544
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #192544;
 }
 .feature_wrap .feature_list {
-    padding-top: 80px;
-    width: 70%;
-    margin: 0 auto;
+  padding-top: 80px;
+  width: 70%;
+  margin: 0 auto;
 }
 .feature_wrap .feature_list li {
-    float: left;
-    width: 33%;
-    background: transparent none no-repeat top;
-    padding-top: 218px;
+  float: left;
+  width: 33%;
+  background: transparent none no-repeat top;
+  padding-top: 218px;
 }
 .feature_wrap .feature_list li.feature_safe {
-    background-image: url(../../static/imgs/feature_safe.8e76904.svg);
+  background-image: url(../../static/imgs/feature_safe.8e76904.svg);
 }
 .feature_wrap .feature_list li.feature_eco {
-    background-image: url(../../static/imgs/feature_eco.4f174e6.svg);
+  background-image: url(../../static/imgs/feature_eco.4f174e6.svg);
 }
 .feature_wrap .feature_list li.feature_user {
-    background-image: url(../../static/imgs/feature_user.7002f27.svg);
+  background-image: url(../../static/imgs/feature_user.7002f27.svg);
 }
 .feature_wrap h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #192544
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #192544;
 }
 </style>
 
