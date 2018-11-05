@@ -12,7 +12,7 @@
           </div>
           <div>
               <p class="ft12 msg_title">折合（CNY）</p>
-              <p>{{ustd_price}}</p>
+              <p>{{legal_balance*6.5}}</p>
           </div>
         </div>
         <div class="rec_wrap">
