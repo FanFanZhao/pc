@@ -626,7 +626,7 @@ export default {
         this.price = "";
         this.num = "";
         this.user_name = "";
-        this.pay = "";
+        
         this.content = "";
         this.listIn = { page: 1, list: [], hasMore: true };
         this.getList(0);
@@ -653,11 +653,11 @@ export default {
         .then(res => {
           //console.log(res);
           layer.msg(res.data.message);
-          this.price = "";
-          this.num = "";
-          this.user_name = "";
-          this.pay = "";
-          this.content = "";
+          this.price01 = "";
+          this.num01 = "";
+          this.user_name01 = "";
+          
+          this.content01 = "";
           this.listOut = { page: 1, list: [], hasMore: true };
           this.getList(1);
           this.myAdd = { hasMore: true, list: [], page: 1 };
