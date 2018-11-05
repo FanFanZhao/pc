@@ -12,7 +12,7 @@
           </div>
           <div>
               <p class="ft12 msg_title">折合（CNY）</p>
-              <p>{{legal_balance*6.5}}</p>
+              <p>{{(legal_balance - 0 + (lock_legal_balance-0))*ustd_price*exRate}}</p>
           </div>
         </div>
         <div class="rec_wrap">
@@ -40,7 +40,8 @@ export default {
            legal_name:'',
            legal_balance:'',
            lock_legal_balance:'',
-           ustd_price:''
+           ustd_price:'',
+           exRate:''
         }
     },
     created(){
@@ -68,6 +69,7 @@ export default {
                             that.legal_balance = msg.legal_balance;
                             that.lock_legal_balance = msg.lock_legal_balance;
                             that.ustd_price = msg.ustd_price;
+                            that.exRate = msg.ExRate||6.5;
                         }else{
                             // layer.msg(res.message);
                         }
