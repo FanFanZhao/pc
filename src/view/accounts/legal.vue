@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="top">
-            <p>法币账户  总资产折合：{{totle}}（CNY）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle/6.5}}</span> USDT</span></p>
+            <p>法币账户  总资产折合：{{totle}}（USDT）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle*6.5}}</span> CNY</span></p>
         </div>
         <ul class="list">
             <li v-for="(item,index) in list" :key="index" @click="go_legalAccount(item.currency)">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="convert flex1">
                        <p class="ft12 mincny">折合</p>
-                       <p class="lock_balance_num">{{item.ustd_price}}（CNY）</p>
+                       <p class="lock_balance_num">6.5（CNY）</p>
                     </div>
                 </div>
             </li>

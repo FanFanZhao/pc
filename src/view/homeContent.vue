@@ -47,7 +47,7 @@
               <div class="today" :data-name='item.name+"/"+li.name'>
                 {{li.now_price}}
               </div>
-              <div class="yes-toa">
+              <div class="yes-toa" :class="li.change<0?'down-clr':'up-clr'">
                 {{li.change}}%
               </div>
             </li>
@@ -276,27 +276,36 @@ export default {
   methods: {
     connect() {
       var that = this;
-      console.log("socket");
+      //console.log("socket");
       that.$socket.emit("login", localStorage.getItem("user_id"));
       that.$socket.on("transaction", msg => {
-        console.log(msg);
         var cname = msg.token;
         var yesprice = msg.yesterday;
         var toprice = msg.today;
-        console.log(msg);
+        // //console.log(msg);
         var zf = 0;
         if (toprice == yesprice) {
-          zf = "0";
-        } else if (toprice == 0) {
-          zf = "-100";
+          zf = 0;
         } else if (yesprice == 0) {
-          zf = "100";
+          zf = 100;
         } else {
-          zf = ((toprice - yesprice) / yesprice / 100);
-          
+          zf = (((toprice - yesprice) / yesprice) * 100).toFixed(4);
         }
+        // var zf = 0;
+        // if (toprice == yesprice) {
+        //   zf = "0";
+        // } else if (toprice == 0) {
+        //   zf = "-100";
+        // } else if (yesprice == 0) {
+        //   zf = "100";
+        // } else {
+        //   zf = ((toprice - yesprice) / yesprice / 100);
+
+        // }
+        //console.log(toprice,yesprice,zf);
+        
         if (zf >= 0) {
-          zf = "+" + Number(zf).toFixed(2) + "%";
+          zf = "+" +zf + "%";
           $("div[data-name='" + cname + "']")
             .next()
             .css("color", "#55a067");
@@ -375,6 +384,12 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.up-clr{
+  color: #55a067;
+}
+.down-clr{
+  color: #cc4951;
+}
 /* 币种列表 */
 .coins-list {
   margin: 10px 50px;
