@@ -20,6 +20,12 @@
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
+        <div class="noticeList">
+          <ul class="flex notice_ul">
+            <li v-for="(item,index) in noticeLists" @click="goDetail(item.id)">{{item.title}}</li>
+          </ul>
+         
+        </div>
        
        
         <div class="coins-list">
@@ -162,73 +168,15 @@ export default {
       coinKline: {},
       swiperList: [],
       coinList: [],
-      coin_list: [
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        },
-        {
-          name: "BTC",
-          min_price: "0.0000000",
-          max_price: "0.000000",
-          new_price: "0.000000"
-        }
-      ],
+      coin_list: [],
       noticeList: [
         { text: "2KEX交易所测试上线。。。", url: "" },
         { text: "2KEX交易所测试上线。。。", url: "" },
         { text: "2KEX交易所测试上线。。。", url: "" },
         { text: "2KEX交易所测试上线。。。", url: "" }
+      ],
+       noticeLists: [
+       
       ]
     };
   },
@@ -272,6 +220,7 @@ export default {
     });
 
     this.connect();
+    this.getNews();
   },
   methods: {
     connect() {
@@ -379,6 +328,28 @@ export default {
           : date.getMonth() + 1) + "/";
       let D = date.getDate() + " ";
       return Y + M + D;
+    },
+    // 公告
+    getNews() {
+      var that =this;
+      this.$http({
+        url: "/api/news/list",
+        method: "post",
+        data:{},
+      }).then(res => {
+        console.log(res)
+        if (res.data.type == "ok") {
+          that.noticeLists=res.data.message.list
+        }
+      });
+    },
+    // 公告详情
+    goDetail(id) {
+      var id = id;
+      this.$router.push({
+        name: "noticeDetail",
+        query: { id: id }
+      });
     }
   }
 };
@@ -461,23 +432,32 @@ export default {
   height: 500px;
 }
 .notice_ul {
-  padding: 25px 0;
-  background: #161923;
-  margin-bottom: 5px;
+  margin: 0 40px;
+  padding: 5px 0;
+  background: #262a42;
+  overflow: hidden;
+  word-break: keep-all;
 }
-.notice_li {
-  flex: 1;
+.notice_ul>li {
+  // flex: 1;
+  font-size: 12px;
+  padding: 0 15px;
   text-align: center;
+  color: #9eb5ca;
+  word-break: keep-all;
+  position: relative;
 }
-.notice_li::after {
+.notice_ul>li::after {
   content: "/";
-  float: right;
+  position: absolute;
+  left: -.5em;
+  color: #9eb5ca;
 }
-.notice_li:last-child:after {
+.notice_ul>li:last-child:after {
   content: "";
   color: #6b80ae;
 }
-.notice_a:hover {
+.notice_ul>li:hover {
   color: #6b80ae;
   cursor: pointer;
 }
