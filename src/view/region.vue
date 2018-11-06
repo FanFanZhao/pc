@@ -117,9 +117,9 @@ export default {
                     float: left;
                     height: 30px
                 }
-                span:nth-child(3){
-                    color:#cc4951;
-                }
+                // span:nth-child(3){
+                //     color:#cc4951;
+                // }
                 span.green{
                     color: #55a067;
                 }
