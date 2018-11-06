@@ -40,7 +40,7 @@
                 <p  class="fl">{{email}} </p>
                 <span  class="fr base ml25 mouseDefault"></span>
                 <span  class="fr base mouseDefault"></span>
-                <router-link class="fr" to="/bindEmail" v-if="email">{{email == ''?'去绑定':'修改'}}</router-link>
+                <router-link class="fr base" to="/bindEmail" v-if="email">{{email == ''?'去绑定':'已绑定'}}</router-link>
             </li>
             <li ><img  src="@/assets/images/success.png">
                 <span  class="ml20">登录密码</span>

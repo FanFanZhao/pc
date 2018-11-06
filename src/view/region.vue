@@ -10,7 +10,7 @@
         <div class="content">
             <div class="container">
                 <ul class="list-title fColor2 ft12 clear ">
-                    <li class="fl w30">昵称</li>
+                    <li class="fl w30">地区</li>
                     <li class="fl w30">联系方式</li>
                     <li class="fl w30 tc">时间</li>
                     <!-- <li class="fl w12">充值费率</li> -->
@@ -20,7 +20,7 @@
                 </ul>
                 <ul class="list-item fColor1 ft12 ">
                     <li v-for="item in aceiteList" class="clear">
-                        <span class="fl w30">{{item.account_number}}</span>
+                        <span class="fl w30">{{item.city_name}} {{item.district_name}}</span>
                         <span class="fl w30">{{item.phone}}</span>
                         <span class="fl w30 tc">{{item.time}}</span>
                         <!-- <span class="fl w12">{{item.time}}</span> -->
