@@ -75,10 +75,10 @@ export default {
             var that = this;
              that.$socket.emit("login", localStorage.getItem('user_id'));
              that.$socket.on('deal_list',function(msg){
-                 console.log(msg)
+                //  console.log(msg)
                 if(msg.type == 'deal_list'){
                     var complete = JSON.parse(msg.complete);
-                    console.log(complete);
+                    // console.log(complete);
                     // if(complete[0].currency_name==that.currency_name&&complete[0].legal_name==that.legal_name){
                       that.deList = complete;
                     // }

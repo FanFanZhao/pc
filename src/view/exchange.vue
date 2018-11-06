@@ -142,7 +142,7 @@ export default {
       var socket_user_id = new Date().getTime()+nums;
       that.$socket.emit("login",socket_user_id);
       that.$socket.on("transaction", msg => {
-        console.log(msg);
+        // console.log(msg);
         if (msg.type == "transaction") {
         //组件间传值
         var newPrice = {
