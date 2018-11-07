@@ -542,7 +542,7 @@
 					areadown: "rgba(122, 152, 247, .02)"
 				};
 				return{
-					'volumePaneSize': "large", //large, medium, small, tiny
+					'volumePaneSize': "medium", //large, medium, small, tiny
 					'paneProperties.topMargin':'20',
 					"scalesProperties.lineColor": style.text,
 					"scalesProperties.textColor": style.text,
