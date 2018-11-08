@@ -200,6 +200,8 @@
                 <div class="ul-box" v-if="nowList == 'listIn'">
                     <ul class="ul-out" v-if="showList&&listOut.list.length">
                         <li v-for="(item,index) in listOut.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
+                          <div class="content flex">
+
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
                             <div>{{item.surplus_number}} {{item.token}}</div>
@@ -213,6 +215,7 @@
                                 <div class="detailit">详情</div>
                                 <div class="btn-last" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'buy',total:item.surplus_number,num:''}">买入</div>
                             </div>
+                          </div>
                         </li>
                         <!-- <li class="flex">
                             
@@ -222,6 +225,8 @@
                     <!-- <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div> -->
                     <ul class="ul-in" v-if="showList&&listIn.list.length">
                         <li v-for="(item,index) in listIn.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
+                          <div class="content flex">
+
                             <div>买入</div>
                             <div>{{item.price}}</div>
                             <div>{{item.surplus_number}} {{item.token}}</div>
@@ -235,6 +240,7 @@
                                 <div class="detailit">详情</div>
                                 <div v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'sell',total:item.surplus_number,num:''}" class="btn-last">卖出</div>
                             </div>
+                          </div>
                         </li>
                         
                     </ul>
@@ -242,8 +248,9 @@
 
                 </div>
                 <div class="ul-box" v-if="nowList == 'myAdd'">
-                    <ul class="ul-out" v-if="showList&&myAdd.list.length">
-                        <li v-for="(item,index) in myAdd.list" :key="index" class="flex" @click="getDetail(item.id,'myC2c',$event)">
+                    <ul class=" my-add" v-if="showList&&myAdd.list.length">
+                        <li v-for="(item,index) in myAdd.list" :key="index" class="" @click="getDetail(item.id,'myC2c',$event)">
+                          <div class="content flex">
                             <div style="color:#25796a" v-if="item.type_name=='卖出'">卖出</div>
                             <div style="color:#7a98f7" v-if="item.type_name=='买入'">买入</div>
                             <div>{{item.price}}</div>
@@ -257,12 +264,23 @@
                             <div class="last ">
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #7a98f7;">取消交易</div> -->
                                 <div class="detailit">详情</div>
+                                <span class="showtrade" @click="switchTrade(index)">交易列表</span>
                                 <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
                                 <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div> -->
                                 <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div> -->
                                 <span class="btn-last" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                                 <span class="btn-last" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
                             </div>
+                          </div>
+                          <div class="trade-list" v-if="showTradeList.show&&showTradeList.index == index">
+                            <p class="flex">
+                              <span>交易人</span>
+                              <span>数量</span>
+                              <span>价格</span>
+                              <span>状态</span>
+                              <span>操作</span>
+                            </p>
+                          </div>
                         </li>
                         <!-- <li class="flex">
                             
@@ -275,6 +293,8 @@
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
                         <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" @click="getDetail(item.id,'trade',$event)">
+                          <div class="content flex">
+
                             <div style="color:#25796a" v-if="item.type_name=='卖出'">卖出</div>
                             <div style="color:#7a98f7" v-if="item.type_name=='买入'">买入</div>
                             <div>{{item.price}}</div>
@@ -288,12 +308,13 @@
                             
                             <div class="last">
                                 <div class="detailit">详情</div>
-                                <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
+                                <div class="btn-last" @click="cancelComplete('complete',item.c2c_id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
                                 <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
                                 <span class="btn-last" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
                                 <span class="btn-last" v-if="item.status_name == '已取消'">{{item.status_name}}</span>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                             </div>
+                          </div>
                         </li>
                         <!-- <li class="flex">
                             
@@ -333,9 +354,10 @@
                         <div>
                             <span>买家姓名：</span><span>{{detail.c2c.name}}</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="myC2cDetail" v-if="detail.type=='myC2c'">
-                        <div>
+                      
+                        <!-- <div>
                             <span>我的账号：</span><span>{{detail.user_info.phone}}</span>
                         </div>
                         <div>
@@ -349,9 +371,9 @@
                         </div>
                         <div>
                             <span>详  情：</span><span>{{detail.c2c.content}}</span>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="trade-detail" v-if="detail.type=='trade'">
+                    <!-- <div class="trade-detail" v-if="detail.type=='trade'">
                         <div>
                             <span>我的账号：</span>{{detail.transaction_user.phone}}<span></span>
                         </div>
@@ -382,13 +404,9 @@
                         <div>
                             <span>支付宝 ：</span><span>{{detail.account_info.alipay_account}}</span>
                         </div>
-                    </div>
-                    <div class="num">
-                        <span>数  量：</span><span>{{detail.c2c.number}}</span>
                     </div> -->
-                    <!-- <div class="pay">
-                        <span>支付方式：</span><span>{{detail.c2c.pay_mode}}</span>
-                    </div> -->
+                    
+                    
                 </div>
                 
             </div>
@@ -432,7 +450,8 @@ export default {
         type: "",
         num: ""
       },
-      buySellNum: ""
+      buySellNum: "",
+      showTradeList:{show:false,index:'none'}
     };
   },
   created() {
@@ -574,6 +593,7 @@ export default {
     getMy(type) {
       let t = "";
       t = type == "myAdd" ? "my_add" : "my_transaction";
+      this.showTradeList = {show:false,index:'none'}
       let i = layer.load();
       this.$http({
         url: "/api/c2c/" + t + "?page=" + this[type].page,
@@ -594,6 +614,23 @@ export default {
           }
         }
       });
+    },
+    /* 显示交易列表 */
+    switchTrade(index){
+      if(this.showTradeList.show == false){
+        this.showTradeList.show = true;
+        this.showTradeList.index = index;
+
+      } else {
+        if(index == this.showTradeList.index){
+          this.showTradeList.show = false;
+          return
+        } else {
+          this.showTradeList.index = index;
+        }
+      }
+      console.log(this.showTradeList);
+      
     },
     cancelComplete(type, id, index) {
       // this.showDetail = false;
@@ -619,7 +656,7 @@ export default {
       });
     },
     getDetail(id, type, e) {
-      if (e.target.className == "btn-last") {
+      if (e.target.className != "detailit") {
         return;
       }
 
@@ -1019,7 +1056,8 @@ export default {
         font-weight: 600;
       }
       .list-title,
-      ul li {
+      ul li .content {
+        width: 100%;
         color: #c7cce6;
         justify-content: space-between;
         cursor: pointer;
@@ -1061,8 +1099,20 @@ export default {
           }
         }
       }
-
-      .ul-out li {
+      ul li .trade-list{
+        background: #262a42;
+        width: 100%;
+        padding: 5px 100px;
+        margin: 0 auto;
+        p{
+          justify-content: space-between;
+          font-weight: 600;
+          // font-size: 20px;
+          // font-size: 16px;
+          line-height: 36px;
+        }
+      }
+      .ul-out li .content {
         > div:first-child {
           color: #25796a;
         }
@@ -1071,7 +1121,7 @@ export default {
           background: #25796a;
         }
       }
-      .ul-in li {
+      .ul-in li .content {
         > div:first-child {
           color: #7a98f7;
         }
@@ -1084,7 +1134,7 @@ export default {
   }
 }
 
-.detailit {
+.detailit,.showtrade {
   // float: right;
   margin-right: 20px;
   padding: 0 10px;
