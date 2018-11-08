@@ -163,7 +163,16 @@
                 </div>
             </div>
             <div class="bot">
-                
+                <div class="buy-sell-box" v-if="showTradeBox">
+                  <div>
+                    <div class="close" @click="showTradeBox = false">x</div>
+                  <div class="title">请输入{{tradeParams.type == 'buy'?'买入':'卖出'}}数量</div>
+                    <div class="total">最多可{{tradeParams.type == 'buy'?'买入':'卖出'}}{{tradeParams.total}}</div>
+                  <input type="number" v-model="tradeParams.num">
+                  <div class="btn" @click="buySell">{{tradeParams.type == 'buy'?'买入':'卖出'}}</div>
+                  </div>
+                  <!-- <div>卖出</div> -->
+                </div>
                 <div class="bot-title flex">
                     <div>
                         <span @click="nowList ='listIn';reloadC2c()" :class="{'active':nowList == 'listIn'}">c2c</span>
@@ -193,8 +202,8 @@
                         <li v-for="(item,index) in listOut.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
                             <div style="color:#25796a">卖出</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}} {{item.token}}</div>
-                            <div>{{(item.number*item.price-0).toFixed(2)}}</div>
+                            <div>{{item.surplus_number}} {{item.token}}</div>
+                            <div>{{(item.surplus_number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
@@ -202,7 +211,7 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
                                 <div class="detailit">详情</div>
-                                <div class="btn-last" @click="buySell(item.id,'buy')">买入</div>
+                                <div class="btn-last" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'buy',total:item.surplus_number,num:''}">买入</div>
                             </div>
                         </li>
                         <!-- <li class="flex">
@@ -215,8 +224,8 @@
                         <li v-for="(item,index) in listIn.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
                             <div>买入</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}} {{item.token}}</div>
-                            <div>{{(item.number*item.price-0).toFixed(2)}}</div>
+                            <div>{{item.surplus_number}} {{item.token}}</div>
+                            <div>{{(item.surplus_number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
@@ -224,7 +233,7 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
                                 <div class="detailit">详情</div>
-                                <div v-if="item.status_name == '等待中'" @click="buySell(item.id,'sell')" class="btn-last">卖出</div>
+                                <div v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'sell',total:item.surplus_number,num:''}" class="btn-last">卖出</div>
                             </div>
                         </li>
                         
@@ -235,21 +244,22 @@
                 <div class="ul-box" v-if="nowList == 'myAdd'">
                     <ul class="ul-out" v-if="showList&&myAdd.list.length">
                         <li v-for="(item,index) in myAdd.list" :key="index" class="flex" @click="getDetail(item.id,'myC2c',$event)">
-                            <div style="color:#25796a">卖出</div>
+                            <div style="color:#25796a" v-if="item.type_name=='卖出'">卖出</div>
+                            <div style="color:#7a98f7" v-if="item.type_name=='买入'">买入</div>
                             <div>{{item.price}}</div>
-                            <div>{{item.number}} {{item.token}}</div>
-                            <div>{{(item.number*item.price-0).toFixed(2)}}</div>
+                            <div>{{item.surplus_number}} {{item.token}}</div>
+                            <div>{{(item.surplus_number*item.price-0).toFixed(2)}}</div>
                             <!-- <div></div> -->
                             <div>{{item.name}}</div>
                             <!-- <div></div> -->
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
-                            <div class="last">
+                            <div class="last ">
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #7a98f7;">取消交易</div> -->
                                 <div class="detailit">详情</div>
                                 <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
-                                <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div>
-                                <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div>
+                                <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div> -->
+                                <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div> -->
                                 <span class="btn-last" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
                                 <span class="btn-last" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
                             </div>
@@ -265,7 +275,8 @@
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
                         <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" @click="getDetail(item.id,'trade',$event)">
-                            <div style="color:#25796a">{{item.type_name}}</div>
+                            <div style="color:#25796a" v-if="item.type_name=='卖出'">卖出</div>
+                            <div style="color:#7a98f7" v-if="item.type_name=='买入'">买入</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -275,7 +286,7 @@
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
                             
-                            <div class="last flex">
+                            <div class="last">
                                 <div class="detailit">详情</div>
                                 <div class="btn-last" @click="cancelComplete('complete',item.id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
                                 <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
@@ -306,10 +317,16 @@
                 </div>
                 <div class="list">
                     <div class="create-date">
-                        <span>创建时间：</span><span>{{detail['c2c']['create_date']}}</span>
+                        <span>创建时间：</span><span>{{detail.create_date}}</span>
+                    </div>
+                    <div class="create-date">
+                        <span>价格：</span><span>{{detail.price}}</span>
+                    </div>
+                    <div class="create-date">
+                        <span>支付方式：</span><span>{{detail.payMode}}</span>
                     </div>
                     
-                    <div class="c2c-detail" v-if="detail.type=='c2c'">
+                    <!-- <div class="c2c-detail" v-if="detail.type=='c2c'">
                         <div>
                             <span>买家账号：</span><span>{{detail.user_info.phone}}</span>
                         </div>
@@ -368,10 +385,10 @@
                     </div>
                     <div class="num">
                         <span>数  量：</span><span>{{detail.c2c.number}}</span>
-                    </div>
-                    <div class="pay">
+                    </div> -->
+                    <!-- <div class="pay">
                         <span>支付方式：</span><span>{{detail.c2c.pay_mode}}</span>
-                    </div>
+                    </div> -->
                 </div>
                 
             </div>
@@ -407,7 +424,15 @@ export default {
       currency_name: "",
       showList: true,
       showDetail: false,
-      detail: {} //li详情
+      detail: {}, //li详情,
+      showTradeBox: false,
+      tradeParams: {
+        id: "",
+        total: "",
+        type: "",
+        num: ""
+      },
+      buySellNum: ""
     };
   },
   created() {
@@ -419,7 +444,7 @@ export default {
     this.getList(1);
     this.getList(0);
     this.getMy("myAdd");
-    this.getMy("myBuySell");
+    // this.getMy("myBuySell");
   },
   methods: {
     reloadC2c() {
@@ -428,13 +453,13 @@ export default {
       this.getList(1);
       this.getList(0);
     },
-    reloadMyAdd(){
-       this.myAdd= { page: 1, list: [], hasMore: true };
-       this.getMy('myAdd')
+    reloadMyAdd() {
+      this.myAdd = { page: 1, list: [], hasMore: true };
+      this.getMy("myAdd");
     },
-    reloadMyBuySell(){
-        this.myBuySell= { page: 1, list: [], hasMore: true };
-        this.getMy('myBuySell')
+    reloadMyBuySell() {
+      this.myBuySell = { page: 1, list: [], hasMore: true };
+      this.getMy("myBuySell");
     },
     // 获取币种列表
     get_currency() {
@@ -462,7 +487,7 @@ export default {
       let page = 1;
       page = type == 1 ? this.listOut.page : this.listIn.page;
       ////console.log(type);
-      let i =layer.load();
+      let i = layer.load();
       this.$http({
         url: "/api/c2c/list?type=" + type + "&page=" + page,
 
@@ -471,7 +496,7 @@ export default {
       }).then(res => {
         layer.close(i);
         if (res.data.type == "ok") {
-          let list = res.data.message.list;
+          let list = res.data.message;
           ////console.log(list);
 
           if (list.length != 0) {
@@ -502,21 +527,37 @@ export default {
       });
     },
     // c2c列表买入卖出
-    buySell(id, type) {
+    buySell() {
+      if (this.tradeParams.num == "") {
+        return;
+      } else if ((this.tradeParams.num-0) > (this.tradeParams.total-0)) {
+        layer.msg("数量不能大于" + this.tradeParams.total);
+        return;
+      }
+      console.log(this.tradeParams);
+      
       let i = layer.load();
       // this.showDetail  = false;
+      let data = {};
+      let type = this.tradeParams.type;
+      data.buynumber = this.tradeParams.num;
+      
+      data.id = this.tradeParams.id;
+      data.number = this.tradeParams.total;
+      var index = this.tradeParams.index;
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
-        data: { id: id },
+        data: data,
         headers: { Authorization: this.token }
       }).then(res => {
         layer.close(i);
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           if (type == "buy") {
+            // this.listOut.list[index].total_number -= this.tradeParams.num;
             this.listOut = { hasMore: true, list: [], page: 1 };
-            this, getList(1);
+            this.getList(1);
           } else {
             this.listIn = { hasMore: true, list: [], page: 1 };
             this.getList(0);
@@ -525,6 +566,9 @@ export default {
           this.getMy("myBuySell"); //更新我交易的c2c
           //   //console.log(res.data);
         }
+        if (res.data.type == "error") {
+        }
+        this.showTradeBox = false;
       });
     },
     getMy(type) {
@@ -586,16 +630,21 @@ export default {
         console.log(res);
 
         if (res.data.type == "ok") {
+          let msg = res.data.message;
+          this.detail.create_date = msg.create_date || '';
+          this.detail.content = msg.content || '';
+          this.detail.price = msg.price || '';
+          this.detail.payMode = msg.pay_mode || '';
           //console.log(res.data.message);
-          this.detail.c2c = res.data.message.c2c;
-          this.detail.account_info = res.data.message.account_info;
-          this.detail.user_info = res.data.message.user_info;
-          this.detail.type = type;
-          if (res.data.message.transaction_user) {
-            this.detail.transaction_user = res.data.message.transaction_user;
-          }
+          // this.detail.c2c = res.data.message.c2c;
+          // this.detail.account_info = res.data.message.account_info;
+          // this.detail.user_info = res.data.message.user_info;
+          // this.detail.type = type;
+          // if (res.data.message.transaction_user) {
+          //   this.detail.transaction_user = res.data.message.transaction_user;
+          // }
           console.log(this.detail);
-          this.showDetail = true;
+          this.showDetail = true; 
         }
       });
     },
@@ -623,11 +672,11 @@ export default {
       }).then(res => {
         //console.log(res);
         layer.msg(res.data.message);
-        this.price = "";
-        this.num = "";
-        this.user_name = "";
-        
-        this.content = "";
+        // this.price = "";
+        // this.num = "";
+        // this.user_name = "";
+
+        // this.content = "";
         this.listIn = { page: 1, list: [], hasMore: true };
         this.getList(0);
         this.myAdd = { hasMore: true, list: [], page: 1 };
@@ -653,11 +702,11 @@ export default {
         .then(res => {
           //console.log(res);
           layer.msg(res.data.message);
-          this.price01 = "";
-          this.num01 = "";
-          this.user_name01 = "";
-          
-          this.content01 = "";
+          // this.price01 = "";
+          // this.num01 = "";
+          // this.user_name01 = "";
+
+          // this.content01 = "";
           this.listOut = { page: 1, list: [], hasMore: true };
           this.getList(1);
           this.myAdd = { hasMore: true, list: [], page: 1 };
@@ -674,6 +723,58 @@ export default {
 <style lang='scss'>
 #c2c-box {
   margin: 10px 0 10px;
+  .buy-sell-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    > div {
+      position: relative;
+      margin: 200px auto;
+      width: 300px;
+      height: 200px;
+      top: 50px;
+
+      padding: 0 30px;
+
+      background: #262a42;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      .title {
+        line-height: 50px;
+        font-size: 20px;
+        color: #6b80ae;
+      }
+      .close {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .total {
+        line-height: 35px;
+      }
+      input {
+        line-height: 35px;
+        width: 240px;
+        padding: 0 20px;
+      }
+      .btn {
+        margin: 20px auto 0;
+        border-radius: 2px;
+        padding: 0 20px;
+        line-height: 35px;
+        background: #7a98f7;
+        cursor: pointer;
+      }
+    }
+  }
+
   .redColor {
     color: #7a98f7;
   }
@@ -935,13 +1036,20 @@ export default {
           text-align: left;
         }
         > div:nth-child(n + 2) {
-          width: 15.38%;
+          width: 11.38%;
+        }
+        >div:last-child{
+          width: 19%;
         }
         > .last {
           text-align: right;
-          .btn-last {
+          height: 24px;
+          >div,>span{
             float: right;
             margin: 0 5px;
+          }
+          .btn-last {
+            
             padding: 0 10px;
             min-width: 55px;
             max-width: 80px;
@@ -977,7 +1085,7 @@ export default {
 }
 
 .detailit {
-  float: right;
+  // float: right;
   margin-right: 20px;
   padding: 0 10px;
   min-width: 55px;
