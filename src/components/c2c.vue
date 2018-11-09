@@ -199,7 +199,7 @@
                 </div>
                 <div class="ul-box" v-if="nowList == 'listIn'">
                     <ul class="ul-out" v-if="showList&&listOut.list.length">
-                        <li v-for="(item,index) in listOut.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
+                        <li v-for="(item,index) in listOut.list" :key="index" class="flex" >
                           <div class="content flex">
 
                             <div style="color:#25796a">卖出</div>
@@ -212,8 +212,8 @@
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
-                                <div class="detailit">详情</div>
-                                <div class="btn-last" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'buy',total:item.surplus_number,num:''}">买入</div>
+                                <div class="detailit" @click="getDetail(item.id,'c2c',$event)">详情</div>
+                                <div class="btn-last" v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'buy',total:item.surplus_number,num:''}">买入</div>
                             </div>
                           </div>
                         </li>
@@ -224,7 +224,7 @@
                     </ul>
                     <!-- <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div> -->
                     <ul class="ul-in" v-if="showList&&listIn.list.length">
-                        <li v-for="(item,index) in listIn.list" :key="index" class="flex" @click="getDetail(item.id,'c2c',$event)">
+                        <li v-for="(item,index) in listIn.list" :key="index" class="flex" >
                           <div class="content flex">
 
                             <div>买入</div>
@@ -237,7 +237,7 @@
                             <!-- <div></div> -->
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
-                                <div class="detailit">详情</div>
+                                <div class="detailit" @click="getDetail(item.id,'c2c',$event)">详情</div>
                                 <div v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'sell',total:item.surplus_number,num:''}" class="btn-last">卖出</div>
                             </div>
                           </div>
@@ -249,7 +249,7 @@
                 </div>
                 <div class="ul-box" v-if="nowList == 'myAdd'">
                     <ul class=" my-add" v-if="showList&&myAdd.list.length">
-                        <li v-for="(item,index) in myAdd.list" :key="index" class="" @click="getDetail(item.id,'myC2c',$event)">
+                        <li v-for="(item,index) in myAdd.list" :key="index" class="">
                           <div class="content flex">
                             <div style="color:#25796a" v-if="item.type_name=='卖出'">卖出</div>
                             <div style="color:#7a98f7" v-if="item.type_name=='买入'">买入</div>
@@ -263,23 +263,45 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last ">
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel_transaction',item.id)" v-if="item.status_name == '已成功'" style="margin-right:10px;background: #7a98f7;">取消交易</div> -->
-                                <div class="detailit">详情</div>
-                                <span class="showtrade" @click="switchTrade(index)">交易列表</span>
-                                <div v-if="item.status_name == '等待中'" class="btn-last" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
+                                <!-- <div class="detailit" @click="getDetail(item.id,'myC2c',$event)">详情</div> -->
+                                <span class="showtrade" @click="switchTrade(index)" v-if="item.detail.length">交易列表</span>
+                                <div v-if="item.status != 3" class="btn-last btn-green" @click="cancelComplete('cancel',item.id,index)">取消发布</div>
                                 <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('cancel_transaction',item.id,index)">取消交易</div> -->
                                 <!-- <div v-if="item.status_name == '交易中'" class="btn-last" @click="cancelComplete('complete',item.id,index)">确认收款</div> -->
-                                <span class="btn-last" v-if="item.status_name == '已成功' ">{{item.status_name}}</span>
-                                <span class="btn-last" v-if="item.status_name == '已取消' ">{{item.status_name}}</span>
+                                <span class="btn-last btn-green" v-else>{{item.status_name}}</span>
+                                <!-- <span class="btn-last" v-if="item.status_name == '已取消' ">{{item.status_name}}</span> -->
                             </div>
                           </div>
                           <div class="trade-list" v-if="showTradeList.show&&showTradeList.index == index">
                             <p class="flex">
                               <span>交易人</span>
+                              <span>时间</span>
                               <span>数量</span>
-                              <span>价格</span>
-                              <span>状态</span>
-                              <span>操作</span>
+                              <span>微信账号</span>
+                              <span>支付宝账号</span>
+                              <span>银行卡号</span>
+                              <span>状态 | 操作</span>
                             </p>
+                            <ul>
+                              <li class="flex" v-for="(trader,inde) in item.detail" :key="inde">
+                                <div v-if="trader.phone">{{trader.phone}}</div>
+                                <div v-if="!trader.phone">{{trader.email}}</div>
+                                <div>{{trader.create_date}}</div>
+                                <div>{{trader.number}}</div>
+                                <div>{{trader.wechat_account}}</div>
+                                <div>{{trader.alipay_account}}</div>
+                                <div>{{trader.bank_account}}</div>
+                                <!-- <div>12.00</div> -->
+                                <!-- <div>{{trader.status_name}}</div> -->
+                                <div>
+                                  <div v-if="trader.status != 1">{{trader.status_name}}</div>
+                                  <div v-else class="btn-green" @click="cancelComplete('cancel_transaction',trader.id,index)">取消交易</div>
+                                  <!-- <div class="detailit" @click="getDetail(trader.c2c_id,'myC2c',$event)">详情</div> -->
+                                  <!-- <div class="btn-green" @click="cancelComplete('complete',trader.c2c_id,index)">确认完成</div> -->
+                                </div>
+                              </li>
+                              
+                            </ul>
                           </div>
                         </li>
                         <!-- <li class="flex">
@@ -292,11 +314,11 @@
                 </div>
                 <div class="ul-box" v-if="nowList == 'myBuySell'">
                     <ul class="ul-out" v-if="showList&&myBuySell.list.length">
-                        <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" @click="getDetail(item.id,'trade',$event)">
+                        <li v-for="(item,index) in myBuySell.list" :key="index" class="flex" >
                           <div class="content flex">
 
-                            <div style="color:#25796a" v-if="item.type_name=='卖出'">卖出</div>
-                            <div style="color:#7a98f7" v-if="item.type_name=='买入'">买入</div>
+                            <div style="color:#7a98f7" v-if="item.type_name=='卖出'">买入</div>
+                            <div style="color:#25796a" v-if="item.type_name=='买入'">卖出</div>
                             <div>{{item.price}}</div>
                             <div>{{item.number}} {{item.token}}</div>
                             <div>{{(item.number*item.price-0).toFixed(2)}}</div>
@@ -307,11 +329,11 @@
                             <div>{{item.pay_mode}}</div>
                             
                             <div class="last">
-                                <div class="detailit">详情</div>
-                                <div class="btn-last" @click="cancelComplete('complete',item.c2c_id)" v-if="(item.type_name == '买入')&&item.status_name == '交易中'">确认</div>
-                                <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span>
+                                <div class="detailit" @click="getDetail(item.c2c_id,'trade',$event)">详情</div>
+                                <!-- <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span> -->
                                 <span class="btn-last" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
-                                <span class="btn-last" v-if="item.status_name == '已取消'">{{item.status_name}}</span>
+                                <span class="btn-last" v-else-if="item.status_name == '已取消'">{{item.status_name}}</span>
+                                <div class="btn-last" v-else-if="item.type_name == '卖出'&&item.status == 1" @click="cancelComplete('complete',item.id)" >确认</div>
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                             </div>
                           </div>
@@ -337,15 +359,7 @@
                     <div @click="showDetail = false">x</div>
                 </div>
                 <div class="list">
-                    <div class="create-date">
-                        <span>创建时间：</span><span>{{detail.create_date}}</span>
-                    </div>
-                    <div class="create-date">
-                        <span>价格：</span><span>{{detail.price}}</span>
-                    </div>
-                    <div class="create-date">
-                        <span>支付方式：</span><span>{{detail.payMode}}</span>
-                    </div>
+                    
                     
                     <!-- <div class="c2c-detail" v-if="detail.type=='c2c'">
                         <div>
@@ -373,39 +387,47 @@
                             <span>详  情：</span><span>{{detail.c2c.content}}</span>
                         </div> -->
                     </div>
-                    <!-- <div class="trade-detail" v-if="detail.type=='trade'">
+                    <div class="trade-detail" v-if="detail.type=='trade' || detail.type=='c2c'">
                         <div>
-                            <span>我的账号：</span>{{detail.transaction_user.phone}}<span></span>
+                            <span v-if="detail.type == 'trade'">交易人：</span>
+                            <span v-if="detail.type == 'c2c'">账号：</span>
+                            <span v-if="detail.user.account_number">{{detail.user.account_number}}</span>
+                            <span v-else-if="detail.user.phone">{{detail.user.phone}}</span>
+                            <span v-else>{{detail.user.email}}</span>
                         </div>
                         <div>
-                            <span>交易类型：</span><span>{{detail.c2c.type_name}}</span>
+                            <span>类型：</span><span>{{detail.typeName}}</span>
                         </div>
                         <div>
-                            <span>币  种：</span><span>{{detail.c2c.token}}</span>
+                            <span>币  种：</span><span>{{detail.token}}</span>
                         </div>
                         <div>
-                            <span>价  格：</span><span>{{detail.c2c.price}}</span>
+                            <span>详  情：</span><span>{{detail.content}}</span>
                         </div>
-                        <div>
-                            <span>详  情：</span><span>{{detail.c2c.content}}</span>
+                        
+                        
+                        <div v-if="detail.user.cash.wechat_account">
+                            <span>微信账号：</span><span>{{detail.user.cash.wechat_account}}</span>
                         </div>
-                        <div>
-                            <span>交易人 ：</span><span>{{detail.user_info.phone}}</span>
+                        <div v-if="detail.user.cash.alipay_account">
+                            <span>支付宝账号 ：</span><span>{{detail.user.cash.alipay_account}}</span>
                         </div>
-                        <div>
-                            <span>姓  名：</span><span>{{detail.c2c.name}}</span>
+                        <div v-if="detail.user.cash.bank_account">
+                            <span>银行卡 ：</span><span>{{detail.user.cash.bank_account}}</span>
                         </div>
-                        <div>
-                            <span>微信账号：</span><span>{{detail.account_info.wechat_account}}</span>
-                        </div>
-                        <div>
-                            <span>银行卡 ：</span><span>{{detail.account_info.bank_account}}</span>
-                        </div>
-                        <div>
-                            <span>支付宝 ：</span><span>{{detail.account_info.alipay_account}}</span>
-                        </div>
-                    </div> -->
-                    
+                    </div>
+                    <div class="create-date">
+                        <span>创建时间：</span><span>{{detail.create_date}}</span>
+                    </div>
+                    <div class="create-date">
+                        <span>数量：</span><span>{{detail.surplus_number}}</span>
+                    </div>
+                    <div class="create-date">
+                        <span>价格：</span><span>{{detail.price}}</span>
+                    </div>
+                    <div class="create-date">
+                        <span>支付方式：</span><span>{{detail.payMode}}</span>
+                    </div>
                     
                 </div>
                 
@@ -451,7 +473,7 @@ export default {
         num: ""
       },
       buySellNum: "",
-      showTradeList:{show:false,index:'none'}
+      showTradeList: { show: false, index: "none" }
     };
   },
   created() {
@@ -549,18 +571,18 @@ export default {
     buySell() {
       if (this.tradeParams.num == "") {
         return;
-      } else if ((this.tradeParams.num-0) > (this.tradeParams.total-0)) {
+      } else if (this.tradeParams.num - 0 > this.tradeParams.total - 0) {
         layer.msg("数量不能大于" + this.tradeParams.total);
         return;
       }
       console.log(this.tradeParams);
-      
+
       let i = layer.load();
       // this.showDetail  = false;
       let data = {};
       let type = this.tradeParams.type;
       data.buynumber = this.tradeParams.num;
-      
+
       data.id = this.tradeParams.id;
       data.number = this.tradeParams.total;
       var index = this.tradeParams.index;
@@ -593,7 +615,7 @@ export default {
     getMy(type) {
       let t = "";
       t = type == "myAdd" ? "my_add" : "my_transaction";
-      this.showTradeList = {show:false,index:'none'}
+      this.showTradeList = { show: false, index: "none" };
       let i = layer.load();
       this.$http({
         url: "/api/c2c/" + t + "?page=" + this[type].page,
@@ -616,21 +638,19 @@ export default {
       });
     },
     /* 显示交易列表 */
-    switchTrade(index){
-      if(this.showTradeList.show == false){
+    switchTrade(index) {
+      if (this.showTradeList.show == false) {
         this.showTradeList.show = true;
         this.showTradeList.index = index;
-
       } else {
-        if(index == this.showTradeList.index){
+        if (index == this.showTradeList.index) {
           this.showTradeList.show = false;
-          return
+          return;
         } else {
           this.showTradeList.index = index;
         }
       }
       console.log(this.showTradeList);
-      
     },
     cancelComplete(type, id, index) {
       // this.showDetail = false;
@@ -664,14 +684,21 @@ export default {
         url: "/api/c2c/detail?id=" + id,
         headers: { Authorization: this.token }
       }).then(res => {
-        console.log(res);
 
         if (res.data.type == "ok") {
           let msg = res.data.message;
-          this.detail.create_date = msg.create_date || '';
-          this.detail.content = msg.content || '';
-          this.detail.price = msg.price || '';
-          this.detail.payMode = msg.pay_mode || '';
+          if (type == "trade"||type == "c2c") {
+            this.detail.user = msg.user;
+
+            this.detail.typeName = msg.type_name;
+            this.detail.token = msg.token;
+            // return;
+          }
+          this.detail.create_date = msg.create_date || "";
+          this.detail.content = msg.content || "";
+          this.detail.price = msg.price || "";
+          this.detail.payMode = msg.pay_mode || "";
+          this.detail.surplus_number = msg.surplus_number || "";
           //console.log(res.data.message);
           // this.detail.c2c = res.data.message.c2c;
           // this.detail.account_info = res.data.message.account_info;
@@ -681,7 +708,8 @@ export default {
           //   this.detail.transaction_user = res.data.message.transaction_user;
           // }
           console.log(this.detail);
-          this.showDetail = true; 
+          this.detail.type = type;
+          this.showDetail = true;
         }
       });
     },
@@ -709,11 +737,11 @@ export default {
       }).then(res => {
         //console.log(res);
         layer.msg(res.data.message);
-        // this.price = "";
-        // this.num = "";
-        // this.user_name = "";
+        this.price = "";
+        this.num = "";
+        this.user_name = "";
 
-        // this.content = "";
+        this.content = "";
         this.listIn = { page: 1, list: [], hasMore: true };
         this.getList(0);
         this.myAdd = { hasMore: true, list: [], page: 1 };
@@ -739,11 +767,11 @@ export default {
         .then(res => {
           //console.log(res);
           layer.msg(res.data.message);
-          // this.price01 = "";
-          // this.num01 = "";
-          // this.user_name01 = "";
+          this.price01 = "";
+          this.num01 = "";
+          this.user_name01 = "";
 
-          // this.content01 = "";
+          this.content01 = "";
           this.listOut = { page: 1, list: [], hasMore: true };
           this.getList(1);
           this.myAdd = { hasMore: true, list: [], page: 1 };
@@ -760,6 +788,10 @@ export default {
 <style lang='scss'>
 #c2c-box {
   margin: 10px 0 10px;
+  .btn-green {
+    background: #25796a;
+    color: #fff;
+  }
   .buy-sell-box {
     position: fixed;
     top: 0;
@@ -822,6 +854,7 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 999;
+    color: #333;
     background: rgba(0, 0, 0, 0.7);
     > .m-content {
       border-radius: 4px;
@@ -861,7 +894,7 @@ export default {
         span:first-child {
           margin-right: 5px;
           display: inline-block;
-          width: 70px;
+          width: 89px;
           color: #7a98f7;
         }
       }
@@ -1060,7 +1093,7 @@ export default {
         width: 100%;
         color: #c7cce6;
         justify-content: space-between;
-        cursor: pointer;
+        // cursor: pointer;
         text-align: center;
         padding: 8px 5px;
         line-height: 24px;
@@ -1069,25 +1102,26 @@ export default {
           // background: #f8f8f8;
         }
         > div:first-child {
-          width: 7.69%;
+          width: 6%;
           height: 24px;
           text-align: left;
         }
         > div:nth-child(n + 2) {
-          width: 11.38%;
+          width: 12%;
         }
-        >div:last-child{
-          width: 19%;
+        > div:last-child {
+          // min-width: 19%;
+          width: 24%;
         }
         > .last {
           text-align: right;
           height: 24px;
-          >div,>span{
+          > div,
+          > span {
             float: right;
             margin: 0 5px;
           }
           .btn-last {
-            
             padding: 0 10px;
             min-width: 55px;
             max-width: 80px;
@@ -1099,17 +1133,49 @@ export default {
           }
         }
       }
-      ul li .trade-list{
+      ul li .trade-list {
         background: #262a42;
         width: 100%;
-        padding: 5px 100px;
+        padding: 5px 30px 10px;
         margin: 0 auto;
-        p{
-          justify-content: space-between;
+        p {
           font-weight: 600;
           // font-size: 20px;
           // font-size: 16px;
           line-height: 36px;
+          span {
+            flex: 1;
+            text-align: center;
+          }
+          span:first-child {
+            text-align: left;
+          }
+          span:last-child {
+            text-align: right;
+          }
+        }
+        ul {
+          li {
+            padding: 12px 0;
+            border-bottom: 1px solid #303956;
+            > div {
+              text-align: center;
+              width: 25%;
+            }
+            > div:first-child {
+              text-align: left;
+            }
+            > div:last-child {
+              text-align: right;
+              div {
+                float: right;
+                padding: 0 14px;
+                margin: 0 6px;
+                line-height: 1.6;
+                cursor: pointer;
+              }
+            }
+          }
         }
       }
       .ul-out li .content {
@@ -1134,7 +1200,8 @@ export default {
   }
 }
 
-.detailit,.showtrade {
+.detailit,
+.showtrade {
   // float: right;
   margin-right: 20px;
   padding: 0 10px;

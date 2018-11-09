@@ -14,6 +14,7 @@ module.exports = {
     proxyTable: {
       '/api': {
           target: 'http://ice.adminchao.com/api',//后端接口地址
+          // target: 'http://www.2kex.com/api',//后端接口地址
           changeOrigin: true,//是否允许跨越
           pathRewrite: {
               '^/api': '/',//重写,
@@ -22,7 +23,7 @@ module.exports = {
   },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 19090, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
