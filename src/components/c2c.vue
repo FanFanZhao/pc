@@ -167,8 +167,16 @@
                   <div>
                     <div class="close" @click="showTradeBox = false">x</div>
                   <div class="title">请输入{{tradeParams.type == 'buy'?'买入':'卖出'}}数量</div>
-                    <div class="total">最多可{{tradeParams.type == 'buy'?'买入':'卖出'}}{{tradeParams.total}}</div>
-                  <input type="number" v-model="tradeParams.num">
+                    <div class="total">最多可{{tradeParams.type == 'buy'?'买入':'卖出'}}{{tradeParams.total}}{{currency_name}}</div>
+                    <div class="inp flex">
+                      <input type="number"  ref='usdtNum' @input="$refs.cnyNum.value = ($event.target.value*tradeParams.price).toFixed(2)||''" @keyup="fixedInp(5,$event)"> {{currency_name}} 
+                    </div>
+                    <div class="inp flex">
+                      <input type="number"  ref= 'cnyNum' @input="$refs.usdtNum.value = ($event.target.value/tradeParams.price).toFixed(5)||'' " @keyup="fixedInp(2,$event)"> CNY 
+                    </div>
+                    <!-- <div>
+                      <input type="number" :value="tradeParams.num*tradeParams.price" @input="tradeParams.num = $event.target.value*tradeParams.price">
+                    </div> -->
                   <div class="btn" @click="buySell">{{tradeParams.type == 'buy'?'买入':'卖出'}}</div>
                   </div>
                   <!-- <div>卖出</div> -->
@@ -213,7 +221,7 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
                                 <div class="detailit" @click="getDetail(item.id,'c2c',$event)">详情</div>
-                                <div class="btn-last" v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'buy',total:item.surplus_number,num:''}">买入</div>
+                                <div class="btn-last" v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {price:item.price,index:index,id:item.id,type:'buy',total:item.surplus_number}">买入</div>
                             </div>
                           </div>
                         </li>
@@ -238,7 +246,7 @@
                             <div>{{item.pay_mode}}</div>
                             <div class="last">
                                 <div class="detailit" @click="getDetail(item.id,'c2c',$event)">详情</div>
-                                <div v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {index:index,id:item.id,type:'sell',total:item.surplus_number,num:''}" class="btn-last">卖出</div>
+                                <div v-if="item.status_name == '等待中'" @click="showTradeBox = true;tradeParams = {price:item.price,index:index,id:item.id,type:'sell',total:item.surplus_number}" class="btn-last">卖出</div>
                             </div>
                           </div>
                         </li>
@@ -296,6 +304,7 @@
                                 <div>
                                   <div v-if="trader.status != 1">{{trader.status_name}}</div>
                                   <div v-else class="btn-green" @click="cancelComplete('cancel_transaction',trader.id,index)">取消交易</div>
+                                  <div class="btn-last btn-green" v-if="trader.status == 1" @click="cancelComplete('complete',trader.id)" >确认</div>
                                   <!-- <div class="detailit" @click="getDetail(trader.c2c_id,'myC2c',$event)">详情</div> -->
                                   <!-- <div class="btn-green" @click="cancelComplete('complete',trader.c2c_id,index)">确认完成</div> -->
                                 </div>
@@ -333,7 +342,7 @@
                                 <!-- <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span> -->
                                 <span class="btn-last" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
                                 <span class="btn-last" v-else-if="item.status_name == '已取消'">{{item.status_name}}</span>
-                                <div class="btn-last" v-else-if="item.type_name == '卖出'&&item.status == 1" @click="cancelComplete('complete',item.id)" >确认</div>
+                                
                                 <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
                             </div>
                           </div>
@@ -469,11 +478,13 @@ export default {
       tradeParams: {
         id: "",
         total: "",
-        type: "",
-        num: ""
+        type: ""
+        
       },
+      
       buySellNum: "",
       showTradeList: { show: false, index: "none" }
+      
     };
   },
   created() {
@@ -487,7 +498,26 @@ export default {
     this.getMy("myAdd");
     // this.getMy("myBuySell");
   },
+  
+  
   methods: {
+    fixedInp(n,e){
+      if(e.target.value == 0){
+        e.target.value == ''
+      } else {
+        var v = e.target.value + '';
+        var index = v.indexOf('.');
+        if(index != -1){
+          
+          if(v.substr(index).length>(n+1)){
+            e.target.value = (v-0).toFixed(n);
+          }
+        }
+        
+        
+        
+      }
+    },
     reloadC2c() {
       this.listIn = { page: 1, list: [], hasMore: true };
       this.listOut = { page: 1, list: [], hasMore: true };
@@ -509,7 +539,7 @@ export default {
         method: "get",
         headers: { Authorization: this.token }
       }).then(res => {
-        ////console.log(res);
+        //////consolelog(res);
         if (res.data.type == "ok") {
           this.currency_list = res.data.message.legal;
           this.currency_name = res.data.message.legal[0].name;
@@ -527,7 +557,7 @@ export default {
     getList(type) {
       let page = 1;
       page = type == 1 ? this.listOut.page : this.listIn.page;
-      ////console.log(type);
+      //////consolelog(type);
       let i = layer.load();
       this.$http({
         url: "/api/c2c/list?type=" + type + "&page=" + page,
@@ -538,26 +568,26 @@ export default {
         layer.close(i);
         if (res.data.type == "ok") {
           let list = res.data.message;
-          ////console.log(list);
+          //////consolelog(list);
 
           if (list.length != 0) {
-            // //console.log(list);
+            // ////consolelog(list);
 
             if (type == 1) {
               this.listOut.list = this.listOut.list.concat(list);
               this.listOut.hasMore = true;
               this.listOut.page += 1;
-              //   //console.log(this.listOut);
+              //   ////consolelog(this.listOut);
             } else {
-              //   //console.log(this.listIn.list);
+              //   ////consolelog(this.listIn.list);
               this.listIn.hasMore = true;
               this.listIn.list = this.listIn.list.concat(list);
-              // //console.log( this.listIn.list);
+              // ////consolelog( this.listIn.list);
 
-              // //console.log(this.listIn);
+              // ////consolelog(this.listIn);
 
               this.listIn.page += 1;
-              // //console.log([].concat(list));
+              // ////consolelog([].concat(list));
             }
           } else {
             type == 1
@@ -569,19 +599,20 @@ export default {
     },
     // c2c列表买入卖出
     buySell() {
-      if (this.tradeParams.num == "") {
+      var num = this.$refs.usdtNum.value;
+      if (num == "") {
         return;
-      } else if (this.tradeParams.num - 0 > this.tradeParams.total - 0) {
+      } else if ((num - 0) > (this.tradeParams.total - 0)) {
         layer.msg("数量不能大于" + this.tradeParams.total);
         return;
       }
-      console.log(this.tradeParams);
+      //consolelog(this.tradeParams);
 
       let i = layer.load();
       // this.showDetail  = false;
       let data = {};
       let type = this.tradeParams.type;
-      data.buynumber = this.tradeParams.num;
+      data.buynumber = num;
 
       data.id = this.tradeParams.id;
       data.number = this.tradeParams.total;
@@ -605,7 +636,7 @@ export default {
           }
           this.myBuySell = { hasMore: true, list: [], page: 1 };
           this.getMy("myBuySell"); //更新我交易的c2c
-          //   //console.log(res.data);
+          //   ////consolelog(res.data);
         }
         if (res.data.type == "error") {
         }
@@ -622,7 +653,7 @@ export default {
 
         headers: { Authorization: this.token }
       }).then(res => {
-        //console.log(res);
+        ////consolelog(res);
         layer.close(i);
         if (res.data.type == "ok") {
           if (res.data.message.length == 0) {
@@ -632,7 +663,7 @@ export default {
             this[type]["hasMore"] = true;
             this[type]["list"] = this[type]["list"].concat(list);
             this[type]["page"] += 1;
-            //console.log(this[type]);
+            ////consolelog(this[type]);
           }
         }
       });
@@ -650,7 +681,7 @@ export default {
           this.showTradeList.index = index;
         }
       }
-      console.log(this.showTradeList);
+      //consolelog(this.showTradeList);
     },
     cancelComplete(type, id, index) {
       // this.showDetail = false;
@@ -662,7 +693,7 @@ export default {
       }).then(res => {
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
-          //console.log(res);
+          ////consolelog(res);
           if (type == "complete") {
             this.myBuySell = { hasMore: true, list: [], page: 1 };
             this.myAdd = { hasMore: true, list: [], page: 1 };
@@ -699,7 +730,7 @@ export default {
           this.detail.price = msg.price || "";
           this.detail.payMode = msg.pay_mode || "";
           this.detail.surplus_number = msg.surplus_number || "";
-          //console.log(res.data.message);
+          ////consolelog(res.data.message);
           // this.detail.c2c = res.data.message.c2c;
           // this.detail.account_info = res.data.message.account_info;
           // this.detail.user_info = res.data.message.user_info;
@@ -707,7 +738,7 @@ export default {
           // if (res.data.message.transaction_user) {
           //   this.detail.transaction_user = res.data.message.transaction_user;
           // }
-          console.log(this.detail);
+          //consolelog(this.detail);
           this.detail.type = type;
           this.showDetail = true;
         }
@@ -735,7 +766,7 @@ export default {
         },
         headers: { Authorization: this.token }
       }).then(res => {
-        //console.log(res);
+        ////consolelog(res);
         layer.msg(res.data.message);
         this.price = "";
         this.num = "";
@@ -765,7 +796,7 @@ export default {
         headers: { Authorization: this.token }
       })
         .then(res => {
-          //console.log(res);
+          ////consolelog(res);
           layer.msg(res.data.message);
           this.price01 = "";
           this.num01 = "";
@@ -804,7 +835,7 @@ export default {
       position: relative;
       margin: 200px auto;
       width: 300px;
-      height: 200px;
+      height: 256px;
       top: 50px;
 
       padding: 0 30px;
@@ -828,10 +859,15 @@ export default {
       .total {
         line-height: 35px;
       }
-      input {
+      .inp{
+        padding: 6px 0;
         line-height: 35px;
-        width: 240px;
-        padding: 0 20px;
+        input {
+          line-height: 35px;
+          width: 190px;
+          padding: 0 10px;
+          margin-right: 5px;
+        }
       }
       .btn {
         margin: 20px auto 0;

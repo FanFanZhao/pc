@@ -13,8 +13,8 @@ module.exports = {
     // proxyTable: {},
     proxyTable: {
       '/api': {
-          target: 'http://ice.adminchao.com/api',//后端接口地址
-          // target: 'http://www.2kex.com/api',//后端接口地址
+          // target: 'http://ice.adminchao.com/api',//后端接口地址
+          target: 'http://www.2kex.com/api',//后端接口地址
           changeOrigin: true,//是否允许跨越
           pathRewrite: {
               '^/api': '/',//重写,
