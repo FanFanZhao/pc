@@ -104,10 +104,11 @@ export default {
             var that = this;
             var page = that.page;
             that.loading = true;
+            var cur_id = window.localStorage.getItem('legal_id_cur');
             this.$http({
                 url: '/api/' + 'transaction_complete',
                 method:'post',
-                data:{page:page},
+                data:{page:page,currency_id:cur_id},
                 headers: {'Authorization':  that.token}
             }).then(res=>{
                 // console.log(res)

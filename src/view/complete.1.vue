@@ -77,7 +77,7 @@ export default {
             that.$socket.on('deal_list',function(msg){
                 if(msg.type == 'deal_list'){
                     var complete = JSON.parse(msg.complete);
-                    console.log(complete);
+                    // console.log(complete);
                     that.deList = complete;
                 }
                 console.log(msg);

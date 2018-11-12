@@ -28,9 +28,12 @@ export default {
                     //    var legal_name = arr_quota[0][0].name;
                     //   this.$store.state.priceScale=Math.pow(10,this.marketList[0][0].now_price.length)
                     //   this.$store.state.symbol='EOS/USDT'
-                     
+                     if(!window.localStorage.getItem('legal_id_cur')){
+                       window.localStorage.setItem('legal_id_cur',arr_quota[0][0].currency_id)
+                     }
                     if(!localStorage.getItem('legal_id')&&!localStorage.getItem('currency_id')&&!localStorage.getItem('legal_name')&&!localStorage.getItem('currency_name')){
                         window.localStorage.setItem('legal_id',arr_quota[0][0].id);
+                        // window.localStorage.setItem('legal_id_cur',arr_quota[0][0].currency_id);
                         window.localStorage.setItem('currency_id',msg[0].id);
                         window.localStorage.setItem('legal_name',arr_quota[0][0].name);
                         window.localStorage.setItem('currency_name',msg[0].name);
@@ -66,7 +69,9 @@ export default {
                     //    this.currency_id = msg[0].id;
                     //    var id = arr_quota[0][0].id;
                     //    var legal_name = arr_quota[0][0].name;
+                    // if(!window.localStorage.getItem(l))
                     if(!localStorage.getItem('lever_legal_id')&&!localStorage.getItem('lever_currency_id')&&!localStorage.getItem('lever_legal_name')&&!localStorage.getItem('lever_currency_name')){
+                      
                         window.localStorage.setItem('lever_legal_id',arr_quota[0][0].id);
                         window.localStorage.setItem('lever_currency_id',msg[0].id);
                         window.localStorage.setItem('lever_legal_name',arr_quota[0][0].name);

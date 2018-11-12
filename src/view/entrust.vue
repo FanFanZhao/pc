@@ -105,7 +105,8 @@ export default {
         },
         // 撤销
         revoke(indexs,id){
-            console.log(indexs)
+            // console.log(indexs);
+            
             var that =this;
             var id = id;
             var indexs = indexs;
@@ -142,13 +143,14 @@ export default {
         },
         getData(){
             var that = this;
+            var cur_id = window.localStorage.getItem('legal_id_cur');
             var url = that.url;
             var page = that.page;
             that.loading = true;
             this.$http({
                 url: '/api/' + url,
                 method:'post',
-                data:{page:page},
+                data:{page:page,currency_id:cur_id},
                 headers: {'Authorization':  that.token}
             }).then(res=>{
                 // console.log(res)

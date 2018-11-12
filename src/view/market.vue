@@ -34,7 +34,7 @@
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
             <li class="currency_p" v-for="(market,index) in marketList "  :key="index" v-show="index1 == index" >
-              <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name)">
+              <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name,itm.currency_id)">
                 <span>{{itm.name}}</span>
                 <span :data-name='tabList[index].name+"/"+itm.name'>${{itm.last_price}}</span>
                 <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span>
@@ -242,7 +242,9 @@
             
             },
             //币种切换
-            quota_shift(idx,id,legal_name){
+            quota_shift(idx,id,legal_name,cur){
+                window.localStorage.setItem('legal_id_cur',cur)
+                
                 window.localStorage.setItem('index1',this.index1);
                 window.localStorage.setItem('index2',idx);
                 
