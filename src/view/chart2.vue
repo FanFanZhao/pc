@@ -33,7 +33,7 @@
             // Chart(){
             
             // this.$http({
-            //         url:this.$utils.laravel_api+'',
+            //         url:'/api/'+'',
             //         method:'post',
             //         data:{
                        

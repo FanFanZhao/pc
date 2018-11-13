@@ -75,7 +75,7 @@ export default {
                 var address=this.address;
                 console.log(way,address)
                 this.$http({
-                    url: this.$utils.laravel_api + 'acceptor/my_deal?'+'address='+address+'&way='+way,
+                    url: '/api/' + 'acceptor/my_deal?'+'address='+address+'&way='+way,
                     method:'get',
                 }).then(res=>{
                     res = res.data;

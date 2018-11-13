@@ -34,7 +34,7 @@
                 <span v-for="item in newData">{{item}}</span>
             </li> -->
             <li class="currency_p" v-for="(market,index) in marketList "  :key="index" v-show="index1 == index" >
-              <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name,itm.currency_id)">
+              <p  v-for="(itm,idx) in market" :key="itm.id" :class="idx==index2?'active_p':''" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.id,itm.name,itm.currency_id,itm.change)">
                 <span>{{itm.name}}</span>
                 <span :data-name='tabList[index].name+"/"+itm.name'>${{itm.last_price}}</span>
                 <span :class="{'green':itm.proportion>=0}">{{itm.proportion>=0?('+'+(itm.proportion-0).toFixed(2)):(itm.proportion-0).toFixed(2)}}%</span>
@@ -68,7 +68,7 @@
           
             //法币列表
             this.$http({
-					url: this.$utils.laravel_api + 'currency/quotation',
+					url: '/api/' + 'currency/quotation',
 					method:'get',
 					data:{}
 				}).then(res=>{
@@ -183,7 +183,7 @@
                     return false;
                 }
                 this.$http({
-                    url:this.$utils.laravel_api+'wallet/list?user_id='+this.address||'',
+                    url:'/api/'+'wallet/list?user_id='+this.address||'',
                     type:'GET'
                 }).then(res=>{
                     // console.log(res)
@@ -204,7 +204,7 @@
                 // var index=layer.load();
                 this.address = localStorage.getItem('address') || '';
                 this.$http({
-                    url: this.$utils.laravel_api+'quotation',
+                    url: '/api/'+'quotation',
                     method:'post',
                     data:{
                         address:this.address
@@ -242,7 +242,8 @@
             
             },
             //币种切换
-            quota_shift(idx,id,legal_name,cur){
+            quota_shift(idx,id,legal_name,cur,change){
+                window.localStorage.setItem('downUp',change)
                 window.localStorage.setItem('legal_id_cur',cur)
                 
                 window.localStorage.setItem('index1',this.index1);

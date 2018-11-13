@@ -159,7 +159,7 @@ export default {
             var page = this.page;
             // console.log(type,url,page)
             this.$http({
-            url: this.$utils.laravel_api + 'transaction/' +url,
+            url: '/api/' + 'transaction/' +url,
             method:'post',
             data:{
                 address:this.address,

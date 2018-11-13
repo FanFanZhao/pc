@@ -40,7 +40,7 @@
             init(){
                 this.address=localStorage.getItem('address') || ''
                 this.$http({
-                    url:this.$utils.laravel_api+'transaction/deal',
+                    url:'/api/'+'transaction/deal',
                     method:'post',
                     data:{
                        

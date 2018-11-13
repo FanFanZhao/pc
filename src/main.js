@@ -23,6 +23,7 @@ Vue.use(VueSocketio, 'http://www.2kex.com:2120');
 // Vue.use(VueSocketio, 'http://t.fuwuqian.cn:2120');
 
 Vue.config.productionTip = false
+// Axios.defaults.baseURL = 'http://www.bd.com/';
 Axios.interceptors.request.use(function (config) {
 	if (config.url.indexOf('?') === -1) {
 		config.url = config.url + '?_timespan=' + (new Date()).getTime()

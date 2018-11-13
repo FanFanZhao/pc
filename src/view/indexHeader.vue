@@ -188,7 +188,7 @@ export default {
     // var address = this.address;
     // if (address != "") {
     //   this.$http({
-    //     url: this.$utils.laravel_api + "user/getuserbyaddress",
+    //     url: '/api/' + "user/getuserbyaddress",
     //     method: "post",
     //     data: {
     //       address: address

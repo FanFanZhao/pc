@@ -31,7 +31,7 @@
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">已成交</span>
                         <span class="fl w10">{{item.type=='in'? item.in_fee:item.out_fee}}</span>
-                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
+                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':'green'">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
                 <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && comList.length>8">{{more}}</div>

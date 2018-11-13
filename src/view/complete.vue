@@ -84,10 +84,12 @@ export default {
       var that = this;
       that.$socket.emit("login", localStorage.getItem("user_id"));
       that.$socket.on("deal_list", function(msg) {
-        //  console.log(msg)
+        console.log(msg);
+        
         if (msg.type == "deal_list") {
+          
           var complete = JSON.parse(msg.complete);
-        //   console.log(that.leftName, that.rightName, complete);
+          console.log(that.leftName, that.rightName, complete);
           var newlist = complete.filter(function(item) {
             return (
               item.currency_name == that.leftName &&

@@ -208,7 +208,7 @@ export default {
     });
     // this.setChart();
     this.$http({
-      url: this.$utils.laravel_api + "news/help",
+      url: '/api/' + "news/help",
       method: "post",
       data: {}
     }).then(res => {
@@ -308,7 +308,7 @@ export default {
       this.curSwiper = index;
     },
     init(callback) {
-      this.$http.post(this.$utils.laravel_api + "quotation").then(res => {
+      this.$http.post('/api/' + "quotation").then(res => {
         if (res.data.type == "ok") {
           this.coinList = res.data.message.coin_list;
           this.swiperList = res.data.message.coin_list;

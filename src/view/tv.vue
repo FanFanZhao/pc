@@ -1,5 +1,6 @@
 <template>
 	<div class="k-line-area bg-1d1d29">
+    <tv-top></tv-top>
 		<!--<input id="text" />-->
 		<!--<div @click="chose" style="color: #fff">322332</div>-->
 		<div id="tv_chart_container" style="width:100%;height: 460px"></div>
@@ -7,12 +8,12 @@
 </template>
 
 <script>
-
+  import TvTop from './tvTop.vue'
 	// import Datafeeds from "../assets/js/datafeed.js";
 
 	export default {
 		name: "tv",
-
+    components:{TvTop},
 		data() {
 			return {
 				widget: null,

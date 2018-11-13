@@ -132,7 +132,7 @@ export default {
         init(){
             var i=layer.load();
             this.$http({
-                url:this.$utils.laravel_api + 'acceptor/info?id='+this.id+'&address='+this.address,
+                url:'/api/' + 'acceptor/info?id='+this.id+'&address='+this.address,
                 method:'get'
             }).then(res=>{
                 layer.close(i)
@@ -178,7 +178,7 @@ export default {
             data=Object.assign(data,this.submitInfo)
             console.log(data)
             this.$http({
-                url:this.$utils.laravel_api+'acceptor/deal',
+                url:'/api/'+'acceptor/deal',
                 method:'POST',
                 data:data
             }).then(res=>{

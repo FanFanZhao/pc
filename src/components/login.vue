@@ -86,7 +86,7 @@ import indexFooter from '@/view/indexFooter'
                     return;
                 }
                 this.$http({
-					url: this.$utils.laravel_api + 'user/login',
+					url: '/api/' + 'user/login',
 					method:'post',
 					data:{
 						user_string: account_number,

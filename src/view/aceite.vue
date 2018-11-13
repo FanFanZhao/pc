@@ -65,7 +65,7 @@ export default {
             this.address=localStorage.getItem('address') || '';
             if(this.address !=""){
                  this.$http({
-                    url:this.$utils.laravel_api + 'acceptor/list',
+                    url:'/api/' + 'acceptor/list',
                     method:'get'
                 }).then(res=>{
                     // console.log(res.data.message)

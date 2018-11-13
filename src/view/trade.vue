@@ -23,6 +23,7 @@
                         <label>买入价</label>
                         <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent >
                         <span>{{currency_name}}</span>
+                        <div>≈ {{buyInfo.buyPrice*6.5}}CNY</div>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>买入量</label>
@@ -48,6 +49,7 @@
                         <label>卖出价</label>
                         <input type="number" @keydown.69.prevent v-model="sellInfo.sellPrice">
                         <span>{{currency_name}}</span>
+                        <div>≈ {{sellInfo.sellPrice*6.5}}CNY</div>
                     </div>
                     <div class="mt40 input-item clear">
                         <label>卖出量</label>
@@ -184,7 +186,7 @@
             },
             init(){
                 this.$http({
-                    url:this.$utils.laravel_api+'transaction/deal',
+                    url:'/api/'+'transaction/deal',
                     method:'post',
                     data:{
                         address:this.address,
@@ -329,11 +331,15 @@
 <style scoped>
 .title_box{height: 48px;line-height: 48px; padding: 0 30px;background-color: #181b2a;box-shadow: 0 2px 6px rgba(0,0,0,.1);}
 .tabtitle span{cursor: pointer;}
-.tabtitle span:not(:last-child) {margin-right: 40px;}
+.tabtitle span:not(:last-child) {margin-right: 30px;}
 .content .first{padding: 0 15px 0 25px;}
 .content .second{padding: 0 25px 0 15px;}
 .available{height: 48px;border-bottom: 1px solid #303b4b;line-height: 48px;}
 .input-item{position: relative;line-height: 40px;}
+.input-item div{
+    color: #cdd6e4;
+    text-align: center;
+}
 .input-item label{width: 20%;float: left;font-size: 14px;color: #637085;}
 .input-item input{width: 80%;float: left;border: 1px solid #52688c;border-radius: 3px;height: 40px;text-indent: 15px;font-size: 16px;color: #cdd6e4;background-color: #262a42;line-height: 38px;}
 .input-item span{position: absolute;right: 15px;color: #637085;font-size: 16px}

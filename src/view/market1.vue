@@ -70,7 +70,7 @@
           
             //法币列表
             this.$http({
-					url: this.$utils.laravel_api + 'currency/quotation',
+					url: '/api/' + 'currency/quotation',
 					method:'get',
 					data:{}
 				}).then(res=>{
@@ -153,7 +153,7 @@
                     return false;
                 }
                 this.$http({
-                    url:this.$utils.laravel_api+'wallet/list?user_id='+this.address||'',
+                    url:'/api/'+'wallet/list?user_id='+this.address||'',
                     type:'GET'
                 }).then(res=>{
                     // console.log(res)
@@ -174,7 +174,7 @@
                 // var index=layer.load();
                 this.address = localStorage.getItem('address') || '';
                 this.$http({
-                    url: this.$utils.laravel_api+'quotation',
+                    url: '/api/'+'quotation',
                     method:'post',
                     data:{
                         address:this.address

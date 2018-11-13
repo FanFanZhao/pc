@@ -90,7 +90,7 @@ export default {
         getdata(){
             $.ajax({
                 type: "POST",
-                url: this.$utils.laravel_api + 'wallet/legal_log',
+                url: '/api/' + 'wallet/legal_log',
                 data: {
 
                     // type:'change'

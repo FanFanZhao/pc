@@ -60,7 +60,7 @@ import indexFooter from '@/view/indexFooter'
                     return;
                 } else {
                     this.$http({
-                        url:this.$utils.laravel_api + url,
+                        url:'/api/' + url,
                         method:'post',
                         data:{}
                     })

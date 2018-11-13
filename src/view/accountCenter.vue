@@ -72,7 +72,7 @@
 			if(this.address){
 				this.showLoading=true;
 				this.$http({
-					url:this.$utils.laravel_api+'wallet/list?user_id='+this.address,
+					url:'/api/'+'wallet/list?user_id='+this.address,
 					type:'GET'
 				}).then(res=>{
 					console.log(res)

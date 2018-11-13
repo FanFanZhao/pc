@@ -103,7 +103,7 @@ export default {
         console.log(this.address)
         if(this.address){
             this.$http({
-                url:this.$utils.laravel_api+'money/rechange?user_id='+this.address,
+                url:'/api/'+'money/rechange?user_id='+this.address,
                 type:'GET'
             }).then(res=>{
                 console.log(res)

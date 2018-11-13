@@ -50,7 +50,7 @@ export default {
   },
   created() {
     // this.$http({
-    //   url: this.$utils.laravel_api + "news/list",
+    //   url: '/api/' + "news/list",
     //   method: "get",
     //   data: {}
     // })
@@ -70,7 +70,7 @@ export default {
   methods: {
     getNotice(){
       this.$http({
-        url:this.$utils.laravel_api + 'news/list',
+        url:'/api/' + 'news/list',
         method:'post',
       }).then(res => {
         // console.log(res);

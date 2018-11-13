@@ -30,7 +30,7 @@ export default {
             if(id != null){
 
                 this.$http({
-                    url: this.$utils.laravel_api + 'currency/detail?id='+id,
+                    url: '/api/' + 'currency/detail?id='+id,
                 }).then(res => {
                     if(res.data.type == 'ok'){
                         this.coin = res.data.message;

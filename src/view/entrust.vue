@@ -25,7 +25,7 @@
                     <li v-for="(item,index) in inList" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
                         <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
-                        <span class="fl w8">{{type=='in'?'买入':'卖出'}}</span>
+                        <span :class="['fl','w8',{'green':type == 'in'}]">{{type=='in'?'买入':'卖出'}}</span>
                         <span class="fl w8">{{item.total_number}}</span>
                         <span class="fl w8">{{item.price}}</span>
                         <span class="fl w8">{{item.complete_number}}</span>

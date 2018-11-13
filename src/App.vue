@@ -28,6 +28,9 @@ export default {
                     //    var legal_name = arr_quota[0][0].name;
                     //   this.$store.state.priceScale=Math.pow(10,this.marketList[0][0].now_price.length)
                     //   this.$store.state.symbol='EOS/USDT'
+                    if(!window.localStorage.getItem('downUp')){
+                      window.localStorage.setItem('downUp',arr_quota[0][0].change)
+                    }
                      if(!window.localStorage.getItem('legal_id_cur')){
                        window.localStorage.setItem('legal_id_cur',arr_quota[0][0].currency_id)
                      }

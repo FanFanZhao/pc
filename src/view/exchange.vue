@@ -35,26 +35,30 @@ export default {
     return {
       outlist: [],
       inlist: [],
-      load:1,
+      load: 1,
       newData: 0,
-      currency_name:'',
-      legal_name:'',
-      currency_id:'',
-      legal_id:''
+      currency_name: "",
+      legal_name: "",
+      currency_id: "",
+      legal_id: ""
     };
   },
   mounted: function() {
-      var that = this;
+    var that = this;
   },
   created: function() {
-    var local_lid = window.localStorage.getItem('l_id'),local_cid = window.localStorage.getItem('c_id');
+    var local_lid = window.localStorage.getItem("l_id"),
+      local_cid = window.localStorage.getItem("c_id");
     var that = this;
-    this.legal_id=localStorage.getItem('legal_id');
-    this.currency_id=localStorage.getItem('currency_id');
-    this.legal_name=localStorage.getItem('legal_name');
-    this.currency_name=localStorage.getItem('currency_name');
-    that.buy_sell(this.legal_id,this.currency_id);
-    that.connect(this.legal_id,this.currency_id)
+    this.legal_id = localStorage.getItem("legal_id");
+    this.currency_id = localStorage.getItem("currency_id");
+    this.legal_name = localStorage.getItem("legal_name");
+    this.currency_name = localStorage.getItem("currency_name");
+    that.buy_sell(this.legal_id, this.currency_id);
+    that.connect(
+      this.legal_id,
+      this.currency_id
+    );
     // eventBus.$on("toExchange0", function(data0) {
     //   console.log(data0);
     //   c_id = data0.currency_id,
@@ -78,7 +82,7 @@ export default {
     // eventBus.$on('tocel', function (datas) {
     //   if(datas){
     //     that.buy_sell(that.legal_id,that.currency_id);
-    //   }  
+    //   }
     // })
   },
   sockets: {
@@ -96,80 +100,87 @@ export default {
     //       }
     //       if (outData.length >= 0) {
     //       this.outlist = outData;
-    //       }    
+    //       }
     //     // }
     //   }
     //   });
     // },
   },
   methods: {
-    price(price){
-      eventBus.$emit('toPrice',price);
+    price(price) {
+      eventBus.$emit("toPrice", price);
     },
     // 第一次默认最新价数据
-    buy_sell(legals_id,currencys_id){
-        // var index = layer.load();
-        this.$http({
-                    url: '/api/'+'transaction/deal',
-                    method:'post',
-                    data:{
-                        legal_id:currencys_id,
-                        currency_id:legals_id
-                    },  
-                      headers: {'Authorization':  localStorage.getItem('token')},    
-                }).then(res=>{
-                    // layer.close(i);
-                    if(res.data.type=="ok"){
-                    this.inlist = res.data.message.in;
-                    this.outlist = res.data.message.out.reverse();
-                    this.newData = res.data.message.last_price;
-                        this.buyInfo.buyPrice=0;
-                        this.buyInfo.buyNum=0;
-                        this.connect(legals_id,currencys_id)
-                    }else{
-                        // layer.msg(res.data.message)
-                    }
-                }).catch(error=>{
-                    // console.log(error)
-                })
+    buy_sell(legals_id, currencys_id) {
+      // var index = layer.load();
+      this.$http({
+        url: "/api/" + "transaction/deal",
+        method: "post",
+        data: {
+          legal_id: currencys_id,
+          currency_id: legals_id
+        },
+        headers: { Authorization: localStorage.getItem("token") }
+      })
+        .then(res => {
+          // layer.close(i);
+          if (res.data.type == "ok") {
+            this.inlist = res.data.message.in;
+            this.outlist = res.data.message.out.reverse();
+            this.newData = res.data.message.last_price;
+            this.buyInfo.buyPrice = 0;
+            this.buyInfo.buyNum = 0;
+            this.connect(
+              legals_id,
+              currencys_id
+            );
+          } else {
+            // layer.msg(res.data.message)
+          }
+        })
+        .catch(error => {
+          // console.log(error)
+        });
     },
-    connect(legal_id,currency_id) { 
+    connect(legal_id, currency_id) {
       // console.log(legal_id,currency_id)
-      var that=this;
+      var that = this;
       // console.log('socket')
       //localStorage.getItem('user_id')
-      var nums= Math.floor(Math.random()*40)+60;
-      var socket_user_id = new Date().getTime()+nums;
-      that.$socket.emit("login",socket_user_id);
+      var nums = Math.floor(Math.random() * 40) + 60;
+      var socket_user_id = new Date().getTime() + nums;
+      that.$socket.emit("login", socket_user_id);
       that.$socket.on("transaction", msg => {
         // console.log(msg);
         if (msg.type == "transaction") {
-        //组件间传值
-        var newPrice = {
-          newprice:msg.last_price,
-          newup:msg.proportion,
-          istoken:msg.token,
-          yesprice:msg.yesterday,
-          toprice:msg.today
-        }
-        eventBus.$emit('toNew',newPrice);
-        if(msg.token==that.currency_name+'/'+that.legal_name){
-          that.newData = msg.last_price;
-        }
-        
-        var inData = JSON.parse(msg.in);
-        var outData = JSON.parse(msg.out);
-        if(msg.currency_id==legal_id&&msg.legal_id == currency_id){
-          if (inData.length >= 0) {
-            that.inlist = inData;
+          //组件间传值
+          
+          var newPrice = {
+            newprice: msg.last_price,
+            newup: msg.proportion,
+            istoken: msg.token,
+            yesprice: msg.yesterday,
+            toprice: msg.today,
+            hour24:msg['24h']
+          };
+          eventBus.$emit("toNew", newPrice);
+          if (msg.token == that.currency_name + "/" + that.legal_name) {
+            that.newData = msg.last_price;
           }
-          if (outData.length >= 0) {
-            that.outlist = outData;
-          }    
+
+          var inData = JSON.parse(msg.in);
+          var outData = JSON.parse(msg.out);
+          if (msg.currency_id == legal_id && msg.legal_id == currency_id) {
+            if (inData.length >= 0) {
+              that.inlist = inData;
+            }
+            if (outData.length >= 0) {
+              that.outlist = outData;
+            }
           }
         }
       });
-    },     
+    }
   }
 };
 </script>
@@ -211,7 +222,7 @@ export default {
 .red {
   color: #cc4951;
 }
-.list-item li:hover{
+.list-item li:hover {
   background: #262a42;
 }
 .line {

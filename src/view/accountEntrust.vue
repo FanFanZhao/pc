@@ -224,7 +224,7 @@ export default {
       getOut(){
           var page = this.page;
           this.$http({
-            url: this.$utils.laravel_api + 'transaction/entrust',
+            url: '/api/' + 'transaction/entrust',
             method:'post',
             data:{
                 address:this.address,
