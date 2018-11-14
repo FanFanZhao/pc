@@ -9,18 +9,21 @@
                 <span>方向</span>
                 <span>价格({{currency_name}})</span>
                 <span>数量({{legal_name}})</span>
+                <span>总计</span>
             </div>
-            <ul class="list-item ft12 tc">
+            <ul class="list-item ft12 tc scroll">
                 <li class="curPer" v-for="(out,index) in outlist" @click="price(out.price)">
                     <span class="red">卖 {{outlist.length-index}}</span>
                     <span>{{out.price}}</span>
                     <span>{{out.number}}</span>
+                    <span>{{out.sum}}</span>
                 </li>
                 <div class="line"></div>
                  <li class="curPer" v-for="(buy,index) in inlist" @click="price(buy.price)">
                     <span class="green">买 {{index+1}}</span>
                     <span>{{buy.price}}</span>
                     <span>{{buy.number}}</span>
+                    <span>{{buy.sum}}</span>
                 </li>
             </ul>
             
@@ -160,8 +163,7 @@ export default {
             newup: msg.proportion,
             istoken: msg.token,
             yesprice: msg.yesterday,
-            toprice: msg.today,
-            hour24:msg['24h']
+            toprice: msg.today
           };
           eventBus.$emit("toNew", newPrice);
           if (msg.token == that.currency_name + "/" + that.legal_name) {
@@ -186,6 +188,9 @@ export default {
 </script>
 
 <style scoped>
+.exchange{
+  height: 100%;
+}
 .title {
   height: 48px;
   line-height: 48px;
@@ -194,12 +199,13 @@ export default {
 }
 .content {
   padding: 0 10px;
+  height: 100%;
 }
 .new_price {
-  height: 40px;
-  line-height: 40px;
+  /* height: 40px; */
+  /* line-height: 40px; */
   border-bottom: 1px solid #303b4b;
-  padding: 0 0 0 20px;
+  padding: 3px 20px;
 }
 .exchange_title {
   line-height: 25px;
@@ -208,11 +214,16 @@ export default {
 }
 .list-item li {
   line-height: 25px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.list-item{
+  height: calc(100% - 50px);
+  overflow: auto;
 }
 .list-item li span,
 .exchange_title span {
-  width: 33.3%;
+  width: 25%;
   display: inline-block;
   float: left;
 }

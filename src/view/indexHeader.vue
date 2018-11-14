@@ -248,7 +248,7 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("accountNum");
       localStorage.clear();
-      this.$router.push({ name: "login" });
+      this.$router.push('/components/login');
     },
     assets_over() {
       this.show1 = true;

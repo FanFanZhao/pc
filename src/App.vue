@@ -91,8 +91,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
 #app {
-
+.el-slider__runway{
+    background-color: #2e3244;
+}
 }
 </style>

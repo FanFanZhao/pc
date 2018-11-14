@@ -8,15 +8,15 @@
         <div class="content">
             <ul class="list-title fColor2 ft12 clear">
                 <li class="fl w12">时间</li>
-                <li class="fl w12">交易对</li>
+                <!-- <li class="fl w12">交易对</li> -->
                 <li class="fl w12">价格</li>
                 <li class="fl w12">交易量</li>
             </ul>
             <div class="containers scroll" v-if="deList.length>0">
                 <ul v-for="itm in deList" class="list-item fColor1 ft12">
                     <li class="clear">
-                        <span class="fl w12">{{itm.time}}</span>
-                        <span class="fl w12">{{itm.currency_name}} / {{itm.legal_name}}</span>
+                        <span class="fl w12">{{itm.time | cutDate}}</span>
+                        <!-- <span class="fl w12">{{itm.currency_name}} / {{itm.legal_name}}</span> -->
                         <span class="fl w14">{{itm.price}}</span>
                         <span class="fl">{{itm.number}}</span>
                     </li>
@@ -48,6 +48,12 @@ export default {
   created() {
     this.address = localStorage.getItem("address") || "";
   },
+  filters:{
+    cutDate(v){
+      return v.substr(-8)
+    }
+  },
+
   methods: {
     wayChoosed(index) {
       this.isChoosed = index;
@@ -84,20 +90,17 @@ export default {
       var that = this;
       that.$socket.emit("login", localStorage.getItem("user_id"));
       that.$socket.on("deal_list", function(msg) {
-        console.log(msg);
+        // console.log(msg);
         
         if (msg.type == "deal_list") {
           
           var complete = JSON.parse(msg.complete);
-          console.log(that.leftName, that.rightName, complete);
           var newlist = complete.filter(function(item) {
             return (
               item.currency_name == that.leftName &&
               item.legal_name == that.rightName
             );
           });
-          console.log(newlist.length);
-          
           if(newlist.length){
               that.deList = newlist;
           }
@@ -129,11 +132,21 @@ export default {
 };
 </script>
 <style scoped>
+.detail{
+  height: 100%;
+}
+.content{
+  height: 100%
+}
 .title {
-  height: 48px;
+  padding: 3px 20px;
+  font-size: 14px;
+  border-bottom: 1px solid #303b4b;
+ 
+  /* height: 48px;
   line-height: 46px;
-  padding: 0 40px 0 30px;
-  background-color: #181b2a;
+  padding: 0 40px 0 30px; */
+  /* background-color: #181b2a; */
 }
 .tab_title {
   display: inline-block;
@@ -146,28 +159,29 @@ export default {
 .tab_title span:not(:last-child) {
   margin-right: 40px;
 }
-.content {
-  padding: 0 40px 0 30px;
-  height: 330px;
+.containers{
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .list-title {
-  line-height: 40px;
-  border-bottom: 1px solid #303b4b;
-  height: 40px;
+  line-height: 25px;
+  /* border-bottom: 1px solid #303b4b; */
+  /* height: 35px; */
 }
 .list-title li {
-  width: 25%;
+  width: 33.33%;
   text-align: center;
 }
 .no_data {
   padding: 50px 0;
 }
 .containers {
-  height: 260px;
+  /* height: 260px; */
   overflow: auto;
 }
 .list-item li {
-  line-height: 45px;
+  line-height: 1.6;
   display: flex;
 }
 .list-item li span {

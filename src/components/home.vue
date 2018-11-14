@@ -2,7 +2,7 @@
     <div class="indexBlackes">
         <indexHeader></indexHeader>
         <router-view></router-view>
-        <indexFooter></indexFooter>      
+        <!-- <indexFooter></indexFooter>       -->
     </div>  
 </template>
 <script>

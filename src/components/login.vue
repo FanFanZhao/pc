@@ -110,6 +110,12 @@ import indexFooter from '@/view/indexFooter'
 					console.log(error)
 				})
             }
+        },
+        beforeRouteEnter(to,from,next){
+            if(from.name == 'dealCenter'){
+                window.location.reload()
+            }
+            next()
         }
 
     }

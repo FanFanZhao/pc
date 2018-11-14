@@ -1,50 +1,38 @@
 <template>
-	<div class="home">
-		<div class="main">
-			<div class="main-l fl" >
-				<div class="sidebar">
-          <market></market>
-        </div>
-				<div class="notice_box" style="margin-top:10px">
-        <notice></notice>
+	<div class="home flex">
+		<div class="home-l">
+      <div class="tv-box">
+        <tv></tv>
       </div>
-			</div>
-			<div class="main-r">
-				<div class="chart_wrap">
-          <!-- <chart></chart> -->
-          <!-- <kline></kline> -->
-          <tv></tv>
+      <div class="entrusts">
+        <div class="tab-entrust ">
+          <span :class="{active:whichEntrust == 'entrust'}" @click="whichEntrust = 'entrust'">当前委托</span>
+          <span :class="{active:whichEntrust == 'hisentrust'}" @click="whichEntrust = 'hisentrust'">历史委托</span>
         </div>
-				<div class="parts  flex between" >
-					<div class="trade-wrap part-l">
-						<trade></trade>
-					</div>
-					<div class="deadl-wrap part-r">
-						<exchange></exchange>
-					</div>
-				</div>
-        <div class="entrust_box" style="background: #181b2a;">
-          <entrust></entrust>
+        <div class="scroll">
+
+          <div class="entrust-box" v-if="whichEntrust == 'entrust'">
+            <entrust ></entrust>
+          </div>
+          <div class="histentrust-box" v-if="whichEntrust == 'hisentrust'">
+            <hisentrust></hisentrust>
+          </div>
         </div>
-        <div class="entrust_box" style="background: #181b2a;">
-          <hisentrust></hisentrust>
+      </div>
+    </div>
+    <div class="home-r">
+      <div class="home-r-t flex">
+        <div class="exchage-box">
+          <exchange></exchange>
         </div>
-        <!-- <div class="deatil_box" style="background: #181b2a;">
-            <detail></detail>
-        </div> -->
-        <div class="deatil_box" style="background: #181b2a;">
+        <div class="complete-box">
           <complete></complete>
         </div>
-				<div class="currency_box">
-          <currency></currency>
-        </div>
-				<!-- <div class="depth-map flex btween" >
-					<deal></deal>
-				</div> -->
-
-			</div>
-		</div>
-		
+      </div>
+      <div class="home-r-b">
+        <trade></trade>
+      </div>
+    </div>
 	</div>
 </template>
 
@@ -53,7 +41,7 @@ import indexHeader from "@/view/indexHeader";
 import notice from "@/components/noticeList";
 import deal from "@/view/deal";
 import exchange from "@/view/exchange";
-import market from "@/view/market";
+// import market from "@/view/market";
 import trade from "@/view/trade";
 import chart from "@/view/chart";
 import entrust from "@/view/entrust";
@@ -71,7 +59,7 @@ export default {
     notice,
     deal,
     exchange,
-    market,
+    
     trade,
     chart,
     entrust,
@@ -84,7 +72,8 @@ export default {
   },
   data() {
     return {
-      isRouterAlive:true
+      isRouterAlive:true,
+      whichEntrust:'entrust'
     };
   },
   created() {
@@ -109,50 +98,48 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  .main {
-      overflow: hidden;
-    .main-l {
-      width: 360px;
-      height: 100%;
-      margin-top: 10px;
-      > div {
-        background: #181b2a;
-        margin: 0 10px 10px;
+.home{
+  margin-top: 3px;
+  justify-content: space-between;
+  height: 100%;
+  >.home-l{
+    width: calc(100% - 683px);
+    >.entrusts{
+      margin-top: 3px;
+      padding: 0 15px;
+      background: #181b2a;
+      height: 385px;
+      >.tab-entrust{
+        color: rgba(255,255,255,.8);
+        font-size: 14px;
+        line-height: 1.6;
+        height: 30px;
+        span{
+          margin-right: 14px;
+          line-height: 30px;
+          
+        }
+        .active{
+          // border-bottom: 1px solid #ccc;
+        }
       }
     }
-    .main-r {
-      padding: 0 10px 10px 360px;
-      .chart_wrap{
-        // height: 530px;
-      }
-      .parts {
-        margin-top: 10px;
-        max-height: 530px;
-
-        > .part-l {
-          background: #181b2a;
-          min-width: 67%;
-          padding-bottom: 20px;
-        }
-        > .part-r {
-          width: 33%;
-          > div {
-            margin-left: 10px;
-            background: #181b2a;
-            height: 100%;
-            padding-bottom: 20px;
-          }
-        }
-      }
+  }
+  >.home-r{
+    
+    width: 680px;
+    >.home-r-t{
+      justify-content: space-between;
+      height: calc(100% - 360px);
       >div{
-        //  background: #181b2a;
-         margin-top: 10px;
+        width: 338px;
+        background: #181b2a;
       }
-      .depth-map {
-        max-height: 500px;
-        margin-top: 10px;
-      }
+    }
+    >.home-r-b{
+      margin-top: 3px;
+      background: #181b2a;
+      height: 360px;
     }
   }
 }
