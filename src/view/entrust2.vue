@@ -131,7 +131,7 @@ export default {
                 ()=>{
                     var id = id;
                     that.$http({
-                        url: that.$utils.laravel_api + 'transaction/revoke',
+                        url: '/api/' + 'transaction/revoke',
                         method:'post',
                         data:{
                             address:that.address,

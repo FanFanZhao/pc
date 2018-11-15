@@ -9,7 +9,7 @@ export default {
   name: 'App',
   created(){
     this.$http({
-					url: this.$utils.laravel_api + 'currency/quotation',
+					url: '/api/' + 'currency/quotation',
 					method:'get',
 					data:{}
 				}).then(res=>{
@@ -55,7 +55,7 @@ export default {
                 });
                 //杠杆行情
                 this.$http({
-					url: this.$utils.laravel_api + 'currency/lever',
+					url: '/api' + 'currency/lever',
 					method:'get',
 					data:{}
 				}).then(res=>{

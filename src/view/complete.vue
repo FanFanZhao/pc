@@ -22,10 +22,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="no_data tc" v-if="deList.length<=0">
+            <!-- <div class="no_data tc" v-if="deList.length<=0">
                 <img src="../assets/images/nodata.png" alt="">
                 <p class="fColor2 ft18">暂无数据</p>   
-            </div>
+            </div> -->
         </div>
     </div>
 </template>

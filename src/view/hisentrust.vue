@@ -133,7 +133,7 @@ export default {
             } else {
                 if(list.length){
 
-                    that.comlist = list;
+                    that.comList = list;
                 }
             }
 

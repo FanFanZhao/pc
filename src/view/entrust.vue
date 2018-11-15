@@ -28,9 +28,9 @@
                         <span :class="['fl','w8',{'green':type == 'in'}]">{{type=='in'?'买入':'卖出'}}</span>
                         <span class="fl w11">{{item.total_number}}</span>
                         <span class="fl w11">{{item.price}}</span>
-                        <span class="fl w11">{{(item.complete_number-0).toFixed(4)}}</span>
+                        <span class="fl w11">{{(item.complete_number-0).toFixed(5)}}</span>
                         <span class="fl w11">{{item.number}}</span>
-                        <span class="fl w10">{{item.total_money}}</span>
+                        <span class="fl w10">{{(item.total_money-0).toFixed(5)}}</span>
                         <span class="fl w8 tr curPer ceilColor" @click="revoke(index,item.id)">撤销</span>
                     </li>
                 </ul>
@@ -72,6 +72,7 @@ export default {
   created() {
     this.token = localStorage.getItem("token") || "";
   },
+  
   methods: {
     // 类型切换
     wayChoose(index, url) {

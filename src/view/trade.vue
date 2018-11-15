@@ -31,7 +31,7 @@
                         <span>{{legal_name}}</span>
                     </div>
                     <div class="slider-in">
-                        <el-slider v-model="sliderIn" :disabled='address.length<=0 ||buyInfo.buyPrice == 0' :max='100'  show-stops  @change="sliderChange('buy')"></el-slider>
+                        <el-slider v-model="sliderIn" :disabled='address.length<=0 ||buyInfo.buyPrice == 0' :max='100'  :step="25" show-stops  @change="sliderChange('buy')"></el-slider>
                     </div>
                     <div class="attion tr fColor1">范围 (0.00001,100,精度: 0.00001)</div>
                     <div class="mt20 fColor1 ft16">交易额 {{buyTotal}} {{currency_name}}</div>
@@ -60,7 +60,7 @@
                         <span>{{legal_name}}</span>
                     </div>
                     <div class="slider-out">
-                        <el-slider v-model="sliderOut" :disabled='address.length<=0 || sellInfo.sellPrice == 0' :max='100'  show-stops  @change="sliderChange('sell')"></el-slider>
+                        <el-slider v-model="sliderOut" :disabled='address.length<=0 || sellInfo.sellPrice == 0' :max='100'  :step="25" show-stops  @change="sliderChange('sell')"></el-slider>
                     </div>
                     <div class="attion tr fColor1">范围 (0.00001,100,精度: 0.00001)</div>
                     <div class="mt20 fColor1 ft16">交易额 {{sellTotal}} {{currency_name}}</div>
@@ -158,9 +158,12 @@ export default {
         that.sellInfo.sellPrice = data;
       }
     });
-    setInterval(function(){
-        that.buy_sell(that.legal_id, that.currency_id,true)
-    },10000)
+    if(that.adress){
+
+      setInterval(function(){
+          that.buy_sell(that.legal_id, that.currency_id,true)
+      },10000)
+    }
     // eventBus.$on('toTrade', function (data) {
     //     that.currency_id = data.currency_id,
     //     that.legal_id = data.legal_id;
@@ -195,10 +198,10 @@ export default {
       } else {
         if (this.user_currency != 0) {
           this.sellInfo.sellNum = (
-            (this.user_currency * this.sliderOut) /
-            this.sellInfo.sellPrice /
-            100
+            (this.user_currency * this.sliderOut) /100
           ).toFixed(4);
+          
+          
         }
       }
     },

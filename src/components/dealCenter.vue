@@ -2,7 +2,9 @@
 	<div class="home flex">
 		<div class="home-l">
       <div class="tv-box">
+        <!-- <tv-top></tv-top> -->
         <tv></tv>
+        <!-- <market></market> -->
       </div>
       <div class="entrusts">
         <div class="tab-entrust ">
@@ -51,6 +53,7 @@ import currency from "@/view/currency";
 import complete from "@/view/complete";
 // import kline from "@/view/kline";
 import tv from "@/view/tv";
+// import TvTop from '../view/tvTop'
 export default {
   name: "dealCenter",
   components: {
@@ -59,7 +62,7 @@ export default {
     notice,
     deal,
     exchange,
-    
+    // market,
     trade,
     chart,
     entrust,
@@ -67,6 +70,7 @@ export default {
     // detail,
     currency,
     complete,
+    // TvTop,
     // kline,
     tv
   },
@@ -130,7 +134,8 @@ export default {
     width: 680px;
     >.home-r-t{
       justify-content: space-between;
-      height: calc(100% - 360px);
+      min-height: 220px;
+      max-height: calc(100% - 360px);
       >div{
         width: 338px;
         background: #181b2a;

@@ -30,11 +30,7 @@
             }
         },
         created(){
-            // this.init();
-            setInterval(()=>{
-                // this.init();
-                // console.log('setInterval')
-            },5*60*1000)
+            
         },
         methods:{
             init(){
