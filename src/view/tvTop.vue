@@ -2,7 +2,7 @@
   <div id="tv-top">
     <span @click="showMarket = !showMarket">{{leftName}}/{{rightName}}</span>
     <span class="lastprice">{{lastPrice}}</span>
-    <span>≈{{lastPrice*6.5}}CNY</span>
+    <span>≈{{lastPrice*usprice}}CNY</span>
     <span>涨幅 {{downUp}}%</span>
     <span>高 {{coin.high}}</span>
     <span>低 {{coin.low}}</span>
@@ -108,7 +108,7 @@ export default {
   }
   > span {
     line-height: 40px;
-    margin: 0 16px;
+    margin: 0 2px;
   }
   >.market-box{
     position: absolute;

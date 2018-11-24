@@ -173,9 +173,7 @@ export default {
               }
               that.page += 1;
             } else {
-              if (list.length) {
-                that.inList = list;
-              }
+              this.inList = list;
             }
             
           } 

@@ -85,6 +85,7 @@ import indexFooter from '@/view/indexFooter'
                     layer.tips('密码不能小于六位!', '#pwd');
                     return;
                 }
+                var i = layer.load();
                 this.$http({
 					url: '/api/' + 'user/login',
 					method:'post',
@@ -94,7 +95,8 @@ import indexFooter from '@/view/indexFooter'
                         type:1
 					}
 				}).then(res=>{
-                    console.log(res);
+                    layer.close(i);
+                    // console.log(res);
                     
 					res = res.data;
 					if(res.type  === 'ok'){

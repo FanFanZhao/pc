@@ -1,8 +1,14 @@
 <template>
-    <div class="indexBlackes">
+    <div class="indexBlackes home-box">
         <div class="swiper-container banner_wrap swiper-container-horizontal">
             <div class="swiper-wrapper">
-               <div class="swiper-slide sliders">
+
+               <div class="swiper-slide sliders" v-for="(item,index) in swiperImgs" :key="index">
+                   <a href="">
+                   <img :src="item.thumbnail" />
+                   </a>
+               </div>
+               <!-- <div class="swiper-slide sliders">
                    <a href="">
                    <img src="../../static/imgs/bg01.png" />
                    </a>
@@ -16,16 +22,11 @@
                    <a href="">
                    <img src="../../static/imgs/bg03.png" />
                    </a>
-               </div>
+               </div> -->
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
-        <div class="noticeList">
-          <ul class="flex notice_ul">
-            <li v-for="(item,index) in noticeLists" @click="goDetail(item.id)">{{item.title}}</li>
-          </ul>
-         
-        </div>
+       
        
        
         <div class="coins-list">
@@ -41,14 +42,14 @@
             <span>涨幅</span>
           </div>
           
-          <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
+          <ul class="list-con" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
             <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='item.name+"/"+li.name'>
               <div class="two-coin">
                 <span>{{li.name}}</span>
                 <span style="color:#61688a">/{{item.name}}</span>
               </div>
               <div class="yester">
-                {{li.last_price}}
+                {{li.yesterday_last_price}}
               </div>
               <div class="today" :data-name='item.name+"/"+li.name'>
                 {{li.now_price}}
@@ -116,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="feature_wrap">
+        <!-- <div class="feature_wrap">
             <h2>全球领先的数字资产金融服务商</h2>
             <p>为全球超过130个国家的数百万用户提供安全、可信赖的数字资产交易及资产管理服务</p>
             <ul class="feature_list slide_ani a-fadeinB clearfix">
@@ -135,7 +136,91 @@
                 <p>设立投资者保护基金</p>
               </li>
             </ul>
+        </div> -->
+        <div class="md">
+          <div>
+            <div class="">
+              <span>安全有保障</span>
+              <span>资金托管</span>
+            </div>
+            <router-link to="/components/register" tag="div" class="btn">立即加入</router-link>
+            <div>
+              <img src="https://ztstatic.oss-cn-hangzhou.aliyuncs.com/zg72/img/home-zg-pic-$.d1d0840.jpg" alt="">
+            </div>
+          </div>
+          <div>
+            <div>全球数字资产交易平台</div>
+            <div>支持币币交易、货币交易的区块链数字资产交易平台，由全球多国多领域顶级人才构成的精英团队，在系统安全、微秒级高负载、金融领域拥有资深经验</div>
+          </div>
         </div>
+        <div class="notice flex">
+          <div>
+            <div class="notpic1"></div>
+            <div>2kex力量，中国力量！</div>
+            <div>透明公开的2kex区块链慈善基金，您的每一笔交易都能帮助改善偏远山区儿童的生活与学习</div>
+          </div>
+          <div>
+            <div class="notpic2"></div>
+            <div>2kex持续分红+奖励</div>
+            <div>2kex每个月将平台50%利润用于用户分红奖励，大力回馈用户是2kex生态建设的重要计划</div>
+          </div>
+          <div>
+            <div class="notpic3"></div>
+            <div>极速交易安全稳定</div>
+            <div>超高性能撮合交易技术架构，多级数据灾备，1:1准备金仓储，2kex不仅仅是交易所也是您的高级资产安全管理钱包！</div>
+          </div>
+          <div>
+            <div class="notpic4"></div>
+            <div>贵宾级客户服务</div>
+            <div>7X24X365天及时响应1V1客服服务！为您的数字资产安全交易保驾护航！</div>
+          </div>
+          
+          
+        </div>
+        <div class="mb">
+          <img src="../assets/images/homemb.jpg" alt="">
+           <div>
+             <div> 随时随地 不错过任何机会</div>
+           <p> 实时交易：买入、卖出、杠杆</p>
+           <p> 随身充提：充值、提现</p>
+           <p>实时提醒：行情提醒、事件提醒</p>
+           </div>
+        </div>
+        <div class="news">
+          <p class="">公告</p>
+          <div class="line"></div>
+          <div class="items">
+            <div class="item" v-for='(item,index) in noticeList' :key="index">
+              <div class="date">{{item.update_time.slice(0,10)}}</div>
+              <div class="content">
+                <img src="../assets/images/notbg.jpg" alt="">
+                <div class="title">{{item.title}}</div>
+                <p v-html="item.content"></p>
+              </div>
+            </div>
+            
+            
+          </div>
+        </div>
+        <footer>
+          <div class="content flex">
+            <dl>
+              <dt>网站功能</dt>
+              <router-link to="/c2c" tag="dd">c2c交易</router-link>
+              <router-link to="/dealCenter" tag="dd">币币交易</router-link>
+            </dl>
+            <dl>
+              <dt>用户帮助</dt>
+              <router-link to="/components/login" tag="dd">登录</router-link>
+              <router-link to="/components/register" tag="dd">注册</router-link>
+              <router-link to="/forgetPwd" tag="dd">找回密码</router-link>
+            </dl>
+            <dl>
+              <dt>app下载</dt>
+              <dd></dd>
+            </dl>
+          </div>
+        </footer>
     </div>
     
 </template>
@@ -169,15 +254,9 @@ export default {
       swiperList: [],
       coinList: [],
       coin_list: [],
-      noticeList: [
-        { text: "2KEX交易所测试上线。。。", url: "" },
-        { text: "2KEX交易所测试上线。。。", url: "" },
-        { text: "2KEX交易所测试上线。。。", url: "" },
-        { text: "2KEX交易所测试上线。。。", url: "" }
-      ],
-       noticeLists: [
-       
-      ]
+
+      noticeList: [],
+      swiperImgs: []
     };
   },
   created() {
@@ -185,6 +264,7 @@ export default {
     this.getQuotation();
   },
   mounted() {
+    this.getSwiper();
     var mySwiper = new Swiper(".swiper-container01", {
       // 如果需要分页器
       pagination: ".swiper-pagination01",
@@ -196,33 +276,34 @@ export default {
       observer: true, //修改swiper自己或子元素时，自动初始化swiper
       observeParents: true //修改swiper的父元素时，自动初始化swiper
     });
-    var mySwiper02 = new Swiper(".banner_wrap", {
-      // direction: 'vertical',
-      loop: true,
-      autoplay: 2000,
-      // 如果需要分页器
-      pagination: ".swiper-pagination02",
-      paginationClickable: true,
-      observer: true, //修改swiper自己或子元素时，自动初始化swiper
-      observeParents: true //修改swiper的父元素时，自动初始化swiper
-    });
-    // this.setChart();
-    this.$http({
-      url: '/api/' + "news/help",
-      method: "post",
-      data: {}
-    }).then(res => {
-      if (res.status === 200) {
-        this.noticeList = res.data.message;
-      } else {
-        layer.msg(res.message);
-      }
-    });
 
-    this.connect();
+    // this.connect();
     this.getNews();
   },
   methods: {
+    getSwiper() {
+      this.$http({
+        url: "/api/news/list?c_id=24"
+      })
+        .then(res => {
+          console.log(res);
+          if (res.data.type == "ok") {
+            this.swiperImgs = res.data.message.list;
+          }
+        })
+        .then(() => {
+          var mySwiper02 = new Swiper(".banner_wrap", {
+            // direction: 'vertical',
+            loop: true,
+            // autoplay: 2000,
+            // 如果需要分页器
+            pagination: ".swiper-pagination02",
+            paginationClickable: true,
+            observer: true, //修改swiper自己或子元素时，自动初始化swiper
+            observeParents: true //修改swiper的父元素时，自动初始化swiper
+          });
+        });
+    },
     connect() {
       var that = this;
       //console.log("socket");
@@ -231,7 +312,7 @@ export default {
         var cname = msg.token;
         var yesprice = msg.yesterday;
         var toprice = msg.today;
-        // //console.log(msg);
+
         var zf = 0;
         if (toprice == yesprice) {
           zf = 0;
@@ -240,21 +321,11 @@ export default {
         } else {
           zf = (((toprice - yesprice) / yesprice) * 100).toFixed(4);
         }
-        // var zf = 0;
-        // if (toprice == yesprice) {
-        //   zf = "0";
-        // } else if (toprice == 0) {
-        //   zf = "-100";
-        // } else if (yesprice == 0) {
-        //   zf = "100";
-        // } else {
-        //   zf = ((toprice - yesprice) / yesprice / 100);
 
-        // }
-        //console.log(toprice,yesprice,zf);
-        
+        console.log(cname, yesprice, toprice, zf);
+
         if (zf >= 0) {
-          zf = "+" +zf + "%";
+          zf = "+" + zf + "%";
           $("div[data-name='" + cname + "']")
             .next()
             .css("color", "#55a067");
@@ -308,7 +379,7 @@ export default {
       this.curSwiper = index;
     },
     init(callback) {
-      this.$http.post('/api/' + "quotation").then(res => {
+      this.$http.post("/api/" + "quotation").then(res => {
         if (res.data.type == "ok") {
           this.coinList = res.data.message.coin_list;
           this.swiperList = res.data.message.coin_list;
@@ -331,15 +402,18 @@ export default {
     },
     // 公告
     getNews() {
-      var that =this;
+      var that = this;
       this.$http({
-        url: "/api/news/list",
-        method: "post",
-        data:{},
+        url: "/api/news/list?c_id=21"
       }).then(res => {
-        console.log(res)
+        console.log(res);
         if (res.data.type == "ok") {
-          that.noticeLists=res.data.message.list
+          var list = res.data.message.list;
+          if (list.length > 2) {
+            that.noticeList = list.slice(0, 2);
+          } else {
+            that.noticeList = list;
+          }
         }
       });
     },
@@ -355,30 +429,381 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.up-clr{
+footer{
+  background: rgb(20,20,63);
+  padding: 30px 0;
+  .content{
+    width: 1500px;
+    margin: 0 auto;
+    justify-content: space-between;
+    dl{
+      
+      dt{
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      dd{
+        font-size: 14px;
+        color: #8b89c8;
+        line-height: 24px;
+        cursor: pointer;
+        &:hover{
+          color: #fff;
+        }
+      }
+    }
+    dl:last-child{
+      dd{
+        background: url('../assets/images/code.jpg') no-repeat;
+        width: 100px;
+        height: 100px;
+        background-size: 100%;
+      }
+    }
+  }
+}
+.md {
+  width: 1500px;
+  margin: 0 auto;
+  > div:first-child {
+    margin-top: 90px;
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+    > span:last-child {
+      margin-left: 6px;
+      color: #33fffb;
+    }
+    .btn {
+      background: linear-gradient(90deg, #33fffb, #44c3d5);
+      width: 268px;
+      margin: 30px auto 0;
+      text-align: center;
+      line-height: 56px;
+      border-radius: 30px;
+      font-size: 18px;
+      color: #fff;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 1180px;
+      height: 635px;
+    }
+  }
+  > div:nth-child(2) {
+    padding-top: 60px;
+    background: url("https://ztstatic.oss-cn-hangzhou.aliyuncs.com/zg72/img/home-zg-bg-1.5159fa3.jpg")
+      right top/ 832px 432px no-repeat;
+    height: 500px;
+    > div:first-child {
+      font-size: 40px;
+      font-weight: bold;
+      color: #bec1da;
+    }
+    > div:nth-child(2) {
+      margin-top: 20px;
+      color: rgba(139, 137, 200, 0.5);
+      line-height: 30px;
+      width: 45%;
+    }
+  }
+}
+.news {
+  margin-top: 100px;
+  position: relative;
+  > p {
+    font-weight: 600;
+    font-size: 20px;
+    margin: 200px auto 100px;
+    color: #fff;
+    width: 1500px;
+  }
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    top: 185px;
+  }
+  > .items {
+    width: 1500px;
+
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    > .item {
+      transition: all 0.3s;
+      height: 330px;
+      cursor: pointer;
+      color: hsla(0, 0%, 100%, 0.9);
+      border-radius: 4px;
+      width: 33%;
+      > .date {
+        font-size: 24px;
+        padding-bottom: 60px;
+        color: #bec1da;
+      }
+      > p {
+        color: #8b89c8;
+      }
+      .content {
+        position: relative;
+        transition: all 0.3s;
+        max-width: 485px;
+        height: 206px;
+        padding: 30px;
+        border-radius: 6px;
+        background-color: rgba(24, 24, 76, 1);
+        background-size: 100% !important;
+        &::before {
+          content: "";
+          position: absolute;
+          left: 50px;
+          top: -10px;
+          width: 0;
+          border-right: 10px solid transparent;
+          border-left: 10px solid transparent;
+          border-bottom: 10px solid #2b2b6d;
+          opacity: 0;
+          -webkit-transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        img {
+          position: absolute;
+          border-radius: 6px;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          transition: all 0.5s;
+          // z-index: -1;
+        }
+        .title {
+          font-size: 16px;
+          color: #bec1da;
+          padding-bottom: 30px;
+        }
+        p {
+          font-size: 14px;
+          color: #8b89c8;
+        }
+      }
+      > .title {
+        font-size: 16px;
+        color: #bec1da;
+        // font-weight:
+      }
+      &:hover {
+        transition: all 0.5s;
+
+        .content {
+           &::before{
+             opacity: 1;
+           }
+          > p,
+          > div {
+            transform: translateY(16px);
+            transition: all 0.5s;
+          }
+          img {
+            transition: all 0.5s;
+            opacity: 1;
+          }
+          // background: rgba(24, 24, 76, 0) url("../assets/images/homehov.jpg");
+          // background-size: 100%;
+        }
+      }
+    }
+    > .item:nth-child(3) {
+      opacity: 1;
+
+      .content {
+        &::before{
+          opacity: 1;
+        }
+        div,
+        p {
+          position: relative;
+          z-index: 99;
+        }
+        img {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+.notice {
+  width: 1500px;
+  margin: 0 auto;
+  justify-content: space-between;
+  > div {
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 30px;
+    width: 360px;
+    height: 360px;
+    color: rgba(139, 137, 200, 0.5);
+    background: linear-gradient(to bottom right, #2b2b6d, #18184c);
+    cursor: pointer;
+    box-shadow: none;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    > div:nth-child(2) {
+      transition: all 0.3s;
+    }
+    div:nth-child(3) {
+      padding-top: 10px;
+    }
+    &:hover {
+      background: url("../assets/images/homehov.jpg") center center/ 100% 100%
+        no-repeat;
+      box-shadow: 0 0.05rem 0.45rem rgba(0, 0, 0, 0.2);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      color: #fff;
+      > div:nth-child(2) {
+        transform: translateY(-10px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      > div:nth-child(3) {
+        border-top: 1px solid rgba(139, 137, 200, 0.5);
+      }
+      .notpic1 {
+        background-image: url("../assets/images/hhov2.png") !important;
+      }
+      .notpic2 {
+        background-image: url("../assets/images/hhov4.png") !important;
+      }
+      .notpic3 {
+        background-image: url("../assets/images/hhov5.png") !important;
+      }
+      .notpic4 {
+        background-image: url("../assets/images/hhov8.png") !important;
+      }
+    }
+    > div:first-child {
+      width: 80px;
+      height: 88.8px;
+      margin: 30px auto 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    > div:nth-child(2) {
+      font-size: 18px;
+      margin: 30px 0 20px;
+      color: #bec1da;
+    }
+    > div:last-child {
+      line-height: 24px;
+    }
+  }
+  > div:first-child {
+    > div:first-child {
+      background: url("../assets/images/hhov1.png") center center/ 100% 100%
+        no-repeat;
+    }
+  }
+  > div:nth-child(2) {
+    > div:first-child {
+      background: url("../assets/images/hhov3.png") center center/ 100% 100%
+        no-repeat;
+    }
+  }
+  > div:nth-child(3) {
+    > div:first-child {
+      background: url("../assets/images/hhov6.png") center center/ 100% 100%
+        no-repeat;
+    }
+  }
+  > div:nth-child(4) {
+    > div:first-child {
+      background: url("../assets/images/hhov7.png") center center/ 100% 100%
+        no-repeat;
+    }
+  }
+}
+.mb {
+  position: relative;
+  // margin-top: 100px;
+  height: 800px;
+  padding-left: 800px;
+  img {
+    position: absolute;
+    left: -497px;
+    top: 0;
+    width: 1770px;
+  }
+  > div {
+    display: flex;
+    position: relative;
+    z-index: 99;
+    height: 800px;
+    justify-content: center;
+    flex-direction: column;
+    > div {
+      padding: 100px 0 30px;
+      font-size: 36px;
+      color: #33fffb;
+    }
+    p {
+      line-height: 30px;
+      color: rgba(139, 137, 200, 0.5);
+    }
+  }
+}
+.home-box {
+  background: rgb(24, 24, 76);
+}
+div.swiper-container .swiper-pagination {
+  left: initial;
+  right: 10px !important;
+  top: 0;
+  height: 100%;
+  width: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.swiper-container .swiper-pagination > span {
+  display: block;
+  background: #fff;
+  opacity: 0.5;
+  margin: 10px 0;
+}
+div.swiper-container .swiper-pagination-bullet-active {
+  background: transparent;
+  border: 2px solid #55a067;
+}
+.up-clr {
   color: #55a067;
 }
-.down-clr{
+.down-clr {
   color: #cc4951;
 }
 /* 币种列表 */
 .coins-list {
-  margin: 10px 50px;
+  margin: 10px auto;
+  width: 1500px;
   line-height: 40px;
   text-align: center;
-  border: 1px solid #4e5b85;
+  // border: 1px solid #4e5b85;
   .coin-tab {
     height: 42px;
     color: #c7cce6;
     display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     > ul {
-      border-left: 1px solid #4e5b85;
       display: flex;
       li {
         padding: 0 40px;
-        box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
-        border-bottom: 1px solid #4e5b85;
-        border-right: 1px solid #4e5b85;
+        font-size: 14px;
+        // box-shadow: 0 0 1px hsla(231, 9%, 54%, 0.2);
+        // border-bottom: 1px solid #4e5b85;
+        // border-right: 1px solid #4e5b85;
       }
       .activeCoin {
         border-bottom: none;
@@ -391,18 +816,30 @@ export default {
       flex: 1;
 
       text-align: center;
-      color: #c7cce6;
+      color: #8b89c8;
       font-size: 14px;
     }
   }
   .list-con {
-    background: rgb(32, 36, 55);
+    // background: rgb(32, 36, 55);
     max-height: 680px;
-    overflow: scroll;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    li:nth-child(2n) {
+      background: rgb(24, 24, 76);
+    }
+    li:nth-child(2n + 1) {
+      background: rgb(34, 31, 97);
+    }
     li {
       display: flex;
-      border-bottom: 1px solid #282e44;
+      // border-bottom: 1px solid #282e44;
       color: #c7cce6;
+      &:hover {
+        background: rgb(22, 22, 68);
+      }
       > div {
         flex: 1;
       }
@@ -434,11 +871,11 @@ export default {
 .notice_ul {
   margin: 0 40px;
   padding: 5px 0;
-  background: #262a42;
+  // background: #262a42;
   overflow: hidden;
   word-break: keep-all;
 }
-.notice_ul>li {
+.notice_ul > li {
   // flex: 1;
   font-size: 12px;
   padding: 0 15px;
@@ -447,22 +884,22 @@ export default {
   word-break: keep-all;
   position: relative;
 }
-.notice_ul>li::after {
+.notice_ul > li::after {
   content: "/";
   position: absolute;
-  left: -.5em;
+  left: -0.5em;
   color: #9eb5ca;
 }
-.notice_ul>li:last-child:after {
+.notice_ul > li:last-child:after {
   content: "";
   color: #6b80ae;
 }
-.notice_ul>li:hover {
+.notice_ul > li:hover {
   color: #6b80ae;
   cursor: pointer;
 }
 .feature_wrap {
-  background-color: #fff;
+  // background-color: #fff;
   padding: 100px 0;
   text-align: center;
   color: #54748f;

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="top">
-            <p>法币账户  总资产折合：{{totle}}（USDT）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle*exRate}}</span> CNY</span></p>
+            <p>法币账户  总资产折合：{{totle}}（USDT）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle*usprice}}</span> CNY</span></p>
         </div>
         <ul class="list">
             <li v-for="(item,index) in list" :key="index" @click="go_legalAccount(item.currency)">
@@ -17,9 +17,9 @@
                     </div>
                     <div class="convert flex1">
                        <p class="ft12 mincny">折合</p>
-                       <!-- <p class="lock_balance_num">{{item.legal_balance}}{{item.lock_legal_balance}}{{exRate}}{{item.ustd_price}}（CNY）</p> -->
+                       <!-- <p class="lock_balance_num">{{item.legal_balance}}{{item.lock_legal_balance}}{{usprice}}{{item.ustd_price}}（CNY）</p> -->
                        <p class="lock_balance_num">
-                           {{(item.legal_balance - 0 + (item.lock_legal_balance-0))*item.ustd_price*exRate}}
+                           {{(item.legal_balance - 0 + (item.lock_legal_balance-0))*item.ustd_price*usprice}}
                        </p>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ export default {
         return{
           totle:'',
           list:[],
-          exRate:''
+        //   usprice:''
         }
     },
     created(){
@@ -55,7 +55,6 @@ export default {
                     console.log(res)
                         
                         if(res.data.type  =='ok'){
-                            this.exRate = res.data.ExRate ||6.5;
                             that.list = res.data.message.legal_wallet.balance;
                             this.totle = res.data.message.legal_wallet.totle;
                         }else{

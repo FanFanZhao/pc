@@ -232,7 +232,7 @@
                     </ul>
                     <!-- <div class="more"  v-if="listOut.length&&listOut.hasMore" @click="getList(1)">加载更多</div> -->
                     <ul class="ul-in" v-if="showList&&listIn.list.length">
-                        <li v-for="(item,index) in listIn.list" :key="index" class="flex" >
+                        <li v-for="(item,index) in listIn.list" :key="index" class="flex">
                           <div class="content flex">
 
                             <div>买入</div>
@@ -304,7 +304,7 @@
                                 <div>
                                   <div v-if="trader.status != 1">{{trader.status_name}}</div>
                                   <div v-else class="btn-green" @click="cancelComplete('cancel_transaction',trader.id,index)">取消交易</div>
-                                  <div class="btn-last btn-green" v-if="trader.status == 1" @click="cancelComplete('complete',trader.id)" >确认</div>
+                                  <div class="btn-last btn-green" v-if="trader.status == 1&&item.type_name=='卖出'" @click="cancelComplete('complete',trader.id)" >确认</div>
                                   <!-- <div class="detailit" @click="getDetail(trader.c2c_id,'myC2c',$event)">详情</div> -->
                                   <!-- <div class="btn-green" @click="cancelComplete('complete',trader.c2c_id,index)">确认完成</div> -->
                                 </div>
@@ -342,8 +342,8 @@
                                 <!-- <span class="btn-last" v-if="item.status_name == '等待中'">{{item.status_name}}</span> -->
                                 <span class="btn-last" v-if="item.status_name == '已成功'">{{item.status_name}}</span>
                                 <span class="btn-last" v-else-if="item.status_name == '已取消'">{{item.status_name}}</span>
-                                
-                                <!-- <div class="btn-last" @click="cancelComplete('cancel',item.id)" v-if="item.status_name == '等待中'">取消交易</div> -->
+                                <span class="btn-last" v-if="item.status_name == '交易中'&&item.type_name=='买入'" @click="cancelComplete('complete',item.id)">确认</span>
+                               
                             </div>
                           </div>
                         </li>
@@ -685,12 +685,14 @@ export default {
     },
     cancelComplete(type, id, index) {
       // this.showDetail = false;
+      var i = layer.load();
       this.$http({
         url: "/api/c2c/" + type,
         method: "post",
         data: { id: id },
         headers: { Authorization: this.token }
       }).then(res => {
+        layer.close(i);
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           ////consolelog(res);

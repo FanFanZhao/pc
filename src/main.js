@@ -37,6 +37,12 @@ Axios.interceptors.request.use(function (config) {
 	// 对请求错误做些什么
 	return Promise.reject(error)
 })
+Axios.interceptors.response.use(function(response){
+	if(response.data.type == '999'){
+		layer.msg('登录过时，请重新登录')
+	}
+	return response
+})
 //Axios.defaults.baseURL = ''
 // Axios.defaults.headers = { 'Content-Type': 'application/json;charset=UTF-8' }application/x-www-form-urlencoded
 // Axios.defaults.withCredentials = true;
@@ -54,21 +60,22 @@ Vue.filter('numFilter', function (value) {
 
 let bus = new Vue()
 Vue.prototype.bus = bus
-// router.beforeEach((to,from,next) => {
-// 	if(to.meta.requireLogin == 'no'){
-// 		next()
-// 	} else {
-// 		let token = window.localStorage.getItem('token') || '';
-// 		if(token == ''){
-// 			// next({path:'/components/login'})next()
-// 			next()
-// 		} else {
-// 			next()
-// 		}
-// 	}
+router.beforeEach((to,from,next) => {
+	Axios({
+		url:'/api/currency/get_usdt_price'
+	}).then(res => {
+		var p  = 6.9;
+		if(res.data.type == 'ok'){
+			p = res.data.message;
+		}
+		Vue.prototype.usprice = p;
+		next()
+		
+	})
 	
 	
-// })
+	
+})
 //Vue.use(Ws, 'http://test.maxf.pub/users/chatRoom');
 /* eslint-disable no-new */
 new Vue({

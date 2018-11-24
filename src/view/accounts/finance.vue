@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <div class="header fColor1">
-            <p class="fl">总资产折合：<span class="asset_num">0.0000000</span><span class="asset_name"> BTC</span><span class="ft12 baseColor"> ≈ <span>0.00</span>CNY</span>
+            <p class="fl">总资产折合：<span class="asset_num">{{totle}}</span><span class="asset_name"> USDT</span><span class="ft12 baseColor"> ≈ <span>{{totle*usprice}}</span>CNY</span>
             <!-- <label class="min_lab ft14"><input type="checkbox" />隐藏小额资产</label><i></i><label class="inp_lab"><input  type="text"/><i></i></label> -->
             </p>
             <p class="fr right_text">
@@ -109,463 +109,478 @@
     </div>
 </template>
 <script>
-import indexHeader from '@/view/indexHeader'
-import left from '@/view/left'
-import "@/lib/clipboard.min.js"
-import "@/lib/jquery.qrcode.min.js"
+import indexHeader from "@/view/indexHeader";
+import left from "@/view/left";
+import "@/lib/clipboard.min.js";
+import "@/lib/jquery.qrcode.min.js";
 export default {
-    name:'finance',
-    data(){
-        return{
-            recData:[],
-            token:'',
-            flags:false,
-            flag:false,
-            isHide:true,
-            active:'a',
-            active01:'a',
-            active02:'a',
-            addr:'',
-            url:'',
-            excharge_address:'',
-            address:'',
-            number:'',
-            rate:'',
-            coinname:'',
-            balance:'',
-            ratenum:'',
-            reachnum:'',
-            min_number:'',
-            currency:'',
-            asset_list:[],
-            tip_list:[
-                '请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。','请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。'
-            ],
-            tip_list01:[
-                '请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。','请勿向上述地址充值任何非USDT资产，否则资产将不可找回。','USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。'
-            ]
-        }
+  name: "finance",
+  data() {
+    return {
+      totle: "",
+      recData: [],
+      token: "",
+      flags: false,
+      flag: false,
+      isHide: true,
+      active: "a",
+      active01: "a",
+      active02: "a",
+      addr: "",
+      url: "",
+      excharge_address: "",
+      address: "",
+      number: "",
+      rate: "",
+      coinname: "",
+      balance: "",
+      ratenum: "",
+      reachnum: "",
+      min_number: "",
+      currency: "",
+      asset_list: [],
+      tip_list: [
+        "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
+        "USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。",
+        "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
+        "USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。"
+      ],
+      tip_list01: [
+        "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
+        "USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。",
+        "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
+        "USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。"
+      ]
+    };
+  },
+  components: {
+    indexHeader,
+    left
+  },
+  methods: {
+    goRecord() {
+      this.$router.push({ name: "coinRecord" });
     },
-    components:{
-        indexHeader,
-        left
+    init() {
+      var clipboard = new Clipboard(".copy");
+      clipboard.on("success", function(e) {
+        layer.alert("复制成功");
+      });
+      clipboard.on("error", function(e) {
+        alert("复制失败");
+      });
     },
-    methods:{
-        goRecord(){
-            this.$router.push({name:'coinRecord'})
-        },
-        init(){
-             var clipboard = new Clipboard('.copy')
-            clipboard.on('success', function (e) {
-               layer.alert('复制成功')
+    //充币
+    excharge(index, currency) {
+      console.log(currency);
+      this.currency = currency;
+      if (this.flag) {
+        this.flag = false;
+        this.active = "a";
+        this.active01 = "a";
+        this.active02 = "a";
+      } else {
+        this.flag = true;
+        this.active = index;
+        this.active01 = "a";
+        this.active02 = "a";
+      }
+      this.sendData(currency);
+    },
+    sendData(currency) {
+      var that = this;
+      this.$http({
+        url: "/api/" + "wallet/get_in_address",
+        method: "post",
+        data: { currency: currency },
+        headers: { Authorization: that.token }
+      })
+        .then(res => {
+          console.log(res);
+          if (res.data.type == "ok") {
+            that.excharge_address = res.data.message;
+            // 生成二维码
+            $("#code").qrcode({
+              width: 100, //宽度
+              height: 100, //高度
+              text: res.data.message
             });
-            clipboard.on('error', function (e) {
-                alert('复制失败')
-            });
+          } else {
+            console.log(res.data.message);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    //提币
+    withdraw(index, currency) {
+      this.currency = currency;
+      if (this.flag) {
+        this.flag = false;
+        this.active = "a";
+        this.active01 = "a";
+        this.active02 = "a";
+      } else {
+        this.flag = true;
+        this.active01 = index;
+        this.active = "a";
+        this.active02 = "a";
+      }
+      this.getNum(currency);
+    },
+    //记录
+    rec(index, currency) {
+      if (this.flag) {
+        this.flag = false;
+        this.active = "a";
+        this.active01 = "a";
+        this.active02 = "a";
+      } else {
+        this.flag = true;
+        this.active02 = index;
+        this.active = "a";
+        this.active01 = "a";
+      }
+    },
+    getNum(currency) {
+      var that = this;
+      $.ajax({
+        type: "POST",
+        url: "/api/" + "wallet/get_info",
+        data: {
+          currency: currency
         },
-        //充币
-        excharge(index,currency){
-            console.log(currency);
-            this. currency= currency;
-            if(this.flag){
-                this.flag = false;
-                this.active = 'a';
-                this.active01 = 'a';
-                 this.active02 = 'a';
-            }else{
-                this.flag = true;
-                this.active = index;
-                this.active01 = 'a';
-                 this.active02 = 'a';
-            }
-            this.sendData(currency)
+        dataType: "json",
+        async: true,
+        beforeSend: function beforeSend(request) {
+          request.setRequestHeader("Authorization", that.token);
         },
-        sendData(currency){
-            var that = this;
-            this.$http({
-                url: '/api/' + 'wallet/get_in_address',
-                method:'post',
-                data:{currency:currency},
-                headers: {'Authorization':  that.token},
-                }).then(res=>{
-                    console.log(res)
-                    if (res.data.type=="ok"){
-                        that.excharge_address=res.data.message;
-                        // 生成二维码
-                        $('#code').qrcode({
-                            width: 100, //宽度
-                            height:100, //高度
-                            text:res.data.message
-                        });
-                    }else{
-                        console.log(res.data.message)
-                    }
-                }).catch(error=>{
-                    console.log(error)
-            })
-        },
-        //提币
-        withdraw(index,currency){
-            this.currency=currency;
-             if(this.flag){
-                this.flag = false;
-                this.active = 'a';
-                this.active01 = 'a'
-                 this.active02 = 'a';
-            }else{
-                this.flag = true;
-                 this.active01 = index;
-                 this.active = 'a';
-                 this.active02 = 'a';
-            }
-            this.getNum(currency);
-        },
-        //记录
-        rec(index,currency){
-             if(this.flag){
-                this.flag = false;
-                this.active = 'a';
-                this.active01 = 'a'
-                 this.active02 = 'a';
-            }else{
-                this.flag = true;
-                 this.active02 = index;
-                 this.active = 'a';
-                  this.active01 = 'a'
-                
-            }
-        },
-        getNum(currency){
-            var that = this;
-            $.ajax({
-                type: "POST",
-                url: '/api/' + 'wallet/get_info',
-                data: {
-                    currency:currency
-                },
-                dataType: "json",
-                async: true,
-                beforeSend: function beforeSend(request) {
-                    request.setRequestHeader("Authorization", that.token);
-                },
-                success: function(res){
-                    if (res.type=="ok"){
-                        console.log(res)
-                        that.coinname=res.message.name;
-                        that.balance=res.message.change_balance;
-                        that.min_number='最小提币数量'+res.message.min_number;
-                        that.minnumber=res.message.min_number;
-                        that.ratenum=res.message.rate+'-'+res.message.rate;
-                        that.reachnum=0.0000;
-                        that.rate=res.message.rate;
-                        
-                    }else{
-                        console.log(res.message)
-                    }
-                }
-            })
-        },
-        // 提币按钮
-        mention() {
-            var that =this;
-            var currency = this. currency;
-            var address = this.address;
-            var number = this.number;
-            var rate = this.rate;
-            var min_number = this.minnumber;
-            if(!address){
-                layer.alert('请输入提币地址');
-                return;
-            } 
-            if(!number){
-                layer.alert('请输入提币数量');
-                return;
-            } 
-            if((number-0)<min_number){
-                console.log(number,min_number)
-                return layer.alert('输入的提币数量小于最小值');
-            }
-            // if(rate=='' || rate>=1){
-            //     layer.alert('请输入0-1之间的提币手续费');
-            //     return;
-            // }
-            $.ajax({
-                type: "POST",
-                url: '/api/' + 'wallet/out',
-                data: {
-                    currency:currency,
-                    number:number,
-                    rate:rate,
-                    address:address
-                },
-                dataType: "json",
-                async: true,
-                beforeSend: function beforeSend(request) {
-                    request.setRequestHeader("Authorization", that.token);
-                },
-                success: function(res){
-                    console.log(res)
-                    if (res.type=="ok"){
-                        layer.alert(res.message)
-                        setTimeout(() => {
-                          window.location.reload();
-                    }, 1500);
-                    }else{
-                        layer.alert(res.message)
-                    }
-                }
-            })
-            
-        },
-        exchange(){
-
-        },
-        //复制
-        copy(){
-            var that=this;
-          var clipboard = new Clipboard('.copy',{
-                    text:function(){
-                        return that.excharge_address
-                    }
-                });
-          clipboard.on("success", function (e) {
-                        that.flags = true;
-                        layer.msg('复制成功');
-                        
-                    });
-                    clipboard.on("error", function (e) {
-                        that.flags = false;
-                         layer.msg('请重新复制')
-                    });
-        },
-        record(){
-            this.$router.push({ name: 'finanrec' });
-        },
-        withdraw_address(){
-            this.$router.push({ name: 'withdraw_address' });
-        },
-        show_ewm(){
-            if(this.isHide){
-                this.isHide = false
-            }else{
-                this.isHide = true
-            }
-        },
-        getdata(){
-            var that = this;
-            console.log(that.token)
-            this.$http({
-                url: '/api/' + 'wallet/list',
-                method:'post',
-                data:{},
-                headers: {'Authorization':  that.token},
-                }).then(res=>{
-                    console.log(res.data)
-                    that.asset_list=res.data.message.change_wallet.balance;
-                    this.asset_list.forEach((item,index) => {
-                        this.$http({
-                            url: '/api/wallet/legal_log',
-                            method:'post',
-                            data:{type:'change',currency:item.currency},
-                            headers:{'Authorization':this.token}
-                        }).then( res => {
-                            console.log(res);
-                            if(res.data.type == 'ok'){
-                                this.recData[index] = res.data.message.list;
-                            }
-                        })
-                    })
-                }).catch(error=>{
-                    console.log(error)
-            })
+        success: function(res) {
+          if (res.type == "ok") {
+            console.log(res);
+            that.coinname = res.message.name;
+            that.balance = res.message.change_balance;
+            that.min_number = "最小提币数量" + res.message.min_number;
+            that.minnumber = res.message.min_number;
+            that.ratenum = res.message.rate + "-" + res.message.rate;
+            that.reachnum = 0.0;
+            that.rate = res.message.rate;
+          } else {
+            console.log(res.message);
+          }
         }
+      });
     },
-    created(){
-        this.token= localStorage.getItem('token') || '';
-        // this.address=localStorage.getItem('address') || '';
-        // console.log(this.address)
-        // if(this.address){
-        //     this.$http({
-        //         url:'/api/'+'money/rechange?user_id='+this.address,
-        //         type:'GET'
-        //     }).then(res=>{
-        //         console.log(res)
-        //         this.addr=res.data.message.company_eth_address;
-        //         this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
-        //         var content = this.addr;
-        //         // var clipboard = new Clipboard('#copy')
-        //     }).catch(error=>{
-        //         return error
-        //     })
-        // }
+    // 提币按钮
+    mention() {
+      var that = this;
+      var currency = this.currency;
+      var address = this.address;
+      var number = this.number;
+      var rate = this.rate;
+      var min_number = this.minnumber;
+      if (!address) {
+        layer.alert("请输入提币地址");
+        return;
+      }
+      if (!number) {
+        layer.alert("请输入提币数量");
+        return;
+      }
+      if (number - 0 < min_number) {
+        console.log(number, min_number);
+        return layer.alert("输入的提币数量小于最小值");
+      }
+      // if(rate=='' || rate>=1){
+      //     layer.alert('请输入0-1之间的提币手续费');
+      //     return;
+      // }
+      $.ajax({
+        type: "POST",
+        url: "/api/" + "wallet/out",
+        data: {
+          currency: currency,
+          number: number,
+          rate: rate,
+          address: address
+        },
+        dataType: "json",
+        async: true,
+        beforeSend: function beforeSend(request) {
+          request.setRequestHeader("Authorization", that.token);
+        },
+        success: function(res) {
+          console.log(res);
+          if (res.type == "ok") {
+            layer.alert(res.message);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            layer.alert(res.message);
+          }
+        }
+      });
     },
+    exchange() {},
+    //复制
+    copy() {
+      var that = this;
+      var clipboard = new Clipboard(".copy", {
+        text: function() {
+          return that.excharge_address;
+        }
+      });
+      clipboard.on("success", function(e) {
+        that.flags = true;
+        layer.msg("复制成功");
+      });
+      clipboard.on("error", function(e) {
+        that.flags = false;
+        layer.msg("请重新复制");
+      });
+    },
+    record() {
+      this.$router.push({ name: "finanrec" });
+    },
+    withdraw_address() {
+      this.$router.push({ name: "withdraw_address" });
+    },
+    show_ewm() {
+      if (this.isHide) {
+        this.isHide = false;
+      } else {
+        this.isHide = true;
+      }
+    },
+    getdata() {
+      var that = this;
+      console.log(that.token);
+      this.$http({
+        url: "/api/" + "wallet/list",
+        method: "post",
+        data: {},
+        headers: { Authorization: that.token }
+      })
+        .then(res => {
+          console.log(res.data);
+          if(res.data.type == 'ok'){
 
-    mounted(){
-        var that = this;
-        that.getdata();
-        this.init();
+              that.asset_list = res.data.message.change_wallet.balance;
+              this.totle = res.data.message.change_wallet.totle;
+              console.log(this.totle);
+          } else {
+              return;
+          }
+          this.asset_list.forEach((item, index) => {
+            this.$http({
+              url: "/api/wallet/legal_log",
+              method: "post",
+              data: { type: "change", currency: item.currency },
+              headers: { Authorization: this.token }
+            }).then(res => {
+              console.log(res);
+              if (res.data.type == "ok") {
+                this.recData[index] = res.data.message.list;
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+  },
+  created() {
+    this.token = localStorage.getItem("token") || "";
+    // this.address=localStorage.getItem('address') || '';
+    // console.log(this.address)
+    // if(this.address){
+    //     this.$http({
+    //         url:'/api/'+'money/rechange?user_id='+this.address,
+    //         type:'GET'
+    //     }).then(res=>{
+    //         console.log(res)
+    //         this.addr=res.data.message.company_eth_address;
+    //         this.url='http://qr.liantu.com/api.php?&w=300&text='+res.data.message.company_eth_address;
+    //         var content = this.addr;
+    //         // var clipboard = new Clipboard('#copy')
+    //     }).catch(error=>{
+    //         return error
+    //     })
+    // }
+  },
+
+  mounted() {
+    var that = this;
+    that.getdata();
+    this.init();
+  }
 };
 </script>
-<style scoped lang="scss"> 
-    
-    .header{
-        padding: 15px 30px;
-        overflow: hidden;
+<style scoped lang="scss">
+.header {
+  padding: 15px 30px;
+  overflow: hidden;
+}
+.min_lab {
+  margin: 0 10px;
+}
+.min_lab input {
+  margin-right: 3px;
+}
+.inp_lab {
+  border: 1px solid #6b80ae;
+  border-radius: 2px;
+  padding: 3px 5px;
+}
+.inp_lab input {
+  background: none;
+  border: none;
+  width: 120px;
+  color: #fff;
+}
+.right_text {
+  color: #5697f4;
+}
+.right_text span {
+  cursor: pointer;
+}
+.record {
+  margin-right: 10px;
+}
+.content_ul {
+  padding: 0 20px;
+}
+.content_top {
+  padding: 10px 20px;
+  // background: #161617c7;
+}
+.content_li {
+  padding: 15px 0;
+  border-bottom: 1px solid #1e2c42;
+}
+.operation,
+.copy,
+.ewm {
+  color: #5697f4;
+}
+.copy {
+  margin: 0 30px;
+}
+.copy:hover {
+  cursor: pointer;
+}
+.ewm:hover {
+  cursor: pointer;
+}
+.operation span {
+  cursor: pointer;
+}
+.hide_div {
+  border: 1px solid #1e2c42;
+  padding: 20px;
+}
+.excharge_record {
+  color: #5697f4;
+}
+input {
+  background: none;
+  border: none;
+}
+.address_inp {
+  width: 100%;
+  border: 1px solid #6b80ae;
+  border-radius: 3px;
+  padding: 15px 15px;
+}
+.num_lab {
+  display: flex;
+  width: 100%;
+  border: 1px solid #6b80ae;
+  border-radius: 3px;
+  padding: 15px;
+}
+.num_lab input {
+  width: 100%;
+}
+.range_lab,
+.get_lab {
+  border: 1px solid #6b80ae;
+  border-radius: 3px;
+  padding: 15px;
+}
+.get_lab {
+  background: #1e2c42;
+}
+.right_inp_wrap {
+  margin-left: 20px;
+}
+.use_num,
+.advance {
+  color: #5697f4;
+}
+.use_num {
+  margin-right: 5px;
+}
+.advance {
+  margin-left: 5px;
+}
+.withdraw_btn {
+  background-color: #7a98f7;
+  color: #fff;
+  padding: 15px 70px;
+  border: none;
+  border-radius: 5px;
+}
+.withdraw_btn:hover {
+  cursor: pointer;
+}
+.bg {
+  background: #2b3c71;
+}
+.ewm_wrap {
+  position: relative;
+}
+.ewm_img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 25px;
+  left: -30px;
+  border: 10px solid #262a42;
+}
+.hide {
+  display: none;
+}
+.rec-box {
+  .rec-con {
+    margin: 10px;
+    padding: 0 20px;
+    background: #262a42;
+    span {
+      flex: 1;
+      text-align: center;
+      line-height: 3;
     }
-    .min_lab{
-        margin: 0 10px;
+    .rec-title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #fff;
+      line-height: 1.5;
     }
-    .min_lab input{
-        margin-right: 3px;
+    li {
+      display: flex;
+
+      justify-content: space-between;
+      font-size: 12px;
+      color: #728daf;
+      border-top: 1px solid #181b2a;
     }
-    .inp_lab{
-        border: 1px solid #6b80ae;
-        border-radius: 2px;
-        padding: 3px 5px;
-    }
-    .inp_lab input{
-        background: none;
-        border: none;
-        width: 120px;
-        color: #fff;
-    }
-    .right_text{
-        color: #5697f4;
-    }
-    .right_text span{
-        cursor: pointer;
-    }
-    .record{
-        margin-right: 10px;
-    }
-    .content_ul{
-        padding: 0 20px;
-    }
-    .content_top{
-        padding: 10px 20px;
-        // background: #161617c7;
-    }
-    .content_li{
-        padding: 15px 0;
-        border-bottom: 1px solid #1e2c42;
-    }
-    .operation,.copy,.ewm{
-        color: #5697f4;
-    }
-    .copy{
-        margin: 0 30px;
-    }
-    .copy:hover{
-        cursor: pointer;
-    }
-    .ewm:hover{
-        cursor: pointer;
-    }
-    .operation span{
-        cursor: pointer;
-    }
-    .hide_div{
-        border:1px solid #1e2c42;
-        padding: 20px;
-    }
-    .excharge_record{
-        color: #5697f4;
-    }
-    input{
-        background: none;
-        border: none;
-    }
-    .address_inp{
-        width: 100%;
-        border: 1px solid #6b80ae;
-        border-radius: 3px;
-        padding: 15px 15px;
-    }
-    .num_lab{
-        display: flex;
-        width: 100%;
-        border: 1px solid #6b80ae;
-        border-radius: 3px;
-        padding: 15px;
-    }
-    .num_lab input{
-        width: 100%;
-    }
-    .range_lab,.get_lab{
-         border: 1px solid #6b80ae;
-        border-radius: 3px;
-        padding: 15px;
-    }
-    .get_lab{
-        background: #1e2c42;
-    }
-    .right_inp_wrap{
-        margin-left: 20px;
-    }
-    .use_num,.advance{
-        color: #5697f4;
-    }
-    .use_num{
-        margin-right: 5px;
-    }
-    .advance{
-        margin-left: 5px;
-    }
-    .withdraw_btn{
-        background-color: #7a98f7;
-        color: #fff;
-        padding: 15px 70px;
-        border: none;
-        border-radius: 5px;
-    }
-    .withdraw_btn:hover{
-        cursor: pointer;
-    }
-    .bg{
-        background: #2b3c71;
-    }
-    .ewm_wrap{
-        position: relative;
-    }
-    .ewm_img{
-        width: 120px;
-        height: 120px;
-        position: absolute;
-        top: 25px;
-        left: -30px;
-        border: 10px solid #262a42;
-    }
-    .hide{
-        display: none;
-    }
-    .rec-box{
-        
-        .rec-con{
-            margin: 10px;
-            padding: 0 20px;
-            background: #262a42;
-                span{
-                    flex:1;text-align: center;
-                    line-height: 3;
-                }
-            .rec-title{
-                display: flex;
-                justify-content: space-between;
-                font-size: 14px;
-                color:#fff;
-                line-height: 1.5;
-            }
-            li{
-                display: flex;
-                
-                justify-content: space-between;
-                font-size: 12px;
-                color: #728daf;
-                border-top: 1px solid #181b2a;
-            }
-        }
-    }
+  }
+}
 </style>
 
 

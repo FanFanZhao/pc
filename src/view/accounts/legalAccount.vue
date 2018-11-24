@@ -12,7 +12,7 @@
           </div>
           <div>
               <p class="ft12 msg_title">折合（CNY）</p>
-              <p>{{(legal_balance - 0 + (lock_legal_balance-0))*ustd_price*exRate}}</p>
+              <p>{{(legal_balance - 0 + (lock_legal_balance-0))*ustd_price*usprice}}</p>
           </div>
         </div>
         <div class="rec_wrap">
@@ -30,7 +30,7 @@
               <li class="flex arround ft12"></li>
            </ul>
         </div>
-        <router-link tag="p" class="huazhuan" to='/transferLegal'>划转</router-link>
+        <!-- <router-link tag="p" class="huazhuan" to='/transferLegal'>划转</router-link> -->
     </div>
 </template>
 <script>
@@ -40,8 +40,7 @@ export default {
            legal_name:'',
            legal_balance:'',
            lock_legal_balance:'',
-           ustd_price:'',
-           exRate:''
+           ustd_price:''
         }
     },
     created(){
@@ -69,7 +68,6 @@ export default {
                             that.legal_balance = msg.legal_balance;
                             that.lock_legal_balance = msg.lock_legal_balance;
                             that.ustd_price = msg.ustd_price;
-                            that.exRate = msg.ExRate||6.5;
                         }else{
                             // layer.msg(res.message);
                         }

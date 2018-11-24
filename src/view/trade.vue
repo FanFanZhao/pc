@@ -23,7 +23,7 @@
                         <label>买入价</label>
                         <input type="number" v-model="buyInfo.buyPrice" @keydown.69.prevent >
                         <span>{{currency_name}}</span>
-                        <div>≈ {{buyInfo.buyPrice*6.5}}CNY</div>
+                        <div>≈ {{buyInfo.buyPrice*usprice}}CNY</div>
                     </div>
                     <div class=" input-item clear">
                         <label>买入量</label>
@@ -52,7 +52,7 @@
                         <label>卖出价</label>
                         <input type="number" @keydown.69.prevent v-model="sellInfo.sellPrice">
                         <span>{{currency_name}}</span>
-                        <div>≈ {{sellInfo.sellPrice*6.5}}CNY</div>
+                        <div>≈ {{sellInfo.sellPrice*usprice}}CNY</div>
                     </div>
                     <div class=" input-item clear">
                         <label>卖出量</label>
