@@ -188,7 +188,7 @@
               <li>
                 <div>
                   <img src="../assets/images/anzhuo.png" alt="">
-                <span>iPhone</span>
+                   <span>Android</span>
                 </div>
                 <img src="../assets/images/2k.png" alt="">
               </li>
@@ -196,7 +196,7 @@
                 <div>
 
                 <img src="../assets/images/iphone.png" alt="">
-                <span>Android</span>
+                <span>iPhone</span>
                 </div>
                 <img src="../assets/images/2k.png" alt="">
               </li>
@@ -470,10 +470,10 @@ export default {
     }
     >img{
       position: absolute;
-      left: 0;
+      left:20px;
       top: 80px;
       // position: static;
-      display: none;
+      // display: none;
       width: 120px;
       height: 120px;
     }
