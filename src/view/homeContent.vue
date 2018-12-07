@@ -180,24 +180,41 @@
         <div class="mb">
           <img src="../assets/images/homemb.jpg" alt="">
            <div>
-             <div> 随时随地 不错过任何机会</div>
-           <p> 实时交易：买入、卖出、杠杆</p>
-           <p> 随身充提：充值、提现</p>
-           <p>实时提醒：行情提醒、事件提醒</p>
+            <div> 随时随地 不错过任何机会</div>
+            <p> 实时交易：买入、卖出、杠杆</p>
+            <p> 随身充提：充值、提现</p>
+            <p>实时提醒：行情提醒、事件提醒</p>
+            <ul class="applinks">
+              <li>
+                <div>
+                  <img src="../assets/images/anzhuo.png" alt="">
+                <span>iPhone</span>
+                </div>
+                <img src="../assets/images/2k.png" alt="">
+              </li>
+              <li>
+                <div>
+
+                <img src="../assets/images/iphone.png" alt="">
+                <span>Android</span>
+                </div>
+                <img src="../assets/images/2k.png" alt="">
+              </li>
+            </ul>
            </div>
         </div>
         <div class="news">
           <p class="">公告</p>
           <div class="line"></div>
           <div class="items">
-            <div class="item" v-for='(item,index) in noticeList' :key="index">
+            <router-link tag="div" :to="{path:'/components/noticeDetail',query:{id:item.id}}" class="item" v-for='(item,index) in noticeList' :key="index">
               <div class="date">{{item.update_time.slice(0,10)}}</div>
               <div class="content">
                 <img src="../assets/images/notbg.jpg" alt="">
                 <div class="title">{{item.title}}</div>
-                <p v-html="item.content"></p>
+                <p >{{item.abstract}}</p>
               </div>
-            </div>
+            </router-link>
             
             
           </div>
@@ -410,7 +427,7 @@ export default {
         if (res.data.type == "ok") {
           var list = res.data.message.list;
           if (list.length > 2) {
-            that.noticeList = list.slice(0, 2);
+            that.noticeList = list.slice(0, 3);
           } else {
             that.noticeList = list;
           }
@@ -429,6 +446,43 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+.applinks{
+  position: relative;
+  display: flex;
+  >li{
+    position: relative;
+    margin-top: 30px;
+    margin-right: 50px;
+    padding: 16px;
+    color: #8b89c8;
+    >div{
+      line-height: 40px;
+      cursor: pointer;
+      img{
+        margin-right: 5px;
+        position: static;
+        width: 36px;
+        height: 32px;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+    }
+    >img{
+      position: absolute;
+      left: 0;
+      top: 80px;
+      // position: static;
+      display: none;
+      width: 120px;
+      height: 120px;
+    }
+    &:hover{
+      >img{
+        display: block;
+      }
+    }
+  }
+}
 footer{
   background: rgb(20,20,63);
   padding: 30px 0;
@@ -455,7 +509,7 @@ footer{
     }
     dl:last-child{
       dd{
-        background: url('../assets/images/code.jpg') no-repeat;
+        background: url('../assets/images/2k.png') no-repeat;
         width: 100px;
         height: 100px;
         background-size: 100%;
@@ -532,11 +586,12 @@ footer{
 
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
 
     > .item {
       transition: all 0.3s;
-      height: 330px;
+      // height: 330px;
+      padding-bottom: 20px;
       cursor: pointer;
       color: hsla(0, 0%, 100%, 0.9);
       border-radius: 4px;
@@ -553,7 +608,8 @@ footer{
         position: relative;
         transition: all 0.3s;
         max-width: 485px;
-        height: 206px;
+        height: 260px;
+        overflow: hidden;
         padding: 30px;
         border-radius: 6px;
         background-color: rgba(24, 24, 76, 1);
@@ -618,7 +674,7 @@ footer{
         }
       }
     }
-    > .item:nth-child(3) {
+    > .item:last-child {
       opacity: 1;
 
       .content {

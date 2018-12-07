@@ -47,7 +47,7 @@ footer{
     }
     dl:last-child{
       dd{
-        background: url('../assets/images/code.jpg') no-repeat;
+        background: url('../assets/images/2k.png') no-repeat;
         width: 100px;
         height: 100px;
         background-size: 100%;

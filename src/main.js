@@ -39,7 +39,13 @@ Axios.interceptors.request.use(function (config) {
 })
 Axios.interceptors.response.use(function(response){
 	if(response.data.type == '999'){
-		layer.msg('登录过时，请重新登录')
+		layer.msg('登录过时，请重新登录');
+		window.localStorage.removeItem('token');
+		window.localStorage.removeItem('acountNum');
+		window.localStorage.removeItem('extension_code');
+		window.localStorage.removeItem('user_id');
+		window.location.reload();
+		// router.push('/components/login')
 	}
 	return response
 })

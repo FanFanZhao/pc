@@ -7,7 +7,7 @@
         <li class="base downapp" @click="showapp">APP下载
           <div class="appcode tc" v-show="appshow">
             <span></span>
-            <p><img src="@/assets/images/code.jpg" alt=""></p>
+            <p><img src="@/assets/images/2k.png" alt=""></p>
           </div>
         </li>
 			</ul>
@@ -244,10 +244,12 @@ export default {
       this.$router.push({ name: name });
     },
     loginOut() {
+      var i = layer.load();
       // console.log("out");
       localStorage.removeItem("token");
       localStorage.removeItem("accountNum");
       localStorage.clear();
+      layer.close(i);
       this.$router.push('/components/login');
     },
     assets_over() {

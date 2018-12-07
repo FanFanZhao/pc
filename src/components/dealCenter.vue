@@ -1,24 +1,27 @@
 <template>
-	<div class="home flex">
-		<div class="home-l">
+  <div class="home flex">
+    <div class="home-l">
       <div class="tv-box">
         <!-- <tv-top></tv-top> -->
         <tv></tv>
         <!-- <market></market> -->
       </div>
       <div class="entrusts">
-        <div class="tab-entrust ">
-          <span :class="{active:whichEntrust == 'entrust'}" @click="whichEntrust = 'entrust'">当前委托</span>
-          <span :class="{active:whichEntrust == 'hisentrust'}" @click="whichEntrust = 'hisentrust'">历史委托</span>
+        <div class="tab-entrust">
+          <!-- <span :class="{active:whichEntrust == 'entrust'}" @click="whichEntrust = 'entrust'">当前委托</span>
+          <span
+            :class="{active:whichEntrust == 'hisentrust'}"
+            @click="whichEntrust = 'hisentrust'"
+          >历史委托</span> -->
+          <div class="kb">2kb奖金余量：{{kb}}</div>
         </div>
         <div class="scroll">
-
           <div class="entrust-box" v-if="whichEntrust == 'entrust'">
-            <entrust ></entrust>
+            <entrust></entrust>
           </div>
-          <div class="histentrust-box" v-if="whichEntrust == 'hisentrust'">
+          <!-- <div class="histentrust-box" v-if="whichEntrust == 'hisentrust'">
             <hisentrust></hisentrust>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -35,7 +38,7 @@
         <trade></trade>
       </div>
     </div>
-	</div>
+  </div>
 </template>
 
 <script>
@@ -58,7 +61,7 @@ export default {
   name: "dealCenter",
   components: {
     indexHeader,
-    load:1,
+    load: 1,
     notice,
     deal,
     exchange,
@@ -76,72 +79,99 @@ export default {
   },
   data() {
     return {
-      isRouterAlive:true,
-      whichEntrust:'entrust'
+      isRouterAlive: true,
+      whichEntrust: "entrust",
+      token: "",
+      kb:0
     };
   },
   created() {
-    this.address = localStorage.getItem("address") || "";
-    
-  
+    this.token = localStorage.getItem("token") || "";
+
+    this.getKb();
     // console.log(this.address)
   },
-  methods:{
-    
+  methods: {
+    getKb() {
+      this.$http({
+        url: "/api/transaction/get_surplus_2kb"
+        // headers:{Authorization:this.token}
+      }).then(res => {
+          console.log(res.data.message);
+        if (res.data.type == "ok") {
+          var kb = res.data.message;
+          if(kb != this.kb){
+
+            this.kb = res.data.message;
+          }
+        }
+      });
+    }
   },
-  mounted(){
+  mounted() {
+    var that = this;
+    setInterval(function(){
+      that.getKb()
+    },5000)
     // console.log('wejdewhbewjdbewjdhbcwj')
     // if(this.load==1){
     //   console.log(1111)
     //   window.location.reload();
     //   this.load=2;
     // }
-   
   }
 };
 </script>
 
 <style scoped lang="scss">
-.home{
+.home {
+  .tab-entrust{
+    position: relative;
+  .kb {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    color: #7a98f7;
+    font-size: 12px;
+  }
+  }
   margin-top: 3px;
   justify-content: space-between;
   height: 100%;
-  >.home-l{
+  > .home-l {
     width: calc(100% - 683px);
-    >.entrusts{
+    > .entrusts {
       margin-top: 3px;
       padding: 0 15px;
       background: #181b2a;
       height: 385px;
-      >.tab-entrust{
-        color: rgba(255,255,255,.8);
+      > .tab-entrust {
+        color: rgba(255, 255, 255, 0.8);
         font-size: 14px;
         line-height: 1.6;
-        height: 30px;
-        span{
+        height: 0;
+        span {
           margin-right: 14px;
           line-height: 30px;
-          
         }
-        .active{
+        .active {
           // border-bottom: 1px solid #ccc;
         }
       }
     }
   }
-  >.home-r{
-    
+  > .home-r {
     width: 680px;
-    >.home-r-t{
+    > .home-r-t {
       justify-content: space-between;
       min-height: 220px;
       max-height: calc(100% - 360px);
-      >div{
+      > div {
         width: 338px;
         background: #181b2a;
       }
     }
-    >.home-r-b{
+    > .home-r-b {
       margin-top: 3px;
       background: #181b2a;
       height: 360px;

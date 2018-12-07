@@ -18,7 +18,6 @@
                             <p v-html="content" ref="con"></p>
                         </div> 
                         <div class="fColor2 mt40">
-                            <p class="tr">{{abstract}}</p>
                             <p class="tr mt5">{{update_time}}</p>
                         </div>
                     </div>

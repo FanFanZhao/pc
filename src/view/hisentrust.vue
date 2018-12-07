@@ -8,28 +8,30 @@
         </div> -->
         <div class="content">
             <ul class="list-title fColor2 ft12 clear">
-                <li class="fl w18">时间</li>
-                <li class="fl w10">交易对</li>
+                <li class="fl w17">时间</li>
+                <li class="fl w8">交易对</li>
                 <li class="fl w10">数量</li>
                 <li class="fl w10">价格</li>
                 <li class="fl w11">委托总额</li>
                 <li class="fl w10">成交均价</li>
-                <li class="fl w10">状态</li>
+                <li class="fl w6">状态</li>
                 <li class="fl w10">手续费</li>
-                <li class="fl w8 tr">方向</li>
+                <li class="fl w10">奖励2kb</li>
+                <li class="fl w6 tr">方向</li>
             </ul>
             <div class="containers scroll" v-if="comList.length>0">
                 <ul class="list-item fColor1 ft12">
                     <li v-for="item in comList" class="clear">
-                        <span class="fl w18">{{item.time}}</span>
-                        <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
+                        <span class="fl w17">{{item.time}}</span>
+                        <span class="fl w8">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w10">{{item.number}}</span>
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w11">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w10">{{item.price}}</span>
-                        <span class="fl w10">已成交</span>
+                        <span class="fl w6">已成交</span>
                         <span class="fl w10">{{item.type=='in'? item.in_fee:item.out_fee}}</span>
-                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':'green'">{{item.type=='in'?'买入':'卖出'}}</span>
+                        <div class="fl w10">{{item.kb}}</div>
+                        <span class="fl w6 tr" :class="item.type=='out'?'redColor':'green'">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>
                 <div class="getmore tc fColor1 ft14 mt10 curPer pdb20" @click="getData('more')" v-if="!loading && comList.length>8">{{more}}</div>
@@ -50,7 +52,6 @@ export default {
   name: "hisentrust",
   data() {
     return {
-      address: "",
       isChoosed: 0,
       isUrl: 0,
       page: 1,
@@ -63,7 +64,8 @@ export default {
         { title: "卖出", url: "transaction_out" },
         { title: "全部", url: "transaction_all" }
       ],
-      comList: []
+      comList: [],
+      token:''
     };
   },
   created() {
@@ -154,9 +156,12 @@ export default {
       }
     });
     that.getData();
-    setInterval(function(){
-        that.getData()
-    },10000)
+    if(that.token){
+
+      setInterval(function(){
+          that.getData()
+      },5000)
+    }
   }
 };
 </script>
@@ -183,6 +188,8 @@ export default {
   line-height: 40px;
   border-bottom: 1px solid #303b4b;
   height: 40px;
+  display: flex !important;
+  width: 100% !important;
 }
 .no_data {
   padding: 50px 0;

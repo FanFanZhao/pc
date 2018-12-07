@@ -4,11 +4,12 @@
             <!-- <div class="tab_title">
                 <span>当前委托</span>
             </div> -->
-            <div class="tab_title fl ft12">
-                <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.url)">{{way.title}}</span>
+            <div class="tab_title fl ft14">
+                <span v-for="(way,index) in wayList" :class="{'active': !showHis&&index == isChoosed}" @click="wayChoose(index,way.url);showHis = false">{{way.title}}</span>
+                <span :class="{active:showHis}" @click="showHis = true">成交历史</span>
             </div>
         </div>
-        <div class="content">
+        <div class="content" v-if="!showHis">
             <ul class="list-title fColor2 ft12 flex">
                 <li class="w14">时间</li>
                 <li class="w10">交易对</li>
@@ -45,15 +46,20 @@
                 <p class="fColor2 ft18">暂无数据</p> 
             </div>
         </div>
+        <div class="content" v-if="showHis">
+          <his-entrust></his-entrust>
+        </div>
     </div>
 </template>
 <script>
+import HisEntrust from './hisentrust'
 export default {
   name: "entrust",
+  components:{HisEntrust},
   data() {
     return {
+      showHis:false,
       isshow: false,
-      address: "",
       isChoosed: 0,
       isUrl: 0,
       page: 1,
@@ -63,21 +69,22 @@ export default {
       loading: false,
       urlList: [{ title: "当前委托" }],
       wayList: [
-        { title: "买入", url: "transaction_in" },
-        { title: "卖出", url: "transaction_out" }
+        { title: "买入委托", url: "transaction_in" },
+        { title: "卖出委托", url: "transaction_out" }
       ],
-      inList: []
+      inList: [],
+      token:''
     };
   },
   created() {
     this.token = localStorage.getItem("token") || "";
   },
-  
+
   methods: {
     // 类型切换
     wayChoose(index, url) {
       var that = this;
-      
+
       // if(index ==2){
       //     that.isshow = true;
       // }else{
@@ -144,12 +151,14 @@ export default {
     },
     getData(more) {
       var that = this;
-      if(that.token == ''){
+      if (that.token == "") {
         return;
       }
       var cur_id = window.localStorage.getItem("legal_id_cur");
       var url = that.url;
-      if(!more){that.page=1}
+      if (!more) {
+        that.page = 1;
+      }
       var page = that.page;
       that.loading = true;
       this.$http({
@@ -175,8 +184,7 @@ export default {
             } else {
               this.inList = list;
             }
-            
-          } 
+          }
         })
         .catch(error => {
           console.log(error);
@@ -198,9 +206,11 @@ export default {
       }
     });
     that.getData();
-    setInterval(function(){
-        that.getData()
-    },10000)
+    if (that.token) {
+      setInterval(function() {
+        that.getData();
+      }, 5000);
+    }
   }
 };
 </script>

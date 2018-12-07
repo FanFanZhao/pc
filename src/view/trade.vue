@@ -140,8 +140,9 @@ export default {
     };
   },
   created() {
-    this.address = localStorage.getItem("token") || "";
     // this.init();
+    this.address = localStorage.getItem("token") || "";
+
   },
   mounted() {
     var that = this;
@@ -158,12 +159,10 @@ export default {
         that.sellInfo.sellPrice = data;
       }
     });
-    if(that.adress){
-
-      setInterval(function(){
-          that.buy_sell(that.legal_id, that.currency_id,true)
-      },10000)
-    }
+      setInterval(function() {
+        that.buy_sell(that.legal_id, that.currency_id, true);
+      }, 5000);
+    
     // eventBus.$on('toTrade', function (data) {
     //     that.currency_id = data.currency_id,
     //     that.legal_id = data.legal_id;
@@ -198,10 +197,9 @@ export default {
       } else {
         if (this.user_currency != 0) {
           this.sellInfo.sellNum = (
-            (this.user_currency * this.sliderOut) /100
+            (this.user_currency * this.sliderOut) /
+            100
           ).toFixed(4);
-          
-          
         }
       }
     },
@@ -229,6 +227,9 @@ export default {
       });
     },
     buyCoin() {
+      if (this.address == "") {
+        return;
+      }
       // var that = this;
       if (!this.buyInfo.buyPrice || this.buyInfo.buyPrice <= 0) {
         layer.msg("请输入买入价");
@@ -252,7 +253,7 @@ export default {
           price: this.buyInfo.buyPrice,
           num: this.buyInfo.buyNum
         },
-        headers: { Authorization: localStorage.getItem("token") }
+        headers: { Authorization: this.address }
       })
         .then(res => {
           console.log(res, 222);
@@ -275,8 +276,10 @@ export default {
         });
     },
     sellCoin() {
-      console.log(localStorage.getItem("token"));
       var that = this;
+      if (this.address == "") {
+        return;
+      }
       if (!this.sellInfo.sellPrice || this.sellInfo.sellPrice <= 0) {
         layer.msg("请输入卖出价");
         return;
@@ -299,7 +302,7 @@ export default {
           price: this.sellInfo.sellPrice,
           num: this.sellInfo.sellNum
         },
-        headers: { Authorization: localStorage.getItem("token") }
+        headers: { Authorization: this.address}
       })
         .then(res => {
           console.log(res);
@@ -322,6 +325,9 @@ export default {
     },
     //买入、卖出记录
     buy_sell(legals_id, currencys_id, update) {
+      if (this.address == "") {
+        return;
+      }
       this.$http({
         url: "/api/" + "transaction/deal",
         method: "post",
@@ -329,7 +335,7 @@ export default {
           legal_id: currencys_id,
           currency_id: legals_id
         },
-        headers: { Authorization: localStorage.getItem("token") }
+        headers: { Authorization: this.address }
       })
         .then(res => {
           // console.log(res ,222)
