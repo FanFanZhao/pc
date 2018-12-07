@@ -294,7 +294,7 @@ export default {
       observeParents: true //修改swiper的父元素时，自动初始化swiper
     });
 
-    // this.connect();
+    this.connect();
     this.getNews();
   },
   methods: {
@@ -323,13 +323,14 @@ export default {
     },
     connect() {
       var that = this;
-      //console.log("socket");
-      that.$socket.emit("login", localStorage.getItem("user_id"));
+      var nums = Math.floor(Math.random() * 40) + 60;
+      var socket_user_id = new Date().getTime() + nums;
+      that.$socket.emit("login", socket_user_id);
       that.$socket.on("transaction", msg => {
+        console.log(msg)
         var cname = msg.token;
         var yesprice = msg.yesterday;
         var toprice = msg.today;
-
         var zf = 0;
         if (toprice == yesprice) {
           zf = 0;
