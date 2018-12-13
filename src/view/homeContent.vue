@@ -1,5 +1,5 @@
 <template>
-    <div class="indexBlackes home-box">
+    <div class="indexBlackes home-box" style="background:rgb(24,37,64)">
         <div class="swiper-container banner_wrap swiper-container-horizontal">
             <div class="swiper-wrapper">
 
@@ -8,21 +8,7 @@
                    <img :src="item.thumbnail" />
                    </a>
                </div>
-               <!-- <div class="swiper-slide sliders">
-                   <a href="">
-                   <img src="../../static/imgs/bg01.png" />
-                   </a>
-               </div>
-                <div class="swiper-slide sliders">
-                   <a href="">
-                   <img src="../../static/imgs/bg02.png" />
-                   </a>
-               </div>
-               <div class="swiper-slide sliders">
-                   <a href="">
-                   <img src="../../static/imgs/bg03.png" />
-                   </a>
-               </div> -->
+              
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
@@ -30,7 +16,7 @@
        
        
         <div class="coins-list">
-          <div class="coin-tab">
+          <div class="coin-tab" style="background:#050d1e">
             <ul class="coins">
               <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">{{coin.name}}</li>
             </ul>
@@ -117,26 +103,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="feature_wrap">
-            <h2>全球领先的数字资产金融服务商</h2>
-            <p>为全球超过130个国家的数百万用户提供安全、可信赖的数字资产交易及资产管理服务</p>
-            <ul class="feature_list slide_ani a-fadeinB clearfix">
-              <li class="feature_safe">
-                <h3>安全可信赖</h3>
-                <p>5 年数字资产金融服务经验</p>
-                <p>专业分布式架构和防 DDOS 攻击系统</p>
-              </li>
-              <li class="feature_eco">
-                <h3>全球生态布局</h3>
-                <p>多个国家设立本土化交易服务中心<br>打造多业务形态为一体的区块链生态圈</p>
-              </li>
-              <li class="feature_user">
-                <h3>用户至上</h3>
-                <p>建立先行赔付机制</p>
-                <p>设立投资者保护基金</p>
-              </li>
-            </ul>
-        </div> -->
+       
         <div class="md">
           <div>
             <div class="">
@@ -145,7 +112,8 @@
             </div>
             <router-link to="/components/register" tag="div" class="btn">立即加入</router-link>
             <div>
-              <img src="https://ztstatic.oss-cn-hangzhou.aliyuncs.com/zg72/img/home-zg-pic-$.d1d0840.jpg" alt="">
+              <!-- <img src="https://ztstatic.oss-cn-hangzhou.aliyuncs.com/zg72/img/home-zg-pic-$.d1d0840.jpg" alt=""> -->
+              <img src="../assets/images/bg1.png" alt="">
             </div>
           </div>
           <div>
@@ -178,7 +146,7 @@
           
         </div>
         <div class="mb">
-          <img src="../assets/images/homemb.jpg" alt="">
+          <img src="../assets/images/homemb0.png" alt="">
            <div>
             <div> 随时随地 不错过任何机会</div>
             <p> 实时交易：买入、卖出、杠杆</p>
@@ -188,7 +156,7 @@
               <li>
                 <div>
                   <img src="../assets/images/anzhuo.png" alt="">
-                <span>iPhone</span>
+                <span>Android</span>
                 </div>
                 <img src="../assets/images/2k.png" alt="">
               </li>
@@ -196,7 +164,7 @@
                 <div>
 
                 <img src="../assets/images/iphone.png" alt="">
-                <span>Android</span>
+                <span>iPhone</span>
                 </div>
                 <img src="../assets/images/2k.png" alt="">
               </li>
@@ -207,10 +175,10 @@
           <p class="">公告</p>
           <div class="line"></div>
           <div class="items">
-            <router-link tag="div" :to="{path:'/components/noticeDetail',query:{id:item.id}}" class="item" v-for='(item,index) in noticeList' :key="index">
+            <router-link tag="div" :to="{path:'/components/noticeDetail',query:{id:item.id}}" class="item itemm" v-for='(item,index) in noticeList' :key="index">
               <div class="date">{{item.update_time.slice(0,10)}}</div>
-              <div class="content">
-                <img src="../assets/images/notbg.jpg" alt="">
+              <div class="content ">
+                <!-- <img src="../assets/images/notbg.jpg" alt=""> -->
                 <div class="title">{{item.title}}</div>
                 <p >{{item.abstract}}</p>
               </div>
@@ -447,6 +415,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+
 .applinks{
   position: relative;
   display: flex;
@@ -485,7 +454,8 @@ export default {
   }
 }
 footer{
-  background: rgb(20,20,63);
+  // background: rgb(20,20,63);
+  background: #050d1e;
   padding: 30px 0;
   .content{
     width: 1500px;
@@ -495,12 +465,12 @@ footer{
       
       dt{
         font-size: 16px;
-        color: #fff;
+        color: #2b89e1;
         margin-bottom: 20px;
       }
       dd{
         font-size: 14px;
-        color: #8b89c8;
+        color: #516081;
         line-height: 24px;
         cursor: pointer;
         &:hover{
@@ -525,13 +495,15 @@ footer{
     margin-top: 90px;
     text-align: center;
     font-size: 40px;
-    color: #fff;
+    // color: #fff;
+    color: #bec1da;
     > span:last-child {
       margin-left: 6px;
-      color: #33fffb;
+      color: #2b89e1;
     }
     .btn {
-      background: linear-gradient(90deg, #33fffb, #44c3d5);
+      // background: linear-gradient(90deg, #2b89e1, #44c3d5);
+      background: linear-gradient(90deg, #1762a9, #2f6ca5);
       width: 268px;
       margin: 30px auto 0;
       text-align: center;
@@ -549,17 +521,21 @@ footer{
   }
   > div:nth-child(2) {
     padding-top: 60px;
-    background: url("https://ztstatic.oss-cn-hangzhou.aliyuncs.com/zg72/img/home-zg-bg-1.5159fa3.jpg")
+    background: url("../assets/images/bg0.png")
       right top/ 832px 432px no-repeat;
+      background-size: auto;
+    // background: url("https://ztstatic.oss-cn-hangzhou.aliyuncs.com/zg72/img/home-zg-bg-1.5159fa3.jpg")
+    //   right top/ 832px 432px no-repeat;
     height: 500px;
     > div:first-child {
       font-size: 40px;
-      font-weight: bold;
+      // font-weight: bold;
       color: #bec1da;
     }
     > div:nth-child(2) {
       margin-top: 20px;
-      color: rgba(139, 137, 200, 0.5);
+      // color: rgba(139, 137, 200, 0.5);
+      color: #b7c2ce;
       line-height: 30px;
       width: 45%;
     }
@@ -594,7 +570,8 @@ footer{
       // height: 330px;
       padding-bottom: 20px;
       cursor: pointer;
-      color: hsla(0, 0%, 100%, 0.9);
+      // color: hsla(0, 0%, 100%, 0.9);
+      color: #7080a3;
       border-radius: 4px;
       width: 33%;
       > .date {
@@ -603,7 +580,8 @@ footer{
         color: #bec1da;
       }
       > p {
-        color: #8b89c8;
+        // color: #8b89c8;
+        color: #7080a3;
       }
       .content {
         position: relative;
@@ -613,7 +591,7 @@ footer{
         overflow: hidden;
         padding: 30px;
         border-radius: 6px;
-        background-color: rgba(24, 24, 76, 1);
+        // background-color: rgba(24, 24, 76, 1);
         background-size: 100% !important;
         &::before {
           content: "";
@@ -646,7 +624,7 @@ footer{
         }
         p {
           font-size: 14px;
-          color: #8b89c8;
+          color: #7080a3;
         }
       }
       > .title {
@@ -654,45 +632,11 @@ footer{
         color: #bec1da;
         // font-weight:
       }
-      &:hover {
-        transition: all 0.5s;
-
-        .content {
-           &::before{
-             opacity: 1;
-           }
-          > p,
-          > div {
-            transform: translateY(16px);
-            transition: all 0.5s;
-          }
-          img {
-            transition: all 0.5s;
-            opacity: 1;
-          }
-          // background: rgba(24, 24, 76, 0) url("../assets/images/homehov.jpg");
-          // background-size: 100%;
-        }
-      }
+     
     }
-    > .item:last-child {
-      opacity: 1;
-
-      .content {
-        &::before{
-          opacity: 1;
-        }
-        div,
-        p {
-          position: relative;
-          z-index: 99;
-        }
-        img {
-          opacity: 1;
-        }
-      }
-    }
+    
   }
+  
 }
 .notice {
   width: 1500px;
@@ -704,8 +648,11 @@ footer{
     padding: 30px;
     width: 360px;
     height: 360px;
-    color: rgba(139, 137, 200, 0.5);
-    background: linear-gradient(to bottom right, #2b2b6d, #18184c);
+    // color: rgba(139, 137, 200, 0.5);
+    color: #7080a3;
+    // background: linear-gradient(to bottom right, #2b2b6d, #18184c);
+    // background: #0a152d;
+    background: rgba(0,0,0,.15);
     cursor: pointer;
     box-shadow: none;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -717,8 +664,8 @@ footer{
       padding-top: 10px;
     }
     &:hover {
-      background: url("../assets/images/homehov.jpg") center center/ 100% 100%
-        no-repeat;
+      // background: url("../assets/images/homehov.jpg") center center/ 100% 100%
+        // no-repeat;
       box-shadow: 0 0.05rem 0.45rem rgba(0, 0, 0, 0.2);
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       color: #fff;
@@ -785,7 +732,7 @@ footer{
 }
 .mb {
   position: relative;
-  // margin-top: 100px;
+  margin-top: 100px;
   height: 800px;
   padding-left: 800px;
   img {
@@ -804,11 +751,13 @@ footer{
     > div {
       padding: 100px 0 30px;
       font-size: 36px;
-      color: #33fffb;
+      // color: #2b89e1;
+      color: #bec1da;
     }
     p {
       line-height: 30px;
-      color: rgba(139, 137, 200, 0.5);
+      // color: rgba(139, 137, 200, 0.5);
+      color: #b7c2ce;
     }
   }
 }
@@ -848,7 +797,9 @@ div.swiper-container .swiper-pagination-bullet-active {
   line-height: 40px;
   text-align: center;
   // border: 1px solid #4e5b85;
+  
   .coin-tab {
+    // padding: 0 2px;
     height: 42px;
     color: #c7cce6;
     display: flex;
@@ -864,6 +815,9 @@ div.swiper-container .swiper-pagination-bullet-active {
       }
       .activeCoin {
         border-bottom: none;
+        // background:#0a152d;
+        background: rgb(24, 37, 64);
+        border-top: 2px solid #2b89e1;
       }
     }
   }
@@ -885,17 +839,18 @@ div.swiper-container .swiper-pagination-bullet-active {
       display: none;
     }
     li:nth-child(2n) {
-      background: rgb(24, 24, 76);
+      // background: rgb(24, 24, 76);
+      background: rgba(0,5,15,.3);
     }
     li:nth-child(2n + 1) {
-      background: rgb(34, 31, 97);
+      background: rgb(10, 21, 45);
     }
     li {
       display: flex;
       // border-bottom: 1px solid #282e44;
       color: #c7cce6;
       &:hover {
-        background: rgb(22, 22, 68);
+        background: rgb(23, 45, 71);
       }
       > div {
         flex: 1;
@@ -992,6 +947,10 @@ div.swiper-container .swiper-pagination-bullet-active {
   font-weight: 700;
   margin-bottom: 10px;
   color: #192544;
+}
+.itemm:hover .content{
+  background: rgba(0,0,0,.15);
+  p{color: #fff !important}
 }
 </style>
 

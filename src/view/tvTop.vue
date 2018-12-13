@@ -92,7 +92,7 @@ export default {
 #tv-top {
   font-size: 12px;
   position: relative;
-  background: #181b2a;
+  background: #0a152d;
   color: #c7cce6;
   cursor: pointer;
   > span:first-child {

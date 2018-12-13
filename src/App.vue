@@ -96,5 +96,35 @@ export default {
 .el-slider__runway{
     background-color: #2e3244;
 }
+.bg-main{
+    background: #182540 !important;
+}
+.clr-sell{
+    color: #cb4848 !important;
+}
+.clr-buy{
+    color: #01bd8b !important;
+}
+.bg-part{
+    background: #0a152d !important;
+    color: #b7c2ce !important;
+}
+.bg-inp{
+    background-color: #17223a !important;
+    // border: 1px solid #25334f; 
+    border-color: #25334f !important;
+    border-radius: 2px !important;
+}
+.bg-sel{
+    background: #050d1d;
+  color: #2b89e1;
+}
+.bg-hov{
+  
+  &:hover{
+    background: #050d1d;
+  color: #2b89e1;
+  }
+}
 }
 </style>

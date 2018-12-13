@@ -280,7 +280,7 @@ export default {
   width: 100%;
   min-width: 1200px;
   padding: 0 30px;
-  background: #181b2a;
+  background: #050d1e;
   .content {
     // width: 1200px;
     margin: 0 auto;
@@ -349,7 +349,7 @@ export default {
       }
     }
     p:hover {
-      color: #5697f4;
+      color: #2b89e1;
       background-color: #181b2a;
     }
     p:hover img:nth-child(2) {
@@ -384,7 +384,7 @@ export default {
       }
     }
     p:hover {
-      color: #5697f4;
+      color: #2b89e1;
       background-color: #181b2a;
     }
     p:hover img:nth-child(2) {
@@ -419,7 +419,7 @@ export default {
       }
     }
     p:hover {
-      color: #5697f4;
+      color: #2b89e1;
       background-color: #181b2a;
     }
     p:hover img:nth-child(2) {
@@ -443,7 +443,7 @@ export default {
       cursor: pointer;
       color:#c7cce6;
       &.active {
-        color:#7a98f7;
+        color:#2b89e1;
         border:none;
       }
     }

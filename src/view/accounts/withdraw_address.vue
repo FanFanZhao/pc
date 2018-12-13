@@ -2,13 +2,13 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <div class="topcontent ft20 ">
+            <div class="topcontent ft20 bg-part">
                 <span class="white"><span class="baseColor">资产></span> 提币地址管理</span>
             </div>
-            <div class="content">
+            <div class="content ">
                <div class="con_box">
                   
-                   <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                   <div class="contentBK fColor1  pdlr20 pdtb20 ft12 bg-part">
                        <div class="flex alcenter">
                            <span class="w10 mr20">币种</span>
                            <span class="flex1 mr20">提币地址</span>
@@ -16,12 +16,12 @@
                        </div>
                        <div class="mt10">
                             <div class="flex alcenter">
-                                <select name="" id="" class="w10 mr20 " v-model="addId" @change='setCoin'>
+                                <select name="" id="" class="w10 mr20 bg-inp" v-model="addId" @change='setCoin'>
                                     <option value="币种" >币种</option>
                                     <option :value="item.id" v-for="(item,index) in coins" :key="index" >{{item.name}}</option>
                                 </select>
-                                <input type="text" class="flex1 mr20" placeholder="请输入提币地址" v-model="address">
-                                <input type="text" class="flex1 " placeholder="请输入备注" v-model="notes">
+                                <input type="text" class="flex1 mr20 bg-inp" placeholder="请输入提币地址" v-model="address">
+                                <input type="text" class="flex1 bg-inp " placeholder="请输入备注" v-model="notes">
                             </div>
                             <div class="add">
                                 <div class="baseBtn" @click="addAddress">添加</div>
@@ -30,10 +30,10 @@
                    </div>
                </div>
                <div class="con_box mt15">
-                   <div class="account_title ttBk white flex">
+                   <div class="account_title ttBk white flex bg-part">
                        <div class="ml20">地址列表</div>
                    </div>
-                   <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                   <div class="contentBK fColor1  pdlr20 pdtb20 ft12 bg-part">
                        <div class="flex alcenter">
                            <span class="flex1">币种</span>
                            <span class="flex1">提币地址</span>

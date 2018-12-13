@@ -2,13 +2,13 @@
     <div class="box">
         <indexHeader></indexHeader>
         <div class="account">
-            <div class="topcontent ft20 fColor1">
+            <div class="topcontent ft20 fColor1 bg-part">
                 <span>资产</span>
             </div>
-            <div class="leftcontent contentBK">
+            <div class="leftcontent contentBK " style="background:none">
                <left></left> 
             </div>
-            <div class="rightcontent contentBK">
+            <div class="rightcontent contentBK bg-part">
                <router-view></router-view>
             </div>
         </div>

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="top">
+        <div class="top bg-part">
             <p>法币账户  总资产折合：{{totle}}（USDT）<span class='ft12 all_account'><span class=""></span>≈ <span>{{totle*usprice}}</span> CNY</span></p>
         </div>
-        <ul class="list">
-            <li v-for="(item,index) in list" :key="index" @click="go_legalAccount(item.currency)">
+        <ul class="list bg-part">
+            <li v-for="(item,index) in list" :key="index" >
                 <p class="legal_name">{{item.currency_name}}</p>
                 <div class="balance_detail">
                     <div class="use_balance flex1">

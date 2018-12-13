@@ -13,7 +13,7 @@
             :class="{active:whichEntrust == 'hisentrust'}"
             @click="whichEntrust = 'hisentrust'"
           >历史委托</span> -->
-          <div class="kb">2kb奖金余量：{{kb}}</div>
+          <!-- <div class="kb">2kb奖金余量：{{kb}}</div> -->
         </div>
         <div class="scroll">
           <div class="entrust-box" v-if="whichEntrust == 'entrust'">
@@ -88,7 +88,7 @@ export default {
   created() {
     this.token = localStorage.getItem("token") || "";
 
-    this.getKb();
+    // this.getKb();
     // console.log(this.address)
   },
   methods: {
@@ -109,10 +109,7 @@ export default {
     }
   },
   mounted() {
-    var that = this;
-    setInterval(function(){
-      that.getKb()
-    },5000)
+    
     // console.log('wejdewhbewjdbewjdhbcwj')
     // if(this.load==1){
     //   console.log(1111)
@@ -125,6 +122,7 @@ export default {
 
 <style scoped lang="scss">
 .home {
+  height: calc(100% - 50px);
   .tab-entrust{
     position: relative;
   .kb {
@@ -135,16 +133,15 @@ export default {
     font-size: 12px;
   }
   }
-  margin-top: 3px;
+  margin-top: 6px;
   justify-content: space-between;
-  height: 100%;
   > .home-l {
-    width: calc(100% - 683px);
+    width: calc(100% - 687px);
     > .entrusts {
-      margin-top: 3px;
+      margin-top: 8px;
       padding: 0 15px;
-      background: #181b2a;
-      height: 385px;
+      background: #0a152d;
+      height: calc(100% - 600px);
       > .tab-entrust {
         color: rgba(255, 255, 255, 0.8);
         font-size: 14px;
@@ -165,15 +162,15 @@ export default {
     > .home-r-t {
       justify-content: space-between;
       min-height: 220px;
-      max-height: calc(100% - 360px);
+      max-height: calc(100% - 480px);
       > div {
-        width: 338px;
-        background: #181b2a;
+        width: 337px;
+        background: #0a152d;
       }
     }
     > .home-r-b {
-      margin-top: 3px;
-      background: #181b2a;
+      margin-top: 8px;
+      background: #0a152d;
       height: 360px;
     }
   }

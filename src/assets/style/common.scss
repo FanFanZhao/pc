@@ -1,5 +1,5 @@
 @import "mixin";
-html{width: 100%;color:#000;background-color: #262a42;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:PingFangSC-Regular,'微软雅黑',sans-serif;}
+html{width: 100%;color:#000;background-color: #182540;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:PingFangSC-Regular,'微软雅黑',sans-serif;}
 html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-box-sizing:border-box;box-sizing:border-box}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}
 input,select,textarea{font-size:100%}
@@ -107,11 +107,11 @@ input[type="number"] {
 }
 .scroll::-webkit-scrollbar {
     width: 6px;
-    background-color: #161d28;
+    background-color: #0a152d;
 }
 .scroll::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    background-color: #222639;
+    background-color: #0a152d;
 }
 .white{color: #fff;}
 .w50{width: 50%;}

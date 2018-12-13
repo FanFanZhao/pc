@@ -1,9 +1,9 @@
 <template>
     <div class="account-main wrap fColor1">
-        <div class="title">
+        <div class="title bg-part">
                 身份认证
         </div>
-        <div class="main-content mt20">
+        <div class="main-content mt20 bg-part">
             <div v-show="review_status==0">
                 <div class="main-input">
                     <div class="flex alcenter center">

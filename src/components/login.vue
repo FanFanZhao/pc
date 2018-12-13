@@ -1,18 +1,18 @@
 <template>
-<div class="login">
+<div class="login bg-main">
     <indexHeader></indexHeader>
     <div class="contentBK">
-        <div class="content-wrap">
+        <div class="content-wrap bg-main">
             <div class="account">
                 <div class="main">
                     <p class="main_title">欢迎登录</p>
                     <div class="register-input">
                         <span class="register-item">账号</span>
-                        <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account">
+                        <input type="text" class="input-main input-content bg-inp" maxlength="20" v-model="account_number" id="account">
                     </div>
                      <div class="register-input">
                         <span class="register-item">密码</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
+                        <input type="password" class="input-main input-content bg-inp" maxlength="16" v-model="password" id="pwd">
                     </div>
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
@@ -124,7 +124,7 @@ import indexFooter from '@/view/indexFooter'
 </script>
 
 <style scoped>
-	.content-wrap{background: url(../../static/imgs/bg_login.png) center bottom 316px repeat-x,-webkit-linear-gradient(top,#21263f,#262a42);}
+	/* .content-wrap{background: url(../../static/imgs/bg_login.png) center bottom 316px repeat-x,-webkit-linear-gradient(top,#21263f,#262a42);} */
 	.account{width: 1200px;margin: 0 auto;padding-top: 93px;overflow: hidden;min-height: 880px;}
 	.main{position: relative;padding: 0 0 60px 30px;}
 	.main_title{font-size: 36px;color: #c7cce6;}

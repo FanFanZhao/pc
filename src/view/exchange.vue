@@ -213,7 +213,7 @@ export default {
   color: #637085;
 }
 .list-item li {
-  line-height: 25px;
+  line-height: 24px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -234,7 +234,8 @@ export default {
   color: #cc4951;
 }
 .list-item li:hover {
-  background: #262a42;
+  background: #050d1d;
+  color: #2b89e1;
 }
 .line {
   height: 5px;

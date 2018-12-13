@@ -534,7 +534,7 @@
 				let style = {
 					up: "#589065",
 					down: "#AE4E54",
-					bg: "#181b2a",
+					bg: "#0a152d",//背景色
 					grid: "#1E2740",
 					cross: "#1E2740",
 					border: "#4e5b85",

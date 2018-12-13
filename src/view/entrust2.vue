@@ -228,7 +228,7 @@ export default {
 .list-item li{line-height: 30px;}
 .list-item li span{display: inline-block;float: left;}
 .list-item li span:nth-child(3){color:#cc4951;}
-.list-item li:hover{background-color: #2b3648}
+.list-item li:hover{background-color: #050d1d;color: #2b89e1}
 .list-item li span.green{color: #55a067}
 </style>
 

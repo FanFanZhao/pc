@@ -12,16 +12,16 @@
                 <div class="account-box">
                     <div class="tip" v-if="isMb">请输入手机号</div>
                     <div class="tip" v-if="!isMb">请输入邮箱</div>
-                    <input type="text" v-model="account">
+                    <input type="text"  class="bg-inp" v-model="account">
                 </div>
                     <div class="tip" style="margin-bottom:10px">请输入验证码</div>
-                <div class="code-box">
-                    <input type="text" v-model="code" class="code">
-                    <button type='button' class="code-btn curPer" @click="sendCode">发送验证码</button>
+                <div class="code-box bg-inp">
+                    <input type="text" v-model="code" class="code bg-inp">
+                    <button type='button' class="code-btn curPer bg-inp" @click="sendCode">发送验证码</button>
                 </div>
                 <div class="invite-box">
                     <div class="tip">邀请码</div>
-                    <input type="text" v-model="invite" class="invite-input">
+                    <input type="text" v-model="invite" class="invite-input bg-inp">
                 </div>
                 <button class="confirm-btn curPer" @click="checkCode" type="button">确认</button>
             </div>
@@ -49,11 +49,11 @@
                 <div class="title">设置密码</div>
                 <div class="pwd-box">
                     <div class="tip">请输入密码</div>
-                    <input type="password" v-model="pwd" class="pwd-input" placeholder="密码在6-16位之间">
+                    <input type="password" v-model="pwd" class="pwd-input bg-inp" placeholder="密码在6-16位之间">
                 </div>
                 <div class="repwd-box">
                     <div class="tip">请再次输入密码</div>
-                    <input type="password" v-model="repwd" class="repwd-input" placeholder="请再次输入密码">
+                    <input type="password" v-model="repwd" class="repwd-input bg-inp" placeholder="请再次输入密码">
                 </div>
                 <button type="button" @click="register" class="reg-btn confirm-btn curPer">确认</button>
             </div>

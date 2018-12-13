@@ -2,27 +2,27 @@
     <div id="pay-opts">
         <div class="inp-item">
             <div>真实姓名</div>
-            <input type="text" class="请输入真实姓名" v-model="name">
+            <input type="text" class="bg-inp" v-model="name">
         </div>
         <div class="inp-item">
             <div>开户行名称</div>
-            <input type="text" class="请输入开户行名称" v-model="bankName">
+            <input type="text" class="bg-inp" v-model="bankName">
         </div>
         <div class="inp-item">
             <div>银行卡号</div>
-            <input type="number" class="请输入银行卡号" v-model="bankNum">
+            <input type="number" class="bg-inp" v-model="bankNum">
         </div>
         <div class="inp-item">
             <div>支付宝账号</div>
-            <input type="text" class="请输入支付宝账号" v-model="ali">
+            <input type="text" class="bg-inp" v-model="ali">
         </div>
         <div class="inp-item">
             <div>微信昵称</div>
-            <input type="text" class="请输入微信昵称" v-model="weChatName">
+            <input type="text" class="bg-inp" v-model="weChatName">
         </div>
         <div class="inp-item">
             <div>微信账号</div>
-            <input type="text" class="微信账号" v-model="weChatAccount">
+            <input type="text" class="bg-inp" v-model="weChatAccount">
         </div>
         <div class="btn bgRed" @click="add">
             确认

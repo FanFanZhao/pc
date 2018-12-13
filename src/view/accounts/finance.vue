@@ -14,8 +14,8 @@
                <p class="flex1 tc">币种<i></i></p>
                <p class="flex1 tc">可用</p>
                <p class="flex1 tc">冻结</p>
-               <!-- <p class="flex1 tc">BTC估值<i></i></p> -->
-               <!-- <p class="flex1 tc">锁仓</p> -->
+               <p class="flex1 tc">持仓成本<i></i></p>
+               <p class="flex1 tc">持仓数</p>
                <p class="flex1 tc">操作</p>
            </div>
            <ul class="content_ul">
@@ -24,8 +24,8 @@
                    <p class="flex1 tc">{{item.currency_name}}</p>
                    <p class="flex1 tc">{{item.change_balance}}</p>
                    <p class="flex1 tc">{{item.lock_change_balance}}</p>
-                   <!-- <p class="flex1 tc">{{item.valuation}}</p> -->
-                   <!-- <p class="flex1 tc">{{item.lock_position}}</p> -->
+                   <p class="flex1 tc">{{item.cost}}</p>
+                   <p class="flex1 tc">{{item.position_number}}</p>
                    <p class="flex1 tc operation">
                        <span @click="excharge(index,item.currency)" >充币</span>
                        <span @click="withdraw(index,item.currency)">提币</span>
@@ -51,10 +51,10 @@
                    <!--提币区-->
                    <div class="hide_div" v-if="index == active01">
                        <p class="fColor2 ft12 mb15">提币地址</p>
-                       <input class="address_inp fColor1 mb30" type="text" v-model="address" />
+                       <input class="address_inp fColor1 mb30 bg-inp" type="text" v-model="address" />
                        <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">{{balance}}</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
-                       <label class="num_lab flex between mb30">
-                            <input class="fColor1" type="text" :placeholder="min_number" v-model="number" />
+                       <label class="num_lab flex between mb30 bg-inp">
+                            <input class="fColor1 " type="text" :placeholder="min_number" v-model="number" />
                             <span>{{coinname}}</span>
                         </label>
                        <div class="flex mb50">
@@ -63,13 +63,13 @@
                                    <span>手续费</span>
                                    <span>范围：<span>{{ratenum}}</span></span>
                                </p>
-                               <label class="range_lab flex alcenter between"><input class="fColor1"  type="text" v-model="rate" /><span>{{coinname}}</span></label>
+                               <label class="range_lab flex alcenter between bg-inp"><input class="fColor1 "  type="text" v-model="rate" /><span>{{coinname}}</span></label>
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
                                    <span class="fColor2 ft12">到账数量</span>
                                </p>
-                               <label class="get_lab flex alcenter between"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
+                               <label class="get_lab flex alcenter between bg-inp"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
                            </div>
                        </div>
                        <div class="flex">
@@ -85,7 +85,7 @@
                    </div>
                    <!--记录区-->
                    <div class="hide_div rec-box" v-if="index == active02">
-                       <div class="rec-con">
+                       <div class="rec-con bg-part">
 
                         <div class="rec-title">
                             <span>数量</span>
@@ -93,7 +93,7 @@
                             <span>时间</span>
                         </div>
                         <ul class="rec-list">
-                            <li v-for="(reItem,reIndex) in recData[index]" :key="reIndex">
+                            <li v-for="(reItem,reIndex) in recData[index]" :key="reIndex" class="bg-hov">
                                 <span>{{reItem.value}}</span>
                                 <span>{{reItem.info}}</span>
                                 <span>{{reItem.created_time}}</span>

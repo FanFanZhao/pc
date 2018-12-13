@@ -1,5 +1,5 @@
 <template>
-	<div class="leftNav ft14">
+	<div class="leftNav ft14 bg-part">
 		<ul class="fColor1">
 			<li v-for="(item,index) in array" :class="index == curActive ? 'active' :''" @click="goto(index,item.page)">
 				<img :src="index == curActive ? item.src2 : item.src1"/>
@@ -23,13 +23,13 @@
 						children:['finance']
 					},
 
-					{
-						src1: require("@/assets/images/icon_delegate.png"),
-						src2: require("@/assets/images/icon_delegate_s.png"),
-						text: '杠杆账户',
-						page:'lever',
-						children:['lever']
-					},
+					// {
+					// 	src1: require("@/assets/images/icon_delegate.png"),
+					// 	src2: require("@/assets/images/icon_delegate_s.png"),
+					// 	text: '杠杆账户',
+					// 	page:'lever',
+					// 	children:['lever']
+					// },
 					{
 						src1: require("@/assets/images/icon_delegate.png"),
 						src2: require("@/assets/images/icon_delegate_s.png"),
@@ -81,8 +81,8 @@
 				}
 			}
 			.active{
-				color:rgb(86, 151, 244);
-				background-color: rgb(39, 49, 66);
+				background: #050d1d;
+  color: #2b89e1;
 				border-bottom: none;
 				display: block;
 			}

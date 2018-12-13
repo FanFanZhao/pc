@@ -410,13 +410,13 @@ export default {
 .input-item input {
   width: 80%;
   float: left;
-  border: 1px solid #52688c;
+  border: 1px solid #25334f;
   border-radius: 3px;
   height: 32px;
   text-indent: 15px;
   font-size: 16px;
   color: #cdd6e4;
-  background-color: #262a42;
+  background-color: #17223a;
   line-height: 30px;
 }
 .input-item span {

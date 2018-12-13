@@ -1,15 +1,15 @@
 <template>
     <div class="noticeDetail">
         <indexHeader></indexHeader>
-        <div class="account-wrap">
+        <div class="account-wrap bg-main">
             <div class="account">
                 <div>
-                    <div class="back-nav fColor1 ft20"> 网站公告
+                    <div class="back-nav fColor1 ft20 bg-part"> 网站公告
                         <span class="fr fColor2 curPer" @click="goBefore">&lt;&lt;返回</span>
                     </div>
                     <div class="nav-after"></div>
                 </div>
-                <div class="account-content">
+                <div class="account-content bg-part">
                     <div class="detailBig">
                         <div class="mb30 clear">
                             <span class="fColor1 w90 fl tc">{{title}}</span>

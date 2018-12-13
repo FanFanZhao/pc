@@ -1,12 +1,12 @@
 <template>
     <div id="user-setting" class="flex">
-        <div class="setting-l">
+        <div class="setting-l bg-part">
             <div class="setting-item">
                 <!-- <div class="item-title">收款方式</div> -->
-                <router-link to="/userSetting">收款方式</router-link>
+                <router-link to="/userSetting" class="bg-hov">收款方式</router-link>
             </div>
         </div>
-        <div class="setting-r">
+        <div class="setting-r bg-part">
             <router-view></router-view>
         </div>
     </div>

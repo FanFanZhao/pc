@@ -1,6 +1,6 @@
 <template>
-    <div class="account-main wrap">
-        <ul class="white log_ul">
+    <div class="account-main wrap bg-part">
+        <ul class="white log_ul bg-part">
             <li class="flex ft14">
                 <span class="flex1 tc">时间</span>
                 <span class="flex1 tc">账户</span>
@@ -8,7 +8,7 @@
                 <span class="flex1 tc">金额</span>
             </li>
             <div class="li_wrap scroll">
-                <li class="flex ft12 around" v-for="(item,index) in log_list" :key="index">
+                <li class="flex ft12 around bg-hov" v-for="(item,index) in log_list" :key="index">
                     <span class="flex1 tc">{{item.created_time}}</span>
                     <span class="flex1 tc">{{item.account}}</span>
                     <span class="flex1 tc">{{item.info}}</span>

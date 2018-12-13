@@ -1,8 +1,8 @@
 <template>
-    <div  class="account-main accountEntrust">
-       <div class="account-top fColor2">
+    <div  class="account-main accountEntrust bg-part">
+       <div class="account-top fColor2 bg-part">
             <div class="fl">
-                <div class="title ft16">
+                <div class="title ft16 bg-part">
                     <span>区域代理</span>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <li class="fl w6 tr">操作</li> -->
                 </ul>
                 <ul class="list-item fColor1 ft12 ">
-                    <li v-for="item in aceiteList" class="clear">
+                    <li v-for="item in aceiteList" class="clear bg-hov">
                         <span class="fl w30">{{item.city_name}} {{item.district_name}}</span>
                         <span class="fl w30">{{item.phone}}</span>
                         <span class="fl w30 tc">{{item.time}}</span>

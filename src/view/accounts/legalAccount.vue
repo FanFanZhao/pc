@@ -1,7 +1,7 @@
 <template>
-    <div class="main">
-        <p class="legal_name">{{legal_name}}</p>
-        <div class="legalAccount_msg flex between">
+    <div class="main ">
+        <p class="legal_name bg-part">{{legal_name}}</p>
+        <div class="legalAccount_msg flex between bg-part">
           <div>
               <p class="ft12 msg_title">可用</p>
               <p>{{legal_balance}}</p>
@@ -16,11 +16,11 @@
           </div>
         </div>
         <div class="rec_wrap">
-           <p class="rec_title flex between">
+           <p class="rec_title flex between bg-part">
                <span>财务记录</span>
                <span class="all">全部</span>
            </p>
-           <p class="list_title flex around">
+           <p class="list_title flex around bg-part">
                <span class="ft14">数量</span>
                <span class="ft14">记录</span>
                <span class="ft14">时间</span>

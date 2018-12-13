@@ -181,8 +181,10 @@ export default {
   overflow: auto;
 }
 .list-item li {
-  line-height: 1.6;
   display: flex;
+  color: #b7c2ce;
+  line-height: 24px;
+  height: 24px;
 }
 .list-item li span {
   display: inline-block;
@@ -192,7 +194,8 @@ export default {
 }
 
 .list-item li:hover {
-  background-color: #2b3648;
+  background-color: #050d1d;
+  color: #2b89e1;
 }
 .list-item li span.green {
   color: #55a067;

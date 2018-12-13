@@ -1,5 +1,5 @@
 <template>
-    <div  class="account-main">
+    <div  class="account-main bg-part">
         <div  class="clear mb50">
             <div  class="fl">
                 <img  src="@/assets/images/account_security.png"/>

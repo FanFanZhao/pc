@@ -2,18 +2,18 @@
 <div class="forget-box">
     <indexHeader></indexHeader>
     <div class="contentBK">
-        <div class="content-wrap">
+        <div class="content-wrap bg-main">
             <div class="account">
                 <div class="main" v-if="!showReset">
                     <p class="main_title">忘记密码</p>
                     <div class="register-input">
                         <span class="register-item">账号</span>
-                        <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account">
+                        <input type="text" class="input-main input-content bg-inp" maxlength="20" v-model="account_number" id="account">
                     </div>
                      <div class="register-input code-input" >
                         <span class="register-item">验证码</span>
-                        <div class="code-box">
-                            <input type="text" class="input-main input-content" maxlength="16" v-model="phoneCode" id="pwd" >
+                        <div class="code-box bg-inp">
+                            <input type="text" class="input-main input-content bg-inp" maxlength="16" v-model="phoneCode" id="pwd" >
                         <button type="button" @click="setTime">获取验证码</button>
                         </div>
                     </div>
@@ -28,11 +28,11 @@
                     <div class="main_title">设置密码</div>
                     <div class="register-input">
                         <span class="register-item">请输入密码</span>
-                        <input type="password" class="input-main input-content"  v-model="password" id="pwd">
+                        <input type="password" class="input-main input-content bg-inp"  v-model="password" id="pwd">
                     </div>
                     <div class="register-input">
                         <span class="register-item">请再次输入密码</span>
-                        <input type="password" class="input-main input-content"  v-model="re_password" id="repwd">
+                        <input type="password" class="input-main input-content bg-inp"  v-model="re_password" id="repwd">
                     </div>
                     <button class="register-button curPer" type="button" @click="resetPass" style="margin-top:20px">确认</button>
                 </div>
@@ -288,10 +288,10 @@ export default {
 }
 .code-box button {
   border: none;
-  border-left: 1px solid #4e5b85;
+  /* border-left: 1px solid #4e5b85; */
   line-height: 44px;
   color: #7a98f7;
-  background: #1e2235;
+  background: transparent;
   width: 94px;
 }
 </style>
