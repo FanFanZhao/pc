@@ -1,6 +1,6 @@
 <template>
     <div id="c2c-box" class="flex">
-        <div class="c2c-l">
+        <!-- <div class="c2c-l">
             
             <ul>
                 <li class="flex" v-for="(item,index) in currency_list" :key="index" :class="index == active?'bg_active':''" :data-id="item.id" @click="currency_click(item.id,item.name,index)">
@@ -11,7 +11,7 @@
                     <span>></span>
                 </li>
             </ul>
-        </div>
+        </div> -->
         <div class="c2c-r">
           <div class="bot">
                 <div class="buy-sell-box" v-if="showTradeBox">
@@ -970,11 +970,10 @@ export default {
     }
   }
   > .c2c-r {
+    margin: 0 auto;
     padding: 10px 30px;
     background: #0a152d;
-
-    margin-right: 10px;
-    width: 77%;
+    width: 1500px;
     > .top {
       // margin: 10px 30px 10px;
       > .top-title {

@@ -78,6 +78,11 @@ export default new Router({
 					component:dealCenter
 				},
 				{
+					path:'/mining',
+					name:'mining',
+					component:() => import('../components/Mining.vue')
+				},
+				{
 					path:'/leverdealCenter',
 					name:'leverdealCenter',
 					component:leverdealCenter

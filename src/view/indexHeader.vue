@@ -92,6 +92,7 @@ export default {
         { title: "首页", page: "homeContent" },
         { title: "C2C交易", page: "c2c" },
         { title: "币币交易", page: "dealCenter" },
+        { title: "挖矿", page: "mining" },
         // { title: "安全设置", page: "userSetting" },
         // { title: "杠杆交易", page: "leverdealCenter" },
         // { title: "我的资产", page: "homeContent" },

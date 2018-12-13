@@ -21,7 +21,10 @@
            <ul class="content_ul">
                <li v-for="(item,index) in asset_list" :key="index">
                     <div class="content_li flex alcenter between">
-                   <p class="flex1 tc">{{item.currency_name}}</p>
+                   <p class="flex1 tc">
+                     <img :src="item.logo" alt="" width="20" height="20" class='logo'>
+                     <span>{{item.currency_name}}</span>
+                   </p>
                    <p class="flex1 tc">{{item.change_balance}}</p>
                    <p class="flex1 tc">{{item.lock_change_balance}}</p>
                    <p class="flex1 tc">{{item.cost}}</p>
@@ -420,6 +423,17 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+p.flex1{
+  height: 20px;
+  line-height: 20px;
+}
+img.logo{
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  vertical-align: bottom;
+}
 .header {
   padding: 15px 30px;
   overflow: hidden;
