@@ -1,10 +1,10 @@
 <template>
 	<div class="leftNav ft16 " style="background:none">
 		<ul class="fColor1 bg-part">
-			<li v-for="(item,index) in array" :class="index == curActive ? 'active' :''" @click="goto(index,item.page)">
-				<img :src="index == curActive ? item.src2 : item.src1"/>
+			<router-link tag="li" v-for="(item,index) in array"   :to="item.path" :key="item.path">
+				<img :src="$route.path == item.path ? item.src2 : item.src1"/>
 				<span>{{item.text}}</span>
-			</li>
+			</router-link>
 		</ul>
 	</div>
 </template>
@@ -33,7 +33,7 @@
 						src1: require("@/assets/images/icon_account_settings.png"),
 						src2: require("@/assets/images/icon_account_settings_s.png"),
 						text: '账户设置',
-						page:'accountSet'
+						path:'/accountSet'
 					},
 					// {
 					// 	src1: require("@/assets/images/icon_news.png"),
@@ -52,40 +52,24 @@
 						src1: require("@/assets/images/s0.png"),
 						src2: require("@/assets/images/s1.png"),
 						text: '区域代理',
-						page:'region',
+						path:'/region',
 					},
 					{
 						src1: require("@/assets/images/icon_news.png"),
 						src2: require("@/assets/images/icon_news_s.png"),
 						text: '交易日志',
-						page:'transferLog',
+						path:'/transferLog',
 					},
 					{
 						src1: require("@/assets/images/icon_mine.png"),
 						src2: require("@/assets/images/icon_mine_s.png"),
 						text: '身份认证',
-						page:'authentication',
+						path:'/authentication',
 					},
 				],
 			}
 		},
-		created(){
-			let name = this.$route.name;
-			console.log(name)
-			this.curActive = this.array.findIndex( val => val.page === name || (val.children && val.children.includes(name))) ;
-		},
-		mounted(){
-			this.bus.$on("nav_name", name =>{
-				this.curActive = this.array.findIndex( val => val.page === name || (val.children && val.children.includes(name))) ;
-			})
-		},
-		methods: {
-			goto(index,name) {
-				this.curActive=index;
-				this.$router.push({name: name, params: {lang: this.lang}})
-			},
-
-		}
+		
 	};
 </script>
 <style lang="scss" scoped>
@@ -112,7 +96,7 @@
 					vertical-align: middle;
 				}
 			}
-			.active{
+			.router-link-active{
 				background: #050d1d;
   color: #2b89e1;
 				border-bottom: none;

@@ -9,8 +9,10 @@ import VueAxios from 'vue-axios'
 import Qs from 'qs'
 import "@/assets/style/common.scss"
 import VueSocketio from 'vue-socket.io'
-import {Slider} from 'element-ui'
+import {Slider,Button,Upload} from 'element-ui'
 Vue.use(Slider)
+Vue.use(Button)
+Vue.use(Upload)
 // import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'
@@ -75,6 +77,11 @@ router.beforeEach((to,from,next) => {
 			p = res.data.message;
 		}
 		Vue.prototype.usprice = p;
+		// var reloaded = window.localStorage.getItem('reloaded') || '';
+		// if(reloaded == ''&&to.name == 'login'){
+		// 	window.location.reload();
+		// 	window.localStorage.setItem('reloaded','yes');
+		// }
 		next()
 		
 	})
@@ -82,6 +89,7 @@ router.beforeEach((to,from,next) => {
 	
 	
 })
+
 //Vue.use(Ws, 'http://test.maxf.pub/users/chatRoom');
 /* eslint-disable no-new */
 new Vue({

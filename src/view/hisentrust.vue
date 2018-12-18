@@ -16,7 +16,6 @@
                 <li class="fl w10">成交均价</li>
                 <li class="fl w6">状态</li>
                 <li class="fl w10">手续费</li>
-                <li class="fl w10">奖励2kb</li>
                 <li class="fl w6 tr">方向</li>
             </ul>
             <div class="containers scroll" v-if="comList.length>0">
@@ -30,7 +29,7 @@
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w6">已成交</span>
                         <span class="fl w10">{{item.type=='in'? item.in_fee:item.out_fee}}</span>
-                        <div class="fl w10">{{item.kb}}</div>
+                        <!-- <div class="fl w10">{{item.kb}}</div> -->
                         <span class="fl w6 tr" :class="item.type=='out'?'redColor':'green'">{{item.type=='in'?'买入':'卖出'}}</span>
                     </li>
                 </ul>

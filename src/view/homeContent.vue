@@ -4,9 +4,9 @@
             <div class="swiper-wrapper">
 
                <div class="swiper-slide sliders" v-for="(item,index) in swiperImgs" :key="index">
-                   <a href="">
-                   <img :src="item.thumbnail" />
-                   </a>
+                   <router-link :to="{path:'/components/noticeDetail',query:{id:item.id}}">
+                    <img :src="item.thumbnail" />
+                   </router-link>
                </div>
               
             </div>
@@ -14,14 +14,14 @@
         </div>
        
        
-       
+       <grand-total></grand-total>
         <div class="coins-list">
           <div class="coin-tab" style="background:#050d1e">
             <ul class="coins">
               <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">{{coin.name}}</li>
             </ul>
           </div>
-          <div class="list-title">
+          <div class="list-title" style="background:#111B31">
             <span>交易对</span>
             <span>昨日</span>
             <span>今日</span>
@@ -219,9 +219,10 @@ import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
 import indexHeader from "@/view/indexHeader";
 // var echarts = require("echarts");
+import GrandTotal from './GrandTotal.vue'
 export default {
   name: "homeContent",
-  components: { indexHeader },
+  components: { indexHeader,GrandTotal },
   data() {
     return {
       quotation: [],
@@ -816,7 +817,7 @@ div.swiper-container .swiper-pagination-bullet-active {
       .activeCoin {
         border-bottom: none;
         // background:#0a152d;
-        background: rgb(24, 37, 64);
+        background: #111B31;
         border-top: 2px solid #2b89e1;
       }
     }

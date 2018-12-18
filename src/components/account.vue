@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="box bg-main">
         <indexHeader></indexHeader>
         <div class="account">
             <left v-bind:lang="lang" :current="0"></left>

@@ -34,7 +34,16 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
-
+.plr35{
+    padding-left: 35px;
+    padding-right: 35px;
+}
+.pt20{
+    padding-top: 20px;
+}
+.pb20{
+    padding-bottom: 20px;
+}
 .clear:after{
 	content: '';
 	display: block;

@@ -50,8 +50,7 @@ import indexFooter from '@/view/indexFooter'
             }
         },
 		created (){
-            console.log(this.$utils);
-            
+            // window.localStorage.removeItem('reloaded');
 			this.account_number = this.$route.query.account_number || ''
 		},
         methods:{
@@ -66,6 +65,7 @@ import indexFooter from '@/view/indexFooter'
                     if(res.data.type == 'ok'){
                     console.log(res)
                     localStorage.setItem('user_id',res.data.message.id);
+                    
                     // localStorage.setItem('email',res.data.message.email);
                     localStorage.setItem('extension_code',res.data.message.extension_code);
                     }
@@ -113,12 +113,18 @@ import indexFooter from '@/view/indexFooter'
 				})
             }
         },
+        beforeDestroy(){
+            window.localStorage.removeItem('reloaded');
+        },
         beforeRouteEnter(to,from,next){
-            if(from.name == 'dealCenter'){
-                window.location.reload()
+            var reloaded = window.localStorage.getItem('reloaded') || '';
+            if(reloaded == ''){
+                window.location.reload();
+                window.localStorage.setItem('reloaded','yes');
             }
             next()
-        }
+        },
+        
 
     }
 </script>

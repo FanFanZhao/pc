@@ -119,7 +119,7 @@ export default {
       var QRCode = require("qrcode");
       var canvas = document.getElementById("canvas");
 
-      QRCode.toCanvas(canvas,this.extension_code, function(error) {
+      QRCode.toCanvas(canvas,'http://www.2kex.com/mobile/register.html?exCode='+this.extension_code, function(error) {
         if (error) console.error(error);
         console.log("success!");
       });

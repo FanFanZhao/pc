@@ -83,6 +83,16 @@ export default new Router({
 					component:() => import('../components/Mining.vue')
 				},
 				{
+					path:'/team',
+					name:'team',
+					component:() => import('../components/Team.vue')
+				},
+				{
+					path:'/teamDetail',
+					name:'teamDetail',
+					component:() => import('../components/TeamDetail.vue')
+				},
+				{
 					path:'/leverdealCenter',
 					name:'leverdealCenter',
 					component:leverdealCenter

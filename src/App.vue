@@ -5,8 +5,10 @@
 </template>
 
 <script>
+
 export default {
   name: 'App',
+  
   created(){
     this.$http({
 					url: '/api/' + 'currency/quotation',
