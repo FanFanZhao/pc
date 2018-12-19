@@ -10,19 +10,19 @@
           <div>
             <span class="clr-base">昨日挖矿产出</span>
           </div>
-          <div>{{mine.yesterday_2kb}}</div>
+          <div>{{mine.yesterday_2kb}}<span class="clr-unit">2kb</span></div>
         </li>
         <li class="flex1">
           <div>
             <span class="clr-base">累计挖矿产出</span>
           </div>
-          <div>{{mine.sum_2kb}}</div>
+          <div>{{mine.sum_2kb}}<span class="clr-unit">2kb</span></div>
         </li>
         <li class="flex1">
           <div>
             <span class="clr-base">今日个人总收益</span>
           </div>
-          <div>{{mine.today_profit}}</div>
+          <div>{{mine.today_profit}}<span class="clr-unit">usdt</span></div>
         </li>
       </ul>
     </div>
@@ -41,7 +41,7 @@
           <div>
             <span class="clr-base">今日平台总收益</span>
           </div>
-          <div>{{mine.global_profit}}</div>
+          <div>{{mine.global_profit}}<span class="clr-unit">usdt</span></div>
         </li>
         <li class="flex1">
           <div>
@@ -53,7 +53,7 @@
           <div>
             <span class="clr-base">今日预估个人产出</span>
           </div>
-          <div>{{mine.estimate_profit}}</div>
+          <div>{{mine.estimate_profit}}<span class="clr-unit">2kb</span></div>
         </li>
       </ul>
     </div>
@@ -91,13 +91,13 @@
       </div>
       <div v-if="show=='my'&&my=='my'">
         <div class="list-head flex clr-base">
-          <div class="flex1">盈利</div>
+          <div class="flex1">盈利(2kb)</div>
           <div class="flex1 tc">日期</div>
           <div class="flex1 tr">发放状态</div>
         </div>
         <ul class="list">
           <li class="flex clr-light" v-for="(item,index) in myToday" :key="index">
-            <span class="flex1">{{item.money_usdt}}</span>
+            <div class="flex1">{{item.money_usdt}}</div>
             <span class="flex1 tc">{{item.create_date}}</span>
             <span class="flex1 tr">{{item.status_name}}</span>
           </li>
@@ -106,13 +106,13 @@
       </div>
       <div v-if="show=='my'&&my=='myhis'">
         <div class="list-head flex clr-base">
-          <div class="flex1">盈利</div>
+          <div class="flex1">盈利(2kb)</div>
           <div class="flex1 tc">日期</div>
           <div class="flex1 tr">发放状态</div>
         </div>
         <ul class="list">
           <li class="flex clr-light" v-for="(item,index) in myHis" :key="index">
-            <span class="flex1">{{item.money_usdt}}</span>
+            <div class="flex1">{{item.money_usdt}}</div>
             <span class="flex1 tc">{{item.create_date}}</span>
             <span class="flex1 tr">{{item.status_name}}</span>
           </li>
@@ -221,6 +221,11 @@ export default {
   line-height: 40px;
   .clr-base {
     color: #7080a3;
+  }
+  .clr-unit{
+    color: #7080a3;
+    font-size: 12px;
+    margin-left: 10px;
   }
   .clr-light {
     color: #b7c2ce;

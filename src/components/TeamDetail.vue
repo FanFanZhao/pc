@@ -1,7 +1,7 @@
 <template>
   <div class="team-detail bg-main">
-    <div class="bg-part mt20 title" style="color:#2b89e1 !important">队长信息</div>
-    <ul class="bg-part">
+    <div hidden class="bg-part mt20 title" style="color:#2b89e1 !important">队长信息</div>
+    <ul hidden class="bg-part">
       <li class="tc flex">
         <div>
           <div>手机</div>
@@ -21,40 +21,43 @@
         </div>
       </li>
     </ul>
-    <div class="bg-part mt20 title" style="color:#2b89e1 !important">战队信息</div>
+    <div class="bg-part mt20 title" style="color:#2b89e1 !important;height:50px">
+      <span class="fl">战队信息</span>
+        <el-button class="fr" size="mini" type="success" @click="join" v-if="team.is_mine == 0&&team.in_team == 0">加入战队</el-button>
+    </div>
     <div class="bg-part info flex">
-      <div>
+      <div class="flex2">
         <div>战队名称</div>
         <span>{{team.name}}</span>
       </div>
-      <div>
+      <div class="flex1">
         <div>战队图标</div>
         <img :src="team.logo" alt style="width:30px;height:30px;border-radius:50%">
       </div>
-      <div>
+      <div class="flex2">
         <div>创建时间</div>
         <span>{{team.create_time}}</span>
       </div>
-      <div>
+      <div class="flex2">
         <div>战队口号</div>
         <span>{{team.desc}}</span>
       </div>
-      <div>
-        <div>微信</div>
+      <div class="flex1">
+        <div>成员数</div>
+        <span>{{members.length}}</span>
+      </div>
+      <div class="flex2">
+        <div>队长微信</div>
         <span>{{team.wechat}}</span>
       </div>
-      <div>
+      <div class="flex1">
         <div>状态</div>
         <span>{{team.status_name}}</span>
       </div>
-      <div>
+      <div style="width:80px">
         <img :src="team.qr_code" alt="" style="width:80px;height:80px">
       </div>
-      <div class="btns">
-        <el-button size="mini" type="danger" @click="dismiss" v-if="team.is_mine == 1&&team.status_name == '已审核'">解散战队</el-button>
-        <el-button size="mini" type="success" @click="join" v-if="team.is_mine == 0&&team.in_team == 0">加入战队</el-button>
-        <el-button size="mini" type="danger" @click="leave" v-if="team.is_mine == 0&&team.in_team == 1">退出战队</el-button>
-      </div>
+      
     </div>
     <div class="bg-part mt20 title" style="color:#2b89e1 !important">战队成员</div>
     <div class="bg-part members">
@@ -221,7 +224,8 @@ export default {
   }
   > .info {
     > div {
-      margin-right: 63px;
+      
+      font-size: 14px;
       > div {
         margin: 10px 0;
       }

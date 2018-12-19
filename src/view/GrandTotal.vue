@@ -4,20 +4,24 @@
       <div>
         <span class="clr-base">今日释放量</span>
         <span class="clr-light">{{msg.today}}</span>
+        <span class="clr-unit">2kb</span>
       </div>
       <div>
         <span class="clr-base">累计释放量</span>
         <span class="clr-light">{{msg.sum}}</span>
+        <span class="clr-unit">2kb</span>
       </div>
     </li>
     <li class="flex1">
       <div>
         <span class="clr-base">今日全网盈利总额</span>
         <span class="clr-light">{{msg.global_profit_usdt}}</span>
+        <span class="clr-unit">usdt</span>
       </div>
       <div>
         <span class="clr-base">每百usdt预估收益</span>
         <span class="clr-light">{{msg.estimate_profit}}</span>
+        <span class="clr-unit">2kb</span>
       </div>
     </li>
     
@@ -25,18 +29,22 @@
       <div>
         <span class="clr-base">今日手续费收入</span>
         <span class="clr-light">{{msg.today_fee}}</span>
+        <span class="clr-unit">usdt</span>
       </div>
       <div>
         <span class="clr-base">累计手续费收入</span>
         <span class="clr-light">{{msg.sum_fee}}</span>
+        <span class="clr-unit">usdt</span>
       </div>
       <div>
         <span class="clr-base">待分红金额</span>
         <span class="clr-light">{{msg.wait_bonus}}</span>
+        <span class="clr-unit">usdt</span>
       </div>
       <div>
         <span class="clr-base">待回购资金余额</span>
         <span class="clr-light">{{msg.wait_buy_back}}</span>
+        <span class="clr-unit">usdt</span>
       </div>
     </li>
   </ul>
@@ -98,9 +106,13 @@ export default {
   max-width: 1500px;
   margin: 20px auto 20px;
   justify-content: space-between;
+  .clr-unit{
+    color: #7080a3;
+    font-size: 12px;
+    margin-left: 10px;
+  }
   .clr-base {
     color: #7080a3;
-    width: 120px;
   }
   .flex{
     flex-wrap: wrap;
@@ -112,13 +124,13 @@ export default {
   height: 210px;
   line-height: 40px;
   li {
-    padding: 0 16px;
+    padding-left: 15px;
     font-size: 14px;
     > div {
       display: flex;
     }
     .clr-base {
-      margin-right: 5px;
+      margin-right: 10px;
     }
   }
   li.flex{
