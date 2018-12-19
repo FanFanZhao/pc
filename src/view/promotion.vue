@@ -53,6 +53,13 @@
               <span>时间</span>
               <span>状态</span>
             </div>
+            <ul class="list">
+                <li class="flex tc ft12" v-for="(item,index) in inviteList">
+                    <span>{{item.account}}</span>
+                    <span>{{item.created_time}}</span>
+                    <span>{{item.status}}</span>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -62,7 +69,12 @@ export default {
     data(){
         return{
             extension_code:'',
-            link_code:''
+            link_code:'',
+            inviteList:[
+                {account:'15290813776',created_time:'2018-12-19 16:18:03',status:'aa'},
+                {account:'15290813776',created_time:'2018-12-19 16:18:03',status:'aa'},
+                {account:'15290813776',created_time:'2018-12-19 16:18:03',status:'aa'},
+            ]
         }
     },
     methods:{
@@ -164,10 +176,18 @@ export default {
             line-height: 40px;
             padding-left: 30px;
             border-bottom: 1px solid #435375;
+            color: #2b89e1;
         }
         .detailtitle{
             padding: 10px 0;
             span{flex:1}
+        }
+        .list{
+            li{
+                padding: 5px 0;
+                span{flex: 1;}
+            }
+            
         }
     }
 }
