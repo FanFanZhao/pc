@@ -14,8 +14,8 @@
                <p class="flex1 tc">币种<i></i></p>
                <p class="flex1 tc">可用</p>
                <p class="flex1 tc">冻结</p>
-               <p class="flex1 tc">持仓成本<i></i></p>
-               <p class="flex1 tc">持仓数</p>
+               <p class="flex1 tc">建仓成本<i></i></p>
+               <p class="flex1 tc">建仓数量</p>
                <p class="flex1 tc">操作</p>
            </div>
            <ul class="content_ul">

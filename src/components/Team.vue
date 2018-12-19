@@ -29,7 +29,7 @@
         </div>
         <div class="flex">
           <span>战队二维码地址：</span>
-          
+
           <div class="upload tc">
             {{addPms.qr_code}}
             <input
@@ -60,7 +60,7 @@
         </li>
         <li class="tc">
           <div>战队图标</div>
-          <img :src="mine.logo" alt style="width:30px;height:30px;boder-radius:50%;">
+          <img :src="mine.logo" alt style="width:33px;height:33px;boder-radius:50%;">
         </li>
         <li class="tc">
           <div>创建时间</div>
@@ -86,34 +86,68 @@
       </ul>
     </div>
     <div class="bot flex mt20">
-      <div class="bg-part">
-        <div class="title">今日收益排行榜</div>
-        <div class="ul-head flex" style="justify-content:space-between;padding: 10px 0">
-          <span>战队名称</span>
-          <span>收益</span>
+      <div class="left-part">
+        <div class="bg-part">
+          <div class="title">今日收益排行榜</div>
+          <div class="ul-head flex-bet" style="justify-content:space-between;padding: 10px 0">
+            <span>战队名称</span>
+            <span>收益</span>
+          </div>
+          <ul>
+            <router-link
+              :to="{path:'/teamDetail',query:{id:item.id}}"
+              tag="li"
+              class="flex"
+              v-for="(item,index) in todayTeams"
+              :key="index"
+            >
+              <div class="flex">
+                <span style="color:#fff;margin-right:5px;">{{index+1}}.</span>
+                <img :src="item.logo" alt>
+                <span>{{item.name}}</span>
+              </div>
+              <span>{{item.today_profit}}</span>
+            </router-link>
+          </ul>
         </div>
-        <ul>
-          <router-link :to="{path:'/teamDetail',query:{id:item.id}}" tag="li" class="flex" v-for="(item,index) in todayTeams" :key="index">
-            <div class="flex">
-              <img :src="item.logo" alt>
-              <span>{{item.name}}</span>
-            </div>
-            <span>{{item.today_profit}}</span>
-          </router-link>
-        </ul>
+        <div class="bg-part mt20 right-part">
+          <div class="title">昨日收益排行榜</div>
+          <div class="ul-head flex-bet" style="justify-content:space-between;padding: 10px 0">
+            <span>战队名称</span>
+            <span>收益</span>
+          </div>
+          <ul>
+            <router-link
+              :to="{path:'/teamDetail',query:{id:item.id}}"
+              tag="li"
+              class="flex-bet"
+              v-for="(item,index) in todayTeams"
+              :key="index"
+            >
+              <div class="flex">
+                <span style="color:#fff;margin-right:5px;">{{index+1}}.</span>
+                <img :src="item.logo" alt>
+                <span>{{item.name}}</span>
+              </div>
+              <span>{{item.history_profit}}</span>
+            </router-link>
+          </ul>
+        </div>
       </div>
       <div class="bg-part">
         <ul class="list">
           <li tag="li" v-for="(item,index) in list" :key="index">
             <div class="name flex">
-              <span class="label">战队名称：</span>
-              <img :src="item.logo" alt>
-              <span>{{item.name}}</span>
+              <img :src="item.logo" alt style="width:60px;height:60px">
+              <div>
+                <div style="color:#2b89e1">{{item.name}}</div>
+                <span>{{item.desc}}</span>
+              </div>
             </div>
-            <div class="desc flex">
+            <!-- <div class="desc flex">
               <div class="label">战队口号：</div>
               <span>{{item.desc}}</span>
-            </div>
+            </div>-->
             <div class="desc flex">
               <div class="label">创建日期：</div>
               <span>{{item.create_date}}</span>
@@ -140,24 +174,13 @@
         </ul>
         <div class="btns">
           <el-button size="mini" type="primary" @click="getList(listPage-0-1)" v-if="listPage>1">上一页</el-button>
-          <el-button size="mini" type="primary" @click="getList(listPage+0+1)" v-if="list.length">下一页</el-button>
+          <el-button
+            size="mini"
+            type="primary"
+            @click="getList(listPage+0+1)"
+            v-if="list.length"
+          >下一页</el-button>
         </div>
-      </div>
-      <div class="bg-part">
-        <div class="title">昨日收益排行榜</div>
-        <div class="ul-head flex" style="justify-content:space-between;padding: 10px 0">
-          <span>战队名称</span>
-          <span>收益</span>
-        </div>
-        <ul>
-          <router-link :to="{path:'/teamDetail',query:{id:item.id}}" tag="li" class="flex" v-for="(item,index) in todayTeams" :key="index">
-            <div class="flex">
-              <img :src="item.logo" alt>
-              <span>{{item.name}}</span>
-            </div>
-            <span>{{item.history_profit}}</span>
-          </router-link>
-        </ul>
       </div>
     </div>
   </div>
@@ -232,8 +255,19 @@ export default {
           layer.close(i);
           this.showAdd = false;
           layer.msg(res.data.message);
+          this.showAdd = false;
+          this.addPms = {
+            name: "",
+            desc: "",
+            qr_code: "上传二维码",
+            wechat: "",
+            logo: "上传图标"
+          };
           if (res.data.type == "ok") {
-            window.location.reload();
+            this.getMine();
+            this.getList(1);
+            this.getTeams("today");
+            this.getTeams("history");
           }
         });
       } else {
@@ -259,8 +293,8 @@ export default {
     },
     getList(page) {
       if (this.token) {
-       this.listPage = page;
-       var i = layer.load();
+        this.listPage = page;
+        var i = layer.load();
         this.$http({
           url: "/api/team/list",
           params: { page: this.listPage },
@@ -269,8 +303,8 @@ export default {
           layer.close(i);
           if (res.data.type == "ok") {
             this.list = res.data.message.data;
-            if(this.list.length == 0){
-              layer.msg('暂无更多')
+            if (this.list.length == 0) {
+              layer.msg("暂无更多");
             }
           }
         });
@@ -287,10 +321,14 @@ export default {
           headers: { Authorization: this.token }
         }).then(res => {
           if (res.data.type == "ok") {
+            var list =  res.data.message;
+            if(list.length>10){
+              list = list.slice(0,10);
+            }
             if (type == "today") {
-              this.todayTeams = res.data.message;
+              this.todayTeams = list;
             } else {
-              this.hisTeams = res.data.message;
+              this.hisTeams = list;
             }
           }
         });
@@ -302,8 +340,13 @@ export default {
 
 <style lang='scss'>
 #page-team {
-  width: 1500px;
+  width: 1200px;
   margin: 20px auto;
+  font-size: 14px;
+  .flex-bet{
+    display: flex;
+    justify-content: space-between;
+  }
   > .add-box {
     line-height: 30px;
     position: fixed;
@@ -385,9 +428,18 @@ export default {
   }
   > .bot {
     justify-content: space-between;
+    >.left-part{
+      >div{
+        width: 300px;
+        padding: 10px 30px;
+      }
+    }
+    >.right-part{
+      width: 880px;
+    }
     > div:nth-child(2n + 1) {
-      width: 300px;
-      padding: 0 20px;
+      
+      
       .title {
         padding: 10px 0;
         font-size: 16px;
@@ -414,7 +466,7 @@ export default {
         flex-wrap: wrap;
 
         li {
-          padding: 10px 30px;
+          padding: 10px 28px;
           width: 33.33%;
           border-bottom: 1px solid #192646;
           border-right: 1px solid #192646;
