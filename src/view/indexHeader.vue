@@ -10,8 +10,8 @@
       
       <router-link to="/dealCenter">币币交易</router-link>
       <router-link to="/mining">挖矿</router-link>
-      <router-link to="/team">战队</router-link>
-      
+      <router-link to="/team" v-if="token">战队</router-link>
+      <div v-else @click="goLogin()">战队</div>
       <div>
         <div class="download">
           <div>app下载</div>

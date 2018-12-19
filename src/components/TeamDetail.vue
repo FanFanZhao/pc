@@ -51,8 +51,9 @@
         <img :src="team.qr_code" alt="" style="width:80px;height:80px">
       </div>
       <div class="btns">
-        <el-button size="mini" type="danger" @click="dismiss" v-if="team.is_mine == 1&&team.status_name != '解散中'">解散战队</el-button>
-        <el-button size="mini" type="success" @click="join" v-if="team.is_mine == 0">加入战队</el-button>
+        <el-button size="mini" type="danger" @click="dismiss" v-if="team.is_mine == 1&&team.status_name == '已审核'">解散战队</el-button>
+        <el-button size="mini" type="success" @click="join" v-if="team.is_mine == 0&&team.in_team == 0">加入战队</el-button>
+        <el-button size="mini" type="danger" @click="leave" v-if="team.is_mine == 0&&team.in_team == 1">退出战队</el-button>
       </div>
     </div>
     <div class="bg-part mt20 title" style="color:#2b89e1 !important">战队成员</div>
@@ -129,12 +130,16 @@ export default {
       var i = layer.load();
       this.$http({
         url: "/api/team/join",
-        method: "post",
-        data: { id: this.id },
+        params: { id: this.id },
         headers: { Authorization: this.token }
       }).then(res => {
         layer.close(i);
         layer.msg(res.data.message);
+        if(res.data.type == 'ok'){
+          this.membersPage = 1;
+          this.getInfo();
+          this.getMembers();
+        }
       });
     },
     dismiss() {
@@ -147,7 +152,9 @@ export default {
         layer.close(i);
         layer.msg(res.data.message);
         if(res.data.type == 'ok'){
+          this.membersPage = 1;
           this.getInfo();
+          this.getMembers();
         }
       });
     },
@@ -160,6 +167,11 @@ export default {
       }).then(res => {
         layer.close(i);
         layer.msg(res.data.message);
+        if(res.data.type == 'ok'){
+          this.membersPage = 1;
+          this.getInfo();
+          this.getMembers();
+        }
       });
     }
     

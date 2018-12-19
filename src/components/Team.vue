@@ -29,9 +29,7 @@
         </div>
         <div class="flex">
           <span>战队二维码地址：</span>
-          <!-- <el-upload action="http://www.2kex.com/api/upload/" :file-list="fileList">
-            <el-button>上传</el-button>
-          </el-upload>-->
+          
           <div class="upload tc">
             {{addPms.qr_code}}
             <input
@@ -46,7 +44,7 @@
         <div class="flex">
           <el-button
             size="small"
-            @click="showAdd = false;addPms= {name:'',desc:'',qr_code:'',wechat:''}"
+            @click="showAdd = false;addPms= {name:'',desc:'',qr_code:'上传二维码',wechat:'',logo:'上传图标'}"
           >取消</el-button>
           <el-button @click="add" size="small" type="primary">确认</el-button>
         </div>
@@ -54,7 +52,7 @@
     </div>
     <div class="bg-part mine">
       <div class="title" style="color:#2b89e1;font-weight:600" v-if="mine.name">我的战队</div>
-      <el-button v-else type="primary" size="mini" @click="showAdd = true&&mine.name != ''">申请战队</el-button>
+      <el-button v-else type="primary" size="mini" @click="showAdd = true">申请战队</el-button>
       <ul class="myteam flex" v-if="mine.name">
         <li class="tc">
           <div>战队名</div>
@@ -142,7 +140,7 @@
         </ul>
         <div class="btns">
           <el-button size="mini" type="primary" @click="getList(listPage-0-1)" v-if="listPage>1">上一页</el-button>
-          <el-button size="mini" type="primary" @click="getList(listPage+0+1)">下一页</el-button>
+          <el-button size="mini" type="primary" @click="getList(listPage+0+1)" v-if="list.length">下一页</el-button>
         </div>
       </div>
       <div class="bg-part">
@@ -262,11 +260,13 @@ export default {
     getList(page) {
       if (this.token) {
        this.listPage = page;
+       var i = layer.load();
         this.$http({
           url: "/api/team/list",
           params: { page: this.listPage },
           headers: { Authorization: this.token }
         }).then(res => {
+          layer.close(i);
           if (res.data.type == "ok") {
             this.list = res.data.message.data;
             if(this.list.length == 0){

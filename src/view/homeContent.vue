@@ -281,7 +281,7 @@ export default {
           var mySwiper02 = new Swiper(".banner_wrap", {
             // direction: 'vertical',
             loop: true,
-            // autoplay: 2000,
+            autoplay: 2000,
             // 如果需要分页器
             pagination: ".swiper-pagination02",
             paginationClickable: true,

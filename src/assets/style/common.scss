@@ -19,6 +19,12 @@ ins,a{text-decoration:none}
 a{
 	color:inherit;
 }
+span.swiper-pagination-bullet {
+    height: 60px;
+    opacity: 0.4;
+    border-radius: 5px;
+    width: 6px;
+}
 body,html,#app{min-width:1200px}
 input{
 	border:0;
