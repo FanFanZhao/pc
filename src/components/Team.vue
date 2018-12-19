@@ -101,7 +101,7 @@
               v-for="(item,index) in todayTeams"
               :key="index"
             >
-              <div class="flex-bet">
+              <div class="flex">
                 <span style="color:#fff;margin-right:5px;">{{index+1}}.</span>
                 <img :src="item.logo" alt>
                 <span>{{item.name}}</span>
