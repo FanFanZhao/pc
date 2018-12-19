@@ -31,8 +31,8 @@
         <span>{{team.name}}</span>
       </div>
       <div class="flex1">
-        <img :src="team.logo" alt style="width:30px;height:30px;border-radius:50%">
         <div>战队图标</div>
+        <img :src="team.logo" alt style="width:30px;height:30px;border-radius:50%">
       </div>
       <div class="flex2">
         <div>创建时间</div>

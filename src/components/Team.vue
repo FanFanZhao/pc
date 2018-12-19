@@ -97,11 +97,11 @@
             <router-link
               :to="{path:'/teamDetail',query:{id:item.id}}"
               tag="li"
-              class="flex"
+              class="flex-bet"
               v-for="(item,index) in todayTeams"
               :key="index"
             >
-              <div class="flex">
+              <div class="flex-bet">
                 <span style="color:#fff;margin-right:5px;">{{index+1}}.</span>
                 <img :src="item.logo" alt>
                 <span>{{item.name}}</span>
@@ -136,21 +136,21 @@
       </div>
       <div class="bg-part">
         <ul class="list">
-          <li tag="li" v-for="(item,index) in list" :key="index">
-            <div class="name flex">
+          <router-link :to="{path:'/teamDetail',query:{id:item.id}}" tag="li" v-for="(item,index) in list" :key="index">
+            <div class="tc">
               <img :src="item.logo" alt style="width:60px;height:60px">
-              <div>
-                <div style="color:#2b89e1">{{item.name}}</div>
-                <span>{{item.desc}}</span>
-              </div>
             </div>
-            <!-- <div class="desc flex">
+            <div class="desc flex">
+              <div class="label">战队名称：</div>
+              <span>{{item.name}}</span>
+            </div>
+            <div class="desc flex">
               <div class="label">战队口号：</div>
               <span>{{item.desc}}</span>
-            </div>-->
+            </div>
             <div class="desc flex">
-              <div class="label">创建日期：</div>
-              <span>{{item.create_date}}</span>
+              <div class="label">战队人数：</div>
+              <span>{{item.member_count}}</span>
             </div>
             <div class="flex">
               <div class="label">今日盈利：</div>
@@ -161,7 +161,7 @@
               <span>{{item.history_profit}}</span>
             </div>
 
-            <div class="flex">
+            <!-- <div class="flex">
               <img :src="item.qr_code" alt style="width:80px;height:80px;border-radius:0">
               <div class>
                 <div>微信： {{item.wechat}}</div>
@@ -169,8 +169,8 @@
                   <el-button size="mini" type="primary">详情</el-button>
                 </router-link>
               </div>
-            </div>
-          </li>
+            </div> -->
+          </router-link>
         </ul>
         <div class="btns">
           <el-button size="mini" type="primary" @click="getList(listPage-0-1)" v-if="listPage>1">上一页</el-button>
@@ -346,6 +346,9 @@ export default {
   .flex-bet{
     display: flex;
     justify-content: space-between;
+  }
+  li{
+    cursor: pointer;
   }
   > .add-box {
     line-height: 30px;
