@@ -4,6 +4,7 @@ import home from '@/components/home'
 import homeContent from '@/view/homeContent'
 import dealCenter from '@/components/dealCenter'
 import payOpts from '@/view/payOpts'
+import promotion from '@/view/promotion'
 import userSetting from '@/components/userSetting'
 import c2c from '@/components/c2c'
 import leverdealCenter from '@/components/lever_dealCenter'
@@ -109,7 +110,13 @@ export default new Router({
 				{
 					path:'/bindEmail',
 					component:bindEmail
-				}
+				},
+				{
+					path:'/promotion',
+					name:'promotion',
+					component:promotion
+				 },
+				
 				
 			]
 		},
@@ -212,6 +219,11 @@ export default new Router({
 					path:'/authentication',
 					name:'authentication',
 					component:authentication
+				},
+				{
+					path:'/promotion',
+					name:'promotion',
+					component:promotion
 				},
 
 			]

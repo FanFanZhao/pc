@@ -43,6 +43,7 @@
           <div class="account_number">{{account_number}}{{extension_code}})</div>
           <div class="links" style="background:#262a42">
             <router-link to="/accountSet">账户设置</router-link>
+            <router-link to="/promotion">我的邀请码</router-link>
             <router-link to="/region">区域代理</router-link>
             <router-link to="/transferLog">交易日志</router-link>
             <router-link to="/authentication">身份认证</router-link>
