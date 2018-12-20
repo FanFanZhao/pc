@@ -2,7 +2,7 @@
     <div class="trade">
         <div class="title_box">
             <div class="tabtitle fColor1 ft16curPer">
-                <span :class="{active:show == true}">限价交易</span>
+                <span :class="{active:show == true}" >限价交易</span>
                 <!-- <span :class="{active:show == false}" @click="changeType">市价交易</span> -->
             </div>
         </div>
@@ -203,6 +203,7 @@ export default {
         }
       }
     },
+    
     numFilter(ev) {
       //48-57 96-105 108
       // console.log(ev.keyCode)
@@ -265,6 +266,7 @@ export default {
             this.buyInfo.buyNum = 0;
             // that.buy_sell(that.legal_id,that.currency_id)
             eventBus.$emit("buyTrade", "tradebuy");
+            eventBus.$emit("createTrade", "yes");
             eventBus.$emit("tocel", "updata");
             console.log(res.data.message);
           } else {
@@ -312,6 +314,7 @@ export default {
             this.sellInfo.sellPrice = 0;
             this.sellInfo.sellNum = 0;
             eventBus.$emit("buyTrade", "tradebuy");
+            eventBus.$emit("createTrade", "yes");
             eventBus.$emit("tocel", "updata");
             // that.buy_sell(that.legal_id,that.currency_id)
             layer.msg(res.data.message);

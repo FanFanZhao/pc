@@ -84,6 +84,11 @@ export default new Router({
 					component:() => import('../components/Mining.vue')
 				},
 				{
+					path:'/wait',
+					name:'wait',
+					component:() => import('../components/Wait.vue')
+				},
+				{
 					path:'/team',
 					name:'team',
 					component:() => import('../components/Team.vue')

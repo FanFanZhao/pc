@@ -30,8 +30,8 @@
                    <p class="flex1 tc">{{item.cost}}</p>
                    <p class="flex1 tc">{{item.position_number}}</p>
                    <p class="flex1 tc operation">
-                       <span @click="excharge(index,item.currency)" >充币</span>
-                       <span @click="withdraw(index,item.currency)">提币</span>
+                       <span @click="excharge(index,item.currency);clearTime()" >充币</span>
+                       <span @click="withdraw(index,item.currency);clearTime()">提币</span>
                        <!-- <span @click="exchange">兑换</span> -->
                        <span @click="rec(index)">记录</span>
                    </p>
@@ -48,7 +48,7 @@
                        <p class="ft12 fColor2 mb50">查看<span class="excharge_record">充币记录</span>跟踪状态</p>
                        <p class="ft12 fColor2 mb15">温馨提示</p>
                        <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
-                           <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list">{{item}}</li>
+                           <li class="tips_li" style="list-style:disc inside" >请勿向上述地址充值任何非{{item.currency_name}}资产，否则资产将不可找回。</li>
                        </ul>
                    </div>
                    <!--提币区-->
@@ -63,10 +63,10 @@
                        <div class="flex mb50">
                            <div class="left_inp_wrap flex1">
                                <p class="fColor2 ft12 mb15">
-                                   <span>手续费</span>
-                                   <span>范围：<span>{{ratenum}}</span></span>
+                                   <span>手机验证码</span>
+                                   <!-- <span>范围：<span>{{ratenum}}</span></span> -->
                                </p>
-                               <label class="range_lab flex alcenter between bg-inp"><input class="fColor1 "  type="text" v-model="rate" /><span>{{coinname}}</span></label>
+                               <label class="range_lab flex alcenter between bg-inp"><input class="fColor1 "  type="text" v-model="code" /><span @click="sendCode">{{codeTip}}</span></label>
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
@@ -75,14 +75,12 @@
                                <label class="get_lab flex alcenter between bg-inp"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
                            </div>
                        </div>
-                       <div class="flex">
-                        <div class="flex2">
-                       <p class="ft12 fColor2 mb15">温馨提示</p>
-                       <ul class="tips_ul ft12 fColor2" style="list-style:disc inside">
-                           <li class="tips_li" style="list-style:disc inside" v-for="item in tip_list01">{{item}}</li>
-                       </ul>
+                       <div class="flex" style="justify-content:space-between">
+                        
+                       <div class="flex1 tr">
+
+                        <button class="withdraw_btn" @click="mention">提币</button>
                        </div>
-                       <div class="flex1 tc"><button class="withdraw_btn" @click="mention">提币</button></div>
                        
                        </div>
                    </div>
@@ -120,6 +118,10 @@ export default {
   name: "finance",
   data() {
     return {
+      timer:'',
+      codeTip:'发送验证码',
+      phone:'',
+      code:'',
       totle: "",
       recData: [],
       token: "",
@@ -144,9 +146,7 @@ export default {
       asset_list: [],
       tip_list: [
         "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
-        "USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。",
-        "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
-        "USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。"
+        
       ],
       tip_list01: [
         "请勿向上述地址充值任何非USDT资产，否则资产将不可找回。",
@@ -161,6 +161,35 @@ export default {
     left
   },
   methods: {
+    clearTime(){
+      clearInterval(this.timer);
+      this.codeTip = '发送验证码'
+    },
+    sendCode(){
+        if(this.codeTip == "发送验证码"){
+
+          var phone = window.localStorage.getItem('userPhone');
+          this.$http({
+            url:"/api/sms_send",
+            method:'post',
+            data:{user_string:phone,type:'forget'}
+          }).then(res => {
+            layer.msg(res.data.message)
+            if(res.data.type == 'ok'){
+              var time = 11;
+            this.timer = setInterval(() => {
+              time--;
+              this.codeTip = '剩余'+time+''+'s';
+              if(time == 0){
+                this.codeTip = '发送验证码'
+                clearInterval(this.timer)
+              }
+            },1000);
+            }
+          })
+        }
+      
+    },
     goRecord() {
       this.$router.push({ name: "coinRecord" });
     },
@@ -295,6 +324,9 @@ export default {
         console.log(number, min_number);
         return layer.alert("输入的提币数量小于最小值");
       }
+      if(this.code == ''){
+        layer.msg('请输入手机验证码');return;
+      }
       // if(rate=='' || rate>=1){
       //     layer.alert('请输入0-1之间的提币手续费');
       //     return;
@@ -305,7 +337,7 @@ export default {
         data: {
           currency: currency,
           number: number,
-          rate: rate,
+          code: that.code,
           address: address
         },
         dataType: "json",
@@ -316,6 +348,7 @@ export default {
         success: function(res) {
           console.log(res);
           if (res.type == "ok") {
+            
             layer.alert(res.message);
             setTimeout(() => {
               window.location.reload();

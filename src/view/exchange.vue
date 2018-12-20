@@ -133,6 +133,7 @@ export default {
             this.newData = res.data.message.last_price;
             this.buyInfo.buyPrice = 0;
             this.buyInfo.buyNum = 0;
+            document.title = this.newData+ ' '+this.currency_name+'/'+this.legal_name+' - ' +'2KEX';
             this.connect(
               legals_id,
               currencys_id

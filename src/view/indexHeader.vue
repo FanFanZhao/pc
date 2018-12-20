@@ -5,13 +5,16 @@
         <img src="@/assets/images/logo.png" alt style="width:100px;height:27px">
       </div>
       <router-link to="/" exact>首页</router-link>
-      <router-link to="/c2c" v-if="token">C2C交易</router-link>
-      <div v-else @click="goLogin()">C2C交易</div>
+      <router-link to="/wait" >C2C交易</router-link>
+      
+      <!-- <div v-else @click="goLogin()">C2C交易</div> -->
       
       <router-link to="/dealCenter">币币交易</router-link>
       <router-link to="/mining">挖矿</router-link>
       <router-link to="/team" v-if="token">战队</router-link>
       <div v-else @click="goLogin()">战队</div>
+      <div @click="$router.push('/wait')">合约交易</div>
+      <div @click="$router.push('/wait')">游戏</div>
       <div>
         <div class="download">
           <div>app下载</div>
@@ -40,11 +43,11 @@
           </ul>
         </div>
         <div class="links-box">
-          <div class="account_number">{{account_number}}{{extension_code}})</div>
+          <div class="account_number">{{account_number}} ({{extension_code}})</div>
           <div class="links" style="background:#262a42">
             <router-link to="/accountSet">账户设置</router-link>
-            <router-link to="/promotion">我的邀请码</router-link>
-            <router-link to="/region">区域代理</router-link>
+            <router-link to="/promotion">我的邀请</router-link>
+            <!-- <router-link to="/region">区域代理</router-link> -->
             <router-link to="/transferLog">交易日志</router-link>
             <router-link to="/authentication">身份认证</router-link>
             <div @click="signOut">退出登录</div>

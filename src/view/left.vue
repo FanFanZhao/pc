@@ -48,12 +48,12 @@
 					// 	page:'aceite',
 					// 	children: ['chargeRecord']
 					// },
-					{
-						src1: require("@/assets/images/s0.png"),
-						src2: require("@/assets/images/s1.png"),
-						text: '区域代理',
-						path:'/region',
-					},
+					// {
+					// 	src1: require("@/assets/images/s0.png"),
+					// 	src2: require("@/assets/images/s1.png"),
+					// 	text: '区域代理',
+					// 	path:'/promotion',
+					// },
 					{
 						src1: require("@/assets/images/icon_news.png"),
 						src2: require("@/assets/images/icon_news_s.png"),

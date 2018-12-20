@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-part mt20 centerbox tc">
+        <div class="bg-part mt20 centerbox tc" hidden>
             <p class="ft18 pt20">邀请人数</p>
             <ul class="mauto flex mauto mt40">
                 <li>
@@ -47,19 +47,20 @@
             </ul>
         </div>
         <div class="bg-part mt20 recodebox">
-            <p class="recodetitle">邀请记录</p>
+            <p class="recodetitle">邀请人数： {{total}}</p>
             <div class="flex tc detailtitle ft12">
               <span>被邀人账号</span>
               <span>时间</span>
               <span>状态</span>
             </div>
             <ul class="list">
-                <li class="flex tc ft12" v-for="(item,index) in inviteList">
+                <li class="flex tc ft12" v-for="(item,index) in list" :key="index">
                     <span>{{item.account}}</span>
-                    <span>{{item.created_time}}</span>
-                    <span>{{item.status}}</span>
+                    <span>{{item.time}}</span>
+                    <span>正常</span>
                 </li>
             </ul>
+            <div class="tc ft12 more" @click="getSons(page)">加载更多</div>
         </div>
     </div>
 </template>
@@ -74,10 +75,44 @@ export default {
                 {account:'15290813776',created_time:'2018-12-19 16:18:03',status:'aa'},
                 {account:'15290813776',created_time:'2018-12-19 16:18:03',status:'aa'},
                 {account:'15290813776',created_time:'2018-12-19 16:18:03',status:'aa'},
-            ]
+            ],
+            list:[],
+            page:1,
+            total:0
         }
     },
+    created(){
+        this.getSons(1);
+    },
     methods:{
+        getSons(page){
+            var token = window.localStorage.getItem('token') || '';
+            if(token){
+                var i = layer.load();
+                this.$http({
+                    url:'/api/user/son_user',
+                    params:{page:page},
+                    headers:{Authorization:token}
+                }).then(res => {
+                    layer.close(i);
+                    if(res.data.type == 'ok'){
+                        this.total = res.data.message.total;
+                        var list = res.data.message.data;
+                        if(list.length){
+                            this.page = page+1;
+                        } else {
+                            layer.msg('暂无更多')
+                        }
+                        if(page>1){
+                            this.list = this.list.concat(list);
+                        } else {
+                            this.list = list;
+                        }
+                        
+                    }
+                })
+            }
+        },
         createCode() {
             var QRCode = require("qrcode");
             var canvas = document.getElementById("canvas");
@@ -114,8 +149,7 @@ export default {
     mounted(){
         if(localStorage.getItem('extension_code')){
             this.extension_code=localStorage.getItem('extension_code');
-            this.link_code=this.$utils.host +
-                        "/dist/#/components/register?extension_code=" +
+            this.link_code="http://www.2kex.com/mobile/register.html?exCode=" +
                         localStorage.getItem('extension_code');
             this.createCode();
         }
@@ -126,6 +160,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.more{
+    margin: 30px 0;
+    cursor: pointer;
+}
 .promotion{
     width: 1200px;
     margin: 0 auto;

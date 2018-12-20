@@ -9,11 +9,12 @@ import VueAxios from 'vue-axios'
 import Qs from 'qs'
 import "@/assets/style/common.scss"
 import VueSocketio from 'vue-socket.io'
-import {Slider,Button,Upload,Select,Option} from 'element-ui'
+import {Slider,Button,Upload,Select,Option,Input} from 'element-ui'
 Vue.use(Slider)
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Input)
 // import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import store from './store'

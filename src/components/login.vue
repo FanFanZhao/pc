@@ -65,6 +65,7 @@ import indexFooter from '@/view/indexFooter'
                     if(res.data.type == 'ok'){
                     console.log(res)
                     localStorage.setItem('user_id',res.data.message.id);
+                    localStorage.setItem('userPhone',res.data.message.phone);
                     
                     // localStorage.setItem('email',res.data.message.email);
                     localStorage.setItem('extension_code',res.data.message.extension_code);
