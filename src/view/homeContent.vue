@@ -231,6 +231,10 @@
                   <a href="https://0.plus/great2kex">
                     <img src="../assets/images/coinicon.png" alt="">
                   </a>
+                  <a href="https://0.plus/great2kex">
+                    <img src="../assets/images/wechat.png" alt="" @mouseover="showwechat = true" @mouseleave="showwechat = false">
+                    <img src="../assets/images/2kwechat.jpg" alt="" class="wechat" v-if="showwechat" style="width:80px;height:80px;display:block">
+                  </a>
                 </p>
               </div>
             </div>
@@ -281,7 +285,8 @@ export default {
       coin_list: [],
 
       noticeList: [],
-      swiperImgs: []
+      swiperImgs: [],
+      showwechat:false
     };
   },
   created() {

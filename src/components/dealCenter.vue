@@ -81,7 +81,8 @@ export default {
       token: "",
       kb:0,
       cost:'---',
-      position:'----'
+      position:'----',
+      trade:0
     };
   },
   created() {
@@ -90,9 +91,9 @@ export default {
   },
   methods: {
     getDeal() {
-      var currencyId = localStorage.getItem("legal_id") || '';
-    var legalId = localStorage.getItem("currency_id") || '';
-    if(currencyId !== ''&&legalId !== ''&&this.toekn)
+      var currencyId = window.localStorage.getItem("legal_id") || '';
+    var legalId = window.localStorage.getItem("currency_id") || '';
+    if(currencyId !== ''&&legalId !== ''&&this.token)
       this.$http({
         url: "/api/transaction/deal",
         method:'post',
@@ -110,7 +111,7 @@ export default {
     }
   },
   mounted() {
-    eventBus.$on("createTrade", function(data) {
+    eventBus.$on("createTrade", (data) =>{
       if(data == 'yes'){
         this.getDeal();
       }
@@ -127,7 +128,7 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  height: calc(100% - 50px);
+  // height: calc(100% - 50px);
   .tab-entrust{
     position: relative;
   .kb {
@@ -146,7 +147,7 @@ export default {
       margin-top: 8px;
       padding: 0 15px;
       background: #0a152d;
-      height: calc(100% - 600px);
+      height: calc(100% - 555px);
       > .tab-entrust {
         color: rgba(255, 255, 255, 0.8);
         font-size: 14px;
@@ -167,7 +168,8 @@ export default {
     > .home-r-t {
       justify-content: space-between;
       min-height: 220px;
-      max-height: calc(100% - 480px);
+      // max-height: calc(100% - 480px);
+      height: 540px;
       > div {
         width: 337px;
         background: #0a152d;
@@ -176,7 +178,7 @@ export default {
     > .home-r-b {
       margin-top: 8px;
       background: #0a152d;
-      height: 360px;
+      height: calc(100% - 510px);
     }
   }
 }

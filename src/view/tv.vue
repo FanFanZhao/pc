@@ -3,7 +3,7 @@
     <tv-top></tv-top>
 		<!--<input id="text" />-->
 		<!--<div @click="chose" style="color: #fff">322332</div>-->
-		<div id="tv_chart_container" style="width:100%;height: 460px"></div>
+		<div id="tv_chart_container" style="width:100%;height: 500px"></div>
 	</div>
 </template>
 

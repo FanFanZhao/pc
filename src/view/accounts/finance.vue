@@ -6,7 +6,7 @@
             </p>
             <p class="fr right_text">
                 <!-- <span class="record" @click="record">财务记录</span> -->
-                <span class="address" @click="withdraw_address">提币地址管理</span>
+                <!-- <span class="address" @click="withdraw_address">提币地址管理</span> -->
             </p>
         </div>
         <div class="content fColor1 ft12">
@@ -70,9 +70,9 @@
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
-                                   <span class="fColor2 ft12">到账数量</span>
+                                   <span class="fColor2 ft12">到账数量（手续费{{rate}}）</span>
                                </p>
-                               <label class="get_lab flex alcenter between bg-inp"><input class="fColor1" disabled v-model="reachnum" type="number" /><span>{{coinname}}</span></label>
+                               <label class="get_lab flex alcenter between bg-inp"><input class="fColor1" disabled :value="number -rate" type="number" /><span>{{coinname}}</span></label>
                            </div>
                        </div>
                        <div class="flex" style="justify-content:space-between">

@@ -23,7 +23,13 @@
     </ul>
     <div class="bg-part mt20 title" style="color:#2b89e1 !important;height:50px">
       <span class="fl">战队信息</span>
-        <el-button class="fr" size="mini" type="success" @click="join" v-if="team.is_mine == 0&&team.in_team == 0">加入战队</el-button>
+      <el-button
+        class="fr"
+        size="mini"
+        type="success"
+        @click="join"
+        v-if="team.is_mine == 0&&team.in_team == 0"
+      >加入战队</el-button>
     </div>
     <div class="bg-part info flex">
       <div class="flex2">
@@ -36,7 +42,7 @@
       </div>
       <div class="flex2">
         <div>创建时间</div>
-        <span>{{team.create_time}}</span>
+        <span>{{team.create_date}}</span>
       </div>
       <div class="flex2">
         <div>战队口号</div>
@@ -55,17 +61,41 @@
         <span>{{team.status_name}}</span>
       </div>
       <div style="width:80px">
-        <img :src="team.qr_code" alt="" style="width:80px;height:80px">
+        <img :src="team.qr_code" alt style="width:80px;height:80px">
       </div>
-      
     </div>
     <div class="bg-part mt20 title" style="color:#2b89e1 !important">战队成员</div>
-    <div class="bg-part members">
-      <div class="flex">
-        <span v-for="(item,index) in members" :key="index">{{item.account}}</span>
+    <div class="bg-part members flex">
+      <div class>
+        <p class="flex">
+          <span>成员</span>
+          <span>盈利 （2kb）</span>
+        </p>
+        <ul>
+          <li v-for="(item,index) in members" :key="item.user">
+            <div>{{index+1}}. {{item.user}}</div>
+            <div>
+              <span>{{item.sum_money}}</span>
+              <!-- <i>2kb</i> -->
+            </div>
+          </li>
+        </ul>
       </div>
-      <div v-if="members.length" class="tc" @click="getMembers(true)">加载更多</div>
-      <div v-else class="tc">暂无队员</div>
+      <div class v-if="members.length>9">
+        <p class="flex">
+          <span>成员</span>
+          
+        </p>
+        <ul>
+          <li v-for="(item ,index) in members" :key="item.user" v-if="index>9">
+            <div>{{index+1}}. {{item.user}}</div>
+            <div>
+              <span>{{item.sum_money}}</span>
+              
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -104,28 +134,17 @@ export default {
         }
       });
     },
-    getMembers(more) {
+    getMembers() {
       var i = layer.load();
       this.$http({
         url: "/api/team/member_list",
-        params: { id: this.id, page: this.membersPage, limit: 20 },
+        params: { id: this.id, limit: 20 },
         headers: { Authorization: this.token }
       }).then(res => {
         layer.close(i);
         if (res.data.type == "ok") {
-          var list = res.data.message.data;
-          if (more) {
-            if (list.length) {
-              this.members = this.members.concat(list);
-            } else {
-              layer.msg("暂无更多");
-            }
-          } else {
-            this.members = list;
-          }
-          if (list.length) {
-            this.membersPage += 1;
-          }
+          var list = res.data.message;
+          this.members = list;
         }
       });
     },
@@ -138,7 +157,7 @@ export default {
       }).then(res => {
         layer.close(i);
         layer.msg(res.data.message);
-        if(res.data.type == 'ok'){
+        if (res.data.type == "ok") {
           this.membersPage = 1;
           this.getInfo();
           this.getMembers();
@@ -154,7 +173,7 @@ export default {
       }).then(res => {
         layer.close(i);
         layer.msg(res.data.message);
-        if(res.data.type == 'ok'){
+        if (res.data.type == "ok") {
           this.membersPage = 1;
           this.getInfo();
           this.getMembers();
@@ -170,14 +189,13 @@ export default {
       }).then(res => {
         layer.close(i);
         layer.msg(res.data.message);
-        if(res.data.type == 'ok'){
+        if (res.data.type == "ok") {
           this.membersPage = 1;
           this.getInfo();
           this.getMembers();
         }
       });
     }
-    
   }
 };
 </script>
@@ -210,12 +228,37 @@ export default {
   }
   .members {
     .flex {
+      align-items: center;
+    }
+    > div {
+      width: 50%;
+    }
+    > div:nth-child(2) {
+      border-left: 1px solid #222e48;
+      padding-left: 30px;
+      margin-left: 30px;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      color: #c2ddf9;
+    }
+    .flex {
       flex-wrap: wrap;
+      justify-content: space-between;
     }
     span {
-      width: 100px;
       line-height: 30px;
-      margin: 10px 60px 10px 0;
+      margin: 10px 0;
+    }
+    > div {
+      > span {
+        margin-right: 0;
+      }
+      i {
+        font-style: normal;
+        color: #ccc;
+      }
     }
     .tc {
       padding: 30px;
@@ -224,12 +267,11 @@ export default {
   }
   > .info {
     > div {
-      
       font-size: 14px;
       > div {
         margin: 10px 0;
       }
-      >span{
+      > span {
         color: #c2ddf9;
       }
     }

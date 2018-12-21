@@ -1,5 +1,8 @@
 <template>
   <div id="page-team">
+    <div class="banner">
+      <img src="../assets/images/teambg.jpg" alt="">
+    </div>
     <div class="add-box" v-if="showAdd">
       <div class="content">
         <div class="flex">
@@ -50,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-part mine">
+    <div class="bg-part mine mt20">
       <div class="title" style="color:#2b89e1;font-weight:600" v-if="mine.name">我的战队</div>
       <el-button v-else type="primary" size="mini" @click="showAdd = true">申请战队</el-button>
       <ul class="myteam flex" v-if="mine.name">
@@ -157,7 +160,7 @@
               <span>{{item.today_profit}}</span>
             </div>
             <div class="flex">
-              <div class="label">昨日盈利：</div>
+              <div class="label">历史盈利：</div>
               <span>{{item.history_profit}}</span>
             </div>
 
@@ -212,7 +215,7 @@ export default {
     this.getMine();
     this.getList(1);
     this.getTeams("today");
-    this.getTeams("history");
+    this.getTeams("yesterday");
   },
   methods: {
     uploadPic(which, e) {
@@ -343,6 +346,14 @@ export default {
   width: 1200px;
   margin: 20px auto;
   font-size: 14px;
+  >.banner{
+    img{
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+    }
+  }
   .flex-bet{
     display: flex;
     justify-content: space-between;

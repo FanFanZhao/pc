@@ -47,7 +47,7 @@ export default {
     };
   },
   mounted: function() {
-    var that = this;
+    document.title = this.newData+ ' '+this.currency_name+'/'+this.legal_name+' - ' +'2KEX';
   },
   created: function() {
     var local_lid = window.localStorage.getItem("l_id"),
@@ -62,54 +62,15 @@ export default {
       this.legal_id,
       this.currency_id
     );
-    // eventBus.$on("toExchange0", function(data0) {
-    //   console.log(data0);
-    //   c_id = data0.currency_id,
-    //   l_id = data0.legal_id;
-    //   that.currency_name = data0.currency_name;
-    //   that.legal_name = data0.leg_name;
-    //   console.log(local_lid,local_cid)
-    //   that.buy_sell(l_id,c_id);
-    //   that.connect(l_id,c_id)
-    // });
-    // eventBus.$on("toExchange", function(data) {
-    //   console.log(data);
-    //   c_id = data.currency_id,
-    //   l_id = data.legal_id;
-    //   that.currency_name = data.currency_name;
-    //   that.legal_name = data.leg_name;
-    //   that.buy_sell(l_id,c_id);
-    //   that.connect(l_id,c_id)
-    // });
-    // 下单强制更新数据
-    // eventBus.$on('tocel', function (datas) {
-    //   if(datas){
-    //     that.buy_sell(that.legal_id,that.currency_id);
-    //   }
-    // })
+    
   },
-  sockets: {
-    // connect(legal_id,currency_id) {
-    //   this.$socket.emit("login", localStorage.getItem('user_id'));
-    //   this.$socket.on("transaction", msg => {
-    //     // console.log(msg);
-    //     if (msg.type == "transaction") {
-    //     this.newData = msg.last_price;
-    //     var inData = JSON.parse(msg.in);
-    //     var outData = JSON.parse(msg.out);
-    //     // if(msg.currency==currency_id&&msg.legal == legal_id){
-    //       if (inData.length >= 0) {
-    //         this.inlist = inData;
-    //       }
-    //       if (outData.length >= 0) {
-    //       this.outlist = outData;
-    //       }
-    //     // }
-    //   }
-    //   });
-    // },
-  },
+  
   methods: {
+    setTitle(){
+      var legal = window.localStorage.getItem('legal_name');
+      var currency = window.localStorage.getItem('currency_name');
+      document.title = this.newData+ ' '+legal+'/'+currency+' - ' +'2KEX';
+    },
     price(price) {
       eventBus.$emit("toPrice", price);
     },
@@ -133,7 +94,7 @@ export default {
             this.newData = res.data.message.last_price;
             this.buyInfo.buyPrice = 0;
             this.buyInfo.buyNum = 0;
-            document.title = this.newData+ ' '+this.currency_name+'/'+this.legal_name+' - ' +'2KEX';
+            this.setTitle();
             this.connect(
               legals_id,
               currencys_id
@@ -169,6 +130,7 @@ export default {
           eventBus.$emit("toNew", newPrice);
           if (msg.token == that.currency_name + "/" + that.legal_name) {
             that.newData = msg.last_price;
+            this.setTitle();
           }
 
           var inData = JSON.parse(msg.in);
@@ -206,7 +168,7 @@ export default {
   /* height: 40px; */
   /* line-height: 40px; */
   border-bottom: 1px solid #303b4b;
-  padding: 3px 20px;
+  padding: 2px 20px;
 }
 .exchange_title {
   line-height: 25px;

@@ -5,9 +5,9 @@
         <img src="@/assets/images/logo.png" alt style="width:100px;height:27px">
       </div>
       <router-link to="/" exact>首页</router-link>
-      <router-link to="/wait" >C2C交易</router-link>
+      <!-- <router-link to="/wait" >C2C交易</router-link> -->
       
-      <!-- <div v-else @click="goLogin()">C2C交易</div> -->
+      <div  @click="$router.push('/wait')">C2C交易</div>
       
       <router-link to="/dealCenter">币币交易</router-link>
       <router-link to="/mining">挖矿</router-link>
