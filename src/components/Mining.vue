@@ -91,7 +91,7 @@
       </div>
       <div v-if="show=='my'&&my=='my'">
         <div class="list-head flex clr-base">
-          <div class="flex1">盈利(2kb)</div>
+          <div class="flex1">盈利(usdt)</div>
           <div class="flex1 tc">日期</div>
           <div class="flex1 tr">发放状态</div>
         </div>
