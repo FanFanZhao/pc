@@ -89,6 +89,16 @@ export default new Router({
 					component:() => import('../components/Wait.vue')
 				},
 				{
+					path:'/wait2',
+					name:'wait2',
+					component:() => import('../components/Wait2.vue')
+				},
+				{
+					path:'/wait3',
+					name:'wai3',
+					component:() => import('../components/Wait3.vue')
+				},
+				{
 					path:'/team',
 					name:'team',
 					component:() => import('../components/Team.vue')

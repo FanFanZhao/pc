@@ -132,7 +132,7 @@
                 <img :src="item.logo" alt>
                 <span>{{item.name}}</span>
               </div>
-              <span>{{item.history_profit}}</span>
+              <span>{{item.yesterday_profit}}</span>
             </router-link>
           </ul>
         </div>

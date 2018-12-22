@@ -13,8 +13,8 @@
       <router-link to="/mining">挖矿</router-link>
       <router-link to="/team" v-if="token">战队</router-link>
       <div v-else @click="goLogin()">战队</div>
-      <div @click="$router.push('/wait')">合约交易</div>
-      <div @click="$router.push('/wait')">游戏</div>
+      <router-link to="/wait2">游戏</router-link>
+      <router-link to="/wait3">合约交易</router-link>
       <div>
         <div class="download">
           <div>app下载</div>
