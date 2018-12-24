@@ -460,7 +460,7 @@
 						resolution=resolution
 					}
 					$.ajax({
-						url:'http://www.2kex.com/api/currency/new_timeshar?' +
+						url:'https://www.2kex.com/api/currency/new_timeshar?' +
 						// url:'http://ice.adminchao.com/api/currency/new_timeshar?' +
 						'from='+rangeStartDate+'&to='+rangeEndDate+'&symbol='+symbolInfo.name+'&period='+resolution,
 						type:'get',

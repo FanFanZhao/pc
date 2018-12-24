@@ -40,8 +40,8 @@
               <div class="today" :data-name='item.name+"/"+li.name'>
                 {{li.now_price}}
               </div>
-              <div class="yes-toa" :class="li.change<0?'down-clr':'up-clr'">
-                {{li.change}}%
+              <div class="yes-toa" :class="li.proportion<0?'down-clr':'up-clr'">
+                {{li.proportion}}%
               </div>
             </li>
           </ul>
@@ -191,11 +191,11 @@
           <div class="content ">
             <div class="flex">
               <div class="left-part flex">
-                <dl>
+                <!-- <dl>
                   <dt>网站功能</dt>
                   <router-link to="/c2c" tag="dd">c2c交易</router-link>
                   <router-link to="/dealCenter" tag="dd">币币交易</router-link>
-                </dl>
+                </dl> -->
                 <dl>
                   <dt>用户帮助</dt>
                   <router-link to="/components/login" tag="dd">登录</router-link>
@@ -231,7 +231,7 @@
                   <a href="https://0.plus/great2kex">
                     <img src="../assets/images/coinicon.png" alt="">
                   </a>
-                  <a href="https://0.plus/great2kex">
+                  <a href="javascript:;">
                     <img src="../assets/images/wechat.png" alt="" @mouseover="showwechat = true" @mouseleave="showwechat = false">
                     <img src="../assets/images/2kwechat.jpg" alt="" class="wechat" v-if="showwechat" style="width:80px;height:80px;display:block">
                   </a>
@@ -287,6 +287,7 @@ export default {
       noticeList: [],
       swiperImgs: [],
       showwechat:false
+      
     };
   },
   created() {
@@ -335,45 +336,24 @@ export default {
         });
     },
     connect() {
-      var that = this;
       var nums = Math.floor(Math.random() * 40) + 60;
       var socket_user_id = new Date().getTime() + nums;
-      that.$socket.emit("login", socket_user_id);
-      that.$socket.on("transaction", msg => {
-        console.log(msg)
-        var cname = msg.token;
-        var yesprice = msg.yesterday;
-        var toprice = msg.today;
-        var zf = 0;
-        if (toprice == yesprice) {
-          zf = 0;
-        } else if (yesprice == 0) {
-          zf = 100;
-        } else {
-          zf = (((toprice - yesprice) / yesprice) * 100).toFixed(4);
-        }
-
-        console.log(cname, yesprice, toprice, zf);
-
-        if (zf >= 0) {
-          zf = "+" + zf + "%";
-          $("div[data-name='" + cname + "']")
-            .next()
-            .css("color", "#55a067");
-        } else {
-          zf = zf + "%";
-          $("div[data-name='" + cname + "']")
-            .next()
-            .css("color", "#cc4951");
-        }
-        $("li div[data-name='" + cname + "']")
-          .prev()
-          .text(yesprice);
-        $("li div[data-name='" + cname + "']")
-          .html(toprice)
-          .next()
-          .html(zf);
-      });
+      this.$socket.emit("login", socket_user_id);
+      this.$socket.on('daymarket',(res) => {
+       console.log(res);
+       if(res.type == 'daymarket'){
+         this.quotation.forEach((item,index) => {
+           if(item.name == this.nowCoin){
+             item.quotation.forEach((ite,inde) => {
+               if(ite.currency_name == res.currency_name){
+                 ite.proportion = res.proportion;
+                 ite.now_price = res.now_price;
+               }
+             })
+           }
+         })
+       }
+      })
     },
     setPercent(a, b) {
       if (a - b == 0) {

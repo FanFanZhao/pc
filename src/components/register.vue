@@ -26,8 +26,8 @@
                 <button class="confirm-btn curPer" @click="checkCode" type="button">确认</button>
             </div>
             <div class="setpass" v-show="codeTrue">
-                <div class="title">设置地区</div>
-                <div class="area-box">
+                <!-- <div class="title">设置地区</div> -->
+                <!-- <div class="area-box">
                   <div class="area">
                     <div :class="['province',{light:showList == 'provinces'}]" @click="showList = showList?false:'provinces'">{{province.name}}</div>
                     <div :class="['city',{light:showList =='cities'}]" @click="showList = showList?false:'cities'">{{city.name}}</div>
@@ -44,7 +44,7 @@
                       <li v-for="(item,index) in districts" :key="index" @click="getRegion(item.id,'',item.region_name)">{{item.region_name}}</li>
                     </ul>
                   </div>
-                </div>
+                </div> -->
                 
                 <div class="title">设置密码</div>
                 <div class="pwd-box">
@@ -87,7 +87,6 @@ export default {
     };
   },
   created() {
-    console.log(this.get_all_params().extension_code);
     var invite=this.get_all_params().extension_code;
     if(invite){
       this.invite=invite;
@@ -170,10 +169,10 @@ export default {
       this.isMb = boo;
       this.codeTrue = false;
       this.showList = false;
-      this.provinces = [];this.cities = [];this.districts = [];
-      this.province = { id: "", name: "请选择省" };
-      this.city = { id: "", name: "请选择市" };
-      this.district = { id: "", name: "请选择区" };
+      // this.provinces = [];this.cities = [];this.districts = [];
+      // this.province = { id: "", name: "请选择省" };
+      // this.city = { id: "", name: "请选择市" };
+      // this.district = { id: "", name: "请选择区" };
       
       clearInterval(this.timer);
       var codeBtn = document.querySelector(".code-btn");
@@ -258,7 +257,7 @@ export default {
 
           if (res.data.type == "ok") {
             this.codeTrue = true;
-            this.getRegion("", "provinces");
+            // this.getRegion("", "provinces");
           } else {
           }
         });
@@ -266,14 +265,14 @@ export default {
     },
     // 注册
     register() {
-      if (
-        this.province.id == "" ||
-        this.city.id == "" ||
-        this.district.id == ""
-      ) {
-        layer.msg("请设置地区");
-        return;
-      }
+      // if (
+      //   this.province.id == "" ||
+      //   this.city.id == "" ||
+      //   this.district.id == ""
+      // ) {
+      //   layer.msg("请设置地区");
+      //   return;
+      // }
       if (this.pwd == "") {
         layer.msg("请输入密码");
         return;
@@ -289,9 +288,9 @@ export default {
       } else {
       }
       var data = {};
-      data.province_id = this.province.id;
-      data.city_id = this.city.id;
-      data.district_id = this.district.id;
+      // data.province_id = this.province.id;
+      // data.city_id = this.city.id;
+      // data.district_id = this.district.id;
       var isMb = this.isMb;
       data.type = isMb ? "mobile" : "email";
       data.user_string = this.account;
@@ -300,12 +299,13 @@ export default {
       data.re_password = this.repwd;
       data.extension_code = this.invite;
       //console.log(data);return;
-      
+      var i = layer.load();
       this.$http({
         url: "/api/" + "user/register",
         data: data,
         method: "post"
       }).then(res => {
+        layer.close(i);
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           this.$router.push("/components/login");

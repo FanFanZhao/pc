@@ -22,7 +22,7 @@ Vue.use(VueAwesomeSwiper)
 // Vue.prototype.$echarts = echarts 
 window.eventBus = new Vue()
 
-Vue.use(VueSocketio, 'http://www.2kex.com:2120');
+Vue.use(VueSocketio, 'https://www.2kex.com:2120');
 // Vue.use(VueSocketio, 'http://ice.adminchao.com:2120');
 
 // Vue.use(VueSocketio, 'http://t.fuwuqian.cn:2120');

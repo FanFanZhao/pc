@@ -127,7 +127,7 @@ export default {
                 text: function() {
                     if(type=='#copycode'){
                         return (
-                            that.extension_code
+                            "2kex全球化交易所首创盈利挖矿,战队模式已开启，赚一块钱也可能得到100万枚平台币,快快来抢钱吧 "+ "https://www.2kex.com/mobile/register.html?exCode="+that.extension_code
                         );
                     }else{
                         return (

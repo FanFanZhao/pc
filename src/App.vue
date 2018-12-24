@@ -57,7 +57,7 @@ export default {
                 });
                 //杠杆行情
                 this.$http({
-					url: '/api' + 'currency/lever',
+					url: '/api' + '/currency/lever',
 					method:'get',
 					data:{}
 				}).then(res=>{

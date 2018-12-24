@@ -6,24 +6,27 @@
       </div>
       <router-link to="/" exact>首页</router-link>
       <!-- <router-link to="/wait" >C2C交易</router-link> -->
-      
-      <div  @click="$router.push('/wait')">C2C交易</div>
-      
+      <div @click="$router.push('/wait')">C2C交易</div>
+
       <router-link to="/dealCenter">币币交易</router-link>
-      <router-link to="/mining">挖矿</router-link>
-      <router-link to="/team" v-if="token">战队</router-link>
-      <div v-else @click="goLogin()">战队</div>
+      <div v-if="token" class="tc">
+        <div class="tt">盈利挖矿</div>
+        <router-link to="/mining">挖矿</router-link>
+        <router-link to="/team">战队</router-link>
+        <router-link to="/createTeam">创建战队</router-link>
+        <router-link  :to="{path:'components/noticeDetail',query:{id:115}}">战队介绍</router-link>
+      </div>
+      <div v-else @click="goLogin()">盈利挖矿</div>
       <router-link to="/wait2">游戏</router-link>
       <router-link to="/wait3">合约交易</router-link>
       <div>
         <div class="download">
           <div>app下载</div>
-          <img src="../assets/images/2k.png" alt="">
+          <img src="../assets/images/2k.png" alt>
         </div>
       </div>
     </div>
     <div class="header-r flex">
-      
       <div v-if="!account_number.length" class="flex">
         <router-link to="/components/login">登录</router-link>
         <router-link to="/components/register">注册</router-link>
@@ -38,8 +41,8 @@
         </div>-->
         <div class="order">
           <span>资产</span>
-          <ul class="order_list " style="background:#262a42">
-            <li class="now " @click="$router.push('/finance')" >交易</li>
+          <ul class="order_list" style="background:#262a42">
+            <li class="now" @click="$router.push('/finance')">交易</li>
           </ul>
         </div>
         <div class="links-box">
@@ -54,7 +57,6 @@
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -67,8 +69,8 @@ export default {
       extension_code: "",
       token: "",
       isShow: false,
-      noticeList:[],
-      showNot:false
+      noticeList: [],
+      showNot: false
     };
   },
   created() {
@@ -96,16 +98,13 @@ export default {
     });
   },
   methods: {
-    
-    
     signOut() {
       this.account_number = "";
       localStorage.removeItem("token");
       localStorage.removeItem("accountNum");
       localStorage.clear();
-      
-      this.$router.push('/components/login');
-      
+
+      this.$router.push("/components/login");
     },
     goLogin() {
       this.$router.push("/components/login");
@@ -119,11 +118,9 @@ export default {
       }).then(res => {
         console.log(res);
         if (res.data.type == "ok") {
-          
           window.localStorage.setItem("status", res.data.message.review_status);
           if (res.data.message.is_seller == "1") {
             this.isShow = true;
-
           }
         }
       });
@@ -133,7 +130,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 .titles {
   cursor: pointer;
   margin-right: 40px;
@@ -149,7 +145,7 @@ export default {
   width: 90px;
   right: 0;
   position: absolute;
-  
+
   color: #fff;
   text-align: center;
   z-index: 999999;
@@ -157,14 +153,13 @@ export default {
 .order_list {
   display: none;
   padding: 0 20px;
-  box-shadow:0 0 2px 4px rgba(0, 0, 0, 0.2);;
+  box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .order:hover ul {
   display: block;
 }
 .order_list li {
   line-height: 40px;
-  
 }
 .order_list li:hover {
   color: #2b89e1;
@@ -190,7 +185,7 @@ export default {
   }
   > .header-l {
     align-items: center;
-   
+
     > a,
     > div {
       margin-right: 35px;
@@ -201,7 +196,28 @@ export default {
         display: block;
       }
     }
-    
+    > .tc {
+      position: relative;
+      z-index: 100000;
+     .tt{
+       width: 88px;
+       background: url("../assets/images/arrow0.png") no-repeat right center;
+      //  padding: 0 10px;
+     }
+      &:hover{
+        >a{
+          display: block;
+        }
+      }
+      > a {
+        // padding: 0 10px;
+        line-height: 40px;
+        background: #050d1e;
+        // color: #ccc;
+        z-index: 999;
+        display: none;
+      }
+    }
     > .coin-box {
       position: relative;
       a:last-child {
@@ -257,9 +273,9 @@ export default {
         width: 80px;
         z-index: 999;
         text-align: center;
-        
+
         display: none;
-        box-shadow:0 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.2);
         a {
           margin: 0;
           display: block;
@@ -276,7 +292,7 @@ export default {
       cursor: pointer;
       padding-right: 20px;
       background: url("../assets/images/arrow0.png") no-repeat right center;
-      
+
       &:hover {
         .links {
           display: block;
@@ -292,8 +308,8 @@ export default {
         right: 0;
         z-index: 999;
         display: none;
-        box-shadow:0 0 2px 4px rgba(0, 0, 0, 0.2);
-        
+        box-shadow: 0 0 2px 4px rgba(0, 0, 0, 0.2);
+
         a,
         div {
           display: block;
@@ -302,7 +318,6 @@ export default {
           padding: 0 20px;
           margin: 0;
           text-align: center;
-          
         }
       }
     }

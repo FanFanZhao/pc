@@ -104,6 +104,11 @@ export default new Router({
 					component:() => import('../components/Team.vue')
 				},
 				{
+					path:'/createTeam',
+					name:'createTeam',
+					component:() => import('../components/CreateTeam.vue')
+				},
+				{
 					path:'/teamDetail',
 					name:'teamDetail',
 					component:() => import('../components/TeamDetail.vue')

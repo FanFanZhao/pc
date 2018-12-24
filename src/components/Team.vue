@@ -1,13 +1,13 @@
 <template>
   <div id="page-team" class="flex">
-    <div class="leftt">
+    <!-- <div class="leftt">
       <router-link  :to="{path:'components/noticeDetail',query:{id:115}}" tag="div">{{txts}}</router-link>
-    </div>
+    </div> -->
     <div class="rightt">
       <div class="banner">
         <img src="../assets/images/teambg.jpg" alt>
       </div>
-      <div class="add-box" v-if="showAdd">
+      <div class="add-box" hidden>
         <div class="content">
           <div class="flex">
             <span>战队名称：</span>
@@ -59,7 +59,7 @@
       </div>
       <div class="bg-part mine mt20">
         <div class="title" style="color:#2b89e1;font-weight:600" v-if="mine.name">我的战队</div>
-        <el-button v-else type="primary" size="mini" @click="showAdd = true">申请战队</el-button>
+        <el-button v-else type="primary" size="mini" @click="$router.push('/createTeam')">申请战队</el-button>
         <ul class="myteam flex" v-if="mine.name">
           <li class="tc">
             <div>战队名</div>
@@ -232,7 +232,7 @@ export default {
     this.getList(1);
     this.getTeams("today");
     this.getTeams("yesterday");
-    this.getTxts();
+    // this.getTxts();
   },
   methods: {
     getTxts(){
@@ -374,20 +374,18 @@ export default {
 
 <style lang='scss'>
 #page-team {
-  width: 1500px;
+  width: 1200px;
   margin: 20px auto;
   justify-content: center;
-  >.leftt{
-    max-width: 300px;
-    padding: 0 20px;
-    color: #b7c2ce !important;
-    div{
-      cursor: pointer;
-      // font-size: 14px;
-    }
-  }
+  // >.leftt{
+  //   max-width: 300px;
+  //   padding: 0 20px;
+  //   color: #b7c2ce !important;
+  //   div{
+  //     cursor: pointer;
+  //   }
+  // }
   > .rightt {
-    width: 1200px;
     font-size: 14px;
     > .banner {
       img {

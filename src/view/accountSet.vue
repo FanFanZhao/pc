@@ -119,7 +119,7 @@ export default {
       var QRCode = require("qrcode");
       var canvas = document.getElementById("canvas");
 
-      QRCode.toCanvas(canvas,'http://www.2kex.com/mobile/register.html?exCode='+this.extension_code, function(error) {
+      QRCode.toCanvas(canvas,'https://www.2kex.com/mobile/register.html?exCode='+this.extension_code, function(error) {
         if (error) console.error(error);
         console.log("success!");
       });
@@ -163,8 +163,7 @@ export default {
       var clipboard = new Clipboard("#copy", {
         text: function() {
           return (
-            that.$utils.host +
-            "/dist/#/components/register?extension_code=" +
+            " 2kex全球化交易所首创盈利挖矿,战队模式已开启，赚一块钱也可能得到100万枚平台币,快快来抢钱吧 "+"https://www.2kex.com/mobile/register.html?exCode=" +
             that.extension_code
           );
         }
