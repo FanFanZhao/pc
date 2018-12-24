@@ -57,7 +57,7 @@
                        <input class="address_inp fColor1 mb30 bg-inp" type="text" v-model="address" />
                        <p class="fColor2 ft12 mb15 flex between alcenter"><span>数量</span><span>可用：<span class="use_num">{{balance}}</span><span>限额：<span>1500.000000000</span><span class="advance">提升额度</span></span></span></p>
                        <label class="num_lab flex between mb30 bg-inp">
-                            <input class="fColor1 " type="text" :placeholder="min_number" v-model="number" />
+                            <input class="fColor1 " type="text" :placeholder="'最小提币数量'+min_number" v-model="number" />
                             <span>{{coinname}}</span>
                         </label>
                        <div class="flex mb50">
@@ -72,7 +72,7 @@
                                <p class=" mb15">
                                    <span class="fColor2 ft12">到账数量（手续费{{rate}}）</span>
                                </p>
-                               <label class="get_lab flex alcenter between bg-inp"><input class="fColor1" disabled :value="number -rate" type="number" /><span>{{coinname}}</span></label>
+                               <label class="get_lab flex alcenter between bg-inp"><input class="fColor1" disabled :value="number-0-rate<0?0:number-rate" type="number" /><span>{{coinname}}</span></label>
                            </div>
                        </div>
                        <div class="flex" style="justify-content:space-between">
@@ -135,7 +135,7 @@ export default {
       url: "",
       excharge_address: "",
       address: "",
-      number: "",
+      number: 0,
       rate: "",
       coinname: "",
       balance: "",
@@ -293,7 +293,7 @@ export default {
             console.log(res);
             that.coinname = res.message.name;
             that.balance = res.message.change_balance;
-            that.min_number = "最小提币数量" + res.message.min_number;
+            that.min_number = res.message.min_number;
             that.minnumber = res.message.min_number;
             that.ratenum = res.message.rate + "-" + res.message.rate;
             that.reachnum = 0.0;
@@ -311,7 +311,7 @@ export default {
       var address = this.address;
       var number = this.number;
       var rate = this.rate;
-      var min_number = this.minnumber;
+      // var min_number = this.minnumber;
       if (!address) {
         layer.alert("请输入提币地址");
         return;
@@ -320,8 +320,7 @@ export default {
         layer.alert("请输入提币数量");
         return;
       }
-      if (number - 0 < min_number) {
-        console.log(number, min_number);
+      if (number - 0 < that.min_number) {
         return layer.alert("输入的提币数量小于最小值");
       }
       if(this.code == ''){
