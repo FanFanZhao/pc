@@ -391,6 +391,7 @@ export default {
     },
     getdata() {
       var that = this;
+      var i = layer.load();
       console.log(that.token);
       this.$http({
         url: "/api/" + "wallet/list",
@@ -399,6 +400,7 @@ export default {
         headers: { Authorization: that.token }
       })
         .then(res => {
+          layer.close(i);
           console.log(res.data);
           if(res.data.type == 'ok'){
 

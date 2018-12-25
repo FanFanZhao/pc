@@ -95,10 +95,10 @@
       <div class="bot flex mt20">
         <div class="left-part">
           <div class="bg-part">
-            <div class="title">今日收益排行榜</div>
+            <div class="title">今日盈利排行榜</div>
             <div class="ul-head flex-bet" style="justify-content:space-between;padding: 10px 0">
               <span>战队名称</span>
-              <span>收益</span>
+              <span>盈利</span>
             </div>
             <ul>
               <router-link
@@ -118,10 +118,10 @@
             </ul>
           </div>
           <div class="bg-part mt20 right-part">
-            <div class="title">昨日收益排行榜</div>
+            <div class="title">昨日盈利排行榜</div>
             <div class="ul-head flex-bet" style="justify-content:space-between;padding: 10px 0">
               <span>战队名称</span>
-              <span>收益</span>
+              <span>盈利</span>
             </div>
             <ul>
               <router-link

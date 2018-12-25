@@ -2,7 +2,7 @@
     <div id="transfer-legal" v-if="coins.length">
        <div class="title">划转</div>
        <ul class="coins">
-           <li v-for="(coin,index) in coins" :key="index" :class="{active:index == coinIndex}" @click="coinIndex = index;number = ''">
+           <li v-for="(coin,index) in coins" :key="index" :class="{active:index == coinIndex}" @click="coinIndex = index;number = '';getCoins()">
                {{coin.currency_name}}
            </li>
        </ul>
@@ -16,7 +16,7 @@
                    <div>{{types[0]}}</div>
                    <div>{{types[1]}}</div>
                </div>
-               <img src="../../../static/imgs/transfer1.png" alt="" @click="types.reverse()">
+               <img src="../../../static/imgs/transfer1.png" alt="" @click="types.reverse();getCoins()">
            </div>
        </div>
        <div class="number">
@@ -24,7 +24,10 @@
            <span style="color:#61688a">{{coins[coinIndex].currency_name}}</span>
            <span class="all" @click="number = coins[coinIndex].legal_balance">全部</span>
        </div>
-       <div class="balance" style="line-height:60px;margin:20px 0 30px">可用：{{coins[coinIndex].legal_balance}}</div>
+       <div class="balance" style="line-height:60px;margin:20px 0 30px">
+           <div>法币账户可用：{{coins[coinIndex].legal_balance}}</div>
+           <div>交易账户可用：{{changes[coinIndex].change_balance}}</div>
+       </div>
        <button type='button' class="transfer" @click="transfer">划转</button>
     </div>
 </template>
@@ -38,7 +41,8 @@ export default {
       coins: [],
       coinIndex: 0,
       types:['交易账户','法币账户'],
-      number:''
+      number:'',
+      changes:[]
     };
   },
   created() {
@@ -47,13 +51,16 @@ export default {
   methods: {
     getCoins() {
       this.token = window.localStorage.getItem("token") || "";
+      var i = layer.load();
       this.$http({
         url: "/api/wallet/list",
         method: "post",
         headers: { Authorization: this.token }
       }).then(res => {
+          layer.close(i);
         if (res.data.type == "ok") {
           this.coins = res.data.message.legal_wallet.balance;
+          this.changes = res.data.message.change_wallet.balance;
         }
       });
     },
@@ -65,26 +72,19 @@ export default {
             data.number = this.number;
             data.type = this.types[0] == '交易账户'?2:1;
             data.currency_id = this.coins[this.coinIndex].currency;
-            // console.log(data);return;
-            
+            var i =layer.load();
             this.$http({
                 url:'/api/wallet/change',
                 method:'post',
                 data:data,
                 headers: { 'Authorization': this.token }
             }).then(res => {
-                console.log(res);
-                if(res.data.type == 'ok'){
-                        // layer.msg(res.data.message)
-
-                    setTimeout(() => {
-                        this.$router.push({path:'/legalAccount',name:'legalAccount',params:{currency_id:this.coins[this.coinIndex].currency}})
-                    },2000)
-            
-                    
-                    
-                    // this.$router.push({path:'/legalAccount'})
-                }
+                layer.close(i);
+                layer.msg(res.data.message)
+               if(res.data.type == 'ok'){
+                   this.getCoins();
+                   this.number = '';
+               }
             })
         }
     }
@@ -96,6 +96,9 @@ export default {
 #transfer-legal {
   padding: 0 30px;
   color: #c7cce6;
+  .balance{
+      justify-content: space-between;
+  }
   > .title {
       padding: 20px 0;
     font-size: 24px;
@@ -139,8 +142,8 @@ export default {
           color:#f2f5ff;
           background: none;
           line-height: 40px;
-          width: 800px;
-      border-bottom: 2px solid #ccc;
+          width: 780px;
+      border-bottom: 2px solid #232a4c;
 
       }
       .all{

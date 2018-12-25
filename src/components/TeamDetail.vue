@@ -69,11 +69,11 @@
       <div class>
         <p class="flex">
           <span>成员</span>
-          <span>盈利 （2kb）</span>
+          <span>挖矿 （2kb）</span>
         </p>
         <ul>
           <li v-for="(item,index) in members" :key="item.user">
-            <div>{{index+1}}. {{item.user}}</div>
+            <div>{{index+1}}. {{item.user.slice(0,3)}}***{{item.user.slice(6)}}</div>
             <div>
               <span>{{item.sum_money}}</span>
               <!-- <i>2kb</i> -->

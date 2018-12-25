@@ -5,7 +5,7 @@
             <div class="account">
                 <div>
                     <div class="back-nav fColor1 ft20 bg-part"> 网站公告
-                        <span class="fr fColor2 curPer" @click="goBefore">&lt;&lt;返回</span>
+                        <span class="fr fColor2 curPer" @click="$router.go(-1)">&lt;&lt;返回</span>
                     </div>
                     <div class="nav-after"></div>
                 </div>
@@ -43,11 +43,21 @@ export default {
     created(){
         this.address = localStorage.getItem('token') || '';
         this.id = this.$route.query.id;
-        var id = this.id;
-        this.$http({
+        
+        this.getData();
+    },
+    watch:{
+        $route(){
+            this.id = this.$route.query.id;
+            this.getData()
+        }
+    },
+    methods:{
+        getData(){
+            this.$http({
             url: '/api/' + 'news/detail',
             method:'post',
-            data:{id:id},
+            data:{id:this.id},
             headers: {'Authorization':  localStorage.getItem('token')},
         }).then(res=>{
             res = res.data;
@@ -58,27 +68,10 @@ export default {
                 this.abstract=res.message.abstract;
                 this.update_time=res.message.update_time;
                 this.setProperty();
-            }else{
-                // layer.msg(res.message);
             }
-        }).catch(error=>{
-            console.log(error)
         })
-
-    },
-    mounted(){
-        // var tags=this.$refs.con.getElementsByTagName('p');
-        // console.log(tags)
-        // for(var i=0;i<tags.length;i++){
-        //     console.log(tags)
-        //     console.log(tags[i])
-        //     tags[i].style.background='transparent'
-        // }
-    },
-    methods:{
-        goBefore(){
-            this.$router.back(-1);
         },
+       
        setProperty(){
             var tags=document.getElementsByTagName('p');
             HTMLCollection.prototype.forEach=function(callback){

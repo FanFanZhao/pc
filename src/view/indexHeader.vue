@@ -14,7 +14,7 @@
         <router-link to="/mining">挖矿</router-link>
         <router-link to="/team">战队</router-link>
         <router-link to="/createTeam">创建战队</router-link>
-        <router-link  :to="{path:'components/noticeDetail',query:{id:115}}">战队介绍</router-link>
+        <a href="javascript:;" @click="$router.push({path:'/components/noticeDetail',query:{id:115}})">战队介绍</a>
       </div>
       <div v-else @click="goLogin()">盈利挖矿</div>
       <router-link to="/wait2">游戏</router-link>
